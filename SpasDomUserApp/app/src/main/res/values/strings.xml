@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SpasDomUserApp</string>
+    <string name="title_home">Главная</string>
+    <string name="title_services">Услуги</string>
+    <string name="title_chat">Чат</string>
+    <string name="title_payment">Оплата</string>
+    <string name="title_profile">Профиль</string>
+</resources>

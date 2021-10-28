@@ -7,14 +7,14 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_services"
-        android:icon="@drawable/ic_baseline_store_24"
-        android:title="@string/title_services" />
-
-    <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_baseline_chat_24"
         android:title="@string/title_chat" />
+
+    <item
+        android:id="@+id/navigation_services"
+        android:icon="@drawable/ic_baseline_store_24"
+        android:title="@string/title_services" />
 
     <item
         android:id="@+id/navigation_payment"

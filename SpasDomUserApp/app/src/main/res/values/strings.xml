@@ -5,4 +5,7 @@
     <string name="title_chat">Чат</string>
     <string name="title_payment">Оплата</string>
     <string name="title_profile">Профиль</string>
+    <string name="tab_emmer">Экстренные услуги</string>
+    <string name="tab_UK">Услуги УК</string>
+    <string name="tab_extra">Доп. услуги</string>
 </resources>

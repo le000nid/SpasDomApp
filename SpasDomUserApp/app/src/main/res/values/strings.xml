@@ -5,4 +5,5 @@
     <string name="title_chat">Чат</string>
     <string name="title_payment">Оплата</string>
     <string name="title_profile">Профиль</string>
+    <string name="profile_setting">Настройки</string>
 </resources>

@@ -1,9 +1,24 @@
 <resources>
     <string name="app_name">SpasDomUserApp</string>
+
+    <!-- NavView resources -->
     <string name="title_home">Главная</string>
     <string name="title_services">Услуги</string>
     <string name="title_chat">Чат</string>
     <string name="title_payment">Оплата</string>
     <string name="title_profile">Профиль</string>
     <string name="profile_setting">Настройки</string>
+
+    <!-- Services resources -->
+    <string name="tab_emmer">Экстренные услуги</string>
+    <string name="tab_UK">Услуги УК</string>
+    <string name="tab_extra">Доп. услуги</string>
+    
+    <!-- Chat resources -->
+    <string name="chat_house">Чат дома</string>
+    <string name="chat_entrance">Подъезд дома</string>
+    <string name="chat_UK">СПАС Дом</string>
+    <string name="chat_e_house">Старшая по дому</string>
+    <string name="chat_e_entrance">Старшая по подъезду</string>
+    
 </resources>

@@ -8,6 +8,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.example.spasdomuserapp.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
+    private RecyclerView newsView;
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
@@ -30,13 +34,16 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        newsView = binding.newsView;
+        NewsAdapter newsAdapter = new NewsAdapter(root.getContext());
+        newsView.setAdapter(newsAdapter);
+
+        LinearLayoutManager newsManager = new LinearLayoutManager(root.getContext());
+        newsView.setLayoutManager(newsManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(newsView.getContext(),
+                newsManager.getOrientation());
+        newsView.addItemDecoration(dividerItemDecoration);
+
         return root;
     }
 

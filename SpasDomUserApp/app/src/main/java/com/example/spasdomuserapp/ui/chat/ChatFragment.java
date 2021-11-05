@@ -25,14 +25,6 @@ import com.example.spasdomuserapp.ui.home.HomeViewModel;
 
 public class ChatFragment extends Fragment {
 
-    @StringRes
-    private static final int[] CHAT_TITLES = new int[]{
-        R.string.chat_house,
-        R.string.chat_entrance,
-        R.string.chat_UK,
-        R.string.chat_e_house,
-        R.string.chat_e_entrance
-    };
     private RecyclerView chatsView;
     private ChatViewModel chatViewModel;
     private FragmentChatBinding binding;
@@ -46,7 +38,7 @@ public class ChatFragment extends Fragment {
         View root = binding.getRoot();
 
         chatsView = binding.chatsView;
-        ChatAdapter chatAdapter = new ChatAdapter(root.getContext(), CHAT_TITLES);
+        ChatAdapter chatAdapter = new ChatAdapter(root.getContext());
         chatsView.setAdapter(chatAdapter);
 
         LinearLayoutManager chatsManager = new LinearLayoutManager(root.getContext());

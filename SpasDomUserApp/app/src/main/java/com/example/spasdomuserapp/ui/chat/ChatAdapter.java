@@ -16,12 +16,17 @@ import com.example.spasdomuserapp.R;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
     @StringRes
-    private static int[] chat_titles = new int[0];
+    private static final int[] CHAT_TITLES = new int[]{
+            R.string.chat_house,
+            R.string.chat_entrance,
+            R.string.chat_UK,
+            R.string.chat_e_house,
+            R.string.chat_e_entrance
+    };
     Context context;
 
-    public ChatAdapter(Context ct, int chat_t[]){
+    public ChatAdapter(Context ct){
         context = ct;
-        chat_titles = chat_t;
     }
 
     @NonNull
@@ -34,13 +39,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        holder.chat_title.setText(chat_titles[position]);
+        holder.chat_title.setText(CHAT_TITLES[position]);
         // holder.chat_icon.setImageResource();
     }
 
     @Override
     public int getItemCount() {
-        return chat_titles.length;
+        return CHAT_TITLES.length;
     }
 
     public class ChatViewHolder extends RecyclerView.ViewHolder {

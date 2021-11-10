@@ -39,7 +39,18 @@ public class ProfileFragment extends Fragment {
         MutableLiveData<Profile> data = new MutableLiveData<>();
         data = profInformation.getInformation(getActivity());
         final ImageView imageView = binding.photoImageView;
+        final TextView name = binding.userName;
+        final TextView account_number = binding.userAccountNumber;
+        final TextView phone = binding.userPhoneNumber;
+        final TextView adres = binding.userAdress;
+        final TextView email = binding.userEmail;
+
         imageView.setImageBitmap(data.getValue().photo);
+        name.setText(data.getValue().name);
+        account_number.setText(data.getValue().account_number);
+        phone.setText(data.getValue().phone);
+        adres.setText(data.getValue().adres);
+        email.setText(data.getValue().email);
         return root;
     }
 

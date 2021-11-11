@@ -1,0 +1,50 @@
+/*
+    1. Header
+    2. Login page
+    3. Main
+    4. Helpers
+*/
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #231F20;
+    color: #FFF;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+
+/* 1. Header */
+
+#navbar-p{ margin: 0 0 0 0; }
+
+#login-btn{ border-color: #FF8C00; }
+
+#login-btn:hover{ background-color: #FF8C00; }
+
+
+
+/* 2. Login page */
+.btn.text-uppercase{ background-color: #F1F2F2; }
+
+.btn.text-uppercase:hover{ background-color: #FF8C00; }
+
+.login-form{ margin-top: 10vh; }
+
+
+
+/* 3. Main */
+
+
+
+/* 4. Helpers */
+.right-center{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.w-200{ width: 200px; }
+
+.black-25pt{ color: #000; font-size: 25pt; }

@@ -1,24 +1,23 @@
 package com.example.spasdomuserapp.ui.services;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.spasdomuserapp.ReqActivity;
 import com.example.spasdomuserapp.databinding.FragmentSectionBinding;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends Fragment  implements View.OnClickListener{
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -37,6 +36,7 @@ public class PlaceholderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
+
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
@@ -52,17 +52,20 @@ public class PlaceholderFragment extends Fragment {
         binding = FragmentSectionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //final Button buton = binding.but;
-        pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final Button button = binding.button;
+        button.setOnClickListener(this);
+        /*pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                //textView.setText(s);
             }
 
-        });
+        });*/
         return root;
     }
-
+    public void onClick(final View v) {
+        Intent intent = new Intent(getActivity(), ReqActivity.class);
+        startActivityForResult(intent, 1);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

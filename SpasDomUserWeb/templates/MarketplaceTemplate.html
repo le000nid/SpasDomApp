@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="wrapper">
+        <div class="marketplace-form d-flex">
+            <form class="marketplace-form" action="" method="post">
+
+                {{ form.hidden_tag() }}
+                {{ form.csrf_token }}
+
+                <div class="form-group">
+                    {{ form.title.label }}
+                    {{ form.title(class="form-control-lg form-control") }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.type.label }}
+                    {{ form.type(class="form-control-lg form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.subscription.label }}
+                    {{ form.subscription(class="form-control-lg form-control", cols="15", rows="4") }}
+                </div>
+                <div class="form-group">
+                    {{ form.master_name.label }}
+                    {{ form.master_name(class="form-control-lg form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.master_id.label }}
+                    {{ form.master_id(class="form-control-lg form-control") }}
+                </div>
+                <p style="color: orange;"> {{ message }} </p>
+
+                {{ form.submit(type="submit", class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase") }}
+           </form>
+        </div>
+        <div class="check-alerts">
+            <h1 class="black-25pt" align="center"> База заказов: </h1>
+        </div>
+    </div>
+
+{% endblock %}

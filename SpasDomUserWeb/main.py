@@ -2,6 +2,8 @@ from flask import Flask, render_template, redirect
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from data import db_session
 from forms.LoginForm import LoginForm
+from forms.AlertsForm import AlertsForm
+from forms.MarketplaceForm import MarketplaceForm
 from data.user import User
 
 
@@ -25,7 +27,7 @@ def logout():
     return redirect("/")
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -33,7 +35,7 @@ def login():
         user = session.query(User).filter(User.username == form.username.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect("/")
+            return redirect("/alerts")
         return render_template('LoginTemplate.html',
                                message="Wrong login or password",
                                form=form, title='Login')
@@ -41,11 +43,27 @@ def login():
                            title='Login', message='')
 
 
-# Main window
-@app.route('/', methods=['GET', 'POST'])
-def main():
-    return render_template('MainTemplate.html',
-                           title='Main')
+@app.route('/alerts', methods=['GET', 'POST'])
+def alerts():
+    form = AlertsForm()
+    if form.validate_on_submit():
+        pass
+    return render_template('AlertsTemplate.html', form=form,
+                           title='Оповещения', message='')
+
+
+@app.route('/marketplace', methods=['GET', 'POST'])
+def marketplace():
+    form = MarketplaceForm()
+    if form.validate_on_submit():
+        pass
+    return render_template('MarketplaceTemplate.html', form=form,
+                           title='Маркетплэйс', message='')
+
+
+@app.route('/timetable', methods=['GET', 'POST'])
+def timetable():
+    return render_template('TimetableTemplate.html', title='Расписание')
 
 
 if __name__ == '__main__':

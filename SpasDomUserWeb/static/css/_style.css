@@ -1,8 +1,9 @@
 /*
     1. Header
     2. Login page
-    3. Main
-    4. Helpers
+    3. Alerts
+    4. Marketplace
+    5. Helpers
 */
 
 body{
@@ -34,17 +35,35 @@ body{
 
 
 
-/* 3. Main */
-
-
-
-/* 4. Helpers */
-.right-center{
-    position: absolute;
-    top: 10px;
-    right: 10px;
+/* 3. Alerts */
+.alerts-form{
+    grid-column: 1 / 2;
+    margin-top: 7vh;
 }
 
-.w-200{ width: 200px; }
+.check-alert{
+    grid-column: 2 / 10;
+    margin-top: 15vh;
+    background: #F1F2F2;
+}
+
+/* 4. Marketplace */
+.marketplace-form{
+    grid-column: 1 / 2;
+    margin-top: 7vh;
+}
+
+.check-alerts{
+    grid-column: 2 / 10;
+    margin-top: 15vh;
+    background: #F1F2F2;
+}
+
+
+/* 5. Helpers */
+.wrapper{
+    display: grid;
+    grid-template-column: repeat(10, 1fr);
+}
 
 .black-25pt{ color: #000; font-size: 25pt; }

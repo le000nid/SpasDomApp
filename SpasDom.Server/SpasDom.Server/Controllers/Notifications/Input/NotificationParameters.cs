@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SpasDom.Server.Entities;
 using System;
+using System.Linq;
 
 namespace SpasDom.Server.Controllers.Notifications.Input
 {
@@ -18,14 +19,15 @@ namespace SpasDom.Server.Controllers.Notifications.Input
         [JsonProperty("photos")]
         public string[] Photos { get; set; }
 
-        public Notification Build() 
+        public Notification Build()
         {
-            return new Notification() { 
+            return new Notification()
+            {
                 Title = Title,
                 Body = Body,
-                PostedAt = PostedAt,
-                Photos = Photos?[0],
+                PostedAt = PostedAt
             };
         }
+        
     }
 }

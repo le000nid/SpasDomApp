@@ -24,4 +24,8 @@
     <Folder Include="Controllers\Orders\Input\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
 </Project>

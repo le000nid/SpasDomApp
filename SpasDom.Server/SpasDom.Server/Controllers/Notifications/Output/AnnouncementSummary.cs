@@ -1,18 +1,21 @@
 ﻿using Newtonsoft.Json;
 using SpasDom.Server.Entities;
 using System;
+using System.Collections.Generic;
+using Microsoft.OpenApi.Extensions;
 
 namespace SpasDom.Server.Controllers.Notifications.Output
 {
-    public class NotificationSummary
+    public class AnnouncementSummary
     {
-        public NotificationSummary(Notification source)
+        public AnnouncementSummary(Announcement source)
         {
             Id = source.Id;
             Title = source.Title;
             Body = source.Body;
             PostedAt = source.PostedAt;
-           
+            Category = source.Category;
+            CategoryName = source.Category.GetDisplayName();
         }
 
         [JsonProperty("id")]
@@ -26,6 +29,9 @@ namespace SpasDom.Server.Controllers.Notifications.Output
 
         [JsonProperty("posted_at")]
         public DateTimeOffset PostedAt { get; set; }
+        
+        public AnnouncementCategory Category { get; set; }
+        public string CategoryName { get; set; }
 
         [JsonProperty("photos")]
         public string[] Photos { get; set; }

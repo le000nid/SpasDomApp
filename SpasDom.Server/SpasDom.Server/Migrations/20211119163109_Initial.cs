@@ -11,16 +11,29 @@ namespace SpasDom.Server.Migrations
                 name: "spas-dom");
 
             migrationBuilder.CreateTable(
+                name: "Announcements",
+                schema: "spas-dom",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Body = table.Column<string>(type: "TEXT", nullable: true),
+                    PostedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Category = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Announcements", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Apartments",
                 schema: "spas-dom",
                 columns: table => new
                 {
                     BusinessAccount = table.Column<string>(type: "TEXT", nullable: false),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    Area = table.Column<string>(type: "TEXT", nullable: true),
-                    Street = table.Column<string>(type: "TEXT", nullable: true),
-                    HouseNumber = table.Column<long>(type: "INTEGER", nullable: false),
-                    ApartmentNumber = table.Column<long>(type: "INTEGER", nullable: false)
+                    Number = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,19 +55,20 @@ namespace SpasDom.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "notifications",
+                name: "Houses",
                 schema: "spas-dom",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Body = table.Column<string>(type: "TEXT", nullable: true),
-                    PostedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
+                    Number = table.Column<long>(type: "INTEGER", nullable: false),
+                    City = table.Column<string>(type: "TEXT", nullable: true),
+                    Area = table.Column<string>(type: "TEXT", nullable: true),
+                    Street = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_notifications", x => x.Id);
+                    table.PrimaryKey("PK_Houses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,36 +120,65 @@ namespace SpasDom.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notification-Photo",
+                name: "Announcement-House-Links",
                 schema: "spas-dom",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    NotificationId = table.Column<long>(type: "INTEGER", nullable: false),
-                    PhotoId = table.Column<long>(type: "INTEGER", nullable: false)
+                    AnnouncementId = table.Column<long>(type: "INTEGER", nullable: false),
+                    HouseId = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notification-Photo", x => x.Id);
+                    table.PrimaryKey("PK_Announcement-House-Links", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Notification-Photo_notifications_NotificationId",
-                        column: x => x.NotificationId,
+                        name: "FK_Announcement-House-Links_Announcements_AnnouncementId",
+                        column: x => x.AnnouncementId,
                         principalSchema: "spas-dom",
-                        principalTable: "notifications",
+                        principalTable: "Announcements",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Notification-Photo_Photos_PhotoId",
-                        column: x => x.PhotoId,
+                        name: "FK_Announcement-House-Links_Houses_HouseId",
+                        column: x => x.HouseId,
                         principalSchema: "spas-dom",
-                        principalTable: "Photos",
+                        principalTable: "Houses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ApartmentTenats",
+                name: "House-Apartment-Links",
+                schema: "spas-dom",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BusinessAccount = table.Column<string>(type: "TEXT", nullable: true),
+                    HouseId = table.Column<long>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_House-Apartment-Links", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_House-Apartment-Links_Apartments_BusinessAccount",
+                        column: x => x.BusinessAccount,
+                        principalSchema: "spas-dom",
+                        principalTable: "Apartments",
+                        principalColumn: "BusinessAccount",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_House-Apartment-Links_Houses_HouseId",
+                        column: x => x.HouseId,
+                        principalSchema: "spas-dom",
+                        principalTable: "Houses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Apartment-Tenant-Links",
                 schema: "spas-dom",
                 columns: table => new
                 {
@@ -146,16 +189,16 @@ namespace SpasDom.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApartmentTenats", x => x.Id);
+                    table.PrimaryKey("PK_Apartment-Tenant-Links", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ApartmentTenats_Apartments_AccountNumber",
+                        name: "FK_Apartment-Tenant-Links_Apartments_AccountNumber",
                         column: x => x.AccountNumber,
                         principalSchema: "spas-dom",
                         principalTable: "Apartments",
                         principalColumn: "BusinessAccount",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ApartmentTenats_Tenants_TenantId",
+                        name: "FK_Apartment-Tenant-Links_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalSchema: "spas-dom",
                         principalTable: "Tenants",
@@ -164,7 +207,7 @@ namespace SpasDom.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkerCompetences",
+                name: "Worker-Competence-Links",
                 schema: "spas-dom",
                 columns: table => new
                 {
@@ -175,16 +218,16 @@ namespace SpasDom.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkerCompetences", x => x.Id);
+                    table.PrimaryKey("PK_Worker-Competence-Links", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkerCompetences_Competences_CompetenceId",
+                        name: "FK_Worker-Competence-Links_Competences_CompetenceId",
                         column: x => x.CompetenceId,
                         principalSchema: "spas-dom",
                         principalTable: "Competences",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkerCompetences_Workers_WorkerId",
+                        name: "FK_Worker-Competence-Links_Workers_WorkerId",
                         column: x => x.WorkerId,
                         principalSchema: "spas-dom",
                         principalTable: "Workers",
@@ -193,60 +236,81 @@ namespace SpasDom.Server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ApartmentTenats_AccountNumber",
+                name: "IX_Announcement-House-Links_AnnouncementId",
                 schema: "spas-dom",
-                table: "ApartmentTenats",
+                table: "Announcement-House-Links",
+                column: "AnnouncementId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Announcement-House-Links_HouseId",
+                schema: "spas-dom",
+                table: "Announcement-House-Links",
+                column: "HouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Apartment-Tenant-Links_AccountNumber",
+                schema: "spas-dom",
+                table: "Apartment-Tenant-Links",
                 column: "AccountNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ApartmentTenats_TenantId",
+                name: "IX_Apartment-Tenant-Links_TenantId",
                 schema: "spas-dom",
-                table: "ApartmentTenats",
+                table: "Apartment-Tenant-Links",
                 column: "TenantId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notification-Photo_NotificationId",
+                name: "IX_House-Apartment-Links_BusinessAccount",
                 schema: "spas-dom",
-                table: "Notification-Photo",
-                column: "NotificationId");
+                table: "House-Apartment-Links",
+                column: "BusinessAccount",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notification-Photo_PhotoId",
+                name: "IX_House-Apartment-Links_HouseId",
                 schema: "spas-dom",
-                table: "Notification-Photo",
-                column: "PhotoId");
+                table: "House-Apartment-Links",
+                column: "HouseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkerCompetences_CompetenceId",
+                name: "IX_Worker-Competence-Links_CompetenceId",
                 schema: "spas-dom",
-                table: "WorkerCompetences",
+                table: "Worker-Competence-Links",
                 column: "CompetenceId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkerCompetences_WorkerId",
+                name: "IX_Worker-Competence-Links_WorkerId",
                 schema: "spas-dom",
-                table: "WorkerCompetences",
+                table: "Worker-Competence-Links",
                 column: "WorkerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ApartmentTenats",
+                name: "Announcement-House-Links",
                 schema: "spas-dom");
 
             migrationBuilder.DropTable(
-                name: "Notification-Photo",
+                name: "Apartment-Tenant-Links",
                 schema: "spas-dom");
 
             migrationBuilder.DropTable(
-                name: "WorkerCompetences",
+                name: "House-Apartment-Links",
                 schema: "spas-dom");
 
             migrationBuilder.DropTable(
-                name: "Apartments",
+                name: "Photos",
+                schema: "spas-dom");
+
+            migrationBuilder.DropTable(
+                name: "Worker-Competence-Links",
+                schema: "spas-dom");
+
+            migrationBuilder.DropTable(
+                name: "Announcements",
                 schema: "spas-dom");
 
             migrationBuilder.DropTable(
@@ -254,11 +318,11 @@ namespace SpasDom.Server.Migrations
                 schema: "spas-dom");
 
             migrationBuilder.DropTable(
-                name: "notifications",
+                name: "Apartments",
                 schema: "spas-dom");
 
             migrationBuilder.DropTable(
-                name: "Photos",
+                name: "Houses",
                 schema: "spas-dom");
 
             migrationBuilder.DropTable(

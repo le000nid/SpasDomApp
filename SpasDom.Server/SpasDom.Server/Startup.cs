@@ -64,9 +64,8 @@ namespace SpasDom.Server
 
         private static string BuildSqlLiteConnectionString()
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            var DbPath = $"{path}{System.IO.Path.DirectorySeparatorChar}spasdom.db";
+            var folder = Environment.CurrentDirectory;
+            var DbPath = $"{folder}{System.IO.Path.DirectorySeparatorChar}spasdom.db";
 
             return $"Data Source={DbPath}";
         }

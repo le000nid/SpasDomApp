@@ -17,32 +17,64 @@ namespace SpasDom.Server.Migrations
                 .HasDefaultSchema("spas-dom")
                 .HasAnnotation("ProductVersion", "5.0.12");
 
+            modelBuilder.Entity("SpasDom.Server.Entities.Announcement", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset>("PostedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Announcements");
+                });
+
+            modelBuilder.Entity("SpasDom.Server.Entities.AnnouncementHouse", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("AnnouncementId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("HouseId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnnouncementId");
+
+                    b.HasIndex("HouseId");
+
+                    b.ToTable("Announcement-House-Links");
+                });
+
             modelBuilder.Entity("SpasDom.Server.Entities.Apartment", b =>
                 {
                     b.Property<string>("BusinessAccount")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("ApartmentNumber")
+                    b.Property<long>("Number")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Area")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("City")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("HouseNumber")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("BusinessAccount");
 
                     b.ToTable("Apartments");
                 });
 
-            modelBuilder.Entity("SpasDom.Server.Entities.ApartmentTenat", b =>
+            modelBuilder.Entity("SpasDom.Server.Entities.ApartmentTenant", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,7 +93,7 @@ namespace SpasDom.Server.Migrations
                     b.HasIndex("TenantId")
                         .IsUnique();
 
-                    b.ToTable("ApartmentTenats");
+                    b.ToTable("Apartment-Tenant-Links");
                 });
 
             modelBuilder.Entity("SpasDom.Server.Entities.Competence", b =>
@@ -78,45 +110,49 @@ namespace SpasDom.Server.Migrations
                     b.ToTable("Competences");
                 });
 
-            modelBuilder.Entity("SpasDom.Server.Entities.Notification", b =>
+            modelBuilder.Entity("SpasDom.Server.Entities.House", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Body")
+                    b.Property<string>("Area")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("PostedAt")
+                    b.Property<string>("City")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Title")
+                    b.Property<long>("Number")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Street")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("notifications");
+                    b.ToTable("Houses");
                 });
 
-            modelBuilder.Entity("SpasDom.Server.Entities.NotificationPhoto", b =>
+            modelBuilder.Entity("SpasDom.Server.Entities.HouseApartment", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("NotificationId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("BusinessAccount")
+                        .HasColumnType("TEXT");
 
-                    b.Property<long>("PhotoId")
+                    b.Property<long>("HouseId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NotificationId");
+                    b.HasIndex("BusinessAccount")
+                        .IsUnique();
 
-                    b.HasIndex("PhotoId");
+                    b.HasIndex("HouseId");
 
-                    b.ToTable("Notification-Photo");
+                    b.ToTable("House-Apartment-Links");
                 });
 
             modelBuilder.Entity("SpasDom.Server.Entities.Photo", b =>
@@ -198,10 +234,29 @@ namespace SpasDom.Server.Migrations
 
                     b.HasIndex("WorkerId");
 
-                    b.ToTable("WorkerCompetences");
+                    b.ToTable("Worker-Competence-Links");
                 });
 
-            modelBuilder.Entity("SpasDom.Server.Entities.ApartmentTenat", b =>
+            modelBuilder.Entity("SpasDom.Server.Entities.AnnouncementHouse", b =>
+                {
+                    b.HasOne("SpasDom.Server.Entities.Announcement", "Announcement")
+                        .WithMany("Houses")
+                        .HasForeignKey("AnnouncementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SpasDom.Server.Entities.House", "House")
+                        .WithMany()
+                        .HasForeignKey("HouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Announcement");
+
+                    b.Navigation("House");
+                });
+
+            modelBuilder.Entity("SpasDom.Server.Entities.ApartmentTenant", b =>
                 {
                     b.HasOne("SpasDom.Server.Entities.Apartment", "Apartment")
                         .WithMany("Tenants")
@@ -210,7 +265,7 @@ namespace SpasDom.Server.Migrations
 
                     b.HasOne("SpasDom.Server.Entities.Tenant", "Tenant")
                         .WithOne()
-                        .HasForeignKey("SpasDom.Server.Entities.ApartmentTenat", "TenantId")
+                        .HasForeignKey("SpasDom.Server.Entities.ApartmentTenant", "TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -219,23 +274,22 @@ namespace SpasDom.Server.Migrations
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("SpasDom.Server.Entities.NotificationPhoto", b =>
+            modelBuilder.Entity("SpasDom.Server.Entities.HouseApartment", b =>
                 {
-                    b.HasOne("SpasDom.Server.Entities.Notification", "Notification")
-                        .WithMany("Photos")
-                        .HasForeignKey("NotificationId")
+                    b.HasOne("SpasDom.Server.Entities.Apartment", "Apartment")
+                        .WithOne()
+                        .HasForeignKey("SpasDom.Server.Entities.HouseApartment", "BusinessAccount")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpasDom.Server.Entities.House", "House")
+                        .WithMany("Apartments")
+                        .HasForeignKey("HouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SpasDom.Server.Entities.Photo", "Photo")
-                        .WithMany()
-                        .HasForeignKey("PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Apartment");
 
-                    b.Navigation("Notification");
-
-                    b.Navigation("Photo");
+                    b.Navigation("House");
                 });
 
             modelBuilder.Entity("SpasDom.Server.Entities.WorkerCompetence", b =>
@@ -257,14 +311,19 @@ namespace SpasDom.Server.Migrations
                     b.Navigation("Worker");
                 });
 
+            modelBuilder.Entity("SpasDom.Server.Entities.Announcement", b =>
+                {
+                    b.Navigation("Houses");
+                });
+
             modelBuilder.Entity("SpasDom.Server.Entities.Apartment", b =>
                 {
                     b.Navigation("Tenants");
                 });
 
-            modelBuilder.Entity("SpasDom.Server.Entities.Notification", b =>
+            modelBuilder.Entity("SpasDom.Server.Entities.House", b =>
                 {
-                    b.Navigation("Photos");
+                    b.Navigation("Apartments");
                 });
 
             modelBuilder.Entity("SpasDom.Server.Entities.Worker", b =>

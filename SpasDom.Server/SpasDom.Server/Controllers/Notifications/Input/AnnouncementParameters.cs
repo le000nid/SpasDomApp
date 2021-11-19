@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 using SpasDom.Server.Entities;
 using System;
-using System.Linq;
 
 namespace SpasDom.Server.Controllers.Notifications.Input
 {
-    public class NotificationParameters
+    public class AnnouncementParameters
     {
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -15,17 +14,24 @@ namespace SpasDom.Server.Controllers.Notifications.Input
 
         [JsonProperty("posted_at")]
         public DateTimeOffset PostedAt { get; set; }
+        
+        [JsonProperty("category")]
+        public AnnouncementCategory Category { get; set; }
+        
+        [JsonProperty("houses")]
+        public long[] Houses { get; set; }
 
         [JsonProperty("photos")]
         public string[] Photos { get; set; }
 
-        public Notification Build()
+        public Announcement Build()
         {
-            return new Notification()
+            return new Announcement()
             {
                 Title = Title,
                 Body = Body,
-                PostedAt = PostedAt
+                PostedAt = PostedAt,
+                Category = Category
             };
         }
         

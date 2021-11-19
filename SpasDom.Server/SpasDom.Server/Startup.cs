@@ -21,8 +21,6 @@ namespace SpasDom.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var factory = new SqlContextFactory();
-            var args = new string[] { "1" };
             services.AddDbContext<SqlContext>(options => options.UseSqlite(BuildSqlLiteConnectionString()), ServiceLifetime.Transient);
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -37,10 +35,11 @@ namespace SpasDom.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpasDom.Server v1"));
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpasDom.Server v1"));
+            
             var factory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
 
             using (var scope = factory.CreateScope())
@@ -65,9 +64,9 @@ namespace SpasDom.Server
         private static string BuildSqlLiteConnectionString()
         {
             var folder = Environment.CurrentDirectory;
-            var DbPath = $"{folder}{System.IO.Path.DirectorySeparatorChar}spasdom.db";
+            var dbPath = $"{folder}{System.IO.Path.DirectorySeparatorChar}spasdom.db";
 
-            return $"Data Source={DbPath}";
+            return $"Data Source={dbPath}";
         }
     }
 }

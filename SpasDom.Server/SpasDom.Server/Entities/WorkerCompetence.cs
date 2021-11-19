@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpasDom.Server.Entities
 {
+    [Table("Worker-Competence-Links")]
     public class WorkerCompetence
     {
         [Key]

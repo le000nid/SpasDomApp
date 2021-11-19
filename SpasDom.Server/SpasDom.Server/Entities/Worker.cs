@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpasDom.Server.Entities
 {
+    [Table("Workers")]
     public class Worker
     {
         [Key]

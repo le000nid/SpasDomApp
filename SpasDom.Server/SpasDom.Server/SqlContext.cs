@@ -7,12 +7,14 @@ namespace SpasDom.Server
     {
 
         public DbSet<Apartment> Apartments { get; set; }
-        public DbSet<ApartmentTenat> ApartmentTenats { get; set; }
+        public DbSet<ApartmentTenant> ApartmentTenats { get; set; }
         public DbSet<Competence> Competences { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
-        public DbSet<NotificationPhoto> NotificationPhotos { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<AnnouncementHouse> AnnouncementHouses { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<Worker> Workers { get; set; }
+        public DbSet<House> Houses { get; set; }
+        public DbSet<HouseApartment> HouseApartmentLinks { get; set; }
 
         public DbSet<WorkerCompetence> WorkerCompetences { get; set; }
 
@@ -26,21 +28,21 @@ namespace SpasDom.Server
 
             builder.HasDefaultSchema("spas-dom");
 
-            var notification = builder.Entity<Notification>();
+            var notification = builder.Entity<Announcement>();
 
             var photo = builder.Entity<Photo>();
 
-            var notificationPhoto = builder.Entity<NotificationPhoto>();
+            var announcementHouse = builder.Entity<AnnouncementHouse>();
 
-            notificationPhoto.HasOne(n => n.Notification)
-                .WithMany(n => n.Photos)
+            announcementHouse.HasOne(n => n.Announcement)
+                .WithMany(n => n.Houses)
                 .OnDelete(DeleteBehavior.Cascade);
 
             var apartment = builder.Entity<Apartment>();
 
             var tenant = builder.Entity<Tenant>();
 
-            var apartmentTenant = builder.Entity<ApartmentTenat>();
+            var apartmentTenant = builder.Entity<ApartmentTenant>();
 
             apartmentTenant.HasOne(a => a.Apartment)
                 .WithMany(a => a.Tenants)
@@ -57,6 +59,16 @@ namespace SpasDom.Server
                 .OnDelete(DeleteBehavior.Cascade);
 
             workerCompetence.HasOne(w => w.Competence)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            var houseApartmentLink = builder.Entity<HouseApartment>();
+
+            houseApartmentLink.HasOne(l => l.House)
+                .WithMany(h => h.Apartments)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            houseApartmentLink.HasOne(l => l.Apartment)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
         }

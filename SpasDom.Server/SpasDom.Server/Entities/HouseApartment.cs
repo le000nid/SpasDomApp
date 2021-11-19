@@ -3,20 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpasDom.Server.Entities
 {
-    [Table("Apartment-Tenant-Links")]
-    public class ApartmentTenant
+    [Table("House-Apartment-Links")]
+    public class HouseApartment
     {
         [Key]
         public long Id { get; set; }
         
         [ForeignKey(nameof(Apartment))]
-        public string AccountNumber { get; set; }
+        public string BusinessAccount { get; set; }
         public Apartment Apartment { get; set; }
         
-        
-        [ForeignKey(nameof(Tenant))]
-        public long TenantId { get; set; }
-        public Tenant Tenant { get; set; }
-        
+        [ForeignKey(nameof(House))]
+        public long HouseId { get; set; }
+        public House House { get; set; }
     }
 }

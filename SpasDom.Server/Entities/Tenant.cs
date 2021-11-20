@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Db.Types;
 
-namespace SpasDom.Server.Entities
+namespace Entities
 {
     [Table("Tenants")]
-    public class Tenant
+    public class Tenant : BaseDataType
     {
-        [Key]
-        public long Id { get; set; }
-        
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }

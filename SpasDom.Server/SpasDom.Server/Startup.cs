@@ -5,7 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
+using Db;
+using Db.Repository;
 
 namespace SpasDom.Server
 {
@@ -21,7 +22,8 @@ namespace SpasDom.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SqlContext>(options => options.UseSqlite(BuildSqlLiteConnectionString()), ServiceLifetime.Transient);
+            services.AddDb();
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -58,15 +60,6 @@ namespace SpasDom.Server
             {
                 endpoints.MapControllers();
             });
-        }
-
-
-        private static string BuildSqlLiteConnectionString()
-        {
-            var folder = Environment.CurrentDirectory;
-            var dbPath = $"{folder}{System.IO.Path.DirectorySeparatorChar}spasdom.db";
-
-            return $"Data Source={dbPath}";
         }
     }
 }

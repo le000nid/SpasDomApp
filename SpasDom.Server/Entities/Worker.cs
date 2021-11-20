@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Db.Types;
 
-namespace SpasDom.Server.Entities
+namespace Entities
 {
     [Table("Workers")]
-    public class Worker
+    public class Worker : BaseDataType
     {
-        [Key]
-        public long Id { get; set; }
-        
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }

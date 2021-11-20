@@ -1,23 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SpasDom.Server.Entities;
+﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace SpasDom.Server
+namespace Db
 {
     public class SqlContext : DbContext
     {
-
-        public DbSet<Apartment> Apartments { get; set; }
-        public DbSet<ApartmentTenant> ApartmentTenats { get; set; }
-        public DbSet<Competence> Competences { get; set; }
-        public DbSet<Announcement> Announcements { get; set; }
-        public DbSet<AnnouncementHouse> AnnouncementHouses { get; set; }
-        public DbSet<Tenant> Tenants { get; set; }
-        public DbSet<Worker> Workers { get; set; }
-        public DbSet<House> Houses { get; set; }
-        public DbSet<HouseApartment> HouseApartmentLinks { get; set; }
-
-        public DbSet<WorkerCompetence> WorkerCompetences { get; set; }
-
         public SqlContext() : base() { }
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options) { }

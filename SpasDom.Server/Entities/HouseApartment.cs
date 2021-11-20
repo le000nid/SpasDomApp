@@ -1,16 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Db.Types;
 
-namespace SpasDom.Server.Entities
+namespace Entities
 {
     [Table("House-Apartment-Links")]
-    public class HouseApartment
+    public class HouseApartment : BaseDataType
     {
-        [Key]
-        public long Id { get; set; }
-        
         [ForeignKey(nameof(Apartment))]
-        public string BusinessAccount { get; set; }
+        public long ApartmentId { get; set; }
         public Apartment Apartment { get; set; }
         
         [ForeignKey(nameof(House))]

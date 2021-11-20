@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SpasDom.Server.Migrations
+namespace Db.Migrations
 {
     public partial class Initial : Migration
     {
@@ -20,7 +20,8 @@ namespace SpasDom.Server.Migrations
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Body = table.Column<string>(type: "TEXT", nullable: true),
                     PostedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    Category = table.Column<int>(type: "INTEGER", nullable: false)
+                    Category = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,12 +33,15 @@ namespace SpasDom.Server.Migrations
                 schema: "spas-dom",
                 columns: table => new
                 {
-                    BusinessAccount = table.Column<string>(type: "TEXT", nullable: false),
-                    Number = table.Column<long>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BusinessAccount = table.Column<string>(type: "TEXT", nullable: true),
+                    Number = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Apartments", x => x.BusinessAccount);
+                    table.PrimaryKey("PK_Apartments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,7 +51,8 @@ namespace SpasDom.Server.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,7 +69,8 @@ namespace SpasDom.Server.Migrations
                     Number = table.Column<long>(type: "INTEGER", nullable: false),
                     City = table.Column<string>(type: "TEXT", nullable: true),
                     Area = table.Column<string>(type: "TEXT", nullable: true),
-                    Street = table.Column<string>(type: "TEXT", nullable: true)
+                    Street = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,7 +84,8 @@ namespace SpasDom.Server.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    PublicUlr = table.Column<string>(type: "TEXT", nullable: true)
+                    PublicUlr = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,7 +102,8 @@ namespace SpasDom.Server.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Surname = table.Column<string>(type: "TEXT", nullable: true),
                     Patronymic = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true)
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,7 +120,8 @@ namespace SpasDom.Server.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Surname = table.Column<string>(type: "TEXT", nullable: true),
                     Patronymic = table.Column<string>(type: "TEXT", nullable: true),
-                    Rating = table.Column<double>(type: "REAL", nullable: false)
+                    Rating = table.Column<double>(type: "REAL", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,7 +136,8 @@ namespace SpasDom.Server.Migrations
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     AnnouncementId = table.Column<long>(type: "INTEGER", nullable: false),
-                    HouseId = table.Column<long>(type: "INTEGER", nullable: false)
+                    HouseId = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,18 +165,19 @@ namespace SpasDom.Server.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BusinessAccount = table.Column<string>(type: "TEXT", nullable: true),
-                    HouseId = table.Column<long>(type: "INTEGER", nullable: false)
+                    ApartmentId = table.Column<long>(type: "INTEGER", nullable: false),
+                    HouseId = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_House-Apartment-Links", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_House-Apartment-Links_Apartments_BusinessAccount",
-                        column: x => x.BusinessAccount,
+                        name: "FK_House-Apartment-Links_Apartments_ApartmentId",
+                        column: x => x.ApartmentId,
                         principalSchema: "spas-dom",
                         principalTable: "Apartments",
-                        principalColumn: "BusinessAccount",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_House-Apartment-Links_Houses_HouseId",
@@ -184,18 +195,19 @@ namespace SpasDom.Server.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    AccountNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    TenantId = table.Column<long>(type: "INTEGER", nullable: false)
+                    ApartmentId = table.Column<long>(type: "INTEGER", nullable: false),
+                    TenantId = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Apartment-Tenant-Links", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Apartment-Tenant-Links_Apartments_AccountNumber",
-                        column: x => x.AccountNumber,
+                        name: "FK_Apartment-Tenant-Links_Apartments_ApartmentId",
+                        column: x => x.ApartmentId,
                         principalSchema: "spas-dom",
                         principalTable: "Apartments",
-                        principalColumn: "BusinessAccount",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Apartment-Tenant-Links_Tenants_TenantId",
@@ -214,7 +226,8 @@ namespace SpasDom.Server.Migrations
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     WorkerId = table.Column<long>(type: "INTEGER", nullable: false),
-                    CompetenceId = table.Column<long>(type: "INTEGER", nullable: false)
+                    CompetenceId = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -248,10 +261,10 @@ namespace SpasDom.Server.Migrations
                 column: "HouseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Apartment-Tenant-Links_AccountNumber",
+                name: "IX_Apartment-Tenant-Links_ApartmentId",
                 schema: "spas-dom",
                 table: "Apartment-Tenant-Links",
-                column: "AccountNumber");
+                column: "ApartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Apartment-Tenant-Links_TenantId",
@@ -261,10 +274,10 @@ namespace SpasDom.Server.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_House-Apartment-Links_BusinessAccount",
+                name: "IX_House-Apartment-Links_ApartmentId",
                 schema: "spas-dom",
                 table: "House-Apartment-Links",
-                column: "BusinessAccount",
+                column: "ApartmentId",
                 unique: true);
 
             migrationBuilder.CreateIndex(

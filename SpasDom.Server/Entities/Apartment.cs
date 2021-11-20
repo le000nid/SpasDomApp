@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Db.Types;
 
-namespace SpasDom.Server.Entities
+namespace Entities
 {
     [Table("Apartments")]
-    public class Apartment
+    public class Apartment : BaseDataType
     {
-        [Key]
         public string BusinessAccount { get; set; }
         
         public long Number { get; set; }

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Db.Types;
 
-namespace SpasDom.Server.Entities
+namespace Entities
 {
     [Table("Announcements")]
-    public class Announcement
+    public class Announcement : BaseDataType
     {
-        [Key]
-        public long Id { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
         public DateTimeOffset PostedAt { get; set; }

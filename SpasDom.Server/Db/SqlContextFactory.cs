@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System;
 
-namespace SpasDom.Server
+namespace Db
 {
     public class SqlContextFactory : IDesignTimeDbContextFactory<SqlContext>
     {

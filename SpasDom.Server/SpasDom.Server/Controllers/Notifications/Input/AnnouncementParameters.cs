@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SpasDom.Server.Entities;
 using System;
+using Entities;
 
 namespace SpasDom.Server.Controllers.Notifications.Input
 {
@@ -21,9 +21,6 @@ namespace SpasDom.Server.Controllers.Notifications.Input
         [JsonProperty("houses")]
         public long[] Houses { get; set; }
 
-        [JsonProperty("photos")]
-        public string[] Photos { get; set; }
-
         public Announcement Build()
         {
             return new Announcement()
@@ -31,9 +28,8 @@ namespace SpasDom.Server.Controllers.Notifications.Input
                 Title = Title,
                 Body = Body,
                 PostedAt = PostedAt,
-                Category = Category
+                Category = Category,
             };
         }
-        
     }
 }

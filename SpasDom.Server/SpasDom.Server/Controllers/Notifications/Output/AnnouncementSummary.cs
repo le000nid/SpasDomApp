@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SpasDom.Server.Entities;
 using System;
-using System.Collections.Generic;
+using Entities;
 using Microsoft.OpenApi.Extensions;
 
 namespace SpasDom.Server.Controllers.Notifications.Output

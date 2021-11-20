@@ -4,6 +4,9 @@ using SpasDom.Server.Controllers.Notifications.Output;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.SelectParameters;
+using Db;
+using Db.Repository.Interfaces;
+using Entities;
 
 namespace SpasDom.Server.Controllers.Notifications
 {
@@ -11,10 +14,11 @@ namespace SpasDom.Server.Controllers.Notifications
     [ApiController]
     public class AnnouncementsController : Controller
     {
-        private readonly SqlContext _context;
-        public AnnouncementsController(SqlContext context)
+        private readonly ICrudRepository<Announcement> _announcements;
+
+        public AnnouncementsController(ICrudFactory factory)
         {
-            _context = context;
+            _announcements = factory.Get<Announcement>();
         }
 
         /// <summary>
@@ -24,14 +28,14 @@ namespace SpasDom.Server.Controllers.Notifications
         [HttpGet]
         public AnnouncementSummary[] GetAll([FromQuery] SelectParameters parameters)
         {
-            var res = _context.Announcements.Select(n => new AnnouncementSummary(n)).ToArray();
+            var res = _announcements.Query().Select(n => new AnnouncementSummary(n)).ToArray();
             return res;
         }
 
         [HttpGet("{id:long}")]
         public AnnouncementSummary Get(long id)
         {
-            var entity =  _context.Announcements.FirstOrDefault(n => n.Id == id);
+            var entity =  _announcements.Query().FirstOrDefault(n => n.Id == id);
             return new AnnouncementSummary(entity);
         }
 
@@ -39,12 +43,12 @@ namespace SpasDom.Server.Controllers.Notifications
         [HttpPost]
         public async Task<AnnouncementSummary> CreateAsync([FromBody] AnnouncementParameters parameters)
         {
+            
             var @new = parameters.Build();
 
-            _context.Announcements.Add(@new);
-            await _context.SaveChangesAsync();
-
-            return new AnnouncementSummary(@new);
+            var added = await _announcements.AddAsync(@new);
+                
+            return new AnnouncementSummary(added);
         }
     }
 }

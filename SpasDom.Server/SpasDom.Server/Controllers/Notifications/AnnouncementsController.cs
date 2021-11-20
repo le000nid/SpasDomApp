@@ -7,6 +7,8 @@ using Common.SelectParameters;
 using Db;
 using Db.Repository.Interfaces;
 using Entities;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpasDom.Server.Controllers.Notifications
 {
@@ -15,10 +17,14 @@ namespace SpasDom.Server.Controllers.Notifications
     public class AnnouncementsController : Controller
     {
         private readonly ICrudRepository<Announcement> _announcements;
+        private readonly ICrudRepository<House> _houses;
+        private readonly ICrudRepository<AnnouncementHouse> _announcementsHouseLinks;
 
         public AnnouncementsController(ICrudFactory factory)
         {
             _announcements = factory.Get<Announcement>();
+            _houses = factory.Get<House>();
+            _announcementsHouseLinks = factory.Get<AnnouncementHouse>();
         }
 
         /// <summary>
@@ -28,7 +34,7 @@ namespace SpasDom.Server.Controllers.Notifications
         [HttpGet]
         public AnnouncementSummary[] GetAll([FromQuery] SelectParameters parameters)
         {
-            var res = _announcements.Query().Select(n => new AnnouncementSummary(n)).ToArray();
+            var res = AnnouncementQuery().Select(n => new AnnouncementSummary(n)).ToArray();
             return res;
         }
 
@@ -43,12 +49,31 @@ namespace SpasDom.Server.Controllers.Notifications
         [HttpPost]
         public async Task<AnnouncementSummary> CreateAsync([FromBody] AnnouncementParameters parameters)
         {
-            
-            var @new = parameters.Build();
+            var houseNumbers = parameters.Houses;
 
-            var added = await _announcements.AddAsync(@new);
-                
-            return new AnnouncementSummary(added);
+            var query = _houses.Query()
+                                .Where(h => houseNumbers.Contains(h.Number));
+                                
+            if (!query.Any())
+            {
+                throw new Exception("Пися");
+            }
+
+            var @new = parameters.Build();
+            var announcement = await _announcements.AddAsync(@new);
+            var links = query.Select(h => new AnnouncementHouse(announcement, h))
+                             .ToArray();
+
+            await _announcementsHouseLinks.AddAsync(links);
+
+            return new AnnouncementSummary(announcement);
+        }
+
+        private IQueryable<Announcement> AnnouncementQuery()
+        {
+            return this._announcements.Query()
+                                      .Include(a => a.Houses)
+                                      .ThenInclude(l => l.House);
         }
     }
 }

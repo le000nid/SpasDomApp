@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:title="Главная"
+        android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/servicesFragment"
+        android:title="Услуги"
+        android:icon="@drawable/ic_services"/>
+
+    <item
+        android:id="@+id/chatFragment"
+        android:title="Чат"
+        android:icon="@drawable/ic_chat"/>
+
+    <item
+        android:id="@+id/paymentFragment"
+        android:title="Оплата"
+        android:icon="@drawable/ic_payment"/>
+
+    <item
+        android:id="@+id/profileFragment"
+        android:title="Профиль"
+        android:icon="@drawable/ic_profile"/>
+
+</menu>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.spasdomuserapp.ui.home.HomeFragment"
+        android:label="Главная"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_newsDetailedFragment"
+            app:destination="@id/newsDetailedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.spasdomuserapp.ui.chat.ChatFragment"
+        android:label="Чат"
+        tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.spasdomuserapp.ui.payment.PaymentFragment"
+        android:label="Оплата"
+        tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/servicesFragment"
+        android:name="com.example.spasdomuserapp.ui.services.ServicesFragment"
+        android:label="Услуги"
+        tools:layout="@layout/fragment_services" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.spasdomuserapp.ui.profile.ProfileFragment"
+        android:label="Профиль"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/newsDetailedFragment"
+        android:name="com.example.spasdomuserapp.ui.home.NewsDetailedFragment"
+        android:label="Новость подробно"
+        tools:layout="@layout/fragment_news_detailed" >
+        <argument
+            android:name="newsItem"
+            app:argType="com.example.spasdomuserapp.domain.NewsItem" />
+    </fragment>
+</navigation>

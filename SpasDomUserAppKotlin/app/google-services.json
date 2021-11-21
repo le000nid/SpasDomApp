@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "491615215568",
+    "project_id": "spasdom-477b5",
+    "storage_bucket": "spasdom-477b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491615215568:android:24ce1406d1aa80ffbfa3d5",
+        "android_client_info": {
+          "package_name": "com.example.spasdomuserapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491615215568-scasj4d9vr31psmubgptm5sbu7p0urv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI0E-g_eQl4G06J3Z5Y9ZKTdJtounN7eI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491615215568-scasj4d9vr31psmubgptm5sbu7p0urv1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

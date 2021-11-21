@@ -21,9 +21,12 @@
         <entry key="..\:/SpasDomUserApp/SpasDomUserApp/app/src/main/res/layout/item_news.xml" value="0.4" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2609375" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/drawable/ic_broken_image.xml" value="0.26481481481481484" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_chat.xml" value="0.21693840579710144" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_home.xml" value="0.21693840579710144" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_news_detailed.xml" value="0.21693840579710144" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_news.xml" value="0.2164855072463768" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_notification.xml" value="0.4020100502512563" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_push_notification.xml" value="0.21693840579710144" />
       </map>
     </option>
   </component>

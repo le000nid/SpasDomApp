@@ -1,5 +1,6 @@
 package com.example.spasdomuserapp.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentHomeBinding
 import com.example.spasdomuserapp.domain.NewsItem
+import com.example.spasdomuserapp.firebase.Events
 import timber.log.Timber
 
 /**
@@ -51,6 +53,10 @@ class HomeFragment : Fragment() {
             news?.apply {
                 viewModelAdapter?.newsItems = news
             }
+        })
+
+        Events.serviceEvent.observe(viewLifecycleOwner, { item ->
+            Log.i("fragment", item.toString())
         })
     }
 

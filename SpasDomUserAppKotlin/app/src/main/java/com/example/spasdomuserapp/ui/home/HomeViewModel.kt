@@ -46,10 +46,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     init {
         viewModelScope.launch {
             videosRepository.refreshNewsItems()
+            videosRepository.refreshAlerts()
         }
     }
 
     val newsItems = videosRepository.newsItems
+
+    val alerts = videosRepository.alerts
 
     /**
      * Factory for constructing HomeViewModel with parameter

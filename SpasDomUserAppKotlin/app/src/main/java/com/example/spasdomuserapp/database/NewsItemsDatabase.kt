@@ -6,9 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [DatabaseNewsItem::class], version = 1)
+@Database(entities = [DatabaseNewsItem::class, DataBaseAlert::class], version = 1)
 abstract class NewsItemsDatabase : RoomDatabase() {
-    abstract val newsItemsDao: NewsItemsDao
+    abstract val dao: NewsItemsDao
 }
 
 private lateinit var INSTANCE: NewsItemsDatabase

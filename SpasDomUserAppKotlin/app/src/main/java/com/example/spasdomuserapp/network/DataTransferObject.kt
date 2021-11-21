@@ -1,7 +1,7 @@
 package com.example.spasdomuserapp.network
 
+import com.example.spasdomuserapp.database.DataBaseAlert
 import com.example.spasdomuserapp.database.DatabaseNewsItem
-import com.example.spasdomuserapp.domain.NewsItem
 import com.squareup.moshi.JsonClass
 
 /**
@@ -32,19 +32,6 @@ data class NetworkNewsItem(
     val thumbnail: String,
     val closedCaptions: String?)
 
-/**
- * Convert Network results to database objects
- */
-fun NetworkNewsContainer.asDomainModel(): List<NewsItem> {
-    return videos.map {
-        NewsItem(
-            title = it.title,
-            description = it.description,
-            url = it.url,
-            updated = it.updated,
-            thumbnail = it.thumbnail)
-    }
-}
 
 fun NetworkNewsContainer.asDatabaseModel(): Array<DatabaseNewsItem> {
     return videos.map {
@@ -57,3 +44,22 @@ fun NetworkNewsContainer.asDatabaseModel(): Array<DatabaseNewsItem> {
     }.toTypedArray()
 }
 
+
+
+@JsonClass(generateAdapter = true)
+data class NetworkAlertsContainer(val alerts: List<NetworkAlerts>)
+
+@JsonClass(generateAdapter = true)
+data class NetworkAlerts(
+    val data: String,
+    val title: String,
+    val description: String)
+
+fun NetworkAlertsContainer.asDatabaseAlertModel(): Array<DataBaseAlert> {
+    return alerts.map {
+        DataBaseAlert (
+            data = it.data,
+            title = it.title,
+            description = it.description)
+    }.toTypedArray()
+}

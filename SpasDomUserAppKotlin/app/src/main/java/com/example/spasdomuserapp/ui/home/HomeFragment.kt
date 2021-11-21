@@ -40,6 +40,8 @@ class HomeFragment : Fragment() {
      */
     private var viewModelAdapter: NewsItemsAdapter? = null
 
+    private var viewModelAlertsAdapter: AlertsAdapter? = null
+
     /**
      * Called immediately after onCreateView() has returned, and fragment's
      * view hierarchy has been created.  It can be used to do final
@@ -57,6 +59,13 @@ class HomeFragment : Fragment() {
 
         Events.serviceEvent.observe(viewLifecycleOwner, { item ->
             Log.i("fragment", item.toString())
+        })
+
+        viewModel.alerts.observe(viewLifecycleOwner, { alerts ->
+            alerts?.apply {
+                Log.i("alerts", alerts.toString())
+                viewModelAlertsAdapter?.alerts = alerts
+            }
         })
     }
 
@@ -91,9 +100,23 @@ class HomeFragment : Fragment() {
             this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewsDetailedFragment(it))
         })
 
+        viewModelAlertsAdapter = AlertsAdapter()
+
         binding.root.findViewById<RecyclerView>(R.id.news_recycler_view).apply {
+
+            /*val myLinearLayoutManager = object : LinearLayoutManager(context) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }*/
+
             layoutManager = LinearLayoutManager(context)
             adapter = viewModelAdapter
+        }
+
+        binding.root.findViewById<RecyclerView>(R.id.alerts_rv).apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = viewModelAlertsAdapter
         }
 
         return binding.root

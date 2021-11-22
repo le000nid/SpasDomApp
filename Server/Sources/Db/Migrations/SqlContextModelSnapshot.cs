@@ -32,8 +32,14 @@ namespace Db.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("PostedAt")
+                    b.Property<DateTimeOffset>("DeathDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("PostDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
@@ -77,6 +83,9 @@ namespace Db.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirebaseToken")
                         .HasColumnType("TEXT");
 
                     b.Property<long>("Number")

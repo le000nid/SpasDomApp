@@ -23,8 +23,9 @@ namespace SpasDom.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDb();
-            
+
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpasDom.Server", Version = "v1" });

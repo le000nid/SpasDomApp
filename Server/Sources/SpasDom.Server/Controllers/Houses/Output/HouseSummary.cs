@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SpasDom.Server
 {
@@ -7,23 +7,23 @@ namespace SpasDom.Server
     {
         public HouseSummary(House source)
         {
-            Number = source.Number;
+            HouseNumber = source.Number;
             City = source.City;
             Street = source.Street;
             Area = source.Area;
         }
 
 
-        [JsonProperty("house_number")]
-        public long Number { get; set; }
+        [JsonPropertyName("houseNumber")]
+        public long HouseNumber { get; set; }
 
-        [JsonProperty("city")]
+        [JsonPropertyName("city")]
         public string City { get; set; }
 
-        [JsonProperty("street")]
+        [JsonPropertyName("street")]
         public string Street { get; set; }
 
-        [JsonProperty("area")]
+        [JsonPropertyName("area")]
         public string Area { get; set; }
     }
 }

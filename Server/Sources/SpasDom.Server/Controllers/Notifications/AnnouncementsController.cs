@@ -44,9 +44,9 @@ namespace SpasDom.Server.Controllers.Notifications
                 query = query;
             }
 
-            if (parameters.HouseNumbers != null)
+            if (parameters.HouseIds != null)
             {
-                query = query.Where(l => parameters.HouseNumbers.Contains(l.House.Number));
+                query = query.Where(l => parameters.HouseIds.Contains(l.HouseId));
             }
 
             query = query.Skip(parameters.Skip).Take(parameters.Take);
@@ -63,6 +63,22 @@ namespace SpasDom.Server.Controllers.Notifications
             return new AnnouncementSummary(entity);
         }
 
+        [HttpGet("categories")]
+        public AnnouncementCategorySummary[] GetCategory()
+        {
+            var categories = new AnnouncementCategory[]{AnnouncementCategory.Electricity, AnnouncementCategory.Water};
+
+            return categories.Select(c => new AnnouncementCategorySummary(c)).ToArray();
+        }
+
+        [HttpGet("statuses")]
+        public AnnouncementStatusSummary[] GetStatuses()
+        {
+            var statuses = new AnnouncementStatus[] { AnnouncementStatus.Active, AnnouncementStatus.Pending, AnnouncementStatus.Dead };
+
+            return statuses.Select(c => new AnnouncementStatusSummary(c)).ToArray();
+        }
+
         /// <summary>
         /// Создать новое оповещение
         /// </summary>
@@ -72,10 +88,10 @@ namespace SpasDom.Server.Controllers.Notifications
         [HttpPost]
         public async Task<AnnouncementSummary> CreateAsync([FromBody] AnnouncementParameters parameters)
         {
-            var houseNumbers = parameters.Houses;
+            var houseIds = parameters.HouseIds;
 
             var query = _houses.Query()
-                .Where(h => houseNumbers.Contains(h.Number));
+                .Where(h => houseIds.Contains(h.Id));
 
             if (!query.Any())
             {
@@ -101,7 +117,7 @@ namespace SpasDom.Server.Controllers.Notifications
         /// - False - оповещение удалить не удалось
         /// </returns>
         [HttpDelete("{id:long}")]
-        public async Task<bool> DeleteAsync([FromQuery] long id)
+        public async Task<bool> DeleteAsync(long id)
         {
             var existed = await _announcements.FindAsync(id);
             if (existed == default)

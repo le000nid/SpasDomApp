@@ -1,21 +1,21 @@
 ﻿using Entities;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SpasDom.Server
 {
     public class HouseParameters
     {
-        [JsonProperty("city")]
+        [JsonPropertyName("city")]
         public string City { get; set; }
 
-        [JsonProperty("area")]
+        [JsonPropertyName("area")]
         public string Area { get; set; }
 
-        [JsonProperty("street")]
+        [JsonPropertyName("street")]
         public string Street { get; set; }
 
-        [JsonProperty("house_number")]
-        public long Number { get; set; }
+        [JsonPropertyName("houseNumber")]
+        public long HouseNumber { get; set; }
 
 
         public House Build()
@@ -25,7 +25,7 @@ namespace SpasDom.Server
                 City = City,
                 Area = Area,
                 Street = Street,
-                Number = Number
+                Number = HouseNumber
             };
         }
     }

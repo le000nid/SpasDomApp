@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
         viewModelAlertsAdapter = AlertsAdapter()
 
         binding.root.findViewById<RecyclerView>(R.id.news_recycler_view).apply {
-
+            
             /** TODO(BUG. Fix someday or forget)
             * This disables scrolling, but for some unknown reason only displays the first three elements.
             * However, that's what we need, so this bug has become a feature :)

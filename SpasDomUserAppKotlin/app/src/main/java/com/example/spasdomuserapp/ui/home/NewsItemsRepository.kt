@@ -44,7 +44,10 @@ class NewsItemsRepository(private val database: NewsItemsDatabase) {
             try {
                 //TODO(When null or empty is received it means that we need update actual data(clear all case))
                 val newsItems = Network.spasDom.getNewsItems()
-                database.dao.insertAll(*newsItems.asDatabaseModel())
+                // Take first three items
+                val threeNews = NetworkNewsContainer(newsItems.videos.take(3))
+
+                database.dao.insertAll(*threeNews.asDatabaseModel())
             } catch (e: Exception) {
                 Timber.e("refreshVideos() error = %s", e.message)
             }

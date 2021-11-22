@@ -95,4 +95,7 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-messaging-ktx'
+
+    // Swipe to refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

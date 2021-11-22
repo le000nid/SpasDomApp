@@ -58,6 +58,7 @@ class HomeFragment : Fragment() {
         })
 
         Events.serviceEvent.observe(viewLifecycleOwner, { item ->
+            // TODO(I think we don't need this method because we'll get notification while opening the app from GET)
             Log.i("fragment", item.toString())
         })
 
@@ -117,6 +118,13 @@ class HomeFragment : Fragment() {
         binding.root.findViewById<RecyclerView>(R.id.alerts_rv).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = viewModelAlertsAdapter
+        }
+
+        binding.apply {
+            swipeRefreshHome.setOnRefreshListener {
+                viewModel?.swipeToRefresh()
+                swipeRefreshHome.isRefreshing = false
+            }
         }
 
         return binding.root

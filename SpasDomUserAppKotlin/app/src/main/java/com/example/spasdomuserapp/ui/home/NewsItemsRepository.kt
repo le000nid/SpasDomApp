@@ -1,5 +1,6 @@
 package com.example.spasdomuserapp.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.spasdomuserapp.database.NewsItemsDatabase
@@ -41,6 +42,7 @@ class NewsItemsRepository(private val database: NewsItemsDatabase) {
     suspend fun refreshNewsItems() {
         withContext(Dispatchers.IO) {
             try {
+                //TODO(When null or empty is received it means that we need update actual data(clear all case))
                 val newsItems = Network.spasDom.getNewsItems()
                 database.dao.insertAll(*newsItems.asDatabaseModel())
             } catch (e: Exception) {

@@ -54,6 +54,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     val alerts = videosRepository.alerts
 
+    fun swipeToRefresh() = viewModelScope.launch {
+        videosRepository.refreshNewsItems()
+        videosRepository.refreshAlerts()
+    }
+
     /**
      * Factory for constructing HomeViewModel with parameter
      */

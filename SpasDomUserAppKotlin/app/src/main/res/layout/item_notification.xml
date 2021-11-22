@@ -5,12 +5,8 @@
 
     <data>
         <variable
-            name="newsItem"
-            type="com.example.spasdomuserapp.domain.NewsItem" />
-
-        <variable
-            name="newsItemCallback"
-            type="com.example.spasdomuserapp.ui.home.NewsItemClick" />
+            name="alert"
+            type="com.example.spasdomuserapp.domain.Alert" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -19,28 +15,30 @@
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
-        style="@style/cardWithBorder">
+        style="@style/cardWithBorder"
+        app:strokeColor="@color/secondaryColor">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tv_news_date"
+                android:id="@+id/tv_alert_date"
                 style="@style/TextAppearance.MaterialComponents.Caption"
+                android:text="@{alert.data}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_big"
-                android:text="@{newsItem.updated}"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="01.02.22" />
+                tools:text="01.02.22  |  14:00 - 16:00" />
 
             <TextView
-                android:id="@+id/tv_news_title"
+                android:id="@+id/tv_alert_title"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:text="@{newsItem.title}"
+                android:text="@{alert.title}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
@@ -48,37 +46,37 @@
                 android:layout_marginEnd="@dimen/spacing_normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_news_date"
+                app:layout_constraintTop_toBottomOf="@+id/tv_alert_date"
                 tools:text="Название новости" />
 
             <TextView
-                android:id="@+id/tv_news_desc"
+                android:id="@+id/tv_alert_desc"
                 style="@style/TextAppearance.MaterialComponents.Body2"
-                android:text="@{newsItem.shortDescription}"
+                android:text="@{alert.description}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_little"
                 android:layout_marginEnd="@dimen/spacing_normal"
-                android:layout_marginBottom="@dimen/spacing_normal"
-                android:maxLines="2"
+                android:layout_marginBottom="@dimen/spacing_big"
                 android:ellipsize="end"
+                android:maxLines="2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_news_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_alert_title"
                 tools:text="Какой-то текст относящийся к данной новости и длинной две строки" />
 
-            <View
-                android:id="@+id/clickableOverlay"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="@{() -> newsItemCallback.onClick(newsItem)}"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <ImageView
+                android:id="@+id/image_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_big"
+                android:layout_marginEnd="@dimen/spacing_normal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_notification_important"
+                app:tint="@color/secondaryColor" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -20,15 +20,16 @@ package com.example.spasdomuserapp.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.spasdomuserapp.domain.NewsItem
+import com.example.spasdomuserapp.domain.Alert
 
 @Entity
 data class DatabaseNewsItem constructor(
-        @PrimaryKey
-        val url: String,
-        val updated: String,
-        val title: String,
-        val description: String,
-        val thumbnail: String)
+    @PrimaryKey
+    val url: String,
+    val updated: String,
+    val title: String,
+    val description: String,
+    val thumbnail: String)
 
 fun List<DatabaseNewsItem>.asDomainModel(): List<NewsItem> {
     return map {
@@ -38,5 +39,24 @@ fun List<DatabaseNewsItem>.asDomainModel(): List<NewsItem> {
                 description = it.description,
                 updated = it.updated,
                 thumbnail = it.thumbnail)
+    }
+}
+
+
+@Entity
+data class DataBaseAlert(
+    val data: String,
+    val title: String,
+    @PrimaryKey
+    val description: String
+)
+
+fun List<DataBaseAlert>.asDomainAlertModel(): List<Alert> {
+    return map {
+        Alert(
+            data = it.data,
+            title = it.title,
+            description = it.description
+        )
     }
 }

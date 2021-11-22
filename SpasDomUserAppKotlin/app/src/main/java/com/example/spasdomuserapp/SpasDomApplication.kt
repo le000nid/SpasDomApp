@@ -19,8 +19,11 @@ package com.example.spasdomuserapp
 
 import android.app.Application
 import android.os.Build
+import android.util.Log
 import androidx.work.*
 import com.example.spasdomuserapp.work.RefreshDataWorker
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -70,5 +73,20 @@ class SpasDomApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         delayedInit()
+        getFCMToken()
+    }
+
+    private fun getFCMToken() {
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.i("notification", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            // Get new FCM registration token
+            val token = task.result
+            Log.i("notification", token!!)
+        })
     }
 }

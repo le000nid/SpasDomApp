@@ -28,3 +28,9 @@ data class NewsItem(val title: String,
     val shortDescription: String
         get() = description.smartTruncate(200)
 }
+
+data class Alert(
+    val data: String,
+    val title: String,
+    val description: String
+)

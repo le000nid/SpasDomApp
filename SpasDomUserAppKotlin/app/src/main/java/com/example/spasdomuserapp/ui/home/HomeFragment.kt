@@ -1,5 +1,6 @@
 package com.example.spasdomuserapp.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentHomeBinding
 import com.example.spasdomuserapp.domain.NewsItem
+import com.example.spasdomuserapp.firebase.Events
 import timber.log.Timber
 
 /**
@@ -38,6 +40,8 @@ class HomeFragment : Fragment() {
      */
     private var viewModelAdapter: NewsItemsAdapter? = null
 
+    private var viewModelAlertsAdapter: AlertsAdapter? = null
+
     /**
      * Called immediately after onCreateView() has returned, and fragment's
      * view hierarchy has been created.  It can be used to do final
@@ -50,6 +54,18 @@ class HomeFragment : Fragment() {
         viewModel.newsItems.observe(viewLifecycleOwner, { news ->
             news?.apply {
                 viewModelAdapter?.newsItems = news
+            }
+        })
+
+        Events.serviceEvent.observe(viewLifecycleOwner, { item ->
+            // TODO(I think we don't need this method because we'll get notification while opening the app from GET)
+            Log.i("fragment", item.toString())
+        })
+
+        viewModel.alerts.observe(viewLifecycleOwner, { alerts ->
+            alerts?.apply {
+                Log.i("alerts", alerts.toString())
+                viewModelAlertsAdapter?.alerts = alerts
             }
         })
     }
@@ -85,9 +101,29 @@ class HomeFragment : Fragment() {
             this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewsDetailedFragment(it))
         })
 
+        viewModelAlertsAdapter = AlertsAdapter()
+
         binding.root.findViewById<RecyclerView>(R.id.news_recycler_view).apply {
-            layoutManager = LinearLayoutManager(context)
+            
+            /** TODO(BUG. Fix someday or forget)
+            * This disables scrolling, but for some unknown reason only displays the first three elements.
+            * However, that's what we need, so this bug has become a feature :)
+            */
+            layoutManager =
+                     object : LinearLayoutManager(context){ override fun canScrollVertically(): Boolean { return false } }
             adapter = viewModelAdapter
+        }
+
+        binding.root.findViewById<RecyclerView>(R.id.alerts_rv).apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = viewModelAlertsAdapter
+        }
+
+        binding.apply {
+            swipeRefreshHome.setOnRefreshListener {
+                viewModel?.swipeToRefresh()
+                swipeRefreshHome.isRefreshing = false
+            }
         }
 
         return binding.root

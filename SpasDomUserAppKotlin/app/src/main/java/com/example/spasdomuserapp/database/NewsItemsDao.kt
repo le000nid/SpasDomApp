@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.selects.select
 
 @Dao
 interface NewsItemsDao {
@@ -13,4 +14,11 @@ interface NewsItemsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg videos: DatabaseNewsItem)
+
+
+    @Query("select * from databasealert")
+    fun getAlerts(): LiveData<List<DataBaseAlert>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllAlerts(vararg alerts: DataBaseAlert)
 }

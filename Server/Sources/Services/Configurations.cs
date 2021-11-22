@@ -10,9 +10,9 @@ namespace Services
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services
-                .AddRefitClient<IFirebaseService>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.github.com"));
+            // services
+            //     .AddRefitClient<IFirebaseService>()
+            //     .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.github.com"));
 
             services.AddScoped<IFirebaseService, FirebaseService>();
             

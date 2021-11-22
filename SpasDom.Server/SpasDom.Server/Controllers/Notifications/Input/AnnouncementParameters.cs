@@ -12,9 +12,12 @@ namespace SpasDom.Server.Controllers.Notifications.Input
         [JsonProperty("body")]
         public string Body { get; set; }
 
-        [JsonProperty("posted_at")]
-        public DateTimeOffset PostedAt { get; set; }
+        [JsonProperty("post_date")]
+        public DateTimeOffset PostDate { get; set; }
         
+        [JsonProperty("death_date")]
+        public DateTimeOffset DeathDate { get; set; }
+
         [JsonProperty("category")]
         public AnnouncementCategory Category { get; set; }
         
@@ -27,8 +30,10 @@ namespace SpasDom.Server.Controllers.Notifications.Input
             {
                 Title = Title,
                 Body = Body,
-                PostedAt = PostedAt,
                 Category = Category,
+                PostDate = PostDate,
+                DeathDate = DeathDate,
+                Status = PostDate <= DateTimeOffset.UtcNow ? AnnouncementStatus.Active : AnnouncementStatus.Pending,
             };
         }
     }

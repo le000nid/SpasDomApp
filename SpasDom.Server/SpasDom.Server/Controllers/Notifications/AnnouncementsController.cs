@@ -4,7 +4,6 @@ using SpasDom.Server.Controllers.Notifications.Output;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.SelectParameters;
-using Db;
 using Db.Repository.Interfaces;
 using Entities;
 using System;
@@ -30,50 +29,101 @@ namespace SpasDom.Server.Controllers.Notifications
         /// <summary>
         /// Получение всех объявлений
         /// </summary>
+        /// <param name="parameters"></param>
         /// <returns></returns>
         [HttpGet]
-        public AnnouncementSummary[] GetAll([FromQuery] SelectParameters parameters)
+        public async Task<AnnouncementSummary[]> GetAllAsync([FromQuery] AnnouncementSelectParameters parameters)
         {
-            var res = AnnouncementQuery().Select(n => new AnnouncementSummary(n)).ToArray();
+            var query = AnnouncementHousesQuery();
+
+            if (parameters.BusinessAccounts != null)
+            {
+                // Это ебань, я не хочу 
+                // не надо
+                // не лезь убьет
+                query = query;
+            }
+
+            if (parameters.HouseNumbers != null)
+            {
+                query = query.Where(l => parameters.HouseNumbers.Contains(l.House.Number));
+            }
+
+            query = query.Skip(parameters.Skip).Take(parameters.Take);
+
+            var res = await query.Select(l => new AnnouncementSummary(l.Announcement))
+                                            .ToArrayAsync();
             return res;
         }
 
         [HttpGet("{id:long}")]
         public AnnouncementSummary Get(long id)
         {
-            var entity =  _announcements.Query().FirstOrDefault(n => n.Id == id);
+            var entity = AnnouncementQuery().FirstOrDefault(n => n.Id == id);
             return new AnnouncementSummary(entity);
         }
 
-
+        /// <summary>
+        /// Создать новое оповещение
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         [HttpPost]
         public async Task<AnnouncementSummary> CreateAsync([FromBody] AnnouncementParameters parameters)
         {
             var houseNumbers = parameters.Houses;
 
             var query = _houses.Query()
-                                .Where(h => houseNumbers.Contains(h.Number));
-                                
+                .Where(h => houseNumbers.Contains(h.Number));
+
             if (!query.Any())
             {
-                throw new Exception("Пися");
+                throw new Exception("Домов с такими номерами нет в системе");
             }
 
             var @new = parameters.Build();
             var announcement = await _announcements.AddAsync(@new);
             var links = query.Select(h => new AnnouncementHouse(announcement, h))
-                             .ToArray();
+                .ToArray();
 
             await _announcementsHouseLinks.AddAsync(links);
 
             return new AnnouncementSummary(announcement);
         }
 
+        /// <summary>
+        /// Удаление оповещения
+        /// </summary>
+        /// <param name="id">Идентификатор оповещения</param>
+        /// <returns>
+        /// - True - оповещение успешно удалено
+        /// - False - оповещение удалить не удалось
+        /// </returns>
+        [HttpDelete("{id:long}")]
+        public async Task<bool> DeleteAsync([FromQuery] long id)
+        {
+            var existed = await _announcements.FindAsync(id);
+            if (existed == default)
+            {
+                return false;
+            }
+
+            return await _announcements.DeleteAsync(existed);
+        }
+
         private IQueryable<Announcement> AnnouncementQuery()
         {
-            return this._announcements.Query()
-                                      .Include(a => a.Houses)
-                                      .ThenInclude(l => l.House);
+            return _announcements.Query()
+                .Include(a => a.Houses)
+                .ThenInclude(l => l.House);
+        }
+
+        private IQueryable<AnnouncementHouse> AnnouncementHousesQuery()
+        {
+            return _announcementsHouseLinks.Query()
+                .Include(l => l.Announcement)
+                .Include(l => l.House);
         }
     }
 }

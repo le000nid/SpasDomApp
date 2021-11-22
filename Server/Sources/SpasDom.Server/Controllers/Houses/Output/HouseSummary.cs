@@ -7,12 +7,16 @@ namespace SpasDom.Server
     {
         public HouseSummary(House source)
         {
+            Id = source.Id;
             HouseNumber = source.Number;
             City = source.City;
             Street = source.Street;
             Area = source.Area;
         }
 
+
+        [JsonPropertyName("id")]
+        public long Id { get; set; }
 
         [JsonPropertyName("houseNumber")]
         public long HouseNumber { get; set; }

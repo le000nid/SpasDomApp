@@ -8,7 +8,7 @@ import androidx.room.Query
 import kotlinx.coroutines.selects.select
 
 @Dao
-interface NewsItemsDao {
+interface CacheDao {
     @Query("select * from databasenewsitem")
     fun getNewsItems(): LiveData<List<DatabaseNewsItem>>
 
@@ -21,4 +21,11 @@ interface NewsItemsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllAlerts(vararg alerts: DataBaseAlert)
+
+
+    @Query("select * from cacheactiveplannedorder")
+    fun getActivePlannedOrders(): LiveData<List<CacheActivePlannedOrder>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllActivePlannedOrders(vararg alerts: CacheActivePlannedOrder)
 }

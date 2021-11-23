@@ -19,6 +19,7 @@ package com.example.spasdomuserapp.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.spasdomuserapp.domain.ActivePlannedOrder
 import com.example.spasdomuserapp.domain.NewsItem
 import com.example.spasdomuserapp.domain.Alert
 
@@ -42,6 +43,7 @@ fun List<DatabaseNewsItem>.asDomainModel(): List<NewsItem> {
     }
 }
 
+// TODO(Replace primary key)
 
 @Entity
 data class DataBaseAlert(
@@ -57,6 +59,23 @@ fun List<DataBaseAlert>.asDomainAlertModel(): List<Alert> {
             data = it.data,
             title = it.title,
             description = it.description
+        )
+    }
+}
+
+
+@Entity
+data class CacheActivePlannedOrder(
+    val title: String,
+    @PrimaryKey
+    val desc: String
+)
+
+fun List<CacheActivePlannedOrder>.asDomainActivePlannedOrder(): List<ActivePlannedOrder> {
+    return map {
+        ActivePlannedOrder(
+            title = it.title,
+            desc = it.desc
         )
     }
 }

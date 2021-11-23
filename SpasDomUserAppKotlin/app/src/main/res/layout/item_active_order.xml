@@ -4,7 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="activeOrder"
+            type="com.example.spasdomuserapp.domain.ActivePlannedOrder" />
 
+        <variable
+            name="activeOrderCallback"
+            type="com.example.spasdomuserapp.ui.services.planned.ActivePlannedOrderClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -28,16 +34,18 @@
                 android:layout_marginTop="@dimen/spacing_little"
                 android:layout_marginBottom="@dimen/spacing_big"
                 android:textStyle="bold"
+                android:text="@{activeOrder.desc}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_alert_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_order_title"
                 tools:text="01.02.22  |  14:00 - 16:00" />
 
             <TextView
-                android:id="@+id/tv_alert_title"
+                android:id="@+id/tv_order_title"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="@{activeOrder.title}"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_big"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
@@ -55,6 +63,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_navigate_next"
                 app:tint="@color/grayMiddle" />
+
+            <View
+                android:id="@+id/clickableOverlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="@{() -> activeOrderCallback.onClick(activeOrder)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

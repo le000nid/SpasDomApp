@@ -1,9 +1,8 @@
 package com.example.spasdomuserapp.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.example.spasdomuserapp.database.NewsItemsDatabase
+import com.example.spasdomuserapp.database.CacheDatabase
 import com.example.spasdomuserapp.database.asDomainAlertModel
 import com.example.spasdomuserapp.database.asDomainModel
 import com.example.spasdomuserapp.domain.Alert
@@ -13,18 +12,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class NewsItemsRepository(private val database: NewsItemsDatabase) {
+class NewsItemsRepository(private val cache: CacheDatabase) {
 
     /**
      * A feed of newsItems that can be shown on the screen.
      */
     val newsItems: LiveData<List<NewsItem>> =
-        Transformations.map(database.dao.getNewsItems()) {
+        Transformations.map(cache.dao.getNewsItems()) {
             it.asDomainModel()
         }
 
     val alerts: LiveData<List<Alert>> =
-        Transformations.map(database.dao.getAlerts()) {
+        Transformations.map(cache.dao.getAlerts()) {
             it.asDomainAlertModel()
         }
 
@@ -47,7 +46,7 @@ class NewsItemsRepository(private val database: NewsItemsDatabase) {
                 // Take first three items
                 val threeNews = NetworkNewsContainer(newsItems.videos.take(3))
 
-                database.dao.insertAll(*threeNews.asDatabaseModel())
+                cache.dao.insertAll(*threeNews.asDatabaseModel())
             } catch (e: Exception) {
                 Timber.e("refreshVideos() error = %s", e.message)
             }
@@ -65,7 +64,7 @@ class NewsItemsRepository(private val database: NewsItemsDatabase) {
                 )
 
                 val alerts = NetworkAlertsContainer(alertsInit)
-                database.dao.insertAllAlerts(*alerts.asDatabaseAlertModel())
+                cache.dao.insertAllAlerts(*alerts.asDatabaseAlertModel())
             } catch (e: Exception) {
                 Timber.e("refreshVideos() error = %s", e.message)
             }

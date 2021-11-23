@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.orders
+package com.example.spasdomuserapp.ui.services.additionals
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

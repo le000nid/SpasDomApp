@@ -1,6 +1,7 @@
 package com.example.spasdomuserapp.domain
 
 import android.os.Parcelable
+import androidx.room.PrimaryKey
 import com.example.spasdomuserapp.util.smartTruncate
 import kotlinx.android.parcel.Parcelize
 
@@ -33,4 +34,9 @@ data class Alert(
     val data: String,
     val title: String,
     val description: String
+)
+
+data class ActivePlannedOrder(
+    val title: String,
+    val desc: String
 )

@@ -10,7 +10,7 @@ namespace SpasDom.Server.Controllers.Houses
 {
     [ApiController]
     [Route("houses")]
-    public class HousesController : Controller
+    public class HousesController : ControllerBase
     {
         private readonly ICrudRepository<House> _houses;
 

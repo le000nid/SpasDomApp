@@ -91,6 +91,9 @@ namespace Db.Migrations
                     b.Property<long>("Number")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Apartments");

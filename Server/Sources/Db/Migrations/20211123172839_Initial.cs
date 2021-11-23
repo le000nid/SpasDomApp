@@ -39,6 +39,7 @@ namespace Db.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     FirebaseToken = table.Column<string>(type: "TEXT", nullable: true),
                     BusinessAccount = table.Column<string>(type: "TEXT", nullable: true),
+                    Password = table.Column<string>(type: "TEXT", nullable: true),
                     Number = table.Column<long>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },

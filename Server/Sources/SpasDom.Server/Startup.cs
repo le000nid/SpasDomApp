@@ -6,10 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Db;
-using Db.Repository;
 using System.Reflection;
 using System.IO;
 using System;
+using Services;
 
 namespace SpasDom.Server
 {
@@ -25,9 +25,15 @@ namespace SpasDom.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Console.WriteLine("Environs");
+            Console.WriteLine(Configuration["Firebase:ApiKey"]);
+            Console.WriteLine(Configuration["Firebase:ProjectId"]);
+
             services.AddDb();
 
             services.AddControllers();
+
+            services.AddServices();
             
             services.AddSwaggerGen(options =>
             {

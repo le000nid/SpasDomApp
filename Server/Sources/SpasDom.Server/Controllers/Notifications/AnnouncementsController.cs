@@ -8,22 +8,30 @@ using Db.Repository.Interfaces;
 using Entities;
 using System;
 using Microsoft.EntityFrameworkCore;
+using Common.Updates;
+using System.Collections.Generic;
+using Common.Updates.Generic;
+using Services.Firebase.Interfaces;
 
 namespace SpasDom.Server.Controllers.Notifications
 {
     [Route("announcements")]
     [ApiController]
-    public class AnnouncementsController : Controller
+    public class AnnouncementsController : ControllerBase
     {
         private readonly ICrudRepository<Announcement> _announcements;
         private readonly ICrudRepository<House> _houses;
         private readonly ICrudRepository<AnnouncementHouse> _announcementsHouseLinks;
+        
+        private readonly IFirebaseService _firebase;
 
-        public AnnouncementsController(ICrudFactory factory)
+        public AnnouncementsController(ICrudFactory factory, IFirebaseService firebase)
         {
             _announcements = factory.Get<Announcement>();
             _houses = factory.Get<House>();
             _announcementsHouseLinks = factory.Get<AnnouncementHouse>();
+
+            _firebase = firebase;
         }
 
         /// <summary>
@@ -56,6 +64,19 @@ namespace SpasDom.Server.Controllers.Notifications
             return res;
         }
 
+        [HttpGet("test")]
+        public async Task<string> Test()
+        {
+            var ids = new string[]
+            {
+                "drGHF7MxSxKVDpm1jeDJf-:APA91bGQe5xRQG40cYEfmW6rpuo4wk_SLeQ-F8nlRoM25Ap8jajiXnSpvNTvpo7XIrCXXvovG--_TX7enChYYTMj8NCuH1jGQkPCgpRUNNnzbIdl_b2Mt2gJ6XjPYODgiJoOSizq2xbj"
+            };
+            
+            var response = await _firebase.CreateGroupAsync(ids);
+
+            return response.NotificationKey;
+        }
+        
         [HttpGet("{id:long}")]
         public AnnouncementSummary Get(long id)
         {
@@ -66,7 +87,7 @@ namespace SpasDom.Server.Controllers.Notifications
         [HttpGet("categories")]
         public AnnouncementCategorySummary[] GetCategory()
         {
-            var categories = new AnnouncementCategory[]{AnnouncementCategory.Electricity, AnnouncementCategory.Water};
+            var categories = new AnnouncementCategory[] { AnnouncementCategory.Electricity, AnnouncementCategory.Water };
 
             return categories.Select(c => new AnnouncementCategorySummary(c)).ToArray();
         }
@@ -100,11 +121,22 @@ namespace SpasDom.Server.Controllers.Notifications
 
             var @new = parameters.Build();
             var announcement = await _announcements.AddAsync(@new);
+            
             var links = query.Select(h => new AnnouncementHouse(announcement, h))
                 .ToArray();
 
             await _announcementsHouseLinks.AddAsync(links);
 
+            var deviceIds = await query.SelectMany(h => h.Apartments)
+                                             .Select(l => l.Apartment)
+                                             .Select(a => a.FirebaseToken)
+                                             .Where(t => t != null)
+                                             .ToArrayAsync();
+
+            //var groupResponse = await _firebase.CreateGroupAsync(deviceIds);
+
+            //await _firebase.SendNotificationAsync(groupResponse.NotificationKey, announcement.Title, announcement.Body);
+            
             return new AnnouncementSummary(announcement);
         }
 

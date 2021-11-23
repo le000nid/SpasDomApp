@@ -1,15 +1,16 @@
 ﻿using System.Threading.Tasks;
+using Services.Firebase.Interfaces.Models;
 
 namespace Services.Firebase.Interfaces
 {
     public interface IFirebaseService
     {
-        Task CreateGroup();
+        Task<GroupManagingResponse> CreateGroupAsync(string[] deviceIds);
 
-        Task AddToGroup();
+        Task<GroupManagingResponse> AddToGroupAsync(string[] deviceIds);
         
-        Task RemoveFromGroup();
-        
-        
+        Task<GroupManagingResponse> RemoveFromGroupAsync(string[] deviceIds);
+
+        Task<NotificationResponse> SendNotificationAsync(string to, string title, string body);
     }
 }

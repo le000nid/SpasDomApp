@@ -1,28 +1,29 @@
 ﻿using Newtonsoft.Json;
 using System;
 using Entities;
+using System.Text.Json.Serialization;
 
 namespace SpasDom.Server.Controllers.Notifications.Input
 {
     public class AnnouncementParameters
     {
-        [JsonProperty("title")]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
         
-        [JsonProperty("body")]
+        [JsonPropertyName("body")]
         public string Body { get; set; }
 
-        [JsonProperty("post_date")]
+        [JsonPropertyName("postDate")]
         public DateTimeOffset PostDate { get; set; }
         
-        [JsonProperty("death_date")]
+        [JsonPropertyName("deathDate")]
         public DateTimeOffset DeathDate { get; set; }
 
-        [JsonProperty("category")]
+        [JsonPropertyName("category")]
         public AnnouncementCategory Category { get; set; }
         
-        [JsonProperty("houses")]
-        public long[] Houses { get; set; }
+        [JsonPropertyName("houseIds")]
+        public long[] HouseIds { get; set; }
 
         public Announcement Build()
         {

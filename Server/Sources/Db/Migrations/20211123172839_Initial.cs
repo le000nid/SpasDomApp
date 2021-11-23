@@ -19,7 +19,9 @@ namespace Db.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Body = table.Column<string>(type: "TEXT", nullable: true),
-                    PostedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    PostDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    DeathDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     Category = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
@@ -35,7 +37,9 @@ namespace Db.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    FirebaseToken = table.Column<string>(type: "TEXT", nullable: true),
                     BusinessAccount = table.Column<string>(type: "TEXT", nullable: true),
+                    Password = table.Column<string>(type: "TEXT", nullable: true),
                     Number = table.Column<long>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },

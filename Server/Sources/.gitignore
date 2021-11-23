@@ -3,7 +3,6 @@
 project.lock.json
 .DS_Store
 *.pyc
-1.txt
 SpasDom.Server/appsettings.Development.json
 
 # Visual Studio Code

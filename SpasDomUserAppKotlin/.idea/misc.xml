@@ -24,6 +24,8 @@
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_chat.xml" value="0.21693840579710144" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_home.xml" value="0.12322695035460993" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_news_detailed.xml" value="0.5181550539744848" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_planned.xml" value="0.17391304347826086" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_active_order.xml" value="0.4" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_news.xml" value="0.2164855072463768" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_notification.xml" value="0.4020100502512563" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_push_notification.xml" value="0.21693840579710144" />

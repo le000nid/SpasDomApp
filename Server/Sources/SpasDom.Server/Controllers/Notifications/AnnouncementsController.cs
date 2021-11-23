@@ -22,7 +22,7 @@ namespace SpasDom.Server.Controllers.Notifications
         private readonly ICrudRepository<Announcement> _announcements;
         private readonly ICrudRepository<House> _houses;
         private readonly ICrudRepository<AnnouncementHouse> _announcementsHouseLinks;
-        
+
         private readonly IFirebaseService _firebase;
 
         public AnnouncementsController(ICrudFactory factory, IFirebaseService firebase)
@@ -60,6 +60,7 @@ namespace SpasDom.Server.Controllers.Notifications
             query = query.Skip(parameters.Skip).Take(parameters.Take);
 
             var res = await query.Select(l => new AnnouncementSummary(l.Announcement))
+                .Distinct()
                                             .ToArrayAsync();
             return res;
         }
@@ -71,12 +72,12 @@ namespace SpasDom.Server.Controllers.Notifications
             {
                 "drGHF7MxSxKVDpm1jeDJf-:APA91bGQe5xRQG40cYEfmW6rpuo4wk_SLeQ-F8nlRoM25Ap8jajiXnSpvNTvpo7XIrCXXvovG--_TX7enChYYTMj8NCuH1jGQkPCgpRUNNnzbIdl_b2Mt2gJ6XjPYODgiJoOSizq2xbj"
             };
-            
+
             var response = await _firebase.CreateGroupAsync(ids);
 
             return response.NotificationKey;
         }
-        
+
         [HttpGet("{id:long}")]
         public AnnouncementSummary Get(long id)
         {
@@ -121,7 +122,7 @@ namespace SpasDom.Server.Controllers.Notifications
 
             var @new = parameters.Build();
             var announcement = await _announcements.AddAsync(@new);
-            
+
             var links = query.Select(h => new AnnouncementHouse(announcement, h))
                 .ToArray();
 
@@ -136,7 +137,7 @@ namespace SpasDom.Server.Controllers.Notifications
             //var groupResponse = await _firebase.CreateGroupAsync(deviceIds);
 
             //await _firebase.SendNotificationAsync(groupResponse.NotificationKey, announcement.Title, announcement.Body);
-            
+
             return new AnnouncementSummary(announcement);
         }
 

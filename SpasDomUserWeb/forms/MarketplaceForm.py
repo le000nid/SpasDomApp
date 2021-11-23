@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, TextAreaField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
-from wtforms.widgets import  TextArea
+from wtforms.widgets import TextArea
 
 
 class MarketplaceForm(FlaskForm):

@@ -36,28 +36,49 @@ body{
 
 
 /* 3. Alerts */
-.alerts-form{
+.announcement-form{
     grid-column: 1 / 2;
     margin-top: 7vh;
 }
 
-.check-alert{
+.check-announcements{
     grid-column: 2 / 10;
-    margin-top: 15vh;
-    background: #F1F2F2;
+    margin-top: 12vh;
 }
+
+.list-group{
+    height: 700px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.trash:hover{
+    color: #FF0000;
+}
+
+.trash{
+    position: absolute;
+    top: 15px;
+    right: 5%;
+    color: #6f6f6f;
+}
+
+.tools:hover{
+    color: #FF8C00;
+}
+.tools{
+    position: absolute;
+    top: 15px;
+    right: 8%;
+}
+
 
 /* 4. Marketplace */
 .marketplace-form{
     grid-column: 1 / 2;
-    margin-top: 7vh;
+    margin-top: 10vh;
 }
 
-.check-alerts{
-    grid-column: 2 / 10;
-    margin-top: 15vh;
-    background: #F1F2F2;
-}
 
 
 /* 5. Helpers */

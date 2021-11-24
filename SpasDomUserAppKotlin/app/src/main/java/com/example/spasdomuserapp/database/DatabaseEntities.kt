@@ -19,7 +19,7 @@ package com.example.spasdomuserapp.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.spasdomuserapp.domain.ActivePlannedOrder
+import com.example.spasdomuserapp.domain.PlannedOrder
 import com.example.spasdomuserapp.domain.NewsItem
 import com.example.spasdomuserapp.domain.Alert
 
@@ -65,17 +65,23 @@ fun List<DataBaseAlert>.asDomainAlertModel(): List<Alert> {
 
 
 @Entity
-data class CacheActivePlannedOrder(
+data class CachePlannedOrder(
     val title: String,
     @PrimaryKey
-    val desc: String
+    val desc: String,
+    val rate: Int?,
+    val review: String?,
+    val isFinished: Boolean
 )
 
-fun List<CacheActivePlannedOrder>.asDomainActivePlannedOrder(): List<ActivePlannedOrder> {
+fun List<CachePlannedOrder>.asDomainPlannedOrder(): List<PlannedOrder> {
     return map {
-        ActivePlannedOrder(
+        PlannedOrder(
             title = it.title,
-            desc = it.desc
+            desc = it.desc,
+            rate = it.rate,
+            review = it.review,
+            isFinished = it.isFinished
         )
     }
 }

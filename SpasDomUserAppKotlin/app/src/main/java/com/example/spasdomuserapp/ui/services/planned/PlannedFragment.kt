@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedBinding
-import com.example.spasdomuserapp.domain.ActivePlannedOrder
+import com.example.spasdomuserapp.domain.PlannedOrder
 
 class PlannedFragment : Fragment() {
 
@@ -22,14 +22,14 @@ class PlannedFragment : Fragment() {
         ViewModelProvider(this, PlannedViewModel.Factory(activity.application))[PlannedViewModel::class.java]
     }
 
-    private var viewModelAdapter: ActivePlannedOrdersAdapter? = null
+    private var viewModelAdapter: PlanedOrdersAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.activePlannedOrders.observe(viewLifecycleOwner, { orders ->
             orders?.apply {
-                viewModelAdapter?.activePlannedOrders = orders
+                viewModelAdapter?.plannedOrders = orders
             }
         })
     }
@@ -44,7 +44,7 @@ class PlannedFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModelAdapter = ActivePlannedOrdersAdapter(ActivePlannedOrderClick {
+        viewModelAdapter = PlanedOrdersAdapter(PlannedOrderClick {
             //TODO(navigate to decs screen)
         })
 
@@ -65,6 +65,6 @@ class PlannedFragment : Fragment() {
     }
 }
 
-class ActivePlannedOrderClick(val block: (ActivePlannedOrder) -> Unit) {
-    fun onClick(activePlannedOrder: ActivePlannedOrder) = block(activePlannedOrder)
+class PlannedOrderClick(val block: (PlannedOrder) -> Unit) {
+    fun onClick(plannedOrder: PlannedOrder) = block(plannedOrder)
 }

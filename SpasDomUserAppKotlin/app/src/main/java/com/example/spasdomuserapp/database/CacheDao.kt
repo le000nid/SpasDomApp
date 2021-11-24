@@ -23,9 +23,12 @@ interface CacheDao {
     fun insertAllAlerts(vararg alerts: DataBaseAlert)
 
 
-    @Query("select * from cacheactiveplannedorder")
-    fun getActivePlannedOrders(): LiveData<List<CacheActivePlannedOrder>>
+    @Query("select * from cacheplannedorder where isFinished = 0")
+    fun getActivePlannedOrders(): LiveData<List<CachePlannedOrder>>
+
+    @Query("select * from cacheplannedorder where isFinished = 1")
+    fun getHistoryPlannedOrders(): LiveData<List<CachePlannedOrder>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllActivePlannedOrders(vararg alerts: CacheActivePlannedOrder)
+    fun insertAllPlannedOrders(vararg alerts: CachePlannedOrder)
 }

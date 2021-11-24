@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [DatabaseNewsItem::class, DataBaseAlert::class, CacheActivePlannedOrder::class], version = 1)
+@Database(entities = [DatabaseNewsItem::class, DataBaseAlert::class, CachePlannedOrder::class], version = 1)
 abstract class CacheDatabase : RoomDatabase() {
     abstract val dao: CacheDao
 }

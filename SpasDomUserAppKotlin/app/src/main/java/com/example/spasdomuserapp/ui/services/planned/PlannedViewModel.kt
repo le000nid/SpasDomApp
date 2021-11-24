@@ -21,9 +21,12 @@ class PlannedViewModel(application: Application): AndroidViewModel(application) 
 
     val activePlannedOrders = plannedRepository.activePlannedOrders
 
+    val historyPlannedOrders = plannedRepository.historyPlannedOrders
+
 
     fun swipeToRefresh() = viewModelScope.launch {
         plannedRepository.refreshActivePlannedOrders()
+        plannedRepository.refreshHistoryPlannedOrders()
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {

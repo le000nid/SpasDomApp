@@ -1,9 +1,9 @@
 package com.example.spasdomuserapp.network
 
-import com.example.spasdomuserapp.database.CacheActivePlannedOrder
+import com.example.spasdomuserapp.database.CachePlannedOrder
 import com.example.spasdomuserapp.database.DataBaseAlert
 import com.example.spasdomuserapp.database.DatabaseNewsItem
-import com.example.spasdomuserapp.domain.ActivePlannedOrder
+import com.example.spasdomuserapp.domain.PlannedOrder
 import com.squareup.moshi.JsonClass
 
 /**
@@ -69,17 +69,23 @@ fun NetworkAlertsContainer.asDatabaseAlertModel(): Array<DataBaseAlert> {
 
 
 @JsonClass(generateAdapter = true)
-data class NetworkActivePlannedOrdersContainer(val orders: List<ActivePlannedOrder>)
+data class NetworkPlannedOrdersContainer(val orders: List<PlannedOrder>)
 
 @JsonClass(generateAdapter = true)
-data class NetworkActivePlannedOrders(
+data class NetworkPlannedOrders(
     val title: String,
-    val desc: String)
+    val desc: String,
+    val rate: Int?,
+    val review: String?,
+    val isFinished: Boolean)
 
-fun NetworkActivePlannedOrdersContainer.asCacheActivePlannedOrderModel(): Array<CacheActivePlannedOrder> {
+fun NetworkPlannedOrdersContainer.asCachePlannedOrderModel(): Array<CachePlannedOrder> {
     return orders.map {
-        CacheActivePlannedOrder (
+        CachePlannedOrder (
             title = it.title,
-            desc = it.desc)
+            desc = it.desc,
+            rate = it.rate,
+            review = it.review,
+            isFinished = it.isFinished)
     }.toTypedArray()
 }

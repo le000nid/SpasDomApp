@@ -43,4 +43,34 @@
             android:name="newsItem"
             app:argType="com.example.spasdomuserapp.domain.NewsItem" />
     </fragment>
+    <fragment
+        android:id="@+id/plannedFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.PlannedFragment"
+        android:label="fragment_planned"
+        tools:layout="@layout/fragment_planned" >
+        <action
+            android:id="@+id/action_plannedFragment_to_activePlannedDetailedFragment"
+            app:destination="@id/activePlannedDetailedFragment" />
+        <action
+            android:id="@+id/action_plannedFragment_to_historyPlannedDetailedFragment"
+            app:destination="@id/historyPlannedDetailedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyPlannedDetailedFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.HistoryPlannedDetailedFragment"
+        android:label="fragment_history_planned_detailed"
+        tools:layout="@layout/fragment_history_planned_detailed" >
+        <argument
+            android:name="historyPlannedOrder"
+            app:argType="com.example.spasdomuserapp.domain.PlannedOrder" />
+    </fragment>
+    <fragment
+        android:id="@+id/activePlannedDetailedFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.ActivePlannedDetailedFragment"
+        android:label="fragment_active_planned_detailed"
+        tools:layout="@layout/fragment_active_planned_detailed" >
+        <argument
+            android:name="activePlannedOrder"
+            app:argType="com.example.spasdomuserapp.domain.PlannedOrder" />
+    </fragment>
 </navigation>

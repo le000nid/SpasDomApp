@@ -78,7 +78,7 @@ data class NetworkPlannedOrders(
     val date: String,
     val time: String,
     val userRate: Int,
-    val userReview: String?,
+    val userReview: String,
     val isFinished: Boolean,
     val workerImg: String,
     val workerName: String,

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
@@ -62,11 +63,13 @@ class PlannedFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModelActiveAdapter = ActivePlanedOrdersAdapter(PlannedOrderClick {
-            //TODO(navigate to decs screen)
+            val action = PlannedFragmentDirections.actionPlannedFragmentToActivePlannedDetailedFragment(it)
+            findNavController().navigate(action)
         })
 
         viewModelHistoryAdapter = HistoryPlanedOrdersAdapter(PlannedOrderClick {
-            //TODO(navigate to decs screen)
+            val action = PlannedFragmentDirections.actionPlannedFragmentToHistoryPlannedDetailedFragment(it)
+            findNavController().navigate(action)
         }, ReviewClick {
             showCustomInputAlertDialog(it)
         })

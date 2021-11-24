@@ -18,6 +18,7 @@ import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.DialogRateOrderBinding
 import com.example.spasdomuserapp.databinding.FragmentPlannedBinding
 import com.example.spasdomuserapp.domain.PlannedOrder
+import com.example.spasdomuserapp.ui.services.ServicesFragmentDirections
 import kotlinx.android.synthetic.main.dialog_rate_order.view.*
 import timber.log.Timber
 import kotlin.properties.Delegates
@@ -63,12 +64,12 @@ class PlannedFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModelActiveAdapter = ActivePlanedOrdersAdapter(PlannedOrderClick {
-            val action = PlannedFragmentDirections.actionPlannedFragmentToActivePlannedDetailedFragment(it)
+            val action = ServicesFragmentDirections.actionServicesFragmentToActivePlannedDetailedFragment(it)
             findNavController().navigate(action)
         })
 
         viewModelHistoryAdapter = HistoryPlanedOrdersAdapter(PlannedOrderClick {
-            val action = PlannedFragmentDirections.actionPlannedFragmentToHistoryPlannedDetailedFragment(it)
+            val action = ServicesFragmentDirections.actionServicesFragmentToHistoryPlannedDetailedFragment(it)
             findNavController().navigate(action)
         }, ReviewClick {
             showCustomInputAlertDialog(it)

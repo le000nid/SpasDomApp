@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.MutableLiveData
 import com.example.spasdomuserapp.R
@@ -23,7 +24,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
-
+        Log.i("newToken", p0)
+        // TODO(LOGIN FOR IDENTITY)
         // TODO(Make request to the server)
     }
 

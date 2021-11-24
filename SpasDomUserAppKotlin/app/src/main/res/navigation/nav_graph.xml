@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -28,7 +28,14 @@
         android:id="@+id/servicesFragment"
         android:name="com.example.spasdomuserapp.ui.services.ServicesFragment"
         android:label="Услуги"
-        tools:layout="@layout/fragment_services" />
+        tools:layout="@layout/fragment_services" >
+        <action
+            android:id="@+id/action_servicesFragment_to_activePlannedDetailedFragment"
+            app:destination="@id/activePlannedDetailedFragment" />
+        <action
+            android:id="@+id/action_servicesFragment_to_historyPlannedDetailedFragment"
+            app:destination="@id/historyPlannedDetailedFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.spasdomuserapp.ui.profile.ProfileFragment"
@@ -47,14 +54,7 @@
         android:id="@+id/plannedFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.PlannedFragment"
         android:label="fragment_planned"
-        tools:layout="@layout/fragment_planned" >
-        <action
-            android:id="@+id/action_plannedFragment_to_activePlannedDetailedFragment"
-            app:destination="@id/activePlannedDetailedFragment" />
-        <action
-            android:id="@+id/action_plannedFragment_to_historyPlannedDetailedFragment"
-            app:destination="@id/historyPlannedDetailedFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_planned" />
     <fragment
         android:id="@+id/historyPlannedDetailedFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.HistoryPlannedDetailedFragment"
@@ -72,5 +72,14 @@
         <argument
             android:name="activePlannedOrder"
             app:argType="com.example.spasdomuserapp.domain.PlannedOrder" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.spasdomuserapp.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

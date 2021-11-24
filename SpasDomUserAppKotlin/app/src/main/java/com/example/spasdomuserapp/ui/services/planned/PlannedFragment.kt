@@ -53,6 +53,14 @@ class PlannedFragment : Fragment() {
             adapter = viewModelAdapter
         }
 
+        binding.apply {
+            swipeRefreshPlanned.setOnRefreshListener {
+                viewModel?.swipeToRefresh()
+                swipeRefreshPlanned.isRefreshing = false
+            }
+        }
+
+
         return binding.root
     }
 }

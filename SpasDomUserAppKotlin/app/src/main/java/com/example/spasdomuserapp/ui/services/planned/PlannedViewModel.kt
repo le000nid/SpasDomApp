@@ -22,6 +22,9 @@ class PlannedViewModel(application: Application): AndroidViewModel(application) 
     val activePlannedOrders = plannedRepository.activePlannedOrders
 
 
+    fun swipeToRefresh() = viewModelScope.launch {
+        plannedRepository.refreshActivePlannedOrders()
+    }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

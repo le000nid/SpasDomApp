@@ -37,7 +37,7 @@ fun goneIfRateNot0(view: View, rate: Int, state: Boolean) {
 
 @BindingAdapter("setRating")
 fun setRating(view: ImageView, it: PlannedOrder) {
-    when(it.rate) {
+    when(it.userRate) {
         0 -> view.setBackgroundResource(R.drawable.ic_rate_0)
         1 -> view.setBackgroundResource(R.drawable.ic_rate_1)
         2 -> view.setBackgroundResource(R.drawable.ic_rate_2)

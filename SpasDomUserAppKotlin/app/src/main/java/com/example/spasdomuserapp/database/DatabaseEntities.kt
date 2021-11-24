@@ -66,22 +66,34 @@ fun List<DataBaseAlert>.asDomainAlertModel(): List<Alert> {
 
 @Entity
 data class CachePlannedOrder(
-    val title: String,
     @PrimaryKey
-    val desc: String,
-    val rate: Int,
-    val review: String?,
-    val isFinished: Boolean
+    val id: Int,
+    val title: String,
+    val date: String,
+    val time: String,
+    val userRate: Int,
+    val userReview: String?,
+    val isFinished: Boolean,
+    val workerImg: String,
+    val workerName: String,
+    val workerRate: Int,
+    val workerInfo: String
 )
 
 fun List<CachePlannedOrder>.asDomainPlannedOrder(): List<PlannedOrder> {
     return map {
         PlannedOrder(
+            id = it.id,
             title = it.title,
-            desc = it.desc,
-            rate = it.rate,
-            review = it.review,
-            isFinished = it.isFinished
+            date = it.date,
+            time = it.time,
+            userRate = it.userRate,
+            userReview = it.userReview,
+            isFinished = it.isFinished,
+            workerImg = it.workerImg,
+            workerName = it.workerName,
+            workerRate = it.workerRate,
+            workerInfo = it.workerInfo
         )
     }
 }

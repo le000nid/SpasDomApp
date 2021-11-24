@@ -1,7 +1,9 @@
 package com.example.spasdomuserapp.domain
 
 import android.os.Parcelable
+import androidx.lifecycle.Transformations.map
 import androidx.room.PrimaryKey
+import com.example.spasdomuserapp.database.CachePlannedOrder
 import com.example.spasdomuserapp.util.smartTruncate
 import kotlinx.android.parcel.Parcelize
 

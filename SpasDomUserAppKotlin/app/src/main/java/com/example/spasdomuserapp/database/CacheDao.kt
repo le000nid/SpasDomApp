@@ -1,10 +1,7 @@
 package com.example.spasdomuserapp.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.selects.select
 
 @Dao
@@ -31,4 +28,7 @@ interface CacheDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllPlannedOrders(vararg alerts: CachePlannedOrder)
+
+    @Update
+    suspend fun updatePlannedOrder(order: CachePlannedOrder)
 }

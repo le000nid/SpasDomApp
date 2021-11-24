@@ -37,7 +37,7 @@
 
             <TextView
                 android:id="@+id/tv_alert_title"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:text="@{alert.title}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

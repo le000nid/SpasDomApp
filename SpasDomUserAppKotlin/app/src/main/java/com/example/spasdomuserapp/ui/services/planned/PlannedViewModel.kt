@@ -5,7 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.spasdomuserapp.database.asCachePlannerOrder
 import com.example.spasdomuserapp.database.getDatabase
+import com.example.spasdomuserapp.domain.PlannedOrder
 import kotlinx.coroutines.launch
 
 class PlannedViewModel(application: Application): AndroidViewModel(application) {
@@ -28,6 +30,10 @@ class PlannedViewModel(application: Application): AndroidViewModel(application) 
     fun swipeToRefresh() = viewModelScope.launch {
         plannedRepository.refreshActivePlannedOrders()
         plannedRepository.refreshHistoryPlannedOrders()
+    }
+
+    fun updatePlannedOrder(newPlannedOrder: PlannedOrder) = viewModelScope.launch {
+        database.dao.updatePlannedOrder(newPlannedOrder.asCachePlannerOrder())
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {

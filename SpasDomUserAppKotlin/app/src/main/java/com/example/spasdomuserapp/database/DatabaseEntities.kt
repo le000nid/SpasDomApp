@@ -17,11 +17,13 @@
 
 package com.example.spasdomuserapp.database
 
+import androidx.lifecycle.Transformations
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.spasdomuserapp.domain.PlannedOrder
 import com.example.spasdomuserapp.domain.NewsItem
 import com.example.spasdomuserapp.domain.Alert
+import okhttp3.Cache
 
 @Entity
 data class DatabaseNewsItem constructor(
@@ -96,4 +98,20 @@ fun List<CachePlannedOrder>.asDomainPlannedOrder(): List<PlannedOrder> {
             workerInfo = it.workerInfo
         )
     }
+}
+
+fun PlannedOrder.asCachePlannerOrder(): CachePlannedOrder {
+    return CachePlannedOrder(
+        id = id,
+        title = title,
+        date = date,
+        time = time,
+        userRate = userRate,
+        userReview = userReview,
+        isFinished = isFinished,
+        workerImg = workerImg,
+        workerName = workerName,
+        workerRate = workerRate,
+        workerInfo = workerInfo
+    )
 }

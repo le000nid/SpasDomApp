@@ -18,6 +18,7 @@ import com.example.spasdomuserapp.databinding.DialogRateOrderBinding
 import com.example.spasdomuserapp.databinding.FragmentPlannedBinding
 import com.example.spasdomuserapp.domain.PlannedOrder
 import kotlinx.android.synthetic.main.dialog_rate_order.view.*
+import timber.log.Timber
 import kotlin.properties.Delegates
 
 class PlannedFragment : Fragment() {
@@ -95,9 +96,8 @@ class PlannedFragment : Fragment() {
 
     private fun showCustomInputAlertDialog(plannedOrder: PlannedOrder) {
         val dialogBinding = DialogRateOrderBinding.inflate(layoutInflater)
-
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Оставьте пожалуйста отзыв о заказе")
+            .setTitle("Оставьте отзыв о заказе")
             .setView(dialogBinding.root)
             .setPositiveButton("Отправить", null)
             .create()
@@ -105,12 +105,9 @@ class PlannedFragment : Fragment() {
 
             dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
                 val rating = dialogBinding.ratingBar.rating
-                Log.i("rating", rating.toString())
-
-                //viewModel.updatePlannedOrder(plannedOrder.copy(userRate = rating.toInt()))
-
-                //this.rate = rating
-                //updateUi()
+                val review = dialogBinding.editTextReview.text.toString()
+                viewModel.updatePlannedOrder(plannedOrder.copy(userRate = rating.toInt(), userReview = review))
+                //TODO(Make post/put request to remote server)
                 dialog.dismiss()
             }
         }

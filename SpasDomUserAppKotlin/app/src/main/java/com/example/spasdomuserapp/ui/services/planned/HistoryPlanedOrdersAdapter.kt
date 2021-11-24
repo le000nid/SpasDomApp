@@ -11,7 +11,7 @@ import com.example.spasdomuserapp.databinding.ItemPlannedOrderBinding
 import com.example.spasdomuserapp.domain.PlannedOrder
 
 
-class HistoryPlanedOrdersAdapter(val callback: PlannedOrderClick) : RecyclerView.Adapter<HistoryPlanedOrdersAdapter.HistoryPlannedOrdersViewHolder>() {
+class HistoryPlanedOrdersAdapter(val callback: PlannedOrderClick, val reviewClicked: ReviewClick) : RecyclerView.Adapter<HistoryPlanedOrdersAdapter.HistoryPlannedOrdersViewHolder>() {
 
     /**
      * The NewsItem that our Adapter will show
@@ -49,7 +49,8 @@ class HistoryPlanedOrdersAdapter(val callback: PlannedOrderClick) : RecyclerView
     override fun onBindViewHolder(holder: HistoryPlannedOrdersViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.plannedOrder = historyOrders[position]
-            it.orderCallback = callback
+            it.plannedOrderClick = callback
+            it.reviewClick = reviewClicked
         }
     }
 

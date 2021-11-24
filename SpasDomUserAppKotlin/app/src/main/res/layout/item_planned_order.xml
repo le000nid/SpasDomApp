@@ -9,8 +9,12 @@
             type="com.example.spasdomuserapp.domain.PlannedOrder" />
 
         <variable
-            name="orderCallback"
+            name="plannedOrderClick"
             type="com.example.spasdomuserapp.ui.services.planned.PlannedOrderClick" />
+        
+        <variable
+            name="reviewClick"
+            type="com.example.spasdomuserapp.ui.services.planned.ReviewClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -20,7 +24,7 @@
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
-        android:onClick="@{() -> orderCallback.onClick(plannedOrder)}"
+        android:onClick="@{() -> plannedOrderClick.onClick(plannedOrder)}"
         app:contentPaddingBottom="@dimen/spacing_big"
         app:contentPaddingLeft="@dimen/spacing_normal"
         app:contentPaddingRight="@dimen/spacing_normal"
@@ -92,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_little"
                 android:backgroundTint="@color/secondaryColor"
+                android:onClick="@{() -> reviewClick.onReviewClick(plannedOrder)}"
                 android:text="Оставить отзыв"
                 android:textColor="@color/secondaryTextColor"
                 app:goneIfRateNot0="@{plannedOrder.userRate}"

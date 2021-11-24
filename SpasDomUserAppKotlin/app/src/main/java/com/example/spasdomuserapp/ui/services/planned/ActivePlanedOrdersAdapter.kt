@@ -49,7 +49,7 @@ class ActivePlanedOrdersAdapter(val callback: PlannedOrderClick) : RecyclerView.
     override fun onBindViewHolder(holder: ActivePlannedOrdersViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.plannedOrder = plannedOrders[position]
-            it.orderCallback = callback
+            it.plannedOrderClick = callback
         }
     }
 

@@ -1,17 +1,24 @@
 package com.example.spasdomuserapp.ui.services.planned
 
+import android.app.PendingIntent.getActivity
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
+import com.example.spasdomuserapp.databinding.DialogRateOrderBinding
 import com.example.spasdomuserapp.databinding.FragmentPlannedBinding
 import com.example.spasdomuserapp.domain.PlannedOrder
+import kotlinx.android.synthetic.main.dialog_rate_order.view.*
+import kotlin.properties.Delegates
 
 class PlannedFragment : Fragment() {
 
@@ -25,7 +32,6 @@ class PlannedFragment : Fragment() {
     private var viewModelActiveAdapter: ActivePlanedOrdersAdapter? = null
 
     private var viewModelHistoryAdapter: HistoryPlanedOrdersAdapter? = null
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +66,8 @@ class PlannedFragment : Fragment() {
 
         viewModelHistoryAdapter = HistoryPlanedOrdersAdapter(PlannedOrderClick {
             //TODO(navigate to decs screen)
+        }, ReviewClick {
+            showCustomInputAlertDialog(it)
         })
 
         binding.root.findViewById<RecyclerView>(R.id.active_planned_rv).apply {
@@ -83,6 +91,35 @@ class PlannedFragment : Fragment() {
 
         return binding.root
     }
+
+
+    private fun showCustomInputAlertDialog(plannedOrder: PlannedOrder) {
+        val dialogBinding = DialogRateOrderBinding.inflate(layoutInflater)
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Оставьте пожалуйста отзыв о заказе")
+            .setView(dialogBinding.root)
+            .setPositiveButton("Отправить", null)
+            .create()
+        dialog.setOnShowListener {
+
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
+                val rating = dialogBinding.ratingBar.rating
+                Log.i("rating", rating.toString())
+
+                //viewModel.updatePlannedOrder(plannedOrder.copy(userRate = rating.toInt()))
+
+                //this.rate = rating
+                //updateUi()
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
+    }
+}
+
+class ReviewClick(val block: (PlannedOrder) -> Unit) {
+    fun onReviewClick(plannedOrder: PlannedOrder) = block(plannedOrder)
 }
 
 class PlannedOrderClick(val block: (PlannedOrder) -> Unit) {

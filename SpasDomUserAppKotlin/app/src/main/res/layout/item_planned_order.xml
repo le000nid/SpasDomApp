@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="plannedOrder"
             type="com.example.spasdomuserapp.domain.PlannedOrder" />
@@ -62,7 +61,7 @@
                 android:layout_marginTop="@dimen/spacing_little"
                 android:text="Завершен"
                 android:textColor="@color/secondaryColor"
-                app:goneIfNotNull="@{plannedOrder.finished}"
+                app:goneIfTrue="@{!plannedOrder.finished}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_order_date" />
 
@@ -72,7 +71,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:background="@color/grayMiddle"
-                app:goneIfNotNull="@{plannedOrder.finished}"
+                app:goneIfTrue="@{!plannedOrder.finished}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_is_finished" />
@@ -95,7 +94,8 @@
                 android:backgroundTint="@color/secondaryColor"
                 android:text="Оставить отзыв"
                 android:textColor="@color/secondaryTextColor"
-                app:goneIfNotNull="@{plannedOrder.rate}"
+                app:goneIfRateNot0="@{plannedOrder.rate}"
+                app:state="@{plannedOrder.finished}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -105,11 +105,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_normal"
-                app:goneIfNotNull="@{plannedOrder.finished}"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:goneIfRate0="@{plannedOrder.rate}"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2"
                 app:setRating="@{plannedOrder}"
-                app:srcCompat="@drawable/ic_rate_0" />
+                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

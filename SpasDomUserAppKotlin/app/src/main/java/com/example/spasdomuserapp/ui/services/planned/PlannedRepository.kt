@@ -28,7 +28,7 @@ class PlannedRepository(private val cache: CacheDatabase) {
             try {
                 // TODO(val items = Network.spasDom.getPlannedOrders())
                 val itemsInit: List<PlannedOrder> = listOf(
-                    PlannedOrder( "Проверка счетчиков", "20.11.21  |  14:00 - 15:00",1,"null", false),
+                    PlannedOrder( "Проверка счетчиков", "20.11.21  |  14:00 - 15:00",0,"null", false),
                 )
 
                 val items = NetworkPlannedOrdersContainer(itemsInit)
@@ -44,7 +44,7 @@ class PlannedRepository(private val cache: CacheDatabase) {
             try {
                 // TODO(val items = Network.spasDom.getPlannedOrders())
                 val itemsInit: List<PlannedOrder> = listOf(
-                    PlannedOrder( "Проверка счетчиков", "20.12.21  |  14:00 - 15:00",null,null, true),
+                    PlannedOrder( "Проверка счетчиков", "20.12.21  |  14:00 - 15:00",0,null, true),
                     PlannedOrder( "Проверка счетчиков", "20.13.21  |  14:00 - 15:00",4,null, true),
                 )
 

@@ -22,14 +22,24 @@ class PlannedFragment : Fragment() {
         ViewModelProvider(this, PlannedViewModel.Factory(activity.application))[PlannedViewModel::class.java]
     }
 
-    private var viewModelAdapter: PlanedOrdersAdapter? = null
+    private var viewModelActiveAdapter: ActivePlanedOrdersAdapter? = null
+
+    private var viewModelHistoryAdapter: HistoryPlanedOrdersAdapter? = null
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.activePlannedOrders.observe(viewLifecycleOwner, { orders ->
             orders?.apply {
-                viewModelAdapter?.plannedOrders = orders
+                viewModelActiveAdapter?.plannedOrders = orders
+            }
+        })
+
+        viewModel.historyPlannedOrders.observe(viewLifecycleOwner, { orders ->
+            orders?.apply {
+                viewModelHistoryAdapter?.historyOrders = orders
             }
         })
     }
@@ -44,14 +54,24 @@ class PlannedFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModelAdapter = PlanedOrdersAdapter(PlannedOrderClick {
+        viewModelActiveAdapter = ActivePlanedOrdersAdapter(PlannedOrderClick {
+            //TODO(navigate to decs screen)
+        })
+
+        viewModelHistoryAdapter = HistoryPlanedOrdersAdapter(PlannedOrderClick {
             //TODO(navigate to decs screen)
         })
 
         binding.root.findViewById<RecyclerView>(R.id.active_planned_rv).apply {
             layoutManager = object : LinearLayoutManager(context){ override fun canScrollVertically(): Boolean { return false } }
-            adapter = viewModelAdapter
+            adapter = viewModelActiveAdapter
         }
+
+        binding.root.findViewById<RecyclerView>(R.id.history_planned_rv).apply {
+            layoutManager = object : LinearLayoutManager(context){ override fun canScrollVertically(): Boolean { return false } }
+            adapter = viewModelHistoryAdapter
+        }
+
 
         binding.apply {
             swipeRefreshPlanned.setOnRefreshListener {

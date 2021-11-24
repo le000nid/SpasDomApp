@@ -39,7 +39,7 @@ data class Alert(
 data class PlannedOrder(
     val title: String,
     val desc: String,
-    val rate: Int?,
+    val rate: Int,
     val review: String?,
     val isFinished: Boolean
 )

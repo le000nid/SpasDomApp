@@ -69,7 +69,7 @@ data class CachePlannedOrder(
     val title: String,
     @PrimaryKey
     val desc: String,
-    val rate: Int?,
+    val rate: Int,
     val review: String?,
     val isFinished: Boolean
 )

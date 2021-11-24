@@ -16,6 +16,7 @@ class PlannedViewModel(application: Application): AndroidViewModel(application) 
     init {
         viewModelScope.launch {
             plannedRepository.refreshActivePlannedOrders()
+            plannedRepository.refreshHistoryPlannedOrders()
         }
     }
 

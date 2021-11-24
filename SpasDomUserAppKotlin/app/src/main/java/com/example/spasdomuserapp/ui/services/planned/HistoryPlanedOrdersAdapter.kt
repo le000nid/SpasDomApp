@@ -11,12 +11,12 @@ import com.example.spasdomuserapp.databinding.ItemPlannedOrderBinding
 import com.example.spasdomuserapp.domain.PlannedOrder
 
 
-class PlanedOrdersAdapter(val callback: PlannedOrderClick) : RecyclerView.Adapter<PlanedOrdersAdapter.PlannedOrdersViewHolder>() {
+class HistoryPlanedOrdersAdapter(val callback: PlannedOrderClick) : RecyclerView.Adapter<HistoryPlanedOrdersAdapter.HistoryPlannedOrdersViewHolder>() {
 
     /**
      * The NewsItem that our Adapter will show
      */
-    var plannedOrders: List<PlannedOrder> = emptyList()
+    var historyOrders: List<PlannedOrder> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -30,25 +30,25 @@ class PlanedOrdersAdapter(val callback: PlannedOrderClick) : RecyclerView.Adapte
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
      * an item.
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlannedOrdersViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryPlannedOrdersViewHolder {
         val withDataBinding: ItemPlannedOrderBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            PlannedOrdersViewHolder.LAYOUT,
+            HistoryPlannedOrdersViewHolder.LAYOUT,
             parent,
             false)
-        return PlannedOrdersViewHolder(withDataBinding)
+        return HistoryPlannedOrdersViewHolder(withDataBinding)
     }
 
-    override fun getItemCount() = plannedOrders.size
+    override fun getItemCount() = historyOrders.size
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
      * update the contents of the {@link ViewHolder#itemView} to reflect the item at the given
      * position.
      */
-    override fun onBindViewHolder(holder: PlannedOrdersViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HistoryPlannedOrdersViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            it.plannedOrder = plannedOrders[position]
+            it.plannedOrder = historyOrders[position]
             it.orderCallback = callback
         }
     }
@@ -56,7 +56,7 @@ class PlanedOrdersAdapter(val callback: PlannedOrderClick) : RecyclerView.Adapte
     /**
      * ViewHolder for news items. All work is done by data binding.
      */
-    class PlannedOrdersViewHolder(val viewDataBinding: ItemPlannedOrderBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
+    class HistoryPlannedOrdersViewHolder(val viewDataBinding: ItemPlannedOrderBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.item_planned_order

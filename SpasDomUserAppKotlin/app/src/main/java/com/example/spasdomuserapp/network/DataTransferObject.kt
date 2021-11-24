@@ -75,7 +75,7 @@ data class NetworkPlannedOrdersContainer(val orders: List<PlannedOrder>)
 data class NetworkPlannedOrders(
     val title: String,
     val desc: String,
-    val rate: Int?,
+    val rate: Int,
     val review: String?,
     val isFinished: Boolean)
 

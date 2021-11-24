@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using Entities;
 using Microsoft.OpenApi.Extensions;
-using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace SpasDom.Server.Controllers.Notifications.Output
 {
@@ -13,40 +12,32 @@ namespace SpasDom.Server.Controllers.Notifications.Output
             Id = source.Id;
             Title = source.Title;
             Body = source.Body;
-            Status = source.Status;
-            StatusName = source.Status.GetDisplayName();
+            Status = new AnnouncementStatusSummary(source.Status);
             PostDate = source.PostDate;
             DeathDate = source.DeathDate;
-            Category = source.Category;
-            CategoryName = source.Category.GetDisplayName();
+            Category = new AnnouncementCategorySummary(source.Category);
         }
 
 
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public long Id { get; set; }
 
-        [JsonProperty("title")]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
 
-        [JsonProperty("body")]
+        [JsonPropertyName("body")]
         public string Body { get; set; }
         
-        [JsonProperty("status")]
-        public AnnouncementStatus Status { get; set; }
-        
-        [JsonProperty("status_name")]
-        public string StatusName { get; set; }
+        [JsonPropertyName("status")]
+        public AnnouncementStatusSummary Status { get; set; }
 
-        [JsonProperty("post_date")]
+        [JsonPropertyName("postDate")]
         public DateTimeOffset PostDate { get; set; }
         
-        [JsonProperty("death_date")]
+        [JsonPropertyName("deathDate")]
         public DateTimeOffset DeathDate { get; set; }
 
-        [JsonProperty("category")]
-        public AnnouncementCategory Category { get; set; }
-
-        [JsonProperty("category_name")]
-        public string CategoryName { get; set; }
+        [JsonPropertyName("category")]
+        public AnnouncementCategorySummary Category { get; set; }
     }
 }

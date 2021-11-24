@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Db.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20211120140502_Initial")]
+    [Migration("20211123172839_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,8 +34,14 @@ namespace Db.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("PostedAt")
+                    b.Property<DateTimeOffset>("DeathDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("PostDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
@@ -81,8 +87,14 @@ namespace Db.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FirebaseToken")
+                        .HasColumnType("TEXT");
+
                     b.Property<long>("Number")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

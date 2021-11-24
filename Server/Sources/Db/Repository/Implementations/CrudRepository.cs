@@ -26,6 +26,11 @@ namespace Db.Repository.Implementations
             self = this as ICrudRepository<T>;
         }
 
+        protected virtual IQueryable<T> DefaultIncludes(IQueryable<T> query)
+        {
+            return query;
+        }
+
         async Task<T> ICrudRepository<T>.AddAsync(T entity)
         {
             var result = await self.AddAsync(new[] {entity});
@@ -60,6 +65,65 @@ namespace Db.Repository.Implementations
             var query = Set.AsNoTracking();
 
             return query;
+        }
+
+        Task<T> ICrudRepository<T>.UpdateAsync(long id, Action<T> patch) => self.UpdateAsync(id, false, patch);
+        async Task<T> ICrudRepository<T>.UpdateAsync(long id, bool withIncludes, Action<T> patch)
+        {
+            var result = await self.UpdateAsync(e => e.Id == id, withIncludes, patch);
+
+            return result.First();
+        }
+        async Task<T> ICrudRepository<T>.UpdateAsync(long id, Func<IQueryable<T>, IQueryable<T>> includes, Action<T> patch)
+        {
+            var result = await self.UpdateAsync(e => e.Id == id, includes, patch);
+
+            return result.First();
+        }
+
+        Task<IEnumerable<T>> ICrudRepository<T>.UpdateAsync(bool withInclude, Action<T> patch)
+        {
+            return self.UpdateAsync(e => true, withInclude, patch);
+        }
+        Task<IEnumerable<T>> ICrudRepository<T>.UpdateAsync(Func<IQueryable<T>, IQueryable<T>> includes, Action<T> patch)
+        {
+            return self.UpdateAsync(e => true, includes, patch);
+        }
+
+        Task<IEnumerable<T>> ICrudRepository<T>.UpdateAsync(Expression<Func<T, bool>> predicate, bool withInclude, Action<T> patch)
+        {
+            if (withInclude)
+            {
+                return self.UpdateAsync(predicate, DefaultIncludes, patch);
+            }
+            else
+            {
+                return self.UpdateAsync(predicate, default(Func<IQueryable<T>, IQueryable<T>>), patch);
+            }
+        }
+        async Task<IEnumerable<T>> ICrudRepository<T>.UpdateAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IQueryable<T>> includes, Action<T> patch)
+        {
+            var query = self.Query();
+
+            if (default != includes)
+            {
+                query = includes(query);
+            }
+
+            var filtered = await query.Where(predicate)
+                                      .AsTracking()
+                                      .ToArrayAsync();
+
+            foreach (var entity in filtered)
+            {
+                patch(entity);
+
+                Context.Entry(entity).State = EntityState.Modified;
+            }
+
+            await Context.SaveChangesAsync();
+
+            return filtered;
         }
 
         async Task<bool> ICrudRepository<T>.DeleteAsync(T entity)

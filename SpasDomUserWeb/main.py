@@ -1,11 +1,15 @@
-from flask import Flask, render_template, redirect
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask import Flask, render_template, redirect, request
+from flask_login import LoginManager, login_user, login_required, logout_user
 from data import db_session
 from forms.LoginForm import LoginForm
-from forms.AlertsForm import AlertsForm
+from forms.AnnouncementForm import AnnouncementForm
 from forms.MarketplaceForm import MarketplaceForm
 from data.user import User
+from constans import HOUSES_ASSIGNED, HOUSES_AVAILABLE_VAL
+from API import ApiConnector
 
+
+server = ApiConnector("http://51.250.24.236")
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -35,7 +39,7 @@ def login():
         user = session.query(User).filter(User.username == form.username.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect("/alerts")
+            return redirect("/announcement")
         return render_template('LoginTemplate.html',
                                message="Wrong login or password",
                                form=form, title='Login')
@@ -43,13 +47,36 @@ def login():
                            title='Login', message='')
 
 
-@app.route('/alerts', methods=['GET', 'POST'])
+@app.route('/announcement', methods=['GET', 'POST'])
 def alerts():
-    form = AlertsForm()
-    if form.validate_on_submit():
-        pass
-    return render_template('AlertsTemplate.html', form=form,
-                           title='Оповещения', message='')
+    form = AnnouncementForm()
+
+    if request.method == 'POST':
+        # to let form validate properly
+        form.houses_assigned.choices = HOUSES_AVAILABLE_VAL
+        if form.validate_on_submit():
+            status_code = server.post_announcement(
+                category=form.announcement_category.data,
+                title=form.title.data,
+                body=form.body.data,
+                post_date=f'{form.post_date.data}T{form.post_time.data}Z',
+                death_date=f'{form.death_date.data}T{form.death_time.data}Z',
+                houses_assigned=form.houses_assigned.data
+            )
+            if status_code != 200:
+                pass
+        form.houses_assigned.choices = HOUSES_ASSIGNED
+
+    announcements = server.get_announcements()
+    return render_template('AnnouncementTemplate.html', form=form,
+                           title='Оповещения', announcements=announcements,
+                           message='')
+
+
+@app.route('/announcement/<int:a_id>')
+def delete_announcement(a_id):
+    server.del_announcement(a_id)
+    return redirect('/announcement')
 
 
 @app.route('/marketplace', methods=['GET', 'POST'])

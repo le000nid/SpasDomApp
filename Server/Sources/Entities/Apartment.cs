@@ -11,6 +11,8 @@ namespace Entities
         
         public string BusinessAccount { get; set; }
         
+        public string Password { get; set; }
+        
         public long Number { get; set; }
         
         public virtual ICollection<ApartmentTenant> Tenants { get; set; }

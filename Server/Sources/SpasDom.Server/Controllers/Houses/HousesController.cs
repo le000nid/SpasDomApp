@@ -1,13 +1,16 @@
-﻿using Db.Repository.Interfaces;
+﻿using System.Linq;
+using Db.Repository.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Common.SelectParameters;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpasDom.Server.Controllers.Houses
 {
     [ApiController]
     [Route("houses")]
-    public class HousesController : Controller
+    public class HousesController : ControllerBase
     {
         private readonly ICrudRepository<House> _houses;
 
@@ -16,6 +19,12 @@ namespace SpasDom.Server.Controllers.Houses
             _houses = factory.Get<House>();
         }
 
+        [HttpGet]
+        public async Task<HouseSummary[]> GetAllAsync([FromQuery] SelectParameters parameters)
+        {
+            return await _houses.Query().Select(h => new HouseSummary(h)).ToArrayAsync();
+        }
+        
         [HttpPost]
         public async Task<HouseSummary> AddAsync([FromBody] HouseParameters parameters)
         {
@@ -25,5 +34,18 @@ namespace SpasDom.Server.Controllers.Houses
             return new HouseSummary(house);
         }
 
+
+        [HttpDelete("{id:long}")]
+        public async Task<bool> DeleteAsync(long id)
+        {
+            var existed = await _houses.Query().FirstOrDefaultAsync(h => h.Id == id);
+
+            if (existed == default)
+            {
+                return false;
+            }
+
+            return await _houses.DeleteAsync(existed);
+        }
     }
 }

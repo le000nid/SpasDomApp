@@ -20,7 +20,7 @@ namespace Services.Firebase.Implementations
         
         public async Task<GroupManagingResponse> CreateGroupAsync(string[] deviceIds)
         {
-            var name = new Guid().ToString();
+            var name = "name";
             var body = new GroupManagingRequest("create", name, deviceIds);
             
             return await _api.ManageGroup(body);

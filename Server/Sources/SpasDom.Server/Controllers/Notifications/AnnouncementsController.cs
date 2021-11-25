@@ -134,9 +134,9 @@ namespace SpasDom.Server.Controllers.Notifications
                                              .Where(t => t != null)
                                              .ToArrayAsync();
 
-            //var groupResponse = await _firebase.CreateGroupAsync(deviceIds);
+            var groupResponse = await _firebase.CreateGroupAsync(deviceIds);
 
-            //await _firebase.SendNotificationAsync(groupResponse.NotificationKey, announcement.Title, announcement.Body);
+            await _firebase.SendNotificationAsync(groupResponse.NotificationKey, announcement.Title, announcement.Body);
 
             return new AnnouncementSummary(announcement);
         }

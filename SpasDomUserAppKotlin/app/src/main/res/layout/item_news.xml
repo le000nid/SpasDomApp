@@ -14,12 +14,11 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
+        style="@style/cardWithBorder"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        style="@style/cardWithBorder">
+        android:layout_marginTop="@dimen/spacing_normal">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -40,12 +39,12 @@
             <TextView
                 android:id="@+id/tv_news_title"
                 style="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:text="@{newsItem.title}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_little"
                 android:layout_marginEnd="@dimen/spacing_normal"
+                android:text="@{newsItem.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_news_date"
@@ -54,15 +53,15 @@
             <TextView
                 android:id="@+id/tv_news_desc"
                 style="@style/TextAppearance.MaterialComponents.Body2"
-                android:text="@{newsItem.shortDescription}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_little"
                 android:layout_marginEnd="@dimen/spacing_normal"
                 android:layout_marginBottom="@dimen/spacing_normal"
-                android:maxLines="2"
                 android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{newsItem.shortDescription}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

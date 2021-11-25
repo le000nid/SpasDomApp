@@ -30,19 +30,7 @@
                     android:layout_marginTop="@dimen/spacing_little"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:listitem="@layout/item_notification" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_normal"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:text="Новости"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/alerts_rv" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <!--<ProgressBar
                     android:id="@+id/loading_spinner"
@@ -59,12 +47,11 @@
                     android:id="@+id/news_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_little"
+                    android:layout_marginTop="@dimen/spacing_big"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView"
-                    tools:listitem="@layout/item_news" />
+                    app:layout_constraintTop_toBottomOf="@+id/alerts_rv" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>

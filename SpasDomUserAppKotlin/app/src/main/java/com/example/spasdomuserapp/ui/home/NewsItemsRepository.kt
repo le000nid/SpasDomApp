@@ -46,9 +46,9 @@ class NewsItemsRepository(private val cache: CacheDatabase) {
                 // Take first three items
                 //val threeNews = NetworkNewsContainer(newsItems.videos.take(3))
                 val newsInit: List<NetworkNewsItem> = listOf(
-                    NetworkNewsItem("Украли дверь", "Вечером 22.03 вынесли дверь","1","22.03", "", ""),
-                    NetworkNewsItem("Украли соседа", "Вечером 24.03 украли соседа","2","24.03", "",""),
-                    NetworkNewsItem("Украли жену соседа", "Вечером 25.03 украли жену соседа","3","25.03", "","")
+                    NetworkNewsItem("Украли дверь", "Вечером 22.03 вынесли дверь. Соседе вызвали полицию!","1","22.03.21", "", ""),
+                    NetworkNewsItem("Украли соседа", "Вечером 24.03 украли соседа. Люди в страхе!","2","24.03.21", "",""),
+                    NetworkNewsItem("Украли жену соседа", "Вечером 25.03 украли жену соседа. Люди продают квартиры!","3","25.03.21", "","")
                 )
 
                 val threeNews = NetworkNewsContainer(newsInit)

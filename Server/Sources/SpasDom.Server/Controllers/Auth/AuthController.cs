@@ -22,14 +22,14 @@ namespace SpasDom.Server.Controllers.Auth
         [HttpPost("/login")]
         public async Task<bool> RegisterAsync([FromBody] LoginParameters parameters)
         {
-            var existed = await _apartments.Query().FirstOrDefaultAsync(a => a.BusinessAccount == parameters.BusinessAccount);
+            var existed = await _apartments.Query().FirstOrDefaultAsync(a => a.BusinessAccount.Equals(parameters.BusinessAccount));
 
             if (existed == default)
             {
                 throw new Exception("Такой лицевой счет не зарегистирован");
             }
 
-            if (existed.FirebaseToken != parameters.FirebaseToken)
+            if (!existed.FirebaseToken.Equals(parameters.FirebaseToken))
             {
                 await _apartments.UpdateAsync(existed.Id, u =>
                 {

@@ -1,4 +1,4 @@
-package com.example.SpasDomWorkerApp
+package com.example.spasdomworkerapp
 
 class SpasDomWorkApplication {
 }

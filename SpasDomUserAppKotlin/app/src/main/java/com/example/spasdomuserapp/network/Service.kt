@@ -25,7 +25,7 @@ interface SpasDomService {
 
     @Headers("Content-Type: application/json")
     @POST("login")
-    fun tryLoginUser(@Body loginObject: LoginObject): Call<LoginObject>
+    fun tryLoginUser(@Body loginObject: LoginObject): Call<Boolean>
 }
 
 /**

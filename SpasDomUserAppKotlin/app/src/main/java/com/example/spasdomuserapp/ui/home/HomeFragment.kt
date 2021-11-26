@@ -109,13 +109,13 @@ class HomeFragment : Fragment() {
             * This disables scrolling, but for some unknown reason only displays the first three elements.
             * However, that's what we need, so this bug has become a feature :)
             */
-            layoutManager =
-                     object : LinearLayoutManager(context){ override fun canScrollVertically(): Boolean { return false } }
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                     //object : LinearLayoutManager(context, HORIZONTAL, false){ override fun canScrollVertically(): Boolean { return false } }
             adapter = viewModelAdapter
         }
 
         binding.root.findViewById<RecyclerView>(R.id.alerts_rv).apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = viewModelAlertsAdapter
         }
 

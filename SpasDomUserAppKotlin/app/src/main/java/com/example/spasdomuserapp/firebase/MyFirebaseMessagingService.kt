@@ -16,11 +16,28 @@ import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.ui.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import android.content.pm.PackageManager
+
+import android.content.ComponentName
 
 const val NOTIFICATION_CHANNEL_ID = "com.example.spasdomuserapp"
 const val NOTIFICATION_ID = 100
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+
+    override fun onCreate() {
+        super.onCreate()
+        val componentName = ComponentName(
+            applicationContext,
+            MyFirebaseMessagingService::class.java
+        )
+
+        applicationContext.packageManager.setComponentEnabledSetting(
+            componentName,
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
+        )
+    }
 
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
@@ -70,19 +87,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentTitle(title).build()
 
-            val notificationManager = context.getSystemService(
-                Context.NOTIFICATION_SERVICE
-            ) as NotificationManager
-
-            val notificationChannel = NotificationChannel(
-                NOTIFICATION_CHANNEL_ID,
-                title,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, title, NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(notificationChannel)
             notificationManager.notify(NOTIFICATION_ID, notification)
         } else {
+            // TODO(Doesn't show notification when app is killed)
             notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification_important)
                 .setAutoCancel(true)
@@ -91,9 +101,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentTitle(title).build()
 
-            val notificationManager = context.getSystemService(
-                Context.NOTIFICATION_SERVICE
-            ) as NotificationManager
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.notify(NOTIFICATION_ID, notification)
         }
     }

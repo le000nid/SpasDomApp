@@ -42,9 +42,16 @@ class NewsItemsRepository(private val cache: CacheDatabase) {
         withContext(Dispatchers.IO) {
             try {
                 //TODO(When null or empty is received it means that we need update actual data(clear all case))
-                val newsItems = Network.spasDom.getNewsItems()
+                //val newsItems = Network.spasDom.getNewsItems()
                 // Take first three items
-                val threeNews = NetworkNewsContainer(newsItems.videos.take(3))
+                //val threeNews = NetworkNewsContainer(newsItems.videos.take(3))
+                val newsInit: List<NetworkNewsItem> = listOf(
+                    NetworkNewsItem("Украли дверь", "Вечером 22.03 вынесли дверь. Соседе вызвали полицию!","1","22.03.21", "", ""),
+                    NetworkNewsItem("Украли соседа", "Вечером 24.03 украли соседа. Люди в страхе!","2","24.03.21", "",""),
+                    NetworkNewsItem("Украли жену соседа", "Вечером 25.03 украли жену соседа. Люди продают квартиры!","3","25.03.21", "","")
+                )
+
+                val threeNews = NetworkNewsContainer(newsInit)
 
                 cache.dao.insertAll(*threeNews.asDatabaseModel())
             } catch (e: Exception) {

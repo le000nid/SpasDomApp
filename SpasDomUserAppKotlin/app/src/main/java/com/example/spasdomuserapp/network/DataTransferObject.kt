@@ -22,6 +22,12 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class NetworkNewsContainer(val videos: List<NetworkNewsItem>)
 
+data class LoginObject(
+    val businessAccount: String,
+    val password: String,
+    val firebaseToken: String
+)
+
 /**
  * News represent a newsItem that can be opened.
  */

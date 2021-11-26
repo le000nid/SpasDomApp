@@ -43,7 +43,7 @@ class OrderItemsRepository (private val cache: CacheDatabase) {
 
                 val ordersInit: List<NetworkOrderItem> = listOf(
                     NetworkOrderItem("28 ноября", "Морской проспект 9", "13:00 - 14:00", "Бачок потик", false, false, 1),
-                    NetworkOrderItem("29 ноября", "MLG 1337", "13:37 - 4:20", "О боже", false, false, 2),
+                    NetworkOrderItem("29 ноября", "Не морской не проспект", "3:30 - 4:20", "О боже", false, false, 2),
                 )
 
                 val orders = NetworkOrdersContainer(ordersInit)

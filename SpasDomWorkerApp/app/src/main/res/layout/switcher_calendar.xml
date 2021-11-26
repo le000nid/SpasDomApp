@@ -3,27 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="orderItem"
-            type="com.example.spasdomworkerapp.domain.Order" />
-
-        <variable
-            name="orderItemCallback"
-            type="com.example.spasdomworkerapp.ui.home.OrderItemClick" />
-    </data>
-
     <com.google.android.material.card.MaterialCardView
-        style="@style/cardWithBorder"
+        style="@style/switcherCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
-        app:contentPaddingBottom="@dimen/spacing_big"
+        app:contentPaddingBottom="@dimen/spacing_little"
         app:contentPaddingLeft="@dimen/spacing_normal"
         app:contentPaddingRight="@dimen/spacing_normal"
-        app:contentPaddingTop="@dimen/spacing_big">
+        app:contentPaddingTop="@dimen/spacing_little">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,35 +24,29 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{orderItem.address}"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/next"
+                app:layout_constraintStart_toEndOf="@id/previous"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Пушкина 50" />
-
-            <TextView
-                android:id="@+id/tv_order_time_problem"
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:text="@{orderItem.shortDesc}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_little"
-                android:textStyle="bold"
-                android:ellipsize="end"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_order_title"
-                tools:text="14:00 - 16:00  |  Течет кран" />
+                android:gravity="center"
+                android:text="Суббота. 27.11.2021" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/previous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_navigate_before"
+                app:tint="@color/secondaryColor" />
+
+            <ImageView
+                android:id="@+id/next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_navigate_next"
-                app:tint="@color/grayMiddle" />
+                app:tint="@color/secondaryColor" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

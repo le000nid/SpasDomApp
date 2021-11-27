@@ -13,7 +13,6 @@ class RemoteDataSource @Inject constructor() {
 
     companion object {
         private const val BASE_URL = "http://51.250.24.236/"
-        //private const val BASE_URL = "http://apix.simplifiedcoding.in/api/"
     }
 
 

@@ -7,15 +7,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentLoginBinding
 import com.example.spasdomuserapp.network.Resource
+import com.example.spasdomuserapp.ui.MainActivity
+import com.example.spasdomuserapp.util.handleApiError
+import com.example.spasdomuserapp.util.startNewActivity
+import com.example.spasdomuserapp.util.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
-    private lateinit var preferences: SharedPreferences
     private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModels<AuthViewModel>()
 
@@ -24,18 +29,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view)
 
         viewModel.loginResponse.observe(viewLifecycleOwner, {
-            //binding.progressbar.visible(it is Resource.Loading)
+            binding.progressbar.visible(it is Resource.Loading)
             when (it) {
-                is Resource.Success -> {Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
-                    /*lifecycleScope.launch {
-                        viewModel.saveAccessTokens(
-                            it.value.user.access_token!!,
-                            it.value.user.refresh_token!!
-                        )
-                        requireActivity().startNewActivity(HomeActivity::class.java)
-                    }*/
+                is Resource.Success -> {
+                    lifecycleScope.launch {
+                        viewModel.saveAccessTokens(it.value.user.access_token!!, it.value.user.refresh_token!!)
+                        requireActivity().startNewActivity(MainActivity::class.java)
+                    }
                 }
-                is Resource.Failure -> {Toast.makeText(requireContext(), "Failure", Toast.LENGTH_LONG).show()}/*handleApiError(it) { login() }*/
+                is Resource.Failure -> handleApiError(it) { /*login()*/ }
             }
         })
 

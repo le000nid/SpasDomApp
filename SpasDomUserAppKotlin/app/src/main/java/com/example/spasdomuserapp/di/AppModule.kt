@@ -1,4 +1,4 @@
-package net.simplifiedcoding.di
+package com.example.spasdomuserapp.di
 
 import android.content.Context
 import com.example.spasdomuserapp.network.AuthApi

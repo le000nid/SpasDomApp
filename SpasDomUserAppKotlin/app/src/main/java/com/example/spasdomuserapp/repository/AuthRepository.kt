@@ -1,9 +1,10 @@
 package com.example.spasdomuserapp.repository
 
 import com.example.spasdomuserapp.network.AuthApi
+import javax.inject.Inject
 
 
-class AuthRepository (
+class AuthRepository @Inject constructor(
     private val api: AuthApi
 ) : BaseRepository() {
 

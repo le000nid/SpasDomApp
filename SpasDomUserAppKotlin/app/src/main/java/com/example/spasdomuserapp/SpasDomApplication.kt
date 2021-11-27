@@ -24,6 +24,7 @@ import androidx.work.*
 import com.example.spasdomuserapp.work.RefreshDataWorker
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Override application to setup background work via WorkManager
  */
+@HiltAndroidApp
 class SpasDomApplication : Application() {
 
     val applicationScope = CoroutineScope(Dispatchers.Default)

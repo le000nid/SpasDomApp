@@ -8,7 +8,7 @@ import com.example.spasdomuserapp.ui.auth.AuthActivity
 class InitialActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_initial)
+
 
         finish()
         startActivity(Intent(this, AuthActivity::class.java))

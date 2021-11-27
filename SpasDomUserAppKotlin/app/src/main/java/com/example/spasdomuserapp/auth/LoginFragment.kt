@@ -1,6 +1,7 @@
-package com.example.spasdomuserapp.login
+package com.example.spasdomuserapp.auth
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,8 +15,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentLoginBinding
 import com.example.spasdomuserapp.network.LoginObject
-import com.example.spasdomuserapp.network.Network
-import com.example.spasdomuserapp.util.SHARED_PREF_IS_LOGGED
+import com.example.spasdomuserapp.util.IS_LOGGED
+import com.example.spasdomuserapp.util.PREF_AUTH
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
@@ -25,6 +26,8 @@ import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
+
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,7 +69,7 @@ class LoginFragment : Fragment() {
                     Log.i("loginObject", loginObject.toString())
 
                     // TODO(logic for checking user)
-                    Network.spasDom.tryLoginUser(loginObject)
+                    /*Network.spasDom.tryLoginUser(loginObject)
                         .enqueue(object: Callback<Boolean> {
                             override fun onFailure(call: Call<Boolean>, t: Throwable) {
                                 Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
@@ -79,16 +82,15 @@ class LoginFragment : Fragment() {
                                 Toast.makeText(context, "Успешно залогинились", Toast.LENGTH_LONG).show()
                                 Log.i("response", response.toString())
 
-                                val sharedPreference = context!!.getSharedPreferences(SHARED_PREF_IS_LOGGED,
-                                    Context.MODE_PRIVATE)
-                                var editor = sharedPreference.edit()
-                                editor.putBoolean("isLogged",true)
-                                editor.commit()
+                                preferences = requireActivity().getSharedPreferences(PREF_AUTH, Context.MODE_PRIVATE)
+                                preferences.edit()
+                                    .putBoolean(IS_LOGGED, true)
+                                    .apply()
 
                                 val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                                 findNavController().navigate(action)
                             }
-                        })
+                        })*/
                 // [END log_reg_token]
 
                 })

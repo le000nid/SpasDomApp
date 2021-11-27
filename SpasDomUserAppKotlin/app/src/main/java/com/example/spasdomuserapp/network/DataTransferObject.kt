@@ -4,7 +4,6 @@ import com.example.spasdomuserapp.database.CachePlannedOrder
 import com.example.spasdomuserapp.database.DataBaseAlert
 import com.example.spasdomuserapp.database.DatabaseNewsItem
 import com.example.spasdomuserapp.domain.PlannedOrder
-import com.squareup.moshi.JsonClass
 
 /**
  * DataTransferObjects go in this file. These are responsible for parsing responses from the server
@@ -19,7 +18,6 @@ import com.squareup.moshi.JsonClass
  *   "news": []
  * }
  */
-@JsonClass(generateAdapter = true)
 data class NetworkNewsContainer(val videos: List<NetworkNewsItem>)
 
 data class LoginObject(
@@ -31,7 +29,6 @@ data class LoginObject(
 /**
  * News represent a newsItem that can be opened.
  */
-@JsonClass(generateAdapter = true)
 data class NetworkNewsItem(
     val title: String,
     val description: String,
@@ -54,10 +51,8 @@ fun NetworkNewsContainer.asDatabaseModel(): Array<DatabaseNewsItem> {
 
 
 
-@JsonClass(generateAdapter = true)
 data class NetworkAlertsContainer(val alerts: List<NetworkAlerts>)
 
-@JsonClass(generateAdapter = true)
 data class NetworkAlerts(
     val data: String,
     val title: String,
@@ -74,10 +69,8 @@ fun NetworkAlertsContainer.asDatabaseAlertModel(): Array<DataBaseAlert> {
 
 
 
-@JsonClass(generateAdapter = true)
 data class NetworkPlannedOrdersContainer(val orders: List<PlannedOrder>)
 
-@JsonClass(generateAdapter = true)
 data class NetworkPlannedOrders(
     val id: Int,
     val title: String,

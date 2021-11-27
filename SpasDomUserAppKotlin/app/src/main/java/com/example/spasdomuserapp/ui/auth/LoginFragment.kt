@@ -1,33 +1,27 @@
-package com.example.spasdomuserapp.auth
+package com.example.spasdomuserapp.ui.auth
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentLoginBinding
 import com.example.spasdomuserapp.network.LoginObject
-import com.example.spasdomuserapp.util.IS_LOGGED
-import com.example.spasdomuserapp.util.PREF_AUTH
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var preferences: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

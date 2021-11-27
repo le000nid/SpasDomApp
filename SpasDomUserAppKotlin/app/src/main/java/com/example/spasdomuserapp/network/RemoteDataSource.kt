@@ -17,7 +17,7 @@ class RemoteDataSource {
 
     fun <Api> buildApi(
         api: Class<Api>,
-       // context: Context
+        context: Context
     ): Api {
         //val authenticator = TokenAuthenticator(context, buildTokenApi())
         return Retrofit.Builder()

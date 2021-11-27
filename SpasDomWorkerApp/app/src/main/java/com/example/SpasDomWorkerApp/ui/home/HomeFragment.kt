@@ -3,6 +3,7 @@ package com.example.spasdomworkerapp.ui.home
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.databinding.FragmentHomeBinding
 import com.example.spasdomworkerapp.domain.Order
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeFragment : Fragment() {
 
@@ -80,6 +83,8 @@ class HomeFragment : Fragment() {
 //            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewsDetailedFragment(it))
         })
 
+        binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
+
         binding.root.findViewById<RecyclerView>(R.id.orders_rv).apply {
 
             /** TODO(BUG. Fix someday or forget)
@@ -109,7 +114,7 @@ class HomeFragment : Fragment() {
 }
 
 /**
- * Click listener for News. By giving the block a name it helps a reader understand what it does.
+ * Click listener for Orders. By giving the block a name it helps a reader understand what it does.
  */
 class OrderItemClick(val block: (Order) -> Unit) {
     /**
@@ -119,3 +124,6 @@ class OrderItemClick(val block: (Order) -> Unit) {
      */
     fun onClick(order: Order) = block(order)
 }
+
+
+

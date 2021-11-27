@@ -32,3 +32,4 @@ fun NetworkOrdersContainer.asDatabaseModel(): Array<DatabaseOrderItem> {
             id = it.id)
     }.toTypedArray()
 }
+

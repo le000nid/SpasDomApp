@@ -8,8 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal"
-        android:layout_marginTop="@dimen/spacing_normal"
+        android:layout_marginTop="@dimen/spacing_large"
         android:layout_marginEnd="@dimen/spacing_normal"
+        android:layout_marginBottom="@dimen/spacing_normal"
         app:contentPaddingBottom="@dimen/spacing_little"
         app:contentPaddingLeft="@dimen/spacing_normal"
         app:contentPaddingRight="@dimen/spacing_normal"
@@ -20,7 +21,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tv_order_title"
+                android:id="@+id/date"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -28,7 +29,7 @@
                 app:layout_constraintStart_toEndOf="@id/previous"
                 app:layout_constraintTop_toTopOf="parent"
                 android:gravity="center"
-                android:text="Суббота. 27.11.2021" />
+                tools:text="Суббота. 27.11.2021" />
 
             <ImageView
                 android:id="@+id/previous"
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_navigate_before"
+                app:srcCompat="@drawable/ic_navigate_previous"
                 app:tint="@color/secondaryColor" />
 
             <ImageView

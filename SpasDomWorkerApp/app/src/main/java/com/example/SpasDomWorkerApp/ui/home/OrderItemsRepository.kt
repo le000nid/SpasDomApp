@@ -2,8 +2,7 @@ package com.example.spasdomworkerapp.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.example.spasdomworkerapp.database.CacheDatabase
-import com.example.spasdomworkerapp.database.asDomainModel
+import com.example.spasdomworkerapp.database.*
 import com.example.spasdomworkerapp.domain.Order
 import com.example.spasdomworkerapp.network.NetworkOrderItem
 import com.example.spasdomworkerapp.network.NetworkOrdersContainer
@@ -11,16 +10,22 @@ import com.example.spasdomworkerapp.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class OrderItemsRepository (private val cache: CacheDatabase) {
 
     /**
      * A feed of newsItems that can be shown on the screen.
      */
-    val newsItems: LiveData<List<Order>> =
-        Transformations.map(cache.dao.getOrderItems()) {
+
+    fun getOrderItems(getData: String) : LiveData<List<Order>>{
+        val orderItems: LiveData<List<Order>> = Transformations.map(cache.dao.getOrderItems(getData)) {
             it.asDomainModel()
         }
+        return orderItems
+    }
 
     /**
      * Refresh the newsItems stored in the offline cache.
@@ -42,8 +47,9 @@ class OrderItemsRepository (private val cache: CacheDatabase) {
 //                val threeNews = NetworkOrdersContainer(newsItems.videos.take(3))
 
                 val ordersInit: List<NetworkOrderItem> = listOf(
-                    NetworkOrderItem("28 ноября", "Морской проспект 9", "13:00 - 14:00", "Бачок потик", false, false, 1),
-                    NetworkOrderItem("29 ноября", "Не морской не проспект", "3:30 - 4:20", "О боже", false, false, 2),
+                    NetworkOrderItem("27-11-2021", "Улица уличная", "19:00 - 12:00", "Нада", false, false, 1),
+                    NetworkOrderItem("28-11-2021", "Морской проспект 9", "13:00 - 14:00", "Бачок потик", false, false, 2),
+                    NetworkOrderItem("29-11-2021", "Не морской не проспект", "3:30 - 4:20", "О боже", false, false, 3),
                 )
 
                 val orders = NetworkOrdersContainer(ordersInit)

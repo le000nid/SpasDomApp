@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Db.Repository.Interfaces;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpasDom.Server.Controllers.Apartments.Input;
@@ -27,6 +28,7 @@ namespace SpasDom.Server.Controllers.Apartments
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ApartmentSummary[]> GetAllAsync([FromQuery(Name = "houseId")] long houseId)
         {
             return await HouseApartmentsQuery().Select(l => l.Apartment).Select(a => new ApartmentSummary(a)).ToArrayAsync();        

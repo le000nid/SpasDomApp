@@ -9,6 +9,18 @@ defaults:
     working-directory: ./Server/Sources
 
 jobs:
+  check-secrets:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Check whether unity activation requests should be done
+        env:
+            DOCKER_USER: ${{ secrets.DOCKER_USER }}
+            DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+        run: |
+            echo "is_DOCKER_USER_set: ${{ env.DOCKER_USER != '' }}"
+            echo "::set-output name=is_DOCKER_USER_set::${{ env.DOCKER_USER != '' }}"
+            echo "is_DOCKER_PASS_set: ${{ env.DOCKER_PASS != '' }}"
+            echo "::set-output name=is_DOCKER_PASS_set::${{ env.DOCKER_PASS != '' }}"
   build:
     runs-on: ubuntu-latest
     steps:
@@ -28,8 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - name: check creds
-        run: echo "${{ secrets.DOCKER_USER }}"
       - uses: actions/checkout@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1

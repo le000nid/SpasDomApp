@@ -17,6 +17,26 @@ namespace Db.Migrations
                 .HasDefaultSchema("spas-dom")
                 .HasAnnotation("ProductVersion", "5.0.12");
 
+            modelBuilder.Entity("Entities.Administrator", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Administrators");
+                });
+
             modelBuilder.Entity("Entities.Announcement", b =>
                 {
                     b.Property<long>("Id")

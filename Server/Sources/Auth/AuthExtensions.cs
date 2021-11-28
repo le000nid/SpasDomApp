@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Auth.Implementations;
 using Auth.Interfaces;
 using Auth.Models;
 
@@ -56,9 +57,11 @@ namespace Auth
 
                 options.AddPolicy(Policies.AdminsOnly, b =>
                 {
-                    b.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                        .RequireClaim(JwtRegisteredClaimNames.Typ, TokenTypes.Access)
-                        .Build();
+                    b.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+
+                    b.RequireAuthenticatedUser();
+                    
+                    b.Requirements.Add(new ShouldBeAnAdminRequirement());
                 });
             });
 

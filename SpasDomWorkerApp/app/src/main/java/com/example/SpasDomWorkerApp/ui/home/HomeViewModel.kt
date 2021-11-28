@@ -1,7 +1,11 @@
 package com.example.spasdomworkerapp.ui.home
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.text.format.DateUtils
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
@@ -12,18 +16,16 @@ import com.example.spasdomworkerapp.database.getDatabase
 import com.example.spasdomworkerapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
 import androidx.databinding.Bindable
-
-
+import java.util.*
 
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = getDatabase(application)
     private val ordersRepository = OrderItemsRepository(database)
-    var date: Date = Date()
-    var OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date)
+    var date = Calendar.getInstance()
+    var OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
 
     /**
      * init{} is called immediately when this ViewModel is created.
@@ -34,7 +36,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    val orderItems = ordersRepository.getOrderItems(OrderGetFormat)
+    var orderItems = ordersRepository.getOrderItems(OrderGetFormat)
 
     fun swipeToRefresh() = viewModelScope.launch {
         ordersRepository.refreshOrderItems()
@@ -53,7 +55,21 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun ButtonNext(view: View?) {
+    fun NextDay(){
+        date.add(Calendar.DATE, 1)
+        OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
+        orderItems = ordersRepository.getOrderItems(OrderGetFormat)
+    }
 
+    fun PreviousDay(){
+        date.add(Calendar.DATE, -1)
+        OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
+        orderItems = ordersRepository.getOrderItems(OrderGetFormat)
+    }
+
+    fun SomeDay(c : Calendar){
+        date = c
+        OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
+        orderItems = ordersRepository.getOrderItems(OrderGetFormat)
     }
 }

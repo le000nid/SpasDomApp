@@ -6,14 +6,15 @@ import com.example.spasdomworkerapp.domain.Order
 
 @Entity
 data class DatabaseOrderItem constructor(
-    @PrimaryKey
     val date: String,
     val address: String,
     val time: String,
     val problem: String,
     val finished: Boolean,
     val canceled: Boolean,
-    val id: Int)
+    @PrimaryKey
+    val id: Int
+    )
 
 fun List<DatabaseOrderItem>.asDomainModel(): List<Order> {
     return map {

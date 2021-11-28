@@ -1,9 +1,13 @@
 package com.example.spasdomworkerapp.ui.home
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.DatePicker
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +21,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeFragment : Fragment() {
+
+    private lateinit var binding: FragmentHomeBinding
 
     /**
      * One way to delay creation of the viewModel until an appropriate lifecycle method is to use
@@ -45,6 +51,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        updateOrders()
+    }
+
+    fun updateOrders(){
         viewModel.orderItems.observe(viewLifecycleOwner, { orders ->
             orders?.apply {
                 viewModelOrdersAdapter?.orderItems = orders
@@ -70,7 +80,7 @@ class HomeFragment : Fragment() {
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding: FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container,false)
 
         // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.lifecycleOwner = viewLifecycleOwner
@@ -85,6 +95,21 @@ class HomeFragment : Fragment() {
 
         binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
 
+        val butNext = binding.root.findViewById<ImageView>(R.id.nextDate)
+        val butPrevious = binding.root.findViewById<ImageView>(R.id.previousDate)
+
+        butNext.setOnClickListener {
+            viewModel.NextDay()
+            binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
+            updateOrders()
+        }
+
+        butPrevious.setOnClickListener {
+            viewModel.PreviousDay()
+            binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
+            updateOrders()
+        }
+
         binding.root.findViewById<RecyclerView>(R.id.orders_rv).apply {
 
             /** TODO(BUG. Fix someday or forget)
@@ -92,7 +117,7 @@ class HomeFragment : Fragment() {
              * However, that's what we need, so this bug has become a feature :)
              */
             layoutManager =
-                object : LinearLayoutManager(context){ override fun canScrollVertically(): Boolean { return false } }
+                object : LinearLayoutManager(context){ override fun canScrollVertically(): Boolean { return true } }
             adapter = viewModelOrdersAdapter
         }
 
@@ -111,6 +136,36 @@ class HomeFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_menu, menu)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.calendar -> {
+                var cal = Calendar.getInstance()
+                val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+                    override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                           dayOfMonth: Int) {
+                        cal.set(Calendar.YEAR, year)
+                        cal.set(Calendar.MONTH, monthOfYear)
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        viewModel.SomeDay(cal)
+                        binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
+                        updateOrders()
+                    }
+                }
+                context?.let {
+                    DatePickerDialog(
+                        it,
+                        dateSetListener,
+                        // set DatePickerDialog to point to today's date when it loads up
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH)).show()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
 
 /**
@@ -124,6 +179,5 @@ class OrderItemClick(val block: (Order) -> Unit) {
      */
     fun onClick(order: Order) = block(order)
 }
-
 
 

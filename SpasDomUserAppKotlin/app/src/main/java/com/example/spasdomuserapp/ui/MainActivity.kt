@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -12,15 +14,25 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.spasdomuserapp.R
+import com.example.spasdomuserapp.database.UserPreferences
 import com.example.spasdomuserapp.databinding.ActivityMainBinding
+import com.example.spasdomuserapp.ui.auth.AuthActivity
+import com.example.spasdomuserapp.ui.profile.ProfileViewModel
 import com.example.spasdomuserapp.util.IS_LOGGED
 import com.example.spasdomuserapp.util.PREF_AUTH
+import com.example.spasdomuserapp.util.startNewActivity
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private lateinit var preference: SharedPreferences
+
+    @Inject
+    lateinit var userPreferences: UserPreferences
+
+    private val viewModel by viewModels<ProfileViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +40,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loginSetUp()
+        //loginSetUp()
         navigationConfigurationSetUp()
     }
 
-    private fun loginSetUp() {
+    fun performLogout() = lifecycleScope.launch {
+        viewModel.logout()
+        userPreferences.clear()
+        startNewActivity(AuthActivity::class.java)
+    }
+
+    /*private fun loginSetUp() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.nav_graph)
-
-        preference = getSharedPreferences(PREF_AUTH, Context.MODE_PRIVATE)
-        val isLogged = preference.getBoolean(IS_LOGGED, false)
 
         if (!isLogged) {
             graph.startDestination = R.id.loginFragment
@@ -46,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             graph.startDestination = R.id.homeFragment
         }
         navHostFragment.navController.graph = graph
-    }
+    }*/
 
     private fun navigationConfigurationSetUp() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

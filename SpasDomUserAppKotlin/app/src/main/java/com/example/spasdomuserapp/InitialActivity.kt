@@ -14,7 +14,7 @@ import com.example.spasdomuserapp.util.startNewActivity
 class InitialActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.activity_initial)
         val userPreferences = UserPreferences(this)
 
         userPreferences.accessToken.asLiveData().observe(this, {

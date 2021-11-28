@@ -73,11 +73,6 @@ fun View.visible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
-fun View.enable(enabled: Boolean) {
-    isEnabled = enabled
-    alpha = if (enabled) 1f else 0.5f
-}
-
 fun View.snackbar(message: String, action: (() -> Unit)? = null) {
     val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
     action?.let {
@@ -89,9 +84,9 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 }
 
 fun Fragment.logout() = lifecycleScope.launch {
-    /*if (activity is MainActivity) {
+    if (activity is MainActivity) {
         (activity as MainActivity).performLogout()
-    }*/
+    }
 }
 
 fun Fragment.handleApiError(

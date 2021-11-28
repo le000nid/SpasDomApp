@@ -29,7 +29,7 @@ namespace SpasDom.Server.Controllers.Auth
                 throw new Exception("Такой лицевой счет не зарегистирован");
             }
 
-            if (!existed.FirebaseToken.Equals(parameters.FirebaseToken))
+            if (string.IsNullOrEmpty(existed.FirebaseToken) || !existed.FirebaseToken.Equals(parameters.FirebaseToken))
             {
                 await _apartments.UpdateAsync(existed.Id, u =>
                 {

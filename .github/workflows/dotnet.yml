@@ -9,18 +9,6 @@ defaults:
     working-directory: ./Server/Sources
 
 jobs:
-  check-secrets:
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Check whether unity activation requests should be done
-        env:
-            DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
-            DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
-        run: |
-            echo "is_DOCKER_USER_set: ${{ env.DOCKER_USER != '' }}"
-            echo "::set-output name=is_DOCKER_USER_set::${{ env.DOCKER_USER != '' }}"
-            echo "is_DOCKER_PASS_set: ${{ env.DOCKER_PASS != '' }}"
-            echo "::set-output name=is_DOCKER_PASS_set::${{ env.DOCKER_PASS != '' }}"
   build:
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +43,7 @@ jobs:
           # Build's context is the set of files located in the specified PATH or URL
           context: ./Server/Sources
           # Path to the Dockerfile
-          file: ./Server/Docker/.dockerfile
+          file: ./Server/Docker/Dockerfile
           # List of tags
           tags: somka4docker/spas-dom-server:latest
           # Push is a shorthand for --output=type=registry

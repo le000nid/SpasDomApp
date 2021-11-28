@@ -21,6 +21,7 @@ import android.app.Application
 import android.os.Build
 import android.util.Log
 import androidx.work.*
+import com.example.spasdomuserapp.database.UserPreferences
 import com.example.spasdomuserapp.work.RefreshDataWorker
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -88,7 +89,6 @@ class SpasDomApplication : Application() {
             }
             // Get new FCM registration token
             val token = task.result
-            Log.i("notification", token!!)
         })
     }
 }

@@ -20,18 +20,35 @@ class RemoteDataSource @Inject constructor() {
         api: Class<Api>,
         context: Context
     ): Api {
-        //   val authenticator = TokenAuthenticator(context, buildTokenApi())
+        val authenticator = TokenAuthenticator(context, buildTokenApi())
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(
-                OkHttpClient.Builder().also { client ->
-                    val logging = HttpLoggingInterceptor()
-                    logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-                    client.addInterceptor(logging)
-                }.build()
-            )
+            .client(getRetrofitClient(authenticator))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(api)
+    }
+
+    private fun buildTokenApi(): TokenRefreshApi {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(getRetrofitClient())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(TokenRefreshApi::class.java)
+    }
+
+    private fun getRetrofitClient(authenticator: Authenticator? = null): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                chain.proceed(chain.request().newBuilder().also {
+                    it.addHeader("Accept", "application/json")
+                }.build())
+            }.also { client ->
+                authenticator?.let { client.authenticator(it) }
+                val logging = HttpLoggingInterceptor()
+                logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+                client.addInterceptor(logging)
+            }.build()
     }
 }

@@ -8,7 +8,7 @@ import javax.inject.Inject
 class AuthRepository @Inject constructor(
     private val api: AuthApi,
     private val preferences: UserPreferences
-) : BaseRepository() {
+) : BaseRepository(api) {
 
     suspend fun login(login: String, password: String) = safeApiCall {
         api.login(login, password)

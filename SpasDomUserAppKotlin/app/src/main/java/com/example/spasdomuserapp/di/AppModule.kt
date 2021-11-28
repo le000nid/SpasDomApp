@@ -3,6 +3,7 @@ package com.example.spasdomuserapp.di
 import android.content.Context
 import com.example.spasdomuserapp.network.AuthApi
 import com.example.spasdomuserapp.network.RemoteDataSource
+import com.example.spasdomuserapp.network.UserApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,12 +24,12 @@ object AppModule {
         return remoteDataSource.buildApi(AuthApi::class.java, context)
     }
 
-    /*@Singleton
+    @Singleton
     @Provides
     fun provideUserApi(
         remoteDataSource: RemoteDataSource,
         @ApplicationContext context: Context
     ): UserApi {
         return remoteDataSource.buildApi(UserApi::class.java, context)
-    }*/
+    }
 }

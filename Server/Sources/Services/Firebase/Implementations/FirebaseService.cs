@@ -17,13 +17,13 @@ namespace Services.Firebase.Implementations
         {
             _api = api;
         }
-        
+
         public async Task<GroupManagingResponse> CreateGroupAsync(string[] deviceIds)
         {
-            var name = "name";
+            var name = Guid.NewGuid().ToString();
             var body = new GroupManagingRequest("create", name, deviceIds);
-            
-            return await _api.ManageGroup(body);
+            var res = await _api.ManageGroup(body);
+            return res;
         }
 
         public Task<GroupManagingResponse> AddToGroupAsync(string[] deviceIds)

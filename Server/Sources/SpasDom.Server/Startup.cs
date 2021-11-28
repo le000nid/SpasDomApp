@@ -9,19 +9,28 @@ using Db;
 using System.Reflection;
 using System.IO;
 using System;
+using Auth;
+using Auth.Implementations;
+using Auth.Interfaces;
+using Autofac;
 using Services;
+
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace SpasDom.Server
 {
     public class Startup
     {
+        private readonly IAppSettings _appSettings;
+        private IConfiguration Configuration { get; }
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _appSettings = new AppSettings(configuration);
         }
-
-        public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -34,6 +43,8 @@ namespace SpasDom.Server
             services.AddControllers();
 
             services.AddServices();
+            
+            services.AddAuth(_appSettings);
             
             services.AddSwaggerGen(options =>
             {
@@ -49,8 +60,13 @@ namespace SpasDom.Server
             });
         }
         
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.AddAuth(_appSettings);
+        }
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime appLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -62,11 +78,9 @@ namespace SpasDom.Server
             
             var factory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
 
-            using (var scope = factory.CreateScope())
-            using (var context = scope.ServiceProvider.GetService<SqlContext>())
-            {
-                context.Database.Migrate();
-            }
+            using var scope = factory.CreateScope();
+            using var context = scope.ServiceProvider.GetService<SqlContext>();
+            context?.Database.Migrate();
 
             app.UseHttpsRedirection();
 
@@ -77,6 +91,12 @@ namespace SpasDom.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            
+            var applicationContainer = app.ApplicationServices.GetAutofacRoot();
+            appLifetime.ApplicationStopped.Register(() =>
+            {
+                applicationContainer.Dispose();
             });
         }
     }

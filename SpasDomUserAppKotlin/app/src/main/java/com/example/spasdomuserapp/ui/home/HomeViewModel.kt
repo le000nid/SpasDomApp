@@ -17,32 +17,27 @@
 
 package com.example.spasdomuserapp.ui.home
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.spasdomuserapp.database.getDatabase
+import com.example.spasdomuserapp.database.CacheDao
+import com.example.spasdomuserapp.repository.NewsItemsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * HomeViewModel designed to store and manage UI-related data in a lifecycle conscious way. This
  * allows data to survive configuration changes such as screen rotations. In addition, background
  * work such as fetching network results can continue through configuration changes and deliver
  * results after the new Fragment or Activity is available.
- *
- * @param application The application that this ViewModel is attached to, it's safe to hold a
- * reference to applications across rotation since Application is never recreated during activity
- * or fragment lifecycle events.
  */
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val cacheDao: CacheDao,
+): ViewModel() {
 
-    private val database = getDatabase(application)
-    private val videosRepository = NewsItemsRepository(database)
+    private val videosRepository = NewsItemsRepository(cacheDao)
 
-    /**
-     * init{} is called immediately when this ViewModel is created.
-     */
     init {
         viewModelScope.launch {
             videosRepository.refreshNewsItems()
@@ -57,18 +52,5 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun swipeToRefresh() = viewModelScope.launch {
         videosRepository.refreshNewsItems()
         videosRepository.refreshAlerts()
-    }
-
-    /**
-     * Factory for constructing HomeViewModel with parameter
-     */
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return HomeViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct ViewModel")
-        }
     }
 }

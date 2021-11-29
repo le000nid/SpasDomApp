@@ -1,19 +1,21 @@
 package com.example.spasdomuserapp.ui.services.planned
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.spasdomuserapp.database.CacheDao
 import com.example.spasdomuserapp.database.asCachePlannerOrder
-import com.example.spasdomuserapp.database.getDatabase
 import com.example.spasdomuserapp.domain.PlannedOrder
+import com.example.spasdomuserapp.repository.PlannedRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PlannedViewModel(application: Application): AndroidViewModel(application) {
+@HiltViewModel
+class PlannedViewModel@Inject constructor(
+    private val cacheDao: CacheDao,
+): ViewModel() {
 
-    private val database = getDatabase(application)
-    private val plannedRepository = PlannedRepository(database)
+    private val plannedRepository = PlannedRepository(cacheDao)
 
     init {
         viewModelScope.launch {
@@ -33,16 +35,6 @@ class PlannedViewModel(application: Application): AndroidViewModel(application) 
     }
 
     fun updatePlannedOrder(newPlannedOrder: PlannedOrder) = viewModelScope.launch {
-        database.dao.updatePlannedOrder(newPlannedOrder.asCachePlannerOrder())
-    }
-
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(PlannedViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return PlannedViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct ViewModel")
-        }
+        plannedRepository.updatePlannedOrder(newPlannedOrder)
     }
 }

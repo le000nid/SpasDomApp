@@ -21,9 +21,11 @@ import com.example.spasdomuserapp.ui.profile.ProfileViewModel
 import com.example.spasdomuserapp.util.IS_LOGGED
 import com.example.spasdomuserapp.util.PREF_AUTH
 import com.example.spasdomuserapp.util.startNewActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

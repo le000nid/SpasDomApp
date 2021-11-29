@@ -10,7 +10,7 @@ interface CacheDao {
     fun getNewsItems(): LiveData<List<DatabaseNewsItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg videos: DatabaseNewsItem)
+    fun insertAllNews(vararg videos: DatabaseNewsItem)
 
 
     @Query("select * from databasealert")

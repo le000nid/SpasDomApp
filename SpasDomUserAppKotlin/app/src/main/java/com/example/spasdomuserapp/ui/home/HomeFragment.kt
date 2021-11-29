@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,11 +17,13 @@ import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentHomeBinding
 import com.example.spasdomuserapp.domain.NewsItem
 import com.example.spasdomuserapp.firebase.Events
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 /**
  * Show a list of newsItems on screen.
  */
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     /**
@@ -28,12 +31,7 @@ class HomeFragment : Fragment() {
      * lazy. This requires that viewModel not be referenced before onViewCreated(), which we
      * do in this Fragment.
      */
-    private val viewModel: HomeViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onViewCreated()"
-        }
-        ViewModelProvider(this, HomeViewModel.Factory(activity.application))[HomeViewModel::class.java]
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     /**
      * RecyclerView Adapter for converting a list of Video to cards.

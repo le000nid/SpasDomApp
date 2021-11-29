@@ -12,6 +12,7 @@ import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.database.UserPreferences
 import com.example.spasdomuserapp.databinding.FragmentLoginBinding
 import com.example.spasdomuserapp.network.Resource
+import com.example.spasdomuserapp.responses.AuthUser
 import com.example.spasdomuserapp.ui.MainActivity
 import com.example.spasdomuserapp.util.handleApiError
 import com.example.spasdomuserapp.util.startNewActivity
@@ -92,13 +93,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
 
             userPreferences.fcmToken.asLiveData().observe(viewLifecycleOwner, {
-                    if (it == null)
-                        Log.i("fcmToken", "null")
-                    else
-                        Log.i("fcmToken", it.toString())
+                    if (it != null) {
+                        viewModel.login(AuthUser(login, password, it))
+                    }
+
             })
-            // TODO(attach to fcm token)
-            viewModel.login(login, password)
         }
     }
 

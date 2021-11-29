@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.AuthRepository
+import com.example.spasdomuserapp.responses.AuthUser
 import com.example.spasdomuserapp.responses.LoginResponse
 import com.example.spasdomuserapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,9 +21,9 @@ class AuthViewModel @Inject constructor(
     val loginResponse: LiveData<Resource<LoginResponse>>
         get() = _loginResponse
 
-    fun login(login: String, password: String) = viewModelScope.launch {
+    fun login(authUser: AuthUser) = viewModelScope.launch {
         _loginResponse.value = Resource.Loading
-        _loginResponse.value = repository.login(login, password)
+        _loginResponse.value = repository.login(authUser)
     }
 
     suspend fun saveAccessTokens(accessToken: String, refreshToken: String) {

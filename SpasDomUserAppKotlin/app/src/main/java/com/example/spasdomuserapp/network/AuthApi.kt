@@ -1,16 +1,12 @@
 package com.example.spasdomuserapp.network
 
+import com.example.spasdomuserapp.responses.AuthUser
 import com.example.spasdomuserapp.responses.LoginResponse
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface AuthApi: BaseApi {
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
     @POST("login")
-    suspend fun login(
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): LoginResponse
+    suspend fun login(@Body authUser: AuthUser): LoginResponse
 }

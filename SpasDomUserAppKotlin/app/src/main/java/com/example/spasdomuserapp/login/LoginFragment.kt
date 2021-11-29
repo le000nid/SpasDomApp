@@ -17,6 +17,8 @@ import com.example.spasdomuserapp.network.LoginObject
 import com.example.spasdomuserapp.network.Network
 import com.example.spasdomuserapp.util.SHARED_PREF_IS_LOGGED
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import retrofit2.Call
@@ -25,19 +27,21 @@ import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
-
+    lateinit var auth: FirebaseAuth
+    lateinit var binding: FragmentLoginBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentLoginBinding =
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        //auth = Firebase.auth
 
         binding.apply {
             btnSignIn.setOnClickListener {
-                val login = editTextLogin.text.toString()
-                val password = editTextPassword.text.toString()
+                var login = editTextLogin.text.toString()
+                var password = editTextPassword.text.toString()
 
                 if (login.isEmpty()) {
                     editTextLogin.error = "Логин обязателен!"
@@ -50,6 +54,8 @@ class LoginFragment : Fragment() {
                     editTextPassword.requestFocus()
                     return@setOnClickListener
                 }
+
+
 
                 // Get token
                 // [START log_reg_token]
@@ -85,19 +91,34 @@ class LoginFragment : Fragment() {
                                 editor.putBoolean("isLogged",true)
                                 editor.commit()
 
-                                val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                                findNavController().navigate(action)
+                                //val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                                //findNavController().navigate(action)
                             }
                         })
                 // [END log_reg_token]
 
                 })
+                singin(login, password)
             }
         }
+
+
 
         return binding.root
     }
 
+    private fun singin (login: String, password: String){
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(login, password).addOnCompleteListener {
+            if (it.isSuccessful){
+                val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                findNavController().navigate(action)
+                return@addOnCompleteListener
+            }
+        }
+            .addOnFailureListener{
+                Log.i("Bad", "${it.message}")
+            }
+    }
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()

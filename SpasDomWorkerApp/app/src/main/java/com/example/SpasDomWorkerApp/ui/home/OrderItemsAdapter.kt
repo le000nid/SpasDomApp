@@ -1,6 +1,7 @@
 package com.example.spasdomworkerapp.ui.home
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -42,16 +43,23 @@ class OrderItemsAdapter(val callback: OrderItemClick) : RecyclerView.Adapter<Ord
      * update the contents of the {@link ViewHolder#itemView} to reflect the item at the given
      * position.
      */
+
     override fun onBindViewHolder(holder: OrderItemsViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.orderItem = orderItems[position]
             it.orderItemCallback = callback
+            if(it.orderItem?.finished == true){
+                it.orderCard.strokeColor = Color.parseColor("#5C6BC0")
+            } else {
+                it.orderCard.strokeColor = Color.parseColor("#BCBCBB")
+            }
         }
     }
 
     /**
      * ViewHolder for news items. All work is done by data binding.
      */
+
     class OrderItemsViewHolder(val viewDataBinding: ItemOrderBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
         companion object {
             @LayoutRes

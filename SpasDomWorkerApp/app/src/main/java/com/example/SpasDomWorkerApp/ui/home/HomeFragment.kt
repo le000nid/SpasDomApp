@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
         viewModelOrdersAdapter = OrderItemsAdapter(OrderItemClick {
             // context is not around, we can safely discard this click since the Fragment is no
             // longer on the screen
-//            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewsDetailedFragment(it))
+            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOrderDetailedFragment(it))
         })
 
         binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
@@ -111,13 +111,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.root.findViewById<RecyclerView>(R.id.orders_rv).apply {
-
-            /** TODO(BUG. Fix someday or forget)
-             * This disables scrolling, but for some unknown reason only displays the first three elements.
-             * However, that's what we need, so this bug has become a feature :)
-             */
             layoutManager =
-                object : LinearLayoutManager(context){ override fun canScrollVertically(): Boolean { return true } }
+                object : LinearLayoutManager(context){}
             adapter = viewModelOrdersAdapter
         }
 
@@ -172,11 +167,6 @@ class HomeFragment : Fragment() {
  * Click listener for Orders. By giving the block a name it helps a reader understand what it does.
  */
 class OrderItemClick(val block: (Order) -> Unit) {
-    /**
-     * Called when a news is clicked
-     *
-     * @param newsItem the newsItem that was clicked
-     */
     fun onClick(order: Order) = block(order)
 }
 

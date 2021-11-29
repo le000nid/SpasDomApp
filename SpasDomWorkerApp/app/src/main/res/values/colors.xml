@@ -11,5 +11,9 @@
 
     <color name="grayMiddle">#BCBCBB</color>
 
+    <color name="red">#D9001E</color>
+
     <color name="grayLight">#f0f0f0</color>
+
+    <color name="transparent">#0000ffff</color>
 </resources>

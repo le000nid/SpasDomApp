@@ -14,11 +14,13 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/orderCard"
         style="@style/cardWithBorder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
+        android:onClick="@{() -> orderItemCallback.onClick(orderItem)}"
         android:layout_marginEnd="@dimen/spacing_normal"
         app:contentPaddingBottom="@dimen/spacing_big"
         app:contentPaddingLeft="@dimen/spacing_normal"
@@ -47,7 +49,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_little"
-                android:textStyle="bold"
                 android:ellipsize="end"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

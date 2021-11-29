@@ -9,7 +9,21 @@
         android:id="@+id/homeFragment"
         android:name="com.example.spasdomworkerapp.ui.home.HomeFragment"
         android:label="Главная"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_orderDetailedFragment"
+            app:destination="@id/orderDetailedFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderDetailedFragment"
+        android:name="com.example.spasdomworkerapp.ui.home.OrderDetailedFragment"
+        android:label="Заказ"
+        tools:layout="@layout/fragment_order" >
+        <argument
+            android:name="orderItem"
+            app:argType="com.example.spasdomworkerapp.domain.Order" />
+    </fragment>
 
     <fragment
         android:id="@+id/chatFragment"

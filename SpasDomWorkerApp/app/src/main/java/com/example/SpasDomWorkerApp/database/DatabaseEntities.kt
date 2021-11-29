@@ -11,7 +11,6 @@ data class DatabaseOrderItem constructor(
     val time: String,
     val problem: String,
     val finished: Boolean,
-    val canceled: Boolean,
     @PrimaryKey
     val id: Int
     )
@@ -24,7 +23,6 @@ fun List<DatabaseOrderItem>.asDomainModel(): List<Order> {
             time = it.time,
             problem = it.problem,
             finished  = it.finished,
-            canceled = it.canceled,
             id = it.id
         )
     }

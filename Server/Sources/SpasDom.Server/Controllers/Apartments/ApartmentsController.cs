@@ -28,7 +28,6 @@ namespace SpasDom.Server.Controllers.Apartments
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ApartmentSummary[]> GetAllAsync([FromQuery(Name = "houseId")] long houseId)
         {
             return await HouseApartmentsQuery().Select(l => l.Apartment).Select(a => new ApartmentSummary(a)).ToArrayAsync();        

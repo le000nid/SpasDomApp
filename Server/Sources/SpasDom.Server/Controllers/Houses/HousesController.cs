@@ -28,7 +28,6 @@ namespace SpasDom.Server.Controllers.Houses
         }
         
         [HttpPost]
-        [Authorize(Policies.AdminsOnly)]
         public async Task<HouseSummary> AddAsync([FromBody] HouseParameters parameters)
         {
             var @new = parameters.Build();

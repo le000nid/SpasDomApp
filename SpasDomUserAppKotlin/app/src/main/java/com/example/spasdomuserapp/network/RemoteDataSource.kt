@@ -43,6 +43,7 @@ class RemoteDataSource @Inject constructor() {
             .addInterceptor { chain ->
                 chain.proceed(chain.request().newBuilder().also {
                     it.addHeader("Accept", "application/json")
+                    it.addHeader("content-type", "application/json")
                 }.build())
             }.also { client ->
                 authenticator?.let { client.authenticator(it) }

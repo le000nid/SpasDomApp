@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentHomeBinding
 import com.example.spasdomuserapp.domain.NewsItem
-import com.example.spasdomuserapp.firebase.Events
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -50,11 +49,6 @@ class HomeFragment : Fragment() {
             news?.apply {
                 viewModelAdapter?.newsItems = news
             }
-        })
-
-        Events.serviceEvent.observe(viewLifecycleOwner, { item ->
-            // TODO(I think we don't need this method because we'll get notification while opening the app from GET)
-            Log.i("fragment", item.toString())
         })
 
         viewModel.alerts.observe(viewLifecycleOwner, { alerts ->

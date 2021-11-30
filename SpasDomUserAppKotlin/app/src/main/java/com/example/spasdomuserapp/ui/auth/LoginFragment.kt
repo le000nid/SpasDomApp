@@ -15,12 +15,16 @@ import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.responses.AuthUser
 import com.example.spasdomuserapp.ui.MainActivity
 import com.example.spasdomuserapp.util.handleApiError
+import com.example.spasdomuserapp.util.snackbar
 import com.example.spasdomuserapp.util.startNewActivity
 import com.example.spasdomuserapp.util.visible
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -29,39 +33,25 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModels<AuthViewModel>()
     private lateinit var userPreferences: UserPreferences
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        userPreferences = UserPreferences(requireActivity())
-
-        Firebase.messaging.token.addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w("fcm", "Fetching FCM registration token failed", task.exception)
-                    return@OnCompleteListener
-                }
-
-                // Get new FCM registration token
-                val token = task.result
-
-                lifecycleScope.launch {
-                    userPreferences.saveFcmToken(token!!)
-                }
-            })
-
-    }
+    private var fcmToken: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLoginBinding.bind(view)
         binding.progressbar.visible(false)
 
+        userPreferences = UserPreferences(requireContext())
+
+        userPreferences.fcmToken.asLiveData().observe(viewLifecycleOwner, {
+            fcmToken = it
+        })
+
         viewModel.loginResponse.observe(viewLifecycleOwner, {
             binding.progressbar.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
                     lifecycleScope.launch {
-                        viewModel.saveAccessTokens(it.value.user.access_token!!, it.value.user.refresh_token!!)
+                        viewModel.saveAccessTokens(it.value.access.token, it.value.refresh.token)
                         requireActivity().startNewActivity(MainActivity::class.java)
                     }
                 }
@@ -92,12 +82,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 return
             }
 
-            userPreferences.fcmToken.asLiveData().observe(viewLifecycleOwner, {
-                    if (it != null) {
-                        viewModel.login(AuthUser(login, password, it))
-                    }
-
-            })
+            if (fcmToken != null) {
+                viewModel.login(AuthUser(login, password, fcmToken!!))
+            } else {
+                // this should never reach
+                requireView().snackbar("Внутренняя ошибка. Попробуйте переустановить приложение")
+            }
         }
     }
 

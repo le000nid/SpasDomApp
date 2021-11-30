@@ -3,7 +3,7 @@ package com.example.spasdomuserapp.network
 import android.content.Context
 import com.example.spasdomuserapp.database.UserPreferences
 import com.example.spasdomuserapp.repository.BaseRepository
-import com.example.spasdomuserapp.responses.TokenResponse
+import com.example.spasdomuserapp.responses.LoginResponse
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
@@ -24,12 +24,12 @@ class TokenAuthenticator @Inject constructor(
         return runBlocking {
             when (val tokenResponse = getUpdatedToken()) {
                 is Resource.Success -> {
-                    userPreferences.saveAccessTokens(
-                        tokenResponse.value.access_token!!,
-                        tokenResponse.value.refresh_token!!
+                    userPreferences.saveTokens(
+                        tokenResponse.value.access.token,
+                        tokenResponse.value.refresh.token
                     )
                     response.request.newBuilder()
-                        .header("Authorization", "${tokenResponse.value.access_token}")
+                        .header("Authorization", "Bearer ${tokenResponse.value.access.token}")
                         .build()
                 }
                 else -> null
@@ -37,9 +37,9 @@ class TokenAuthenticator @Inject constructor(
         }
     }
 
-    private suspend fun getUpdatedToken(): Resource<TokenResponse> {
+    private suspend fun getUpdatedToken(): Resource<LoginResponse> {
         val refreshToken = userPreferences.refreshToken.first()
-        return safeApiCall { tokenApi.refreshAccessToken(refreshToken) }
+        return safeApiCall { tokenApi.refreshAccessToken() }
     }
 
 }

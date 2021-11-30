@@ -16,6 +16,6 @@ class AuthRepository @Inject constructor(
     }
 
     suspend fun saveAccessTokens(accessToken: String, refreshToken: String) {
-        preferences.saveAccessTokens(accessToken, refreshToken)
+        preferences.saveTokens(accessToken, refreshToken)
     }
 }

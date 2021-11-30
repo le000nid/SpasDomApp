@@ -32,7 +32,7 @@ class UserPreferences @Inject constructor(@ApplicationContext context: Context) 
             preferences[FCM_TOKEN]
         }
 
-    suspend fun saveAccessTokens(accessToken: String, refreshToken: String) {
+    suspend fun saveTokens(accessToken: String, refreshToken: String) {
         appContext.dataStore.edit { preferences ->
             preferences[ACCESS_TOKEN] = accessToken
             preferences[REFRESH_TOKEN] = refreshToken
@@ -46,8 +46,9 @@ class UserPreferences @Inject constructor(@ApplicationContext context: Context) 
     }
 
     suspend fun clear() {
-        appContext.dataStore.edit { preferences ->
-            preferences.clear()
+        appContext.dataStore.edit {
+            it.remove(ACCESS_TOKEN)
+            it.remove(REFRESH_TOKEN)
         }
     }
 

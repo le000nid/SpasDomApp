@@ -6,7 +6,6 @@ import retrofit2.http.*
 
 interface AuthApi: BaseApi {
 
-    @Headers("Content-Type: application/json")
-    @POST("login")
+    @POST("/auth/login")
     suspend fun login(@Body authUser: AuthUser): LoginResponse
 }

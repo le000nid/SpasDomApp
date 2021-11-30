@@ -93,20 +93,20 @@ class HomeFragment : Fragment() {
             this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOrderDetailedFragment(it))
         })
 
-        binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
+        binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderShowFormat)
 
         val butNext = binding.root.findViewById<ImageView>(R.id.nextDate)
         val butPrevious = binding.root.findViewById<ImageView>(R.id.previousDate)
 
         butNext.setOnClickListener {
             viewModel.NextDay()
-            binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
+            binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderShowFormat)
             updateOrders()
         }
 
         butPrevious.setOnClickListener {
             viewModel.PreviousDay()
-            binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
+            binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderShowFormat)
             updateOrders()
         }
 
@@ -143,7 +143,7 @@ class HomeFragment : Fragment() {
                         cal.set(Calendar.MONTH, monthOfYear)
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                         viewModel.SomeDay(cal)
-                        binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderGetFormat)
+                        binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderShowFormat)
                         updateOrders()
                     }
                 }

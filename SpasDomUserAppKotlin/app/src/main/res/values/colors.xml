@@ -10,4 +10,6 @@
     <color name="secondaryTextColor">#ffffff</color>
 
     <color name="grayMiddle">#BCBCBB</color>
+    <color name="grayLight">#F0F0F0</color>
+    <color name="primaryBlack">#000000</color>
 </resources>

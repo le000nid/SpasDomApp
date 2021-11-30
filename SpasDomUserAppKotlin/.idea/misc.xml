@@ -21,7 +21,12 @@
         <entry key="..\:/SpasDomUserApp/SpasDomUserApp/app/src/main/res/layout/item_news.xml" value="0.4" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2609375" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/drawable/ic_broken_image.xml" value="0.26481481481481484" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/drawable/ic_card_main.xml" value="0.2911458333333333" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/drawable/ic_hourglass.xml" value="0.2911458333333333" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/drawable/ic_problem.xml" value="0.2911458333333333" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/drawable/ic_rate_5.xml" value="0.2911458333333333" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/drawable/ic_water_drop.xml" value="0.2911458333333333" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/drawable/ic_worker.xml" value="0.2911458333333333" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/activity_auth.xml" value="0.19882246376811594" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/activity_initial.xml" value="0.1933876811594203" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/activity_main.xml" value="0.161231884057971" />
@@ -43,6 +48,7 @@
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_notification.xml" value="0.4020100502512563" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_planned_order.xml" value="0.264" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_push_notification.xml" value="0.21693840579710144" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/test.xml" value="0.264" />
       </map>
     </option>
   </component>

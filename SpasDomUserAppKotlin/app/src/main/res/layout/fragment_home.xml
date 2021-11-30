@@ -23,15 +23,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/textNotification"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:text="Уведомления"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/alerts_rv"
-                    android:nestedScrollingEnabled="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_little"
+                    android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/textNotification" />
 
                 <!--<ProgressBar
                     android:id="@+id/loading_spinner"
@@ -44,16 +55,49 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/news_recycler_view" />-->
 
+                <TextView
+                    android:id="@+id/textNews"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:text="Новости"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/alerts_rv" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/news_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
-                    android:layout_marginTop="@dimen/spacing_big"
+                    android:layout_marginTop="@dimen/spacing_little"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/alerts_rv" />
+                    app:layout_constraintTop_toBottomOf="@+id/textNews" />
+
+                <TextView
+                    android:id="@+id/textMain"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:text="Основное"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/news_recycler_view" />
+
+                <include
+                    layout="@layout/home_cards_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_little"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textMain" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

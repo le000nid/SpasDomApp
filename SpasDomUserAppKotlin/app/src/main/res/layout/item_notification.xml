@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal"
-        android:layout_marginTop="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
         style="@style/cardWithBorder"
         app:strokeColor="@color/secondaryColor">

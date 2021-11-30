@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,18 +20,15 @@ import com.example.spasdomuserapp.databinding.DialogRateOrderBinding
 import com.example.spasdomuserapp.databinding.FragmentPlannedBinding
 import com.example.spasdomuserapp.domain.PlannedOrder
 import com.example.spasdomuserapp.ui.services.ServicesFragmentDirections
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dialog_rate_order.view.*
 import timber.log.Timber
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class PlannedFragment : Fragment() {
 
-    private val viewModel: PlannedViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onViewCreated()"
-        }
-        ViewModelProvider(this, PlannedViewModel.Factory(activity.application))[PlannedViewModel::class.java]
-    }
+    private val viewModel: PlannedViewModel by viewModels()
 
     private var viewModelActiveAdapter: ActivePlanedOrdersAdapter? = null
 

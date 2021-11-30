@@ -23,15 +23,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/textNotification"
+                    style="@style/Headline7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:text="Уведомления"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/alerts_rv"
-                    android:nestedScrollingEnabled="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_little"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/textNotification" />
 
                 <!--<ProgressBar
                     android:id="@+id/loading_spinner"
@@ -44,16 +55,165 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/news_recycler_view" />-->
 
+                <TextView
+                    android:id="@+id/textNews"
+                    style="@style/Headline7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:text="Новости"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/alerts_rv" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/news_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
-                    android:layout_marginTop="@dimen/spacing_big"
+                    android:layout_marginTop="@dimen/spacing_normal"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/alerts_rv" />
+                    app:layout_constraintTop_toBottomOf="@+id/textNews" />
+
+                <TextView
+                    android:id="@+id/textMain"
+                    style="@style/Headline7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:text="Основное"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/news_recycler_view" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card1"
+                    style="@style/card_style_main"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginStart="@dimen/spacing_normal"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textMain">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_water_drop" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textCard1"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Доставка Воды"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/spacing_little"
+                    app:layout_constraintEnd_toEndOf="@+id/card1"
+                    app:layout_constraintStart_toStartOf="@+id/card1"
+                    app:layout_constraintTop_toBottomOf="@id/card1" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card2"
+                    style="@style/card_style_main"
+                    android:layout_marginStart="@dimen/spacing_little"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/card1"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintStart_toEndOf="@id/card1"
+                    app:layout_constraintTop_toTopOf="@id/card1">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_worker" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textCard2"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Выбрать услугу"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/spacing_little"
+                    app:layout_constraintEnd_toEndOf="@+id/card2"
+                    app:layout_constraintStart_toStartOf="@+id/card2"
+                    app:layout_constraintTop_toBottomOf="@id/card2" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card3"
+                    style="@style/card_style_main"
+                    android:layout_marginStart="@dimen/spacing_little"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/card2"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintStart_toEndOf="@id/card2"
+                    app:layout_constraintTop_toTopOf="@id/card2">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_problem" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textCard3"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Сообщить о проблеме"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/spacing_little"
+                    app:layout_constraintEnd_toEndOf="@+id/card3"
+                    app:layout_constraintStart_toStartOf="@+id/card3"
+                    app:layout_constraintTop_toBottomOf="@id/card3" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card4"
+                    style="@style/card_style_main"
+                    android:layout_marginEnd="@dimen/spacing_normal"
+                    android:layout_marginStart="@dimen/spacing_little"
+                    app:layout_constraintBottom_toBottomOf="@id/card3"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/card3"
+                    app:layout_constraintTop_toTopOf="@id/card3">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_hourglass" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textCard4"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Что-то ещё"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/spacing_little"
+                    app:layout_constraintEnd_toEndOf="@+id/card4"
+                    app:layout_constraintStart_toStartOf="@+id/card4"
+                    app:layout_constraintTop_toBottomOf="@id/card4" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/spacing_big"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textCard1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

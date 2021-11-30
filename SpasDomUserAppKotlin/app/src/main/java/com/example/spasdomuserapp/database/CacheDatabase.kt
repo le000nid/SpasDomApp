@@ -1,29 +1,60 @@
 package com.example.spasdomuserapp.database
 
-import android.content.Context
+import android.util.Log
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.spasdomuserapp.di.ApplicationScope
+import com.example.spasdomuserapp.domain.PlannedOrder
+import com.example.spasdomuserapp.network.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Provider
 
 
 @Database(entities = [DatabaseNewsItem::class, DataBaseAlert::class, CachePlannedOrder::class], version = 1)
 abstract class CacheDatabase : RoomDatabase() {
-    abstract val dao: CacheDao
-}
+    abstract fun cacheDao(): CacheDao
 
-private lateinit var INSTANCE: CacheDatabase
+    class Callback @Inject constructor(
+        private val database: Provider<CacheDatabase>,
+        @ApplicationScope private val applicationScope: CoroutineScope
+    ) : RoomDatabase.Callback() {
 
-/**
- * Inside getDatabase(), use ::INSTANCE.isInitialized to check if the variable has been initialized.
- *  If it hasn't, then initialize it. Make sure your code is synchronized so it’s thread safe:
- */
-fun getDatabase(context: Context): CacheDatabase {
-    synchronized(CacheDatabase::class.java) {
-        if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(context.applicationContext,
-                CacheDatabase::class.java,
-                "cache").build()
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+
+            Log.i("Callback", "callback called")
+
+            val cacheDao = database.get().cacheDao()
+
+            applicationScope.launch {
+                val newsInit: List<NetworkNewsItem> = listOf(
+                    NetworkNewsItem("Украли дверь", "Вечером 22.03 вынесли дверь. Соседе вызвали полицию!","1","22.03.21", "", ""),
+                    NetworkNewsItem("Украли соседа", "Вечером 24.03 украли соседа. Люди в страхе!","2","24.03.21", "",""),
+                    NetworkNewsItem("Украли жену соседа", "Вечером 25.03 украли жену соседа. Люди продают квартиры!","3","25.03.21", "","")
+                )
+                val threeNews = NetworkNewsContainer(newsInit)
+                cacheDao.insertAllNews(*threeNews.asDatabaseModel())
+
+
+                val alertsInit: List<NetworkAlerts> = listOf(
+                    NetworkAlerts("20 Октбяра с 3 до 8", "Отключение горячей воды","Описание1"),
+                    NetworkAlerts("21 Октбяра с 3 до 8", "Отключение Холодной воды","Описание2"),
+                )
+                val alerts = NetworkAlertsContainer(alertsInit)
+                cacheDao.insertAllAlerts(*alerts.asDatabaseAlertModel())
+
+
+                val itemsInit: List<PlannedOrder> = listOf(
+                    PlannedOrder(1,"Проверка счетчиков","24.01.21","14:00-15:00",0,"",false,"","Петр Васильев", 4, "No info"),
+                    PlannedOrder(2,"Проверка воды","25.01.21","17:00-18:00",0,"",true,"","Александр Васильев", 2, "No info"),
+                    PlannedOrder(3,"Проверка крана","27.01.21","12:00-13:00",4,"Все прекрасно",true,"","Петр Васильев", 4, "No info")
+                )
+                val items = NetworkPlannedOrdersContainer(itemsInit)
+                cacheDao.insertAllPlannedOrders(*items.asCachePlannedOrderModel())
+            }
         }
     }
-    return INSTANCE
 }

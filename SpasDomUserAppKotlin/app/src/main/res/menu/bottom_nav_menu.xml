@@ -7,11 +7,6 @@
         android:icon="@drawable/ic_home"/>
 
     <item
-        android:id="@+id/servicesFragment"
-        android:title="Услуги"
-        android:icon="@drawable/ic_services"/>
-
-    <item
         android:id="@+id/chatFragment"
         android:title="Чат"
         android:icon="@drawable/ic_chat"/>

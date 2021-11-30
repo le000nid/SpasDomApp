@@ -5,25 +5,33 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.MutableLiveData
 import com.example.spasdomuserapp.R
+import com.example.spasdomuserapp.database.UserPreferences
 import com.example.spasdomuserapp.ui.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import android.content.pm.PackageManager
-
-import android.content.ComponentName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 const val NOTIFICATION_CHANNEL_ID = "com.example.spasdomuserapp"
 const val NOTIFICATION_ID = 100
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+
+    private lateinit var userPreferences: UserPreferences
+
+    private val serviceJob = Job()
+    private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
 
     override fun onCreate() {
         super.onCreate()
@@ -31,6 +39,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             applicationContext,
             MyFirebaseMessagingService::class.java
         )
+
+        userPreferences = UserPreferences(this)
 
         applicationContext.packageManager.setComponentEnabledSetting(
             componentName,
@@ -41,9 +51,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
-        Log.i("newToken", p0)
-        // TODO(LOGIN FOR IDENTITY)
-        // TODO(Make request to the server)
+
+        serviceScope.launch {
+            userPreferences.saveFcmToken(p0)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        serviceJob.cancel()
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -56,8 +72,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val title = remoteMessage.notification!!.title
             val body = remoteMessage.notification!!.body
             showNotification(applicationContext, title, body)
-
-            Events.serviceEvent.postValue(MyNotification(title, body))
         }
 
         super.onMessageReceived(remoteMessage)
@@ -107,11 +121,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 }
 
-object Events {
-    val serviceEvent: MutableLiveData<MyNotification> by lazy {
-        MutableLiveData<MyNotification>()
-    }
-}
 
 data class MyNotification(
     val title: String?,

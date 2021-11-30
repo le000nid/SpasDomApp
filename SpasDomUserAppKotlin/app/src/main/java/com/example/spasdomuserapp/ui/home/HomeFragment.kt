@@ -1,6 +1,5 @@
 package com.example.spasdomuserapp.ui.home
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,19 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentHomeBinding
 import com.example.spasdomuserapp.domain.NewsItem
-import com.example.spasdomuserapp.firebase.Events
-import timber.log.Timber
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Show a list of newsItems on screen.
  */
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     /**
@@ -28,12 +27,7 @@ class HomeFragment : Fragment() {
      * lazy. This requires that viewModel not be referenced before onViewCreated(), which we
      * do in this Fragment.
      */
-    private val viewModel: HomeViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onViewCreated()"
-        }
-        ViewModelProvider(this, HomeViewModel.Factory(activity.application))[HomeViewModel::class.java]
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     /**
      * RecyclerView Adapter for converting a list of Video to cards.
@@ -55,11 +49,6 @@ class HomeFragment : Fragment() {
             news?.apply {
                 viewModelAdapter?.newsItems = news
             }
-        })
-
-        Events.serviceEvent.observe(viewLifecycleOwner, { item ->
-            // TODO(I think we don't need this method because we'll get notification while opening the app from GET)
-            Log.i("fragment", item.toString())
         })
 
         viewModel.alerts.observe(viewLifecycleOwner, { alerts ->
@@ -124,6 +113,11 @@ class HomeFragment : Fragment() {
                 viewModel?.swipeToRefresh()
                 swipeRefreshHome.isRefreshing = false
             }
+        }
+
+        binding.card2.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToServicesFragment()
+            findNavController().navigate(action)
         }
 
         return binding.root

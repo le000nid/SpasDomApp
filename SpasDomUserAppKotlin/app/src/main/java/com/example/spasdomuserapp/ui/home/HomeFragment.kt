@@ -1,6 +1,5 @@
 package com.example.spasdomuserapp.ui.home
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +16,6 @@ import com.example.spasdomuserapp.databinding.FragmentHomeBinding
 import com.example.spasdomuserapp.domain.NewsItem
 import com.example.spasdomuserapp.firebase.Events
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 /**
  * Show a list of newsItems on screen.
@@ -122,6 +119,11 @@ class HomeFragment : Fragment() {
                 viewModel?.swipeToRefresh()
                 swipeRefreshHome.isRefreshing = false
             }
+        }
+
+        binding.card2.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToServicesFragment()
+            findNavController().navigate(action)
         }
 
         return binding.root

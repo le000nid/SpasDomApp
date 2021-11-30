@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
-                R.id.servicesFragment,
                 R.id.chatFragment,
                 R.id.paymentFragment,
                 R.id.profileFragment
@@ -83,7 +82,6 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> showBottomNav()
-                R.id.servicesFragment -> showBottomNav()
                 R.id.chatFragment -> showBottomNav()
                 R.id.paymentFragment -> showBottomNav()
                 R.id.profileFragment -> showBottomNav()

@@ -96,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_little"
                 android:backgroundTint="@color/secondaryColor"
+                android:visibility="gone"
                 android:onClick="@{() -> reviewClick.onReviewClick(plannedOrder)}"
                 android:text="Оставить отзыв"
                 android:textColor="@color/secondaryTextColor"

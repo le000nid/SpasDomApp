@@ -25,7 +25,7 @@
 
                 <TextView
                     android:id="@+id/textNotification"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    style="@style/Headline7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
@@ -38,7 +38,7 @@
                     android:id="@+id/alerts_rv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_little"
+                    android:layout_marginTop="@dimen/spacing_normal"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,7 @@
 
                 <TextView
                     android:id="@+id/textNews"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    style="@style/Headline7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
-                    android:layout_marginTop="@dimen/spacing_little"
+                    android:layout_marginTop="@dimen/spacing_normal"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +79,7 @@
 
                 <TextView
                     android:id="@+id/textMain"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    style="@style/Headline7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_normal"
@@ -91,7 +91,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card1"
                     style="@style/card_style_main"
-                    android:layout_marginTop="@dimen/spacing_little"
+                    android:layout_marginTop="@dimen/spacing_normal"
                     android:layout_marginStart="@dimen/spacing_normal"
                     app:layout_constraintDimensionRatio="1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -207,6 +207,13 @@
                     app:layout_constraintEnd_toEndOf="@+id/card4"
                     app:layout_constraintStart_toStartOf="@+id/card4"
                     app:layout_constraintTop_toBottomOf="@id/card4" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/spacing_big"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textCard1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

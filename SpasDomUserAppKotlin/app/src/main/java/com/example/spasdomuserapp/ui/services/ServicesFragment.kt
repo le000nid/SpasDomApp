@@ -21,9 +21,9 @@ class ServicesFragment : Fragment(R.layout.fragment_services) {
 
             TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
                 when(position) {
-                    0 -> tab.text = "Экстренные"
-                    1 -> tab.text = "Плановые"
-                    2 -> tab.text = "Доп. услуги"
+                    0 -> tab.text = "Плановые"
+                    1 -> tab.text = "Внештатные"
+                    2 -> tab.text = "Экстренные"
                 }
             }.attach()
         }

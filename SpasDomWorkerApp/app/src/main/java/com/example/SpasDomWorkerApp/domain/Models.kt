@@ -1,3 +1,15 @@
-package com.example.SpasDomWorkerApp.domain
+package com.example.spasdomworkerapp.domain
 
-data class Order(val title: String)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Order(val date: String,
+                 val address: String,
+                 val time: String,
+                 val problem: String,
+                 val finished: Boolean,
+                 val id: Int): Parcelable{
+    val shortDesc: String
+        get() = "$time | $problem"
+}

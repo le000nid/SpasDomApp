@@ -29,6 +29,8 @@ namespace Db
 
             var tenant = builder.Entity<Tenant>();
 
+            var administrator = builder.Entity<Administrator>();
+
             var apartmentTenant = builder.Entity<ApartmentTenant>();
 
             apartmentTenant.HasOne(a => a.Apartment)

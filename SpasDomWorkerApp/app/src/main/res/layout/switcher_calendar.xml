@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/switcherCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:layout_marginEnd="@dimen/spacing_normal"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        app:contentPaddingBottom="@dimen/spacing_little"
+        app:contentPaddingLeft="@dimen/spacing_normal"
+        app:contentPaddingRight="@dimen/spacing_normal"
+        app:contentPaddingTop="@dimen/spacing_little">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/date"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/nextDate"
+                app:layout_constraintStart_toEndOf="@id/previousDate"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center"
+                tools:text="Суббота. 27.11.2021" />
+
+            <ImageView
+                android:id="@+id/previousDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_navigate_previous"
+                app:tint="@color/secondaryColor" />
+
+            <ImageView
+                android:id="@+id/nextDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_navigate_next"
+                app:tint="@color/secondaryColor" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Auth.Implementations;
 using Entities;
 
 namespace SpasDom.Server.Controllers.Apartments.Input
@@ -10,13 +11,17 @@ namespace SpasDom.Server.Controllers.Apartments.Input
         
         [JsonPropertyName("businessAccount")]
         public string BusinessAccount { get; set; }
+        
+        [JsonPropertyName("password")]
+        public string Password { get; set; }
 
 
         public Apartment Build()
         {
             return new Apartment()
             {
-                BusinessAccount = BusinessAccount
+                BusinessAccount = BusinessAccount,
+                Password = PasswordHandler.PasswordHash(Password)
             };
         }
     }

@@ -11,6 +11,22 @@ namespace Db.Migrations
                 name: "spas-dom");
 
             migrationBuilder.CreateTable(
+                name: "Administrators",
+                schema: "spas-dom",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Login = table.Column<string>(type: "TEXT", nullable: true),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Administrators", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Announcements",
                 schema: "spas-dom",
                 columns: table => new
@@ -306,6 +322,10 @@ namespace Db.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Administrators",
+                schema: "spas-dom");
+
             migrationBuilder.DropTable(
                 name: "Announcement-House-Links",
                 schema: "spas-dom");

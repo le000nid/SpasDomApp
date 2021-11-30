@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Db.Repository.Interfaces;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpasDom.Server.Controllers.Apartments.Input;

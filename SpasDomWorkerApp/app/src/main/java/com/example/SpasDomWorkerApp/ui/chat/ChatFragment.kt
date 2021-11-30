@@ -1,11 +1,11 @@
-package com.example.SpasDomWorkerApp.ui.chat
+package com.example.spasdomworkerapp.ui.chat
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.SpasDomWorkerApp.R
+import com.example.spasdomworkerapp.R
 
 class ChatFragment : Fragment() {
 

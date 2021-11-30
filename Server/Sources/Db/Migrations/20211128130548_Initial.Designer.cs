@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Db.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20211123172839_Initial")]
+    [Migration("20211128130548_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,6 +18,26 @@ namespace Db.Migrations
             modelBuilder
                 .HasDefaultSchema("spas-dom")
                 .HasAnnotation("ProductVersion", "5.0.12");
+
+            modelBuilder.Entity("Entities.Administrator", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Administrators");
+                });
 
             modelBuilder.Entity("Entities.Announcement", b =>
                 {

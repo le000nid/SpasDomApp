@@ -3,7 +3,9 @@ using Db.Repository.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Auth.Models;
 using Common.SelectParameters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace SpasDom.Server.Controllers.Houses
@@ -26,6 +28,7 @@ namespace SpasDom.Server.Controllers.Houses
         }
         
         [HttpPost]
+        [Authorize(Policies.AdminsOnly)]
         public async Task<HouseSummary> AddAsync([FromBody] HouseParameters parameters)
         {
             var @new = parameters.Build();

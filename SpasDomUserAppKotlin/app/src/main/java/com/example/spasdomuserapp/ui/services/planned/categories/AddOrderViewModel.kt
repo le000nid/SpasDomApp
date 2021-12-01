@@ -3,6 +3,7 @@ package com.example.spasdomuserapp.ui.services.planned.categories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.spasdomuserapp.R
+import com.example.spasdomuserapp.models.Photo
 import com.example.spasdomuserapp.models.PlannedCategory
 
 class AddOrderViewModel(): ViewModel() {
@@ -22,4 +23,12 @@ class AddOrderViewModel(): ViewModel() {
         PlannedCategory("Двор", 5, null)
     )
 
+    val photos: List<Photo> = listOf(
+        Photo("1"),
+        Photo("2"),
+        Photo("3"),
+        Photo("4"),
+        Photo("5"),
+        Photo("6")
+    )
 }

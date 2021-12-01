@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemCategoryCardBinding
 import com.example.spasdomuserapp.models.PlannedCategory
-import com.example.spasdomuserapp.ui.services.planned.categories.PlannedCategoriesClick
 
 
 class PlannedCategoriesAdapter(val callback: PlannedCategoriesClick) : RecyclerView.Adapter<PlannedCategoriesAdapter.CategoriesViewHolder>() {

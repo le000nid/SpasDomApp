@@ -1,7 +1,6 @@
-package com.example.spasdomuserapp.ui.services.planned.categories
+package com.example.spasdomuserapp.ui.services.planned.categories.lvl1
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedCategoriesBinding
 import com.example.spasdomuserapp.models.PlannedCategory
-import com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesAdapter
+import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
 
 class PlannedCategoriesFragment : Fragment() {
 

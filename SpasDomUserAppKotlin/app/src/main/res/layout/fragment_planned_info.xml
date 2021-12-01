@@ -7,14 +7,11 @@
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categories_rv"
-        android:layout_marginEnd="@dimen/spacing_little"
-        android:layout_marginStart="@dimen/spacing_normal"
-        android:layout_marginTop="@dimen/spacing_normal"
+        android:id="@+id/photos_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.services.planned.categories.lvl1.PlannedCategoriesFragment">
-
+        tools:context=".ui.services.planned.categories.info.PlannedInfoFragment"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 </layout>

@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedCategoriesLvl2Binding
-import com.example.spasdomuserapp.ui.home.NewsDetailedFragmentArgs
-import com.example.spasdomuserapp.ui.services.planned.categories.PlannedCategoriesClick
+import com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesClick
 import com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesAdapter
 
 
@@ -38,7 +38,8 @@ class PlannedCategoriesLvl2Fragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         plannedCategoriesAdapter = PlannedCategoriesAdapter(PlannedCategoriesClick {
-            Log.i("click", it.toString())
+            val action = PlannedCategoriesLvl2FragmentDirections.actionPlannedCategoriesLvl2FragmentToPlannedInfoFragment(it, it.label)
+            findNavController().navigate(action)
         })
 
         binding.root.findViewById<RecyclerView>(R.id.categories_lvl2_rv).apply {

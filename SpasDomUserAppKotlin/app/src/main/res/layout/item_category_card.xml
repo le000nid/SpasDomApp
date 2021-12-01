@@ -35,7 +35,11 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_water_drop" />
+                app:categoryImage="@{category}"
+                app:tint="@color/primaryBlack" />
+
+
+
         </androidx.cardview.widget.CardView>
 
         <TextView

@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class PlannedCategory (
     val label: String,
-    val drawable: Int,
+    val drawableId: Int,
     val listLvl2: List<PlannedCategory>?
     ): Parcelable

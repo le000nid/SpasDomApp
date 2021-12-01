@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.domain.PlannedOrder
+import com.example.spasdomuserapp.models.PlannedCategory
 
 /**
  * Binding adapter used to hide the spinner once data is available
@@ -53,4 +54,14 @@ fun setRating(view: ImageView, it: PlannedOrder) {
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String) {
     Glide.with(imageView.context).load(url).into(imageView)
+}
+
+//TODO (Add all drawables for categories)
+@BindingAdapter("categoryImage")
+fun ImageView.setCategoryImage(item: PlannedCategory) {
+    setImageResource(when (item.drawableId) {
+        1 -> R.drawable.ic_water_drop
+        2 -> R.drawable.ic_home
+        else -> R.drawable.ic_broken_image
+    })
 }

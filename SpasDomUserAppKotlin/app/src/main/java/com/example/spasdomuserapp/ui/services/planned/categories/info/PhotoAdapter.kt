@@ -5,20 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemPhotoBinding
 import com.example.spasdomuserapp.models.Photo
 
 
-class PhotoAdapter(/*val callback: PlannedCategoriesClick*/) : RecyclerView.Adapter<PhotoAdapter.PhotosViewHolder>() {
-
-    var photos: List<Photo> = emptyList()
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class PhotoAdapter(/*val callback: PlannedCategoriesClick*/) : ListAdapter<Photo,
+        PhotoAdapter.PhotosViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         val withDataBinding: ItemPhotoBinding = DataBindingUtil.inflate(
@@ -29,11 +25,9 @@ class PhotoAdapter(/*val callback: PlannedCategoriesClick*/) : RecyclerView.Adap
         return PhotosViewHolder(withDataBinding)
     }
 
-    override fun getItemCount() = photos.size
-
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            it.photo = photos[position]
+            it.photo = getItem(position)
             /*it.click = callback*/
         }
     }
@@ -43,5 +37,13 @@ class PhotoAdapter(/*val callback: PlannedCategoriesClick*/) : RecyclerView.Adap
             @LayoutRes
             val LAYOUT = R.layout.item_photo
         }
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<Photo>() {
+        override fun areItemsTheSame(oldItem: Photo, newItem: Photo) =
+            oldItem.title == newItem.title
+
+        override fun areContentsTheSame(oldItem: Photo, newItem: Photo) =
+            oldItem == newItem
     }
 }

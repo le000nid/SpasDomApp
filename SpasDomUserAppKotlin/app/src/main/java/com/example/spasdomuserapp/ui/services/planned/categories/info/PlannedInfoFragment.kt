@@ -32,6 +32,7 @@ class PlannedInfoFragment : Fragment() {
         binding.root.findViewById<RecyclerView>(R.id.photos_rv).apply {
             layoutManager = GridLayoutManager(activity, 3)
             adapter = photoAdapter
+            setHasFixedSize(true)
         }
 
         return binding.root
@@ -40,6 +41,8 @@ class PlannedInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        photoAdapter?.photos = viewModel.photos
+        viewModel.photos.observe(viewLifecycleOwner) {
+            photoAdapter?.submitList(it)
+        }
     }
 }

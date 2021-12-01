@@ -7,6 +7,9 @@
         <variable
             name="photo"
             type="com.example.spasdomuserapp.models.Photo" />
+        <variable
+            name="click"
+            type="com.example.spasdomuserapp.ui.services.planned.categories.info.PhotoRemoveClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +20,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card1"
             style="@style/card_style_main"
+            android:onClick="@{() -> click.onClick(photo)}"
             android:backgroundTint="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/spacing_normal"

@@ -1,6 +1,7 @@
 package com.example.spasdomuserapp.ui.services.planned.categories.info
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedInfoBinding
+import com.example.spasdomuserapp.models.Photo
+import com.example.spasdomuserapp.models.PlannedCategory
 import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
 
 class PlannedInfoFragment : Fragment() {
@@ -27,7 +30,9 @@ class PlannedInfoFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        photoAdapter = PhotoAdapter()
+        photoAdapter = PhotoAdapter(PhotoRemoveClick {
+            Log.i("click", it.toString())
+        })
 
         binding.root.findViewById<RecyclerView>(R.id.photos_rv).apply {
             layoutManager = GridLayoutManager(activity, 3)
@@ -45,4 +50,8 @@ class PlannedInfoFragment : Fragment() {
             photoAdapter?.submitList(it)
         }
     }
+}
+
+class PhotoRemoveClick(val block: (Photo) -> Unit) {
+    fun onClick(photo: Photo) = block(photo)
 }

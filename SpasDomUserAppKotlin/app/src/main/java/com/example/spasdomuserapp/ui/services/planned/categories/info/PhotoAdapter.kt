@@ -13,7 +13,7 @@ import com.example.spasdomuserapp.databinding.ItemPhotoBinding
 import com.example.spasdomuserapp.models.Photo
 
 
-class PhotoAdapter(/*val callback: PlannedCategoriesClick*/) : ListAdapter<Photo,
+class PhotoAdapter(val callback: PhotoRemoveClick) : ListAdapter<Photo,
         PhotoAdapter.PhotosViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
@@ -28,7 +28,7 @@ class PhotoAdapter(/*val callback: PlannedCategoriesClick*/) : ListAdapter<Photo
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.photo = getItem(position)
-            /*it.click = callback*/
+            it.click = callback
         }
     }
 

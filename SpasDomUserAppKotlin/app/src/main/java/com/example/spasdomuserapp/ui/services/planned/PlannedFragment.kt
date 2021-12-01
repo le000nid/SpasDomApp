@@ -1,9 +1,7 @@
 package com.example.spasdomuserapp.ui.services.planned
 
-import android.app.PendingIntent.getActivity
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,18 +18,14 @@ import com.example.spasdomuserapp.databinding.FragmentPlannedBinding
 import com.example.spasdomuserapp.domain.PlannedOrder
 import com.example.spasdomuserapp.ui.services.ServicesFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.dialog_rate_order.view.*
-import timber.log.Timber
-import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class PlannedFragment : Fragment() {
 
     private val viewModel: PlannedViewModel by viewModels()
 
-    private var viewModelActiveAdapter: ActivePlanedOrdersAdapter? = null
-
-    private var viewModelHistoryAdapter: HistoryPlanedOrdersAdapter? = null
+    private var activeAdapter: ActivePlanedOrdersAdapter? = null
+    private var historyAdapter: HistoryPlanedOrdersAdapter? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,13 +33,13 @@ class PlannedFragment : Fragment() {
 
         viewModel.activePlannedOrders.observe(viewLifecycleOwner, { orders ->
             orders?.apply {
-                viewModelActiveAdapter?.plannedOrders = orders
+                activeAdapter?.plannedOrders = orders
             }
         })
 
         viewModel.historyPlannedOrders.observe(viewLifecycleOwner, { orders ->
             orders?.apply {
-                viewModelHistoryAdapter?.historyOrders = orders
+                historyAdapter?.historyOrders = orders
             }
         })
     }
@@ -61,12 +54,12 @@ class PlannedFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModelActiveAdapter = ActivePlanedOrdersAdapter(PlannedOrderClick {
+        activeAdapter = ActivePlanedOrdersAdapter(PlannedOrderClick {
             val action = ServicesFragmentDirections.actionServicesFragmentToActivePlannedDetailedFragment(it)
             findNavController().navigate(action)
         })
 
-        viewModelHistoryAdapter = HistoryPlanedOrdersAdapter(PlannedOrderClick {
+        historyAdapter = HistoryPlanedOrdersAdapter(PlannedOrderClick {
             val action = ServicesFragmentDirections.actionServicesFragmentToHistoryPlannedDetailedFragment(it)
             findNavController().navigate(action)
         }, ReviewClick {
@@ -75,12 +68,12 @@ class PlannedFragment : Fragment() {
 
         binding.root.findViewById<RecyclerView>(R.id.active_planned_rv).apply {
             layoutManager = object : LinearLayoutManager(context){ override fun canScrollVertically(): Boolean { return false } }
-            adapter = viewModelActiveAdapter
+            adapter = activeAdapter
         }
 
         binding.root.findViewById<RecyclerView>(R.id.history_planned_rv).apply {
             layoutManager = object : LinearLayoutManager(context){ override fun canScrollVertically(): Boolean { return false } }
-            adapter = viewModelHistoryAdapter
+            adapter = historyAdapter
         }
 
 
@@ -89,6 +82,11 @@ class PlannedFragment : Fragment() {
                 viewModel?.swipeToRefresh()
                 swipeRefreshPlanned.isRefreshing = false
             }
+        }
+
+        binding.actionAddOrder.setOnClickListener {
+            val action = ServicesFragmentDirections.actionServicesFragmentToPlannedCategoriesFragment()
+            findNavController().navigate(action)
         }
 
 

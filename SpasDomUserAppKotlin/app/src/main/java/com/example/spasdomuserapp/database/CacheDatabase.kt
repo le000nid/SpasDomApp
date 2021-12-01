@@ -50,7 +50,8 @@ abstract class CacheDatabase : RoomDatabase() {
                 val itemsInit: List<PlannedOrder> = listOf(
                     PlannedOrder(1,"Проверка счетчиков","24.01.21","14:00-15:00",0,"",false,"","Петр Васильев", 4, "No info"),
                     PlannedOrder(2,"Проверка воды","25.01.21","17:00-18:00",0,"",true,"","Александр Васильев", 2, "No info"),
-                    PlannedOrder(3,"Проверка крана","27.01.21","12:00-13:00",4,"Все прекрасно",true,"","Петр Васильев", 4, "No info")
+                    PlannedOrder(3,"Проверка крана","27.01.21","12:00-13:00",4,"Все прекрасно",true,"","Петр Васильев", 4, "No info"),
+                    PlannedOrder(4,"Проверка крана","27.01.21","12:00-13:00",4,"Все прекрасно",true,"","Петр Васильев", 4, "No info")
                 )
                 val items = NetworkPlannedOrdersContainer(itemsInit)
                 cacheDao.insertAllPlannedOrders(*items.asCachePlannedOrderModel())

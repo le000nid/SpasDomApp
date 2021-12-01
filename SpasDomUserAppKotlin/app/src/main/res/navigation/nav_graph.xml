@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_servicesFragment_to_historyPlannedDetailedFragment"
             app:destination="@id/historyPlannedDetailedFragment" />
+        <action
+            android:id="@+id/action_servicesFragment_to_plannedCategoriesFragment"
+            app:destination="@id/plannedCategoriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -76,4 +79,9 @@
             android:name="activePlannedOrder"
             app:argType="com.example.spasdomuserapp.domain.PlannedOrder" />
     </fragment>
+    <fragment
+        android:id="@+id/plannedCategoriesFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.categories.PlannedCategoriesFragment"
+        android:label="Выберите категорию"
+        tools:layout="@layout/fragment_planned_categories" />
 </navigation>

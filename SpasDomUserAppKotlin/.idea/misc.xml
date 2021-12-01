@@ -41,10 +41,12 @@
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_news_detailed.xml" value="0.5181550539744848" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_payment.xml" value="0.23867753623188406" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_planned.xml" value="0.17391304347826086" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_planned_categories.xml" value="0.21829710144927536" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_profile.xml" value="0.26268115942028986" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_services.xml" value="0.17391304347826086" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/home_cards_layout.xml" value="0.23278985507246377" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_active_order.xml" value="0.1" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_category_card.xml" value="0.264" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_news.xml" value="0.264" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_notification.xml" value="0.4020100502512563" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_planned_order.xml" value="0.264" />

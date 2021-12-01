@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedCategoriesBinding
 import com.example.spasdomuserapp.models.PlannedCategory
-import com.example.spasdomuserapp.models.PlannedCategoryLvl2
+import com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesAdapter
 
 class PlannedCategoriesFragment : Fragment() {
 
@@ -23,15 +24,7 @@ class PlannedCategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val categoires: List<PlannedCategory> = listOf(
-            PlannedCategory("Счетчики", 2, null),
-            PlannedCategory("Вода", 3, null),
-            PlannedCategory("Газ", 4, null),
-            PlannedCategory("Плита", 5, null),
-            PlannedCategory("Двор", 6, null)
-        )
-        plannedCategoriesAdapter?.plannedCategories = categoires
-
+        plannedCategoriesAdapter?.plannedCategories = viewModel.plannedCategories
     }
 
     override fun onCreateView(
@@ -44,7 +37,8 @@ class PlannedCategoriesFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         plannedCategoriesAdapter = PlannedCategoriesAdapter(PlannedCategoriesClick {
-            Log.i("click", it.toString())
+            val action = PlannedCategoriesFragmentDirections.actionPlannedCategoriesFragmentToPlannedCategoriesLvl2Fragment(it, it.label)
+            findNavController().navigate(action)
         })
 
         binding.root.findViewById<RecyclerView>(R.id.categories_rv).apply {
@@ -58,8 +52,4 @@ class PlannedCategoriesFragment : Fragment() {
 
 class PlannedCategoriesClick(val block: (PlannedCategory) -> Unit) {
     fun onClick(plannedCategory: PlannedCategory) = block(plannedCategory)
-}
-
-class PlannedCategoryLvl2Click(val block: (PlannedCategoryLvl2) -> Unit) {
-    fun onClick(plannedCategoryLvl2: PlannedCategoryLvl2) = block(plannedCategoryLvl2)
 }

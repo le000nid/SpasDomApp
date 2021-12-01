@@ -6,7 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.spasdomuserapp.ui.orders.EmergencyFragment
 import com.example.spasdomuserapp.ui.services.additionals.AdditionalFragment
-import com.example.spasdomuserapp.ui.services.planned.PlannedFragment
+import com.example.spasdomuserapp.ui.services.planned.planned.PlannedFragment
 
 class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {

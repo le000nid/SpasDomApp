@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned
+package com.example.spasdomuserapp.ui.services.planned.planned
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

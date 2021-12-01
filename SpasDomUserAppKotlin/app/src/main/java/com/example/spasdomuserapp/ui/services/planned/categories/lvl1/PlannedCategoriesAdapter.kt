@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.categories
+package com.example.spasdomuserapp.ui.services.planned.categories.lvl1
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemCategoryCardBinding
 import com.example.spasdomuserapp.models.PlannedCategory
+import com.example.spasdomuserapp.ui.services.planned.categories.PlannedCategoriesClick
 
 
 class PlannedCategoriesAdapter(val callback: PlannedCategoriesClick) : RecyclerView.Adapter<PlannedCategoriesAdapter.CategoriesViewHolder>() {

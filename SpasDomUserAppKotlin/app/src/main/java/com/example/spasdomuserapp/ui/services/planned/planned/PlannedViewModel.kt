@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned
+package com.example.spasdomuserapp.ui.services.planned.planned
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

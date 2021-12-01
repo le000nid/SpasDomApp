@@ -10,11 +10,11 @@
 
         <variable
             name="plannedOrderClick"
-            type="com.example.spasdomuserapp.ui.services.planned.PlannedOrderClick" />
+            type="com.example.spasdomuserapp.ui.services.planned.planned.PlannedOrderClick" />
         
         <variable
             name="reviewClick"
-            type="com.example.spasdomuserapp.ui.services.planned.ReviewClick" />
+            type="com.example.spasdomuserapp.ui.services.planned.planned.ReviewClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

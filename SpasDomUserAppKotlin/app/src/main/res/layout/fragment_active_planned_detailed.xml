@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.services.planned.ActivePlannedDetailedFragment">
+    tools:context=".ui.services.planned.planned.ActivePlannedDetailedFragment">
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

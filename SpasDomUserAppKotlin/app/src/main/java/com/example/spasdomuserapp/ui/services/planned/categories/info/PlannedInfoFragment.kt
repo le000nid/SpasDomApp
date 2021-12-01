@@ -31,7 +31,9 @@ class PlannedInfoFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         photoAdapter = PhotoAdapter(PhotoRemoveClick {
-            Log.i("click", it.toString())
+            val oldList = viewModel.photos.value?.toMutableList()
+            oldList?.remove(it)
+            viewModel.photos.value = oldList?.toList()
         })
 
         binding.root.findViewById<RecyclerView>(R.id.photos_rv).apply {
@@ -47,7 +49,7 @@ class PlannedInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.photos.observe(viewLifecycleOwner) {
-            photoAdapter?.submitList(it)
+            photoAdapter?.photos = viewModel.photos.value!!.toList()
         }
     }
 }

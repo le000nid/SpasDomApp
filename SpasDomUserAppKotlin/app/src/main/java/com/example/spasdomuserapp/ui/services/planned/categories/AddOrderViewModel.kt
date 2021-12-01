@@ -24,7 +24,7 @@ class AddOrderViewModel(): ViewModel() {
         PlannedCategory("Двор", 5, null)
     )
 
-    private val _photos = MutableLiveData<MutableList<Photo>>(mutableListOf(
+    private val _photos = MutableLiveData(listOf(
         Photo("1"),
         Photo("2"),
         Photo("3"),
@@ -33,6 +33,6 @@ class AddOrderViewModel(): ViewModel() {
         Photo("6")
     ))
 
-    val photos: LiveData<MutableList<Photo>>
+    val photos: MutableLiveData<List<Photo>>
         get() = _photos
 }

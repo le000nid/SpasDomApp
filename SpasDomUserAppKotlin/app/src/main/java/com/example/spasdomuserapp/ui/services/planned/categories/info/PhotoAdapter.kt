@@ -32,7 +32,7 @@ class PhotoDiffCallback(
 
 }
 
-class PhotoAdapter(val callback: PhotoRemoveClick) : RecyclerView.Adapter<PhotoAdapter.PhotosViewHolder>() {
+class PhotoAdapter(val callback: PhotoRemoveClick, val upload: PhotoUploadClick) : RecyclerView.Adapter<PhotoAdapter.PhotosViewHolder>() {
 
     var photos: List<Photo> = emptyList()
         set(newValue) {
@@ -55,6 +55,7 @@ class PhotoAdapter(val callback: PhotoRemoveClick) : RecyclerView.Adapter<PhotoA
         holder.viewDataBinding.also {
             it.photo = photos[position]
             it.click = callback
+            it.uploadClick = upload
         }
     }
 

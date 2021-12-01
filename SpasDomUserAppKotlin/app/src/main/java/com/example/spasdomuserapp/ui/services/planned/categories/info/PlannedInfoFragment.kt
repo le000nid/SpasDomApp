@@ -34,6 +34,8 @@ class PlannedInfoFragment : Fragment() {
             val oldList = viewModel.photos.value?.toMutableList()
             oldList?.remove(it)
             viewModel.photos.value = oldList?.toList()
+        }, PhotoUploadClick {
+
         })
 
         binding.root.findViewById<RecyclerView>(R.id.photos_rv).apply {
@@ -55,5 +57,9 @@ class PlannedInfoFragment : Fragment() {
 }
 
 class PhotoRemoveClick(val block: (Photo) -> Unit) {
+    fun onClick(photo: Photo) = block(photo)
+}
+
+class PhotoUploadClick(val block: (Photo) -> Unit) {
     fun onClick(photo: Photo) = block(photo)
 }

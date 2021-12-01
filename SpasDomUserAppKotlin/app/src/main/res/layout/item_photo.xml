@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="photo"
             type="com.example.spasdomuserapp.models.Photo" />
-
         <variable
             name="click"
             type="com.example.spasdomuserapp.ui.services.planned.categories.info.PhotoRemoveClick" />
+        <variable
+            name="uploadClick"
+            type="com.example.spasdomuserapp.ui.services.planned.categories.info.PhotoUploadClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +33,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
+                android:onClick="@{() -> uploadClick.onClick(photo)}"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_upload_image_" />

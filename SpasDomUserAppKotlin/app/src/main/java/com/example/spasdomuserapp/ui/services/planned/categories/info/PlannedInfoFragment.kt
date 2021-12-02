@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
@@ -23,6 +24,7 @@ class PlannedInfoFragment : Fragment() {
 
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
         if (intent.data?.data != null) {
+            // TODO(Add the restriction to number of photos that user can upload)
             val oldList = viewModel.photos.value?.toMutableList()
             oldList?.add(Photo(uri = intent.data?.data))
             viewModel.photos.value = oldList?.toList()
@@ -44,6 +46,12 @@ class PlannedInfoFragment : Fragment() {
             viewModel.photos.value = oldList?.toList()
         })
 
+        binding.root.findViewById<RecyclerView>(R.id.photos_rv).apply {
+            layoutManager = GridLayoutManager(activity, 3)
+            adapter = photoAdapter
+            setHasFixedSize(true)
+        }
+
         binding.btnAddPhoto.setOnClickListener {
             ImagePicker.with(this)
                 .cropSquare()
@@ -54,10 +62,9 @@ class PlannedInfoFragment : Fragment() {
                 }
         }
 
-        binding.root.findViewById<RecyclerView>(R.id.photos_rv).apply {
-            layoutManager = GridLayoutManager(activity, 3)
-            adapter = photoAdapter
-            setHasFixedSize(true)
+        binding.btnNext.setOnClickListener {
+            /*val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment()
+            findNavController().navigate(action)*/
         }
 
         return binding.root

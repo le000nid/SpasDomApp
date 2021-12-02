@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.spasdomuserapp.ui.home.HomeFragment"
         android:label="Главная"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_newsDetailedFragment"
             app:destination="@id/newsDetailedFragment" />
@@ -31,7 +31,7 @@
         android:id="@+id/servicesFragment"
         android:name="com.example.spasdomuserapp.ui.services.ServicesFragment"
         android:label="Услуги"
-        tools:layout="@layout/fragment_services" >
+        tools:layout="@layout/fragment_services">
         <action
             android:id="@+id/action_servicesFragment_to_activePlannedDetailedFragment"
             app:destination="@id/activePlannedDetailedFragment" />
@@ -51,7 +51,7 @@
         android:id="@+id/newsDetailedFragment"
         android:name="com.example.spasdomuserapp.ui.home.NewsDetailedFragment"
         android:label="Новость подробно"
-        tools:layout="@layout/fragment_news_detailed" >
+        tools:layout="@layout/fragment_news_detailed">
         <argument
             android:name="newsItem"
             app:argType="com.example.spasdomuserapp.domain.NewsItem" />
@@ -65,7 +65,7 @@
         android:id="@+id/historyPlannedDetailedFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.planned.HistoryPlannedDetailedFragment"
         android:label="fragment_history_planned_detailed"
-        tools:layout="@layout/fragment_history_planned_detailed" >
+        tools:layout="@layout/fragment_history_planned_detailed">
         <argument
             android:name="historyPlannedOrder"
             app:argType="com.example.spasdomuserapp.domain.PlannedOrder" />
@@ -74,7 +74,7 @@
         android:id="@+id/activePlannedDetailedFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.planned.ActivePlannedDetailedFragment"
         android:label="fragment_active_planned_detailed"
-        tools:layout="@layout/fragment_active_planned_detailed" >
+        tools:layout="@layout/fragment_active_planned_detailed">
         <argument
             android:name="activePlannedOrder"
             app:argType="com.example.spasdomuserapp.domain.PlannedOrder" />
@@ -83,7 +83,7 @@
         android:id="@+id/plannedCategoriesFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesFragment"
         android:label="Выберите категорию"
-        tools:layout="@layout/fragment_planned_categories" >
+        tools:layout="@layout/fragment_planned_categories">
         <action
             android:id="@+id/action_plannedCategoriesFragment_to_plannedCategoriesLvl2Fragment"
             app:destination="@id/plannedCategoriesLvl2Fragment" />
@@ -98,7 +98,7 @@
             app:argType="com.example.spasdomuserapp.models.PlannedCategory" />
         <argument
             android:name="categoryName"
-            app:argType="string"/>
+            app:argType="string" />
         <action
             android:id="@+id/action_plannedCategoriesLvl2Fragment_to_plannedInfoFragment"
             app:destination="@id/plannedInfoFragment" />
@@ -113,7 +113,19 @@
             app:argType="com.example.spasdomuserapp.models.PlannedCategory" />
         <argument
             android:name="categoryName"
-            app:argType="string"/>
+            app:argType="string" />
+        <action
+            android:id="@+id/action_plannedInfoFragment_to_plannedDateFragment"
+            app:destination="@id/plannedDateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/plannedDateFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.categories.date.PlannedDateFragment"
+        android:label="fragment_planned_date"
+        tools:layout="@layout/fragment_planned_date">
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
     </fragment>
 
 </navigation>

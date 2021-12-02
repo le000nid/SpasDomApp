@@ -51,11 +51,12 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_little"
             android:layout_marginBottom="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:context=".ui.services.planned.categories.info.PlannedInfoFragment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

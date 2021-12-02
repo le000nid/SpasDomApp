@@ -2,13 +2,11 @@ package com.example.spasdomuserapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.database.CacheDao
 import com.example.spasdomuserapp.database.asCachePlannerOrder
 import com.example.spasdomuserapp.database.asDomainPlannedOrder
-import com.example.spasdomuserapp.domain.PlannedOrder
+import com.example.spasdomuserapp.models.PlannedOrder
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 

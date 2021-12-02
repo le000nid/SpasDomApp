@@ -6,7 +6,7 @@
     <data>
         <variable
             name="alert"
-            type="com.example.spasdomuserapp.domain.Alert" />
+            type="com.example.spasdomuserapp.models.Alert" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

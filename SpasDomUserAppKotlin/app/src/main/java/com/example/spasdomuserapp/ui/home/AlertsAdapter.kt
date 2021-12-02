@@ -1,16 +1,14 @@
 package com.example.spasdomuserapp.ui.home
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
-import com.example.spasdomuserapp.databinding.ItemNewsBinding
 import com.example.spasdomuserapp.databinding.ItemNotificationBinding
-import com.example.spasdomuserapp.domain.Alert
+import com.example.spasdomuserapp.models.Alert
 
 /**
  * RecyclerView Adapter for setting up data binding on the items in the list.
@@ -53,7 +51,6 @@ class AlertsAdapter : RecyclerView.Adapter<AlertsAdapter.AlertsViewHolder>() {
     override fun onBindViewHolder(holder: AlertsViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.alert = alerts[position]
-            Log.i("alertsit", it.alert.toString())
         }
     }
 

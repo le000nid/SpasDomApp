@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemNewsBinding
-import com.example.spasdomuserapp.domain.NewsItem
+import com.example.spasdomuserapp.models.NewsItem
 
 /**
  * RecyclerView Adapter for setting up data binding on the items in the list.

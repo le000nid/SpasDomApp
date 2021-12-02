@@ -5,8 +5,8 @@ import androidx.lifecycle.Transformations
 import com.example.spasdomuserapp.database.CacheDao
 import com.example.spasdomuserapp.database.asDomainAlertModel
 import com.example.spasdomuserapp.database.asDomainModel
-import com.example.spasdomuserapp.domain.Alert
-import com.example.spasdomuserapp.domain.NewsItem
+import com.example.spasdomuserapp.models.Alert
+import com.example.spasdomuserapp.models.NewsItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber

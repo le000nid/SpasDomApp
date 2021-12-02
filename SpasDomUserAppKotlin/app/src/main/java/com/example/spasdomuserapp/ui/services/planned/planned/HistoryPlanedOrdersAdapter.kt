@@ -8,8 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemPlannedOrderBinding
-import com.example.spasdomuserapp.domain.PlannedOrder
-
+import com.example.spasdomuserapp.models.PlannedOrder
 
 class HistoryPlanedOrdersAdapter(val callback: PlannedOrderClick, val reviewClicked: ReviewClick) : RecyclerView.Adapter<HistoryPlanedOrdersAdapter.HistoryPlannedOrdersViewHolder>() {
 

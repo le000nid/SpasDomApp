@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.spasdomuserapp.di.ApplicationScope
-import com.example.spasdomuserapp.domain.PlannedOrder
+import com.example.spasdomuserapp.models.PlannedOrder
 import com.example.spasdomuserapp.network.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

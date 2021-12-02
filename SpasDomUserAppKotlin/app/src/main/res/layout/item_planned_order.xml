@@ -6,7 +6,7 @@
     <data>
         <variable
             name="plannedOrder"
-            type="com.example.spasdomuserapp.domain.PlannedOrder" />
+            type="com.example.spasdomuserapp.models.PlannedOrder" />
 
         <variable
             name="plannedOrderClick"

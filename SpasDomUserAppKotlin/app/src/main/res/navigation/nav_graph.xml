@@ -54,7 +54,7 @@
         tools:layout="@layout/fragment_news_detailed">
         <argument
             android:name="newsItem"
-            app:argType="com.example.spasdomuserapp.domain.NewsItem" />
+            app:argType="com.example.spasdomuserapp.models.NewsItem" />
     </fragment>
     <fragment
         android:id="@+id/plannedFragment"
@@ -68,7 +68,7 @@
         tools:layout="@layout/fragment_history_planned_detailed">
         <argument
             android:name="historyPlannedOrder"
-            app:argType="com.example.spasdomuserapp.domain.PlannedOrder" />
+            app:argType="com.example.spasdomuserapp.models.PlannedOrder" />
     </fragment>
     <fragment
         android:id="@+id/activePlannedDetailedFragment"
@@ -77,7 +77,7 @@
         tools:layout="@layout/fragment_active_planned_detailed">
         <argument
             android:name="activePlannedOrder"
-            app:argType="com.example.spasdomuserapp.domain.PlannedOrder" />
+            app:argType="com.example.spasdomuserapp.models.PlannedOrder" />
     </fragment>
     <fragment
         android:id="@+id/plannedCategoriesFragment"

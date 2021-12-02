@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.DialogRateOrderBinding
 import com.example.spasdomuserapp.databinding.FragmentPlannedBinding
-import com.example.spasdomuserapp.domain.PlannedOrder
+import com.example.spasdomuserapp.models.PlannedOrder
 import com.example.spasdomuserapp.ui.services.ServicesFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 

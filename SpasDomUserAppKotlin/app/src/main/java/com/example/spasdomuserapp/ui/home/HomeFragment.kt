@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentHomeBinding
-import com.example.spasdomuserapp.domain.NewsItem
+import com.example.spasdomuserapp.models.NewsItem
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

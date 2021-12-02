@@ -31,7 +31,7 @@ class PlannedInfoFragment : Fragment() {
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
         if (intent.data?.data != null) {
             val oldList = viewModel.photos.value?.toMutableList()
-            oldList?.add(Photo(uri = intent.data?.data, title = "12"))
+            oldList?.add(Photo(uri = intent.data?.data))
             viewModel.photos.value = oldList?.toList()
         }
     }

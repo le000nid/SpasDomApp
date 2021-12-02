@@ -25,8 +25,7 @@ class AddOrderViewModel(): ViewModel() {
     )
 
     private val _photos = MutableLiveData(listOf(
-        Photo("1"),
-        Photo("6")
+        Photo(),
     ))
 
     val photos: MutableLiveData<List<Photo>>

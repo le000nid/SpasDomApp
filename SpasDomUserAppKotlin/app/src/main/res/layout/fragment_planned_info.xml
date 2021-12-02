@@ -50,7 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/spacing_normal"
-            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_little"
             android:layout_marginEnd="@dimen/spacing_little"
             android:layout_marginBottom="@dimen/spacing_normal"
             app:layout_constraintBottom_toBottomOf="parent"

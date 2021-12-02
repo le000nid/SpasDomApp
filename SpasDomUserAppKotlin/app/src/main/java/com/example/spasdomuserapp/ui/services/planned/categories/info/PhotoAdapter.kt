@@ -21,7 +21,7 @@ class PhotoDiffCallback(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldPhoto = oldList[oldItemPosition]
         val newPhoto = newList[newItemPosition]
-        return oldPhoto.title == newPhoto.title
+        return oldPhoto.uri == newPhoto.uri
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -54,8 +54,12 @@ class PhotoAdapter(val callback: PhotoRemoveClick, val upload: PhotoUploadClick)
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.photo = photos[position]
-            it.click = callback
-            it.uploadClick = upload
+            it.removeClick = callback
+
+            if (photos[position].uri == null) {
+                it.uploadClick = upload
+            }
+
         }
     }
 

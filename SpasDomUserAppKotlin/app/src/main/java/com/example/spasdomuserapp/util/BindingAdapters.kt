@@ -65,6 +65,11 @@ fun setImageUri(imageView: ImageView, uri: Uri?) {
     }
 }
 
+@BindingAdapter("goneIfUriNull")
+fun goneIfUriNull(imageView: ImageView, uri: Uri?) {
+    imageView.visibility = if (uri == null) View.GONE else View.VISIBLE
+}
+
 //TODO (Add all drawables for categories)
 @BindingAdapter("categoryImage")
 fun ImageView.setCategoryImage(item: PlannedCategory) {

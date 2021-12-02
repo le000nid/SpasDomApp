@@ -17,6 +17,8 @@ import com.example.spasdomworkerapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import androidx.databinding.Bindable
+import java.lang.StringBuilder
+import java.time.DayOfWeek
 import java.util.*
 
 
@@ -26,6 +28,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val ordersRepository = OrderItemsRepository(database)
     var date = Calendar.getInstance()
     var OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
+    var OrderShowFormat = StringBuilder().append(date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())).append(SimpleDateFormat(". dd.MM.yyyy").format(date.time))
 
     /**
      * init{} is called immediately when this ViewModel is created.
@@ -57,19 +60,24 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun NextDay(){
         date.add(Calendar.DATE, 1)
-        OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
-        orderItems = ordersRepository.getOrderItems(OrderGetFormat)
+        changeDate()
+
     }
 
     fun PreviousDay(){
         date.add(Calendar.DATE, -1)
-        OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
-        orderItems = ordersRepository.getOrderItems(OrderGetFormat)
+        changeDate()
+
     }
 
     fun SomeDay(c : Calendar){
         date = c
+        changeDate()
+    }
+
+    private fun changeDate(){
         OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
+        OrderShowFormat = StringBuilder().append(date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())).append(SimpleDateFormat(". dd.MM.yyyy").format(date.time))
         orderItems = ordersRepository.getOrderItems(OrderGetFormat)
     }
 }

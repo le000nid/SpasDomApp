@@ -11,27 +11,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/btn_add_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:srcCompat="@drawable/ic_add_photo"
+            app:tint="@color/secondaryColor" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Опишите детали заказа"
             android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/spacing_normal"
+            android:hint="Опишите детали заказа"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextOrder"
-                android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:color/white"
                 android:ems="10"
                 android:inputType="text"
                 android:maxLength="250"
-                android:maxLines="5"/>
+                android:maxLines="5" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView

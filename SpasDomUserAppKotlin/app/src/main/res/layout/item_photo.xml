@@ -10,9 +10,6 @@
         <variable
             name="removeClick"
             type="com.example.spasdomuserapp.ui.services.planned.categories.info.PhotoRemoveClick" />
-        <variable
-            name="uploadClick"
-            type="com.example.spasdomuserapp.ui.services.planned.categories.info.PhotoUploadClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,11 +31,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:onClick="@{() -> uploadClick.onClick(photo)}"
                 app:imageUri="@{photo.uri}"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_upload_image_" />
+                android:layout_gravity="center" />
 
         </androidx.cardview.widget.CardView>
 

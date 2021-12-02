@@ -1,5 +1,6 @@
 package com.example.spasdomuserapp.util
 
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -54,6 +55,14 @@ fun setRating(view: ImageView, it: PlannedOrder) {
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String) {
     Glide.with(imageView.context).load(url).into(imageView)
+}
+
+@BindingAdapter("imageUri")
+fun setImageUri(imageView: ImageView, uri: Uri?) {
+    if (uri != null) {
+        imageView.setImageURI(null)
+        imageView.setImageURI(uri)
+    }
 }
 
 //TODO (Add all drawables for categories)

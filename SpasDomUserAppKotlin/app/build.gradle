@@ -113,4 +113,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:2.40"
     implementation "com.google.dagger:hilt-android:2.40"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+
+    // Image picker
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
 }

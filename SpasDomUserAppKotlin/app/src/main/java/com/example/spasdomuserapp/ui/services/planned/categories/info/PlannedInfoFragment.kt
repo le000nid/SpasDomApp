@@ -1,11 +1,17 @@
 package com.example.spasdomuserapp.ui.services.planned.categories.info
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.registerForActivityResult
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,11 +21,20 @@ import com.example.spasdomuserapp.databinding.FragmentPlannedInfoBinding
 import com.example.spasdomuserapp.models.Photo
 import com.example.spasdomuserapp.models.PlannedCategory
 import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
+import com.github.dhaval2404.imagepicker.ImagePicker
 
 class PlannedInfoFragment : Fragment() {
 
     private var photoAdapter: PhotoAdapter? = null
     private val viewModel: AddOrderViewModel by viewModels()
+
+    private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
+        if (intent.data?.data != null) {
+            val oldList = viewModel.photos.value?.toMutableList()
+            oldList?.add(Photo(uri = intent.data?.data, title = "12"))
+            viewModel.photos.value = oldList?.toList()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,9 +49,18 @@ class PlannedInfoFragment : Fragment() {
             val oldList = viewModel.photos.value?.toMutableList()
             oldList?.remove(it)
             viewModel.photos.value = oldList?.toList()
-        }, PhotoUploadClick {
+        }, PhotoUploadClick { _ ->
 
+            ImagePicker.with(this)
+                .crop()	    			//Crop image(Optional), Check Customization for more option
+                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .createIntent {
+                    getContent.launch(it)
+                }
         })
+
+
 
         binding.root.findViewById<RecyclerView>(R.id.photos_rv).apply {
             layoutManager = GridLayoutManager(activity, 3)

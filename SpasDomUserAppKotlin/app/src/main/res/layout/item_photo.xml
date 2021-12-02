@@ -34,6 +34,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:onClick="@{() -> uploadClick.onClick(photo)}"
+                app:imageUri="@{photo.uri}"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_upload_image_" />

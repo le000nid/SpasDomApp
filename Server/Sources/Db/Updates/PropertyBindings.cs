@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Common.Updates
+namespace Db.Updates
 {
-    public class PropertyBindings : IEnumerable<PropertyBindingContainer>, IEnumerable
+    public class PropertyBindings : IEnumerable<PropertyBindingContainer>
     {
         private readonly List<PropertyBindingContainer> bindings;
 

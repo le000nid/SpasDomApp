@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Db.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20211128130548_Initial")]
-    partial class Initial
+    [Migration("20211203054959_Optional foreieng key")]
+    partial class Optionalforeiengkey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,6 +214,94 @@ namespace Db.Migrations
                     b.ToTable("House-Apartment-Links");
                 });
 
+            modelBuilder.Entity("Entities.Orders.PlannedOrder", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("SubcategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
+
+                    b.HasIndex("SubcategoryId")
+                        .IsUnique();
+
+                    b.ToTable("Planned-Orders");
+                });
+
+            modelBuilder.Entity("Entities.Orders.PlannedOrderCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlannedOrderCategory");
+                });
+
+            modelBuilder.Entity("Entities.Orders.PlannedOrderCategorySubcategoriesLink", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("SubcategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("SubcategoryId")
+                        .IsUnique();
+
+                    b.ToTable("Planned-Orders-Category-Subcategories-Links");
+                });
+
+            modelBuilder.Entity("Entities.Orders.PlannedOrderSubcategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Planned-Order-Subcategories");
+                });
+
             modelBuilder.Entity("Entities.Photo", b =>
                 {
                     b.Property<long>("Id")
@@ -365,6 +453,42 @@ namespace Db.Migrations
                     b.Navigation("House");
                 });
 
+            modelBuilder.Entity("Entities.Orders.PlannedOrder", b =>
+                {
+                    b.HasOne("Entities.Orders.PlannedOrderCategory", "Category")
+                        .WithOne()
+                        .HasForeignKey("Entities.Orders.PlannedOrder", "CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Orders.PlannedOrderSubcategory", "Subcategory")
+                        .WithOne()
+                        .HasForeignKey("Entities.Orders.PlannedOrder", "SubcategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Subcategory");
+                });
+
+            modelBuilder.Entity("Entities.Orders.PlannedOrderCategorySubcategoriesLink", b =>
+                {
+                    b.HasOne("Entities.Orders.PlannedOrderCategory", "Category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Orders.PlannedOrderSubcategory", "Subcategory")
+                        .WithOne()
+                        .HasForeignKey("Entities.Orders.PlannedOrderCategorySubcategoriesLink", "SubcategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Subcategory");
+                });
+
             modelBuilder.Entity("Entities.WorkerCompetence", b =>
                 {
                     b.HasOne("Entities.Competence", "Competence")
@@ -397,6 +521,11 @@ namespace Db.Migrations
             modelBuilder.Entity("Entities.House", b =>
                 {
                     b.Navigation("Apartments");
+                });
+
+            modelBuilder.Entity("Entities.Orders.PlannedOrderCategory", b =>
+                {
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("Entities.Worker", b =>

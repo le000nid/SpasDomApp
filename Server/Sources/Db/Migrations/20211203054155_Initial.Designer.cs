@@ -3,14 +3,16 @@ using System;
 using Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Db.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20211203054155_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,7 +220,7 @@ namespace Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("CategoryId")
+                    b.Property<long>("CategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -227,7 +229,7 @@ namespace Db.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("SubcategoryId")
+                    b.Property<long>("SubcategoryId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -255,7 +257,7 @@ namespace Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Planned-Order-Categories");
+                    b.ToTable("PlannedOrderCategory");
                 });
 
             modelBuilder.Entity("Entities.Orders.PlannedOrderCategorySubcategoriesLink", b =>
@@ -455,11 +457,15 @@ namespace Db.Migrations
                 {
                     b.HasOne("Entities.Orders.PlannedOrderCategory", "Category")
                         .WithOne()
-                        .HasForeignKey("Entities.Orders.PlannedOrder", "CategoryId");
+                        .HasForeignKey("Entities.Orders.PlannedOrder", "CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entities.Orders.PlannedOrderSubcategory", "Subcategory")
                         .WithOne()
-                        .HasForeignKey("Entities.Orders.PlannedOrder", "SubcategoryId");
+                        .HasForeignKey("Entities.Orders.PlannedOrder", "SubcategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
@@ -471,12 +477,14 @@ namespace Db.Migrations
                     b.HasOne("Entities.Orders.PlannedOrderCategory", "Category")
                         .WithMany("SubCategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entities.Orders.PlannedOrderSubcategory", "Subcategory")
                         .WithOne()
                         .HasForeignKey("Entities.Orders.PlannedOrderCategorySubcategoriesLink", "SubcategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 

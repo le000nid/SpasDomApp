@@ -67,6 +67,14 @@ namespace Db.Repository.Implementations
             return query;
         }
 
+        async Task<T> ICrudRepository<T>.UpdateAsync(T updated)
+        {
+            var entity = Set.Update(updated).Entity;
+            await Context.SaveChangesAsync();
+
+            return entity;
+        }
+        
         Task<T> ICrudRepository<T>.UpdateAsync(long id, Action<T> patch) => self.UpdateAsync(id, false, patch);
         async Task<T> ICrudRepository<T>.UpdateAsync(long id, bool withIncludes, Action<T> patch)
         {

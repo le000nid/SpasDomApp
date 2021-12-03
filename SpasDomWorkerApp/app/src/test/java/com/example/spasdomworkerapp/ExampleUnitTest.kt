@@ -1,4 +1,4 @@
-package com.example.SpasDomWorkerApp
+package com.example.spasdomworkerapp
 
 import org.junit.Test
 

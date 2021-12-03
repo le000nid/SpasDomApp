@@ -1,5 +1,6 @@
 package com.example.spasdomworkerapp.domain
 
+import android.net.Uri
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -13,3 +14,6 @@ data class Order(val date: String,
     val shortDesc: String
         get() = "$time | $problem"
 }
+
+data class Photo (
+    val uri: Uri? = null)

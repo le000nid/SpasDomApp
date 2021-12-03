@@ -152,7 +152,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="@dimen/spacing_normal"
         android:layout_marginRight="@dimen/spacing_normal"
-        android:layout_marginBottom="@dimen/spacing_normal"
+        android:layout_marginBottom="@dimen/spacing_little"
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.button.MaterialButton
@@ -160,7 +160,6 @@
         android:id="@+id/callButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_little"
         android:text="Звонок"
         android:textColor="@color/secondaryColor"
         app:layout_constraintBottom_toTopOf="@id/beginButton"
@@ -174,9 +173,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/chatButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_little"
+        android:layout_marginStart="@dimen/spacing_big"
+        android:layout_marginEnd="@dimen/spacing_big"
         android:stateListAnimator="@null"
         android:text="Чат"
         android:textColor="@color/secondaryColor"
@@ -194,7 +194,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal"
-        android:layout_marginBottom="@dimen/spacing_little"
         android:stateListAnimator="@null"
         android:text="Поддержка"
         android:textColor="@color/secondaryColor"

@@ -1,24 +1,14 @@
 package com.example.spasdomworkerapp.ui.home
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.text.format.DateUtils
-import android.view.View
-import android.widget.Button
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.database.getDatabase
-import com.example.spasdomworkerapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import androidx.databinding.Bindable
 import java.lang.StringBuilder
-import java.time.DayOfWeek
 import java.util.*
 
 

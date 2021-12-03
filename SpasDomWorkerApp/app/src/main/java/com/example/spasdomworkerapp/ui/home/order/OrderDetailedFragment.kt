@@ -1,14 +1,14 @@
-package com.example.spasdomworkerapp.ui.home
+package com.example.spasdomworkerapp.ui.home.order
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.databinding.FragmentOrderBinding
-import java.time.LocalDate
-import java.time.LocalTime
-import java.util.*
+import com.google.android.material.navigation.NavigationBarView
 
 class OrderDetailedFragment : Fragment(R.layout.fragment_order) {
 
@@ -29,6 +29,8 @@ class OrderDetailedFragment : Fragment(R.layout.fragment_order) {
             status = "Не завершён"
         }
 
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = itemOrder.address
+
         binding.apply {
             txProblem.text = itemOrder.problem
             txDate.text = args.orderShowFormat
@@ -38,5 +40,9 @@ class OrderDetailedFragment : Fragment(R.layout.fragment_order) {
             txTime.text = itemOrder.time
         }
 
+        binding.beginButton.setOnClickListener {
+            val action = OrderDetailedFragmentDirections.actionOrderDetailedFragmentToActiveOrderFragment()
+            findNavController().navigate(action)
+        }
     }
 }

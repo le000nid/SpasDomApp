@@ -8,12 +8,13 @@ using Db.Updates;
 using Entities.Orders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SpasDom.Server.Controllers.Orders.Input;
 using SpasDom.Server.Controllers.Orders.Output;
 
 namespace SpasDom.Server.Controllers.Orders
 {
     [ApiController]
-    [Route("planned-orders/my")]
+    [Route("planned-orders")]
     public class PlannedOrdersController : ControllerBase
     {
         private readonly ICrudRepository<PlannedOrder> _orders;
@@ -49,12 +50,27 @@ namespace SpasDom.Server.Controllers.Orders
         }
 
         [HttpPost]
-        public async Task<NewOrderSummary> CreateAsync()
+        public async Task<NewOrderSummary> CreateAsync([FromBody] NewOrderParameters parameters)
         {
-            var @new = new PlannedOrder();
-            var order = await _orders.AddAsync(@new);
+            var order = parameters.Build();
+            var category = await _categories.FindAsync(parameters.CategoryId);
+            if (category == default)
+            {
+                throw new Exception("Unknown category");
+            }
 
-            return new NewOrderSummary(order);
+            var subcategory = await _subcategories.FindAsync(parameters.SubcategoryId);
+            if (subcategory == default)
+            {
+                throw new Exception("Unknown subcategory");
+            }
+
+            order.CategoryId = category.Id;
+            order.SubcategoryId = subcategory.Id;
+            
+            var res = await _orders.AddAsync(order);
+
+            return new NewOrderSummary(res);
         }
 
         [HttpPut("{id:long}")]

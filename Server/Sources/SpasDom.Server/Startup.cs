@@ -88,11 +88,13 @@ namespace SpasDom.Server
 
             app.UseAuthorization();
 
+            app.UseMiddleware<ResponseMiddleware>();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            
+
             var applicationContainer = app.ApplicationServices.GetAutofacRoot();
             appLifetime.ApplicationStopped.Register(() =>
             {

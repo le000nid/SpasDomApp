@@ -90,9 +90,10 @@ class HomeFragment : Fragment() {
         viewModelOrdersAdapter = OrderItemsAdapter(OrderItemClick {
             // context is not around, we can safely discard this click since the Fragment is no
             // longer on the screen
-            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOrderDetailedFragment(it))
+            this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOrderDetailedFragment(it, viewModel.OrderShowFormat))
         })
 
+        viewModel.changeDate()
         binding.root.findViewById<TextView>(R.id.date).setText(viewModel.OrderShowFormat)
 
         val butNext = binding.root.findViewById<ImageView>(R.id.nextDate)

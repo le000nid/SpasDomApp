@@ -23,6 +23,9 @@
         <argument
             android:name="orderItem"
             app:argType="com.example.spasdomworkerapp.domain.Order" />
+        <argument
+            android:name="orderShowFormat"
+            app:argType="string" />
     </fragment>
 
     <fragment

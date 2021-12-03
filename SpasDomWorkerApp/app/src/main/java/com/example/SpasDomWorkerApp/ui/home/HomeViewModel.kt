@@ -27,8 +27,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val database = getDatabase(application)
     private val ordersRepository = OrderItemsRepository(database)
     var date = Calendar.getInstance()
+    lateinit var weekday: String
     var OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
-    var OrderShowFormat = StringBuilder().append(date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())).append(SimpleDateFormat(". dd.MM.yyyy").format(date.time))
+    lateinit var OrderShowFormat: String
+    var orderItems = ordersRepository.getOrderItems(OrderGetFormat)
 
     /**
      * init{} is called immediately when this ViewModel is created.
@@ -38,8 +40,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             ordersRepository.refreshOrderItems()
         }
     }
-
-    var orderItems = ordersRepository.getOrderItems(OrderGetFormat)
 
     fun swipeToRefresh() = viewModelScope.launch {
         ordersRepository.refreshOrderItems()
@@ -75,9 +75,33 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         changeDate()
     }
 
-    private fun changeDate(){
+    fun changeDate(){
         OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
-        OrderShowFormat = StringBuilder().append(date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())).append(SimpleDateFormat(". dd.MM.yyyy").format(date.time))
+        when(date.get(Calendar.DAY_OF_WEEK)){
+            1 -> {
+                weekday = "Понедельник"
+            }
+            2 -> {
+                weekday = "Вторник"
+            }
+            3 -> {
+                weekday = "Среда"
+            }
+            4 -> {
+                weekday = "Четверг"
+            }
+            5 -> {
+                weekday = "Пятница"
+            }
+            6 -> {
+                weekday = "Суббота"
+            }
+            7 -> {
+                weekday = "Воскресение"
+            }
+        }
+        OrderShowFormat = StringBuilder().append(weekday).append(SimpleDateFormat(". dd.MM.yyyy").format(date.time))
+            .toString()
         orderItems = ordersRepository.getOrderItems(OrderGetFormat)
     }
 }

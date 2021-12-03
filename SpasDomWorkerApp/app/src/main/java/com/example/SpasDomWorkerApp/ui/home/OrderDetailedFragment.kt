@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.databinding.FragmentOrderBinding
+import java.time.LocalDate
+import java.time.LocalTime
+import java.util.*
 
 class OrderDetailedFragment : Fragment(R.layout.fragment_order) {
 
@@ -28,7 +31,7 @@ class OrderDetailedFragment : Fragment(R.layout.fragment_order) {
 
         binding.apply {
             txProblem.text = itemOrder.problem
-            txDate.text = itemOrder.date
+            txDate.text = args.orderShowFormat
             txAddress.text = itemOrder.address
             txId.text = itemOrder.id.toString()
             txStatus.text = status

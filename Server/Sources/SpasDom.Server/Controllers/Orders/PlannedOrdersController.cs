@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Responses;
 using Db.Updates.Generic;
 using Db.Repository.Interfaces;
 using Db.Updates;
+using Entities;
 using Entities.Orders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,19 +23,23 @@ namespace SpasDom.Server.Controllers.Orders
         private readonly IUpdater _updater;
         private readonly ICrudRepository<PlannedOrderCategory> _categories;
         private readonly ICrudRepository<PlannedOrderSubcategory> _subcategories;
+        private readonly ICrudRepository<Worker> _workers;
 
         public PlannedOrdersController(ICrudFactory factory, IUpdater updater)
         {
             _orders = factory.Get<PlannedOrder>();
             _categories = factory.Get<PlannedOrderCategory>();
             _subcategories = factory.Get<PlannedOrderSubcategory>();
+            _workers = factory.Get<Worker>();
             _updater = updater;
         }
 
         [HttpGet]
-        public IEnumerable<PlannedOrder> GetAll()
+        public async Task<IEnumerable<PlannedOrder>> GetAllAsync()
         {
-            return null;
+            var orders = await PlannedOrdersQuery().ToArrayAsync();
+
+            return orders;
         }
 
         [HttpGet("{id:long}")]
@@ -43,7 +49,7 @@ namespace SpasDom.Server.Controllers.Orders
 
             if (order == default)
             {
-                throw new Exception("Order not found");
+                throw ResponsesFactory.BadRequest("Order not found");
             }
 
             return order;
@@ -79,7 +85,7 @@ namespace SpasDom.Server.Controllers.Orders
             var order = await PlannedOrdersQuery().FirstOrDefaultAsync(o => o.Id == id);
             if (order == default)
             {
-                throw new Exception("Order not found");
+                throw ResponsesFactory.BadRequest("Order not found");
             }
 
             var updatesContainers = updates.ToArray();
@@ -90,13 +96,13 @@ namespace SpasDom.Server.Controllers.Orders
                 var parsed = long.TryParse(categoryUpdate.Update, out var categoryId);
                 if (!parsed)
                 {
-                    throw new Exception("Unknown category id type");
+                    throw ResponsesFactory.BadRequest("Unknown category id type");
                 }
 
                 var category = await _categories.Query().FirstOrDefaultAsync(c => c.Id == categoryId);
                 if (category == default)
                 {
-                    throw new Exception("Unknown category");
+                    throw ResponsesFactory.BadRequest("Unknown category");
                 }
                 
                 order.CategoryId = category.Id;
@@ -108,20 +114,40 @@ namespace SpasDom.Server.Controllers.Orders
                 var parsed = long.TryParse(subcategoryUpdate.Update, out var subcategoryId);
                 if (!parsed)
                 {
-                    throw new Exception("Unknown subcategory id type");
+                    throw ResponsesFactory.BadRequest("Unknown subcategory id type");
                 }
 
                 var subcategory = await _subcategories.Query().FirstOrDefaultAsync(s => s.Id == subcategoryId);
                 if (subcategory == default)
                 {
-                    throw new Exception("Unknown subcategory");
+                    throw ResponsesFactory.BadRequest("Unknown subcategory");
                 }
                 order.SubcategoryId = subcategory.Id;
             }
 
+            var workerUpdate = UpdateTools.GetContainer(updatesContainers, "worker.id");
+            if (workerUpdate != default)
+            {
+                var parsed = long.TryParse(workerUpdate.Update, out var workerId);
+                if (!parsed)
+                {
+                    throw ResponsesFactory.BadRequest("Unknown worker id type");
+                }
+
+                var worker = await _workers.FindAsync(workerId);
+                if (worker == default)
+                {
+                    throw ResponsesFactory.BadRequest("Worker with the same id not found");
+                }
+
+                order.WorkerId = worker.Id;
+            }
+            
             var plannedOrderPropertyBindings = new PropertyBindings<PlannedOrder>()
             {
-                {"status", o => o.Status}
+                {"status", o => o.Status},
+                {"mark", o => o.Mark},
+                {"review", o => o.Review}
             };
 
             var plannedOrderUpdateResult =
@@ -134,6 +160,7 @@ namespace SpasDom.Server.Controllers.Orders
         private IQueryable<PlannedOrder> PlannedOrdersQuery()
         {
             return _orders.Query()
+                .Include(o => o.Worker)
                 .Include(o => o.Category)
                 .Include(o => o.Subcategory);
         }

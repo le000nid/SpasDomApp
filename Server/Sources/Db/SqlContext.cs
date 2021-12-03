@@ -73,7 +73,12 @@ namespace Db
             
             plannedOrder.HasOne(o => o.Subcategory).WithOne();
 
+            plannedOrder.HasOne(o => o.Worker)
+                .WithOne()
+                .IsRequired(false);
+            
             var plannedOrderCategory = builder.Entity<PlannedOrderCategory>();
+            
             
             var plannedOrderCategorySubcategoriesLinks = builder.Entity<PlannedOrderCategorySubcategoriesLink>();
 

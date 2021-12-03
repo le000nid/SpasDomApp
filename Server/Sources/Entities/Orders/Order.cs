@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Db.Types;
 
 namespace Entities.Orders
@@ -12,5 +13,10 @@ namespace Entities.Orders
         public string Review { get; set; }
         
         public int Mark { get; set; }
+        
+        [ForeignKey(nameof(Worker))]
+        public long? WorkerId { get; set; }
+        
+        public Worker Worker { get; set; }
     }
 }

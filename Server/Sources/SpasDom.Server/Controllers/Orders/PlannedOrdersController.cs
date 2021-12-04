@@ -55,24 +55,29 @@ namespace SpasDom.Server.Controllers.Orders
             return order;
         }
 
+        /// <summary>
+        /// Creates a new order
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<NewOrderSummary> CreateAsync([FromBody] NewOrderParameters parameters)
         {
             var order = parameters.Build();
-            var category = await _categories.FindAsync(parameters.CategoryId);
-            if (category == default)
-            {
-                throw new Exception("Unknown category");
-            }
-
-            var subcategory = await _subcategories.FindAsync(parameters.SubcategoryId);
-            if (subcategory == default)
-            {
-                throw new Exception("Unknown subcategory");
-            }
-
-            order.CategoryId = category.Id;
-            order.SubcategoryId = subcategory.Id;
+            // var category = await _categories.FindAsync(parameters.CategoryId);
+            // if (category == default)
+            // {
+            //     throw new Exception("Unknown category");
+            // }
+            //
+            // var subcategory = await _subcategories.FindAsync(parameters.SubcategoryId);
+            // if (subcategory == default)
+            // {
+            //     throw new Exception("Unknown subcategory");
+            // }
+            //
+            // order.CategoryId = category.Id;
+            // order.SubcategoryId = subcategory.Id;
             
             var res = await _orders.AddAsync(order);
 

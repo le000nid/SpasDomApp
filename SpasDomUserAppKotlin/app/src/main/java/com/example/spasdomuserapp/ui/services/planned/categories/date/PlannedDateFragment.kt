@@ -2,14 +2,11 @@ package com.example.spasdomuserapp.ui.services.planned.categories.date
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.RadioButton
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,7 +18,6 @@ import com.example.spasdomuserapp.models.WorkerDay
 import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
 import kotlinx.android.synthetic.main.fragment_planned_date.*
 import java.time.LocalDate
-import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 
@@ -40,19 +36,20 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_planned_date, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        // TODO(In some reason doesn't work on devices <= O)
         selectedDate = LocalDate.now()
 
         binding.btnLeft.setOnClickListener {
             selectedDate = selectedDate.minusMonths(1)
-            drawMonthView()
+            drawMonthCalendar()
         }
 
         binding.btnRight.setOnClickListener {
             selectedDate = selectedDate.plusMonths(1)
-            drawMonthView()
+            drawMonthCalendar()
         }
 
-        drawMonthView()
+        drawMonthCalendar()
 
 
         return binding.root
@@ -79,8 +76,13 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         }
     }
 
-    private fun drawMonthView() {
+    private fun drawMonthCalendar() {
         calendarViewAdapter = CalendarViewAdapter(DateClick {
+
+            val dateText = monthYearFromDate(selectedDate)
+            val textForView = it.day + " " + dateText
+            binding.textViewDate.text = textForView
+
             if (it.timesList != null) {
                 drawTimeSchedule(it.timesList)
             } else {

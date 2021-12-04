@@ -33,7 +33,7 @@
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/activity_initial.xml" value="0.1933876811594203" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/activity_main.xml" value="0.161231884057971" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/calendar_current_view.xml" value="0.23505434782608695" />
-        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/calendar_default_view.xml" value="0.536" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/calendar_default_view.xml" value="0.1" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/calendar_green_view.xml" value="0.23505434782608695" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/calendar_red_view.xml" value="0.23505434782608695" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/calendar_yellow_view.xml" value="0.23505434782608695" />
@@ -56,7 +56,7 @@
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_services.xml" value="0.17391304347826086" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/home_cards_layout.xml" value="0.23278985507246377" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_active_order.xml" value="0.1" />
-        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_category_card.xml" value="0.264" />
+        <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_category_card.xml" value="0.1" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_news.xml" value="0.264" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_notification.xml" value="0.4020100502512563" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_photo.xml" value="0.4" />

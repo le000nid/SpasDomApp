@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:cardCornerRadius="32dp">
+    <data>
+        <variable
+            name="textDate"
+            type="String" />
+        <variable
+            name="date"
+            type="com.example.spasdomuserapp.models.WorkerDate" />
+        <variable
+            name="click"
+            type="com.example.spasdomuserapp.ui.services.planned.categories.date.DateClick" />
+    </data>
 
-        <TextView
-            android:id="@+id/tvDefaultCalendar"
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/primaryTextColor"
-            tools:text="12" />
-    </androidx.cardview.widget.CardView>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:cardCornerRadius="32dp"
+            android:onClick="@{() -> click.onClick(textDate)}">
+
+            <TextView
+                android:id="@+id/tvDayCell"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@{textDate}"
+                android:gravity="center"
+                android:textColor="@color/primaryTextColor"
+                tools:text="12" />
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</layout>

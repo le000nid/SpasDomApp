@@ -5,11 +5,8 @@
 
     <data>
         <variable
-            name="textDate"
-            type="String" />
-        <variable
             name="date"
-            type="com.example.spasdomuserapp.models.WorkerDate" />
+            type="com.example.spasdomuserapp.models.WorkerDay" />
         <variable
             name="click"
             type="com.example.spasdomuserapp.ui.services.planned.categories.date.DateClick" />
@@ -23,14 +20,14 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:cardCornerRadius="32dp"
-            android:onClick="@{() -> click.onClick(textDate)}">
+            android:onClick="@{() -> click.onClick(date)}">
 
             <TextView
                 android:id="@+id/tvDayCell"
                 style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@{textDate}"
+                android:text="@{date.day}"
                 android:gravity="center"
                 android:textColor="@color/primaryTextColor"
                 tools:text="12" />

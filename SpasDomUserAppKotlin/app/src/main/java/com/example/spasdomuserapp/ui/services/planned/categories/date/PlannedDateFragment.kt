@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
+import com.example.spasdomuserapp.models.WorkerDay
+import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -20,7 +23,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
     private lateinit var selectedDate: LocalDate
     private var calendarViewAdapter: CalendarViewAdapter? = null
-
+    private val viewModel: AddOrderViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +53,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
     private fun drawMonthView(binding: FragmentPlannedDateBinding) {
         calendarViewAdapter = CalendarViewAdapter(DateClick {
-            Log.i("click", it)
+            Log.i("click", it.toString())
         })
 
         binding.root.findViewById<RecyclerView>(R.id.calendarRecyclerView).apply {
@@ -58,11 +61,15 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
             adapter = calendarViewAdapter
         }
 
-        val daysInMonth: List<String> = daysInMonthList(selectedDate)
-        calendarViewAdapter?.daysOfMonth = daysInMonth
 
+        val dateText = monthYearFromDate(selectedDate)
+        for (i in viewModel.workerMonth.indices) {
+            if (viewModel.workerMonth[i].month == dateText) {
+                calendarViewAdapter?.daysOfMonth = viewModel.workerMonth[i].workerMonth
+            }
+        }
 
-        binding.monthYearTV.text = monthYearFromDate(selectedDate)
+        binding.monthYearTV.text = dateText
     }
 
 
@@ -70,29 +77,8 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM yyyy")
         return date.format(formatter)
     }
-
-
-    private fun daysInMonthList(selectedDate: LocalDate): List<String> {
-
-        val daysInMonthArray: MutableList<String> = mutableListOf()
-        val yearMonth: YearMonth = YearMonth.from(selectedDate)
-
-        val daysInMonth: Int = yearMonth.lengthOfMonth()
-
-        val firstOfMonth: LocalDate = selectedDate.withDayOfMonth(1)
-        val dayOfWeek = firstOfMonth.dayOfWeek.value
-
-        for (i in 1..42) {
-            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek) {
-                daysInMonthArray.add("")
-            } else {
-                daysInMonthArray.add((i - dayOfWeek).toString())
-            }
-        }
-        return daysInMonthArray.toList()
-    }
 }
 
-class DateClick(val block: (String) -> Unit) {
-    fun onClick(workerDate: String) = block(workerDate)
+class DateClick(val block: (WorkerDay) -> Unit) {
+    fun onClick(workerDate: WorkerDay) = block(workerDate)
 }

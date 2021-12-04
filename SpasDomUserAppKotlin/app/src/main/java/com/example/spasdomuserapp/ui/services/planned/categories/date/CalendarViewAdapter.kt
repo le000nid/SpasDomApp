@@ -8,12 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.CalendarDefaultViewBinding
-import com.example.spasdomuserapp.models.WorkerDate
-import com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesAdapter
+import com.example.spasdomuserapp.models.WorkerDay
 
 class CalendarViewAdapter(val callback: DateClick) : RecyclerView.Adapter<CalendarViewAdapter.CalendarViewHolder>() {
 
-    var daysOfMonth: List<String> = listOf()
+    var daysOfMonth: List<WorkerDay> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -32,8 +31,7 @@ class CalendarViewAdapter(val callback: DateClick) : RecyclerView.Adapter<Calend
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            //it.date = daysOfMonth[position]
-            it.textDate = daysOfMonth[position]
+            it.date = daysOfMonth[position]
             it.click = callback
         }
     }

@@ -1,26 +1,16 @@
 package com.example.spasdomuserapp.ui.services.planned.categories.date
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
-import com.example.spasdomuserapp.databinding.FragmentPlannedCategoriesBinding
 import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
-import com.example.spasdomuserapp.models.WorkerDate
-import com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesAdapter
-import com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesClick
-import com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesFragmentDirections
-import java.util.Date
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -31,7 +21,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
     private lateinit var selectedDate: LocalDate
     private var calendarViewAdapter: CalendarViewAdapter? = null
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,7 +47,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun drawMonthView(binding: FragmentPlannedDateBinding) {
         calendarViewAdapter = CalendarViewAdapter(DateClick {
             Log.i("click", it)
@@ -75,13 +65,13 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         binding.monthYearTV.text = monthYearFromDate(selectedDate)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun monthYearFromDate(date: LocalDate): String? {
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM yyyy")
         return date.format(formatter)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun daysInMonthList(selectedDate: LocalDate): List<String> {
 
         val daysInMonthArray: MutableList<String> = mutableListOf()

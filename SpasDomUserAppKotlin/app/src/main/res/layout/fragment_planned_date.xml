@@ -132,5 +132,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txDaysOfWeek" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:orientation="vertical"
+            android:rowCount="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendarRecyclerView">
+
+            <RadioGroup
+                android:id="@+id/radioGroupTimes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </RadioGroup>
+
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

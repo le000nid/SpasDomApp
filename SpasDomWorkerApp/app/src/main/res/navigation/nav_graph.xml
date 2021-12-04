@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_order" >
         <argument
             android:name="orderItem"
-            app:argType="com.example.spasdomworkerapp.domain.Order" />
+            app:argType="com.example.spasdomworkerapp.models.Order" />
         <argument
             android:name="orderShowFormat"
             app:argType="string" />

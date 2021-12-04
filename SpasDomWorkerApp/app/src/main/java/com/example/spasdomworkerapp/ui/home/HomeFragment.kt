@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.databinding.FragmentHomeBinding
-import com.example.spasdomworkerapp.domain.Order
+import com.example.spasdomworkerapp.models.Order
 import java.text.SimpleDateFormat
 import java.util.*
 

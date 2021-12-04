@@ -6,7 +6,7 @@
     <data>
         <variable
             name="photo"
-            type="com.example.spasdomworkerapp.domain.Photo" />
+            type="com.example.spasdomworkerapp.models.Photo" />
         <variable
             name="removeClick"
             type="com.example.spasdomworkerapp.ui.home.order.active.PhotoRemoveClick" />

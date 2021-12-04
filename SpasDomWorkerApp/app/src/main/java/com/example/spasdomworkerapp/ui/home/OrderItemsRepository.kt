@@ -3,7 +3,7 @@ package com.example.spasdomworkerapp.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.spasdomworkerapp.database.*
-import com.example.spasdomworkerapp.domain.Order
+import com.example.spasdomworkerapp.models.Order
 import com.example.spasdomworkerapp.network.NetworkOrderItem
 import com.example.spasdomworkerapp.network.NetworkOrdersContainer
 import com.example.spasdomworkerapp.network.asDatabaseModel
@@ -47,14 +47,14 @@ class OrderItemsRepository (private val cache: CacheDatabase) {
 //                val threeNews = NetworkOrdersContainer(newsItems.videos.take(3))
 
                 val ordersInit: List<NetworkOrderItem> = listOf(
-                    NetworkOrderItem("27-11-2021", "Улица улная", "19:00 - 20:00", "Нада", true, 5),
-                    NetworkOrderItem("28-11-2021", "Улица уная", "11:00 - 12:00", "Нада", true, 1),
-                    NetworkOrderItem("28-11-2021", "Улица уличная", "13:00 - 14:00", "Нада", false, 2),
-                    NetworkOrderItem("28-11-2021", "Улица улиная", "15:00 - 16:00", "Нада", false, 3),
-                    NetworkOrderItem("28-11-2021", "Морской проспект 9", "17:00 - 18:00", "Бачок потик", true, 4),
-                    NetworkOrderItem("29-11-2021", "Не морской не проспект", "3:30 - 4:20", "О боже", false, 6),
-                    NetworkOrderItem("05-12-2021", "5 декабря :)", "3:30 - 4:20", "Работает", false, 7),
-                    NetworkOrderItem("06-12-2021", "6 декабря :)", "3:30 - 4:20", "Работает", false, 8),
+                    NetworkOrderItem("27-11-2021", "Улица улная", "19:00 - 20:00", "Нада", true, false, 5),
+                    NetworkOrderItem("28-11-2021", "Улица уная", "11:00 - 12:00", "Нада", true,false, 1),
+                    NetworkOrderItem("28-11-2021", "Улица уличная", "13:00 - 14:00", "Нада", false,false, 2),
+                    NetworkOrderItem("28-11-2021", "Улица улиная", "15:00 - 16:00", "Нада", false,false, 3),
+                    NetworkOrderItem("28-11-2021", "Морской проспект 9", "17:00 - 18:00", "Бачок потик", true,false, 4),
+                    NetworkOrderItem("29-11-2021", "Не морской не проспект", "3:30 - 4:20", "О боже", false,false, 6),
+                    NetworkOrderItem("05-12-2021", "5 декабря :)", "3:30 - 4:20", "Работает", false,false, 7),
+                    NetworkOrderItem("06-12-2021", "6 декабря :)", "3:30 - 4:20", "Работает", false,false, 8),
                 )
 
                 val orders = NetworkOrdersContainer(ordersInit)

@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.databinding.ItemOrderBinding
-import com.example.spasdomworkerapp.domain.Order
+import com.example.spasdomworkerapp.models.Order
 
 class OrderItemsAdapter(val callback: OrderItemClick) : RecyclerView.Adapter<OrderItemsAdapter.OrderItemsViewHolder>() {
 
@@ -48,7 +48,7 @@ class OrderItemsAdapter(val callback: OrderItemClick) : RecyclerView.Adapter<Ord
         holder.viewDataBinding.also {
             it.orderItem = orderItems[position]
             it.orderItemCallback = callback
-            if(it.orderItem?.finished == true){
+            if(it.orderItem?.active == true){
                 it.orderCard.strokeColor = Color.parseColor("#5C6BC0")
             } else {
                 it.orderCard.strokeColor = Color.parseColor("#BCBCBB")

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -12,20 +13,30 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.databinding.FragmentActiveOrderBinding
-import com.example.spasdomworkerapp.domain.Photo
+import com.example.spasdomworkerapp.models.Photo
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 class ActiveOrderFragment : Fragment() {
 
-    private var photoAdapter: PhotoAdapter? = null
+    private var completePhotoAdapter: PhotoAdapter? = null
+    private var doorPhotoAdapter: PhotoAdapter? = null
     private val viewModel: AddOrderViewModel by viewModels()
 
-    private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
+    private val getContentComplete = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
         if (intent.data?.data != null) {
             // TODO(Add the restriction to number of photos that user can upload)
-            val oldList = viewModel.photos.value?.toMutableList()
+            val oldList = viewModel.completePhotos.value?.toMutableList()
             oldList?.add(Photo(uri = intent.data?.data))
-            viewModel.photos.value = oldList?.toList()
+            viewModel.completePhotos.value = oldList?.toList()
+        }
+    }
+
+    private val getContentDoor = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
+        if (intent.data?.data != null) {
+            // TODO(Add the restriction to number of photos that user can upload)
+            val oldList = viewModel.doorPhotos.value?.toMutableList()
+            oldList?.add(Photo(uri = intent.data?.data))
+            viewModel.doorPhotos.value = oldList?.toList()
         }
     }
 
@@ -38,16 +49,36 @@ class ActiveOrderFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        photoAdapter = PhotoAdapter(PhotoRemoveClick {
-            val oldList = viewModel.photos.value?.toMutableList()
+        doorPhotoAdapter = PhotoAdapter(PhotoRemoveClick {
+            val oldList = viewModel.doorPhotos.value?.toMutableList()
             oldList?.remove(it)
-            viewModel.photos.value = oldList?.toList()
+            viewModel.doorPhotos.value = oldList?.toList()
         })
+
+        completePhotoAdapter = PhotoAdapter(PhotoRemoveClick {
+            val oldList = viewModel.completePhotos.value?.toMutableList()
+            oldList?.remove(it)
+            viewModel.completePhotos.value = oldList?.toList()
+        })
+
+        binding.root.findViewById<RecyclerView>(R.id.photos_door_rv).apply {
+            layoutManager = GridLayoutManager(activity, 3)
+            adapter = doorPhotoAdapter
+        }
 
         binding.root.findViewById<RecyclerView>(R.id.photos_complete_rv).apply {
             layoutManager = GridLayoutManager(activity, 3)
-            adapter = photoAdapter
-            setHasFixedSize(true)
+            adapter = completePhotoAdapter
+        }
+
+        binding.btnAddPhotoDoor.setOnClickListener {
+            ImagePicker.with(this)
+                .cropSquare()
+                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .createIntent {
+                    getContentDoor.launch(it)
+                }
         }
 
         binding.btnAddPhotoComplete.setOnClickListener {
@@ -56,7 +87,7 @@ class ActiveOrderFragment : Fragment() {
                 .compress(1024)			//Final image size will be less than 1 MB(Optional)
                 .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
                 .createIntent {
-                    getContent.launch(it)
+                    getContentComplete.launch(it)
                 }
         }
 
@@ -71,9 +102,23 @@ class ActiveOrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.photos.observe(viewLifecycleOwner) {
-            photoAdapter?.photos = viewModel.photos.value!!.toList()
+        viewModel.completePhotos.observe(viewLifecycleOwner) {
+            completePhotoAdapter?.photos = viewModel.completePhotos.value!!.toList()
         }
+
+        viewModel.doorPhotos.observe(viewLifecycleOwner) {
+            doorPhotoAdapter?.photos = viewModel.doorPhotos.value!!.toList()
+        }
+
+        Toast.makeText(context, "Чтобы начать работу, загрузите фото двери", Toast.LENGTH_LONG).show()
+
+        ImagePicker.with(this)
+            .cropSquare()
+            .compress(1024)			//Final image size will be less than 1 MB(Optional)
+            .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+            .createIntent {
+                getContentDoor.launch(it)
+            }
     }
 }
 

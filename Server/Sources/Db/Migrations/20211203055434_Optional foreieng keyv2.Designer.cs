@@ -3,14 +3,16 @@ using System;
 using Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Db.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20211203055434_Optional foreieng keyv2")]
+    partial class Optionalforeiengkeyv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,19 +223,7 @@ namespace Db.Migrations
                     b.Property<long?>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTimeOffset>("DateTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Mark")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Review")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
@@ -242,16 +232,13 @@ namespace Db.Migrations
                     b.Property<long?>("SubcategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("WorkerId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
 
-                    b.HasIndex("SubcategoryId");
-
-                    b.HasIndex("WorkerId");
+                    b.HasIndex("SubcategoryId")
+                        .IsUnique();
 
                     b.ToTable("Planned-Orders");
                 });
@@ -270,7 +257,7 @@ namespace Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Planned-Order-Categories");
+                    b.ToTable("PlannedOrderCategory");
                 });
 
             modelBuilder.Entity("Entities.Orders.PlannedOrderCategorySubcategoriesLink", b =>
@@ -469,22 +456,16 @@ namespace Db.Migrations
             modelBuilder.Entity("Entities.Orders.PlannedOrder", b =>
                 {
                     b.HasOne("Entities.Orders.PlannedOrderCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .WithOne()
+                        .HasForeignKey("Entities.Orders.PlannedOrder", "CategoryId");
 
                     b.HasOne("Entities.Orders.PlannedOrderSubcategory", "Subcategory")
-                        .WithMany()
-                        .HasForeignKey("SubcategoryId");
-
-                    b.HasOne("Entities.Worker", "Worker")
-                        .WithMany()
-                        .HasForeignKey("WorkerId");
+                        .WithOne()
+                        .HasForeignKey("Entities.Orders.PlannedOrder", "SubcategoryId");
 
                     b.Navigation("Category");
 
                     b.Navigation("Subcategory");
-
-                    b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("Entities.Orders.PlannedOrderCategorySubcategoriesLink", b =>

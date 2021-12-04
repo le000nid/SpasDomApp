@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Updates
+namespace Db.Updates
 {
     public class PropertyBindingContainer
     {

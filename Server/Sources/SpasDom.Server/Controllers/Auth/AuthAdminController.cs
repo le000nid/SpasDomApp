@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Auth.Implementations;
 using Auth.Interfaces;
+using Common.Responses;
 using Db.Repository.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +49,7 @@ namespace SpasDom.Server.Controllers.Auth
 
             if (existed != default)
             {
-                throw new Exception("Такой пользователь зарегистрирован");
+                throw ResponsesFactory.BadRequest("Такой пользователь зарегистрирован");
             }
 
             var @new = parameters.Build();

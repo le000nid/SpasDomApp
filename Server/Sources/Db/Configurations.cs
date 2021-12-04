@@ -1,6 +1,7 @@
 ﻿using System;
 using Db.Repository.Implementations;
 using Db.Repository.Interfaces;
+using Db.Updates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,7 @@ namespace Db
         {
             services.AddDbContext<SqlContext>(options => options.UseSqlite(BuildSqlLiteConnectionString()), ServiceLifetime.Transient);
             services.AddScoped<ICrudFactory, CrudFactory<SqlContext>>();
+            services.AddScoped<IUpdater, Updater>();
             return services;
         }
         

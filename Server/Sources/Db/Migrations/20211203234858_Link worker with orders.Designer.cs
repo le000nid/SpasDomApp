@@ -3,14 +3,16 @@ using System;
 using Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Db.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20211203234858_Link worker with orders")]
+    partial class Linkworkerwithorders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,11 +249,14 @@ namespace Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
 
-                    b.HasIndex("SubcategoryId");
+                    b.HasIndex("SubcategoryId")
+                        .IsUnique();
 
-                    b.HasIndex("WorkerId");
+                    b.HasIndex("WorkerId")
+                        .IsUnique();
 
                     b.ToTable("Planned-Orders");
                 });
@@ -469,16 +474,16 @@ namespace Db.Migrations
             modelBuilder.Entity("Entities.Orders.PlannedOrder", b =>
                 {
                     b.HasOne("Entities.Orders.PlannedOrderCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .WithOne()
+                        .HasForeignKey("Entities.Orders.PlannedOrder", "CategoryId");
 
                     b.HasOne("Entities.Orders.PlannedOrderSubcategory", "Subcategory")
-                        .WithMany()
-                        .HasForeignKey("SubcategoryId");
+                        .WithOne()
+                        .HasForeignKey("Entities.Orders.PlannedOrder", "SubcategoryId");
 
                     b.HasOne("Entities.Worker", "Worker")
-                        .WithMany()
-                        .HasForeignKey("WorkerId");
+                        .WithOne()
+                        .HasForeignKey("Entities.Orders.PlannedOrder", "WorkerId");
 
                     b.Navigation("Category");
 

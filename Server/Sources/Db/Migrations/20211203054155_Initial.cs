@@ -113,6 +113,36 @@ namespace Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Planned-Order-Subcategories",
+                schema: "spas-dom",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Planned-Order-Subcategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlannedOrderCategory",
+                schema: "spas-dom",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlannedOrderCategory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tenants",
                 schema: "spas-dom",
                 columns: table => new
@@ -204,6 +234,67 @@ namespace Db.Migrations
                         column: x => x.HouseId,
                         principalSchema: "spas-dom",
                         principalTable: "Houses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Planned-Orders",
+                schema: "spas-dom",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryId = table.Column<long>(type: "INTEGER", nullable: false),
+                    SubcategoryId = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Planned-Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Planned-Orders_Planned-Order-Subcategories_SubcategoryId",
+                        column: x => x.SubcategoryId,
+                        principalSchema: "spas-dom",
+                        principalTable: "Planned-Order-Subcategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Planned-Orders_PlannedOrderCategory_CategoryId",
+                        column: x => x.CategoryId,
+                        principalSchema: "spas-dom",
+                        principalTable: "PlannedOrderCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Planned-Orders-Category-Subcategories-Links",
+                schema: "spas-dom",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CategoryId = table.Column<long>(type: "INTEGER", nullable: false),
+                    SubcategoryId = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Planned-Orders-Category-Subcategories-Links", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Planned-Orders-Category-Subcategories-Links_Planned-Order-Subcategories_SubcategoryId",
+                        column: x => x.SubcategoryId,
+                        principalSchema: "spas-dom",
+                        principalTable: "Planned-Order-Subcategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Planned-Orders-Category-Subcategories-Links_PlannedOrderCategory_CategoryId",
+                        column: x => x.CategoryId,
+                        principalSchema: "spas-dom",
+                        principalTable: "PlannedOrderCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -307,6 +398,33 @@ namespace Db.Migrations
                 column: "HouseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Planned-Orders_CategoryId",
+                schema: "spas-dom",
+                table: "Planned-Orders",
+                column: "CategoryId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Planned-Orders_SubcategoryId",
+                schema: "spas-dom",
+                table: "Planned-Orders",
+                column: "SubcategoryId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Planned-Orders-Category-Subcategories-Links_CategoryId",
+                schema: "spas-dom",
+                table: "Planned-Orders-Category-Subcategories-Links",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Planned-Orders-Category-Subcategories-Links_SubcategoryId",
+                schema: "spas-dom",
+                table: "Planned-Orders-Category-Subcategories-Links",
+                column: "SubcategoryId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Worker-Competence-Links_CompetenceId",
                 schema: "spas-dom",
                 table: "Worker-Competence-Links",
@@ -343,6 +461,14 @@ namespace Db.Migrations
                 schema: "spas-dom");
 
             migrationBuilder.DropTable(
+                name: "Planned-Orders",
+                schema: "spas-dom");
+
+            migrationBuilder.DropTable(
+                name: "Planned-Orders-Category-Subcategories-Links",
+                schema: "spas-dom");
+
+            migrationBuilder.DropTable(
                 name: "Worker-Competence-Links",
                 schema: "spas-dom");
 
@@ -360,6 +486,14 @@ namespace Db.Migrations
 
             migrationBuilder.DropTable(
                 name: "Houses",
+                schema: "spas-dom");
+
+            migrationBuilder.DropTable(
+                name: "Planned-Order-Subcategories",
+                schema: "spas-dom");
+
+            migrationBuilder.DropTable(
+                name: "PlannedOrderCategory",
                 schema: "spas-dom");
 
             migrationBuilder.DropTable(

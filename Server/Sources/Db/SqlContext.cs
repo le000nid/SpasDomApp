@@ -1,13 +1,19 @@
-﻿using Entities;
+﻿using System;
+using Entities;
+using Entities.Orders;
 using Microsoft.EntityFrameworkCore;
 
 namespace Db
 {
     public class SqlContext : DbContext
     {
-        public SqlContext() : base() { }
+        public SqlContext() : base()
+        {
+        }
 
-        public SqlContext(DbContextOptions<SqlContext> options) : base(options) { }
+        public SqlContext(DbContextOptions<SqlContext> options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -59,6 +65,29 @@ namespace Db
 
             houseApartmentLink.HasOne(l => l.Apartment)
                 .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            var plannedOrder = builder.Entity<PlannedOrder>();
+
+            plannedOrder.HasOne(o => o.Category).WithMany();
+            
+            plannedOrder.HasOne(o => o.Subcategory).WithMany();
+
+            plannedOrder.HasOne(o => o.Worker)
+                .WithMany()
+                .IsRequired(false);
+            
+            var plannedOrderCategory = builder.Entity<PlannedOrderCategory>();
+            
+            
+            var plannedOrderCategorySubcategoriesLinks = builder.Entity<PlannedOrderCategorySubcategoriesLink>();
+
+            plannedOrderCategorySubcategoriesLinks.HasOne(l => l.Category).WithMany(c => c.SubCategories)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            plannedOrderCategorySubcategoriesLinks.HasOne(l => l.Subcategory).WithOne()
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

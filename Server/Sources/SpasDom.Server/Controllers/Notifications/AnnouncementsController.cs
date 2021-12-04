@@ -8,9 +8,6 @@ using Db.Repository.Interfaces;
 using Entities;
 using System;
 using Microsoft.EntityFrameworkCore;
-using Common.Updates;
-using System.Collections.Generic;
-using Common.Updates.Generic;
 using Services.Firebase.Interfaces;
 
 namespace SpasDom.Server.Controllers.Notifications

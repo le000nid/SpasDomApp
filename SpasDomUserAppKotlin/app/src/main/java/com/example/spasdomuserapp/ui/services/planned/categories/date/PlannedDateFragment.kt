@@ -23,6 +23,7 @@ import java.util.Date
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 
 
 class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
@@ -39,10 +40,25 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         val binding: FragmentPlannedDateBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_planned_date, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val formatterText = SimpleDateFormat("MMMM yyyy")
-        val currentDateText: String = formatterText.format(Date())
-        binding.monthYearTV.text = currentDateText
+        selectedDate = LocalDate.now()
 
+        binding.btnLeft.setOnClickListener {
+            selectedDate = selectedDate.minusMonths(1)
+            drawMonthView(binding)
+        }
+
+        binding.btnRight.setOnClickListener {
+            selectedDate = selectedDate.plusMonths(1)
+            drawMonthView(binding)
+        }
+
+        drawMonthView(binding)
+
+        return binding.root
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun drawMonthView(binding: FragmentPlannedDateBinding) {
         calendarViewAdapter = CalendarViewAdapter(DateClick {
             Log.i("click", it)
         })
@@ -52,30 +68,18 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
             adapter = calendarViewAdapter
         }
 
-        binding.btnLeft.setOnClickListener {
-            selectedDate = selectedDate.minusMonths(1)
-            //
-        }
-
-        binding.btnRight.setOnClickListener {
-            selectedDate = selectedDate.plusMonths(1)
-            //
-        }
-
-        return binding.root
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        selectedDate = LocalDate.now()
-
         val daysInMonth: List<String> = daysInMonthList(selectedDate)
         calendarViewAdapter?.daysOfMonth = daysInMonth
+
+
+        binding.monthYearTV.text = monthYearFromDate(selectedDate)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun monthYearFromDate(date: LocalDate): String? {
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM yyyy")
+        return date.format(formatter)
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun daysInMonthList(selectedDate: LocalDate): List<String> {

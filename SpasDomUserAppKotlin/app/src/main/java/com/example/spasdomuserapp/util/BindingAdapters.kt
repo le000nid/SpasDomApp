@@ -1,8 +1,10 @@
 package com.example.spasdomuserapp.util
 
+import android.graphics.Color
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.spasdomuserapp.R
@@ -68,6 +70,14 @@ fun setImageUri(imageView: ImageView, uri: Uri?) {
 @BindingAdapter("goneIfUriNull")
 fun goneIfUriNull(imageView: ImageView, uri: Uri?) {
     imageView.visibility = if (uri == null) View.GONE else View.VISIBLE
+}
+
+@BindingAdapter("dateType")
+fun dateType(cardView: CardView, type: Int) {
+    when(type) {
+        1 -> cardView.setCardBackgroundColor(Color.parseColor("#A5D6A7"))
+        2 -> cardView.setCardBackgroundColor(Color.parseColor("#EF9A9A"))
+    }
 }
 
 //TODO (Add all drawables for categories)

@@ -9,18 +9,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedInfoBinding
 import com.example.spasdomuserapp.models.Photo
 import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
+import com.example.spasdomuserapp.ui.services.planned.categories.lvl2.PlannedCategoriesLvl2FragmentArgs
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 class PlannedInfoFragment : Fragment() {
 
     private var photoAdapter: PhotoAdapter? = null
     private val viewModel: AddOrderViewModel by viewModels()
+    private val args by navArgs<PlannedInfoFragmentArgs>()
 
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
         if (intent.data?.data != null) {
@@ -63,8 +66,8 @@ class PlannedInfoFragment : Fragment() {
         }
 
         binding.btnNext.setOnClickListener {
-            /*val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment()
-            findNavController().navigate(action)*/
+            val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(args.categoryName)
+            findNavController().navigate(action)
         }
 
         return binding.root

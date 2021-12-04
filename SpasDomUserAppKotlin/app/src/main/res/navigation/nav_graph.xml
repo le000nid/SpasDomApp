@@ -121,7 +121,7 @@
     <fragment
         android:id="@+id/plannedDateFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.categories.date.PlannedDateFragment"
-        android:label="fragment_planned_date"
+        android:label="{categoryName}"
         tools:layout="@layout/fragment_planned_date">
         <argument
             android:name="categoryName"

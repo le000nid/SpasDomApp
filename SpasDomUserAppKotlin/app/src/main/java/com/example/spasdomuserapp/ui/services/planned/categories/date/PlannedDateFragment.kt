@@ -1,13 +1,17 @@
 package com.example.spasdomuserapp.ui.services.planned.categories.date
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.spasdomuserapp.R
+import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
 
 
-class PlannedDateFragment : Fragment() {
+class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentPlannedDateBinding.bind(view)
+
+    }
 }

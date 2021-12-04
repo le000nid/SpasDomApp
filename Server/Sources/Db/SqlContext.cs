@@ -69,12 +69,12 @@ namespace Db
 
             var plannedOrder = builder.Entity<PlannedOrder>();
 
-            plannedOrder.HasOne(o => o.Category).WithOne();
+            plannedOrder.HasOne(o => o.Category).WithMany();
             
-            plannedOrder.HasOne(o => o.Subcategory).WithOne();
+            plannedOrder.HasOne(o => o.Subcategory).WithMany();
 
             plannedOrder.HasOne(o => o.Worker)
-                .WithOne()
+                .WithMany()
                 .IsRequired(false);
             
             var plannedOrderCategory = builder.Entity<PlannedOrderCategory>();

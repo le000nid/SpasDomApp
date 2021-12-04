@@ -146,6 +146,7 @@ namespace SpasDom.Server.Controllers.Orders
                 }
 
                 order.WorkerId = worker.Id;
+                var r = await _orders.UpdateAsync(order);
             }
             
             var plannedOrderPropertyBindings = new PropertyBindings<PlannedOrder>()

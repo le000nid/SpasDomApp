@@ -67,24 +67,24 @@ namespace SpasDom.Server.Controllers.Orders
         public async Task<OrderWorkersSummary> CreateAsync([FromBody] NewOrderParameters parameters)
         {
             var order = parameters.Build();
-            var category = await _categories.FindAsync(parameters.CategoryId);
-            if (category == default)
-            {
-                throw ResponsesFactory.BadRequest("Unknown category");
-            }
+            // var category = await _categories.FindAsync(parameters.CategoryId);
+            // if (category == default)
+            // {
+            //     throw ResponsesFactory.BadRequest("Unknown category");
+            // }
+            //
+            // var subcategory = await _subcategories.FindAsync(parameters.SubcategoryId);
+            // if (subcategory == default)
+            // {
+            //     throw ResponsesFactory.BadRequest("Unknown subcategory");
+            // }
             
-            var subcategory = await _subcategories.FindAsync(parameters.SubcategoryId);
-            if (subcategory == default)
-            {
-                throw ResponsesFactory.BadRequest("Unknown subcategory");
-            }
-            
-            order.CategoryId = category.Id;
-            order.SubcategoryId = subcategory.Id;
+            // order.CategoryId = null;
+            // order.SubcategoryId = null;
                         
             var res = await _orders.AddAsync(order);
 
-            var workers = await _workerService.GetWorkersForAsync(category.Id, subcategory.Id);
+            var workers = await _workerService.GetWorkersForAsync(0, 0);
 
             return new OrderWorkersSummary(res, workers);
         }

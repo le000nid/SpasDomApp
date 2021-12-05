@@ -1,13 +1,12 @@
-package com.example.spasdomuserapp.ui.services.planned.categories
+package com.example.spasdomuserapp.ui.services.planned.categories.lvl1
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.spasdomuserapp.R
-import com.example.spasdomuserapp.models.Photo
 import com.example.spasdomuserapp.models.PlannedCategory
 
-class AddOrderViewModel(): ViewModel() {
+class Lvl1PlannedOrderViewModel(
+    private val state: SavedStateHandle
+) : ViewModel() {
 
     val plannedCategories: List<PlannedCategory> = listOf(
         PlannedCategory("Счетчики", 1, listOf(
@@ -23,9 +22,4 @@ class AddOrderViewModel(): ViewModel() {
         PlannedCategory("Плита", 4, null),
         PlannedCategory("Двор", 5, null)
     )
-
-    private val _photos = MutableLiveData<List<Photo>>(listOf())
-
-    val photos: MutableLiveData<List<Photo>>
-        get() = _photos
 }

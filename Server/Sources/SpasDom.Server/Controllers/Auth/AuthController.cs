@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Auth.Implementations;
 using Auth.Interfaces;
+using Common.Responses;
 using Db.Repository.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace SpasDom.Server.Controllers.Auth
             
             if (!isValid)
             {
-                throw new Exception("Invalid email or password!");
+                throw ResponsesFactory.Forbidden("Invalid login or password!");
             }
 
             if (string.IsNullOrEmpty(existed.FirebaseToken) || !existed.FirebaseToken.Equals(parameters.FirebaseToken))
@@ -49,11 +50,11 @@ namespace SpasDom.Server.Controllers.Auth
             return new AuthSummary(tokenPair);
         }
         
-        private bool CheckApartment(Apartment apartment, string password)
+        private static bool CheckApartment(Apartment apartment, string password)
         {
             if (apartment == default)
             {
-                throw new Exception("Такой лицевой счет не зарегистирован");
+                throw ResponsesFactory.NotFound("Not found user with the same login!");
             }
             
             return PasswordHandler.CheckPassword(password, apartment.Password);

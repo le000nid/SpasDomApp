@@ -117,15 +117,21 @@
         <action
             android:id="@+id/action_plannedInfoFragment_to_plannedDateFragment"
             app:destination="@id/plannedDateFragment" />
+        <argument
+            android:name="categoryLvl1"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/plannedDateFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.categories.date.PlannedDateFragment"
-        android:label="fragment_planned_date"
+        android:label="{categoryName}"
         tools:layout="@layout/fragment_planned_date">
         <argument
             android:name="categoryName"
             app:argType="string" />
+        <argument
+            android:name="plannedOrderPost"
+            app:argType="com.example.spasdomuserapp.models.PlannedOrderPost" />
     </fragment>
 
 </navigation>

@@ -3,9 +3,7 @@ using Db.Repository.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Auth.Models;
 using Common.SelectParameters;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace SpasDom.Server.Controllers.Houses

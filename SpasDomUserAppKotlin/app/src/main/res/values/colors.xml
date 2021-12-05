@@ -12,4 +12,9 @@
     <color name="grayMiddle">#BCBCBB</color>
     <color name="grayLight">#F0F0F0</color>
     <color name="primaryBlack">#000000</color>
+    <color name="primaryWhite">#FFFFFF</color>
+
+    <color name="dateGreen">#A5D6A7</color>
+    <color name="dateRed">#EF9A9A</color>
+
 </resources>

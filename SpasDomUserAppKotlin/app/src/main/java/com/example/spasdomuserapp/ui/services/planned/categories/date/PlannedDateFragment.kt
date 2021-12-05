@@ -18,6 +18,7 @@ import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
 import com.example.spasdomuserapp.models.WorkerDay
 import com.example.spasdomuserapp.models.WorkerTime
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_planned_date.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -58,18 +59,19 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
         binding.btnSendOrder.setOnClickListener {
             if (viewModel.date == null) {
-                //Snackbar
+                Snackbar.make(requireView(), "Дата не может быть пустой", Snackbar.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
-            if (viewModel.time == null) {
-                // Snackbar
+            if (viewModel.time == null || viewModel.workerId == null) {
+                Snackbar.make(requireView(), "Время не может быть пустым", Snackbar.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
+            val date = viewModel.date + " " + viewModel.time
             var finalOrder = args.plannedOrderPost
-            finalOrder = finalOrder.copy(date = viewModel.date.toString(), time = viewModel.time.toString())
-            Log.i("date", finalOrder.toString())
+            finalOrder = finalOrder.copy(date = date, workerId = viewModel.workerId!!)
+            Log.i("order", finalOrder.toString())
         }
 
         return binding.root
@@ -94,6 +96,12 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
             val rb = group.findViewById<RadioButton>(checkedId)
             if (rb != null) {
                 viewModel.time = rb.text.toString()
+
+                timeList.forEach {
+                    if (it.time == viewModel.time) {
+                        viewModel.workerId = it.workerId
+                    }
+                }
             }
         }
     }

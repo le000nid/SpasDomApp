@@ -13,6 +13,7 @@ class DatePlannedOrderViewModel(
 
     var date: String? = null
     var time: String? = null
+    var workerId: Long? = null
 
 
     private val timeList1: List<WorkerTime> = listOf(

@@ -9,18 +9,30 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.databinding.FragmentActiveOrderBinding
 import com.example.spasdomworkerapp.models.Photo
+import com.example.spasdomworkerapp.network.NetworkOrder
+import com.example.spasdomworkerapp.network.NetworkOrderItem
+import com.example.spasdomworkerapp.network.asDatabaseModel
+import com.example.spasdomworkerapp.ui.home.order.OrderDetailedFragmentArgs
 import com.github.dhaval2404.imagepicker.ImagePicker
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ActiveOrderFragment : Fragment() {
 
     private var completePhotoAdapter: PhotoAdapter? = null
     private var doorPhotoAdapter: PhotoAdapter? = null
-    private val viewModel: AddOrderViewModel by viewModels()
+    private val viewModel: ActiveOrderViewModel by viewModels()
+
+    private val args by navArgs<ActiveOrderFragmentArgs>()
 
     private val getContentComplete = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
         if (intent.data?.data != null) {
@@ -46,6 +58,8 @@ class ActiveOrderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentActiveOrderBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_active_order, container, false)
+
+        val itemOrder = args.orderItem
 
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -92,8 +106,13 @@ class ActiveOrderFragment : Fragment() {
         }
 
         binding.btnFinish.setOnClickListener {
-            /*val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment()
-            findNavController().navigate(action)*/
+            itemOrder.finished = true
+            itemOrder.active = false
+            lifecycleScope.launch {
+                viewModel.saveOrderItem(itemOrder)
+            }
+            val action = ActiveOrderFragmentDirections.actionActiveOrderFragmentToHomeFragment()
+            findNavController().navigate(action)
         }
 
         return binding.root

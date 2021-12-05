@@ -41,7 +41,7 @@ class OrderDetailedFragment : Fragment(R.layout.fragment_order) {
         }
 
         binding.beginButton.setOnClickListener {
-            val action = OrderDetailedFragmentDirections.actionOrderDetailedFragmentToActiveOrderFragment()
+            val action = OrderDetailedFragmentDirections.actionOrderDetailedFragmentToActiveOrderFragment(itemOrder)
             findNavController().navigate(action)
         }
     }

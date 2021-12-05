@@ -35,7 +35,14 @@
         android:id="@+id/activeOrderFragment"
         android:name="com.example.spasdomworkerapp.ui.home.order.active.ActiveOrderFragment"
         android:label="Улица"
-        tools:layout="@layout/fragment_active_order" />
+        tools:layout="@layout/fragment_active_order" >
+        <argument
+            android:name="orderItem"
+            app:argType="com.example.spasdomworkerapp.models.Order" />
+        <action
+            android:id="@+id/action_activeOrderFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/chatFragment"

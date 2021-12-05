@@ -12,5 +12,5 @@ interface CacheDao {
     fun getOrderItems(getDate: String): LiveData<List<DatabaseOrderItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg orders: DatabaseOrderItem)
+    suspend fun insertAllOrders(vararg orders: DatabaseOrderItem)
 }

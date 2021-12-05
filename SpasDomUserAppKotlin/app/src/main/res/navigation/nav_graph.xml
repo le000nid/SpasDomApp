@@ -117,6 +117,9 @@
         <action
             android:id="@+id/action_plannedInfoFragment_to_plannedDateFragment"
             app:destination="@id/plannedDateFragment" />
+        <argument
+            android:name="categoryLvl1"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/plannedDateFragment"

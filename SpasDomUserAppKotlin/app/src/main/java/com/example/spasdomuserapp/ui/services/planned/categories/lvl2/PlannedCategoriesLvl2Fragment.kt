@@ -38,7 +38,7 @@ class PlannedCategoriesLvl2Fragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         plannedCategoriesAdapter = PlannedCategoriesAdapter(PlannedCategoriesClick {
-            val action = PlannedCategoriesLvl2FragmentDirections.actionPlannedCategoriesLvl2FragmentToPlannedInfoFragment(it, it.label)
+            val action = PlannedCategoriesLvl2FragmentDirections.actionPlannedCategoriesLvl2FragmentToPlannedInfoFragment(it, it.label, args.categoryName)
             findNavController().navigate(action)
         })
 

@@ -31,6 +31,7 @@ class CalendarViewAdapter(val callback: DateClick) : RecyclerView.Adapter<Calend
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         holder.viewDataBinding.also {
+            //TODO(disable previous days)
             it.date = daysOfMonth[position]
             it.click = callback
         }

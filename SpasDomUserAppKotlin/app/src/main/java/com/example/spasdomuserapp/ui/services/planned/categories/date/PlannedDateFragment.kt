@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
 import com.example.spasdomuserapp.models.WorkerDay
+import com.example.spasdomuserapp.models.WorkerTime
 import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
 import kotlinx.android.synthetic.main.fragment_planned_date.*
 import java.time.LocalDate
@@ -56,7 +57,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
     }
 
     @SuppressLint("ResourceType")
-    private fun drawTimeSchedule(timeList: List<String>) {
+    private fun drawTimeSchedule(timeList: List<WorkerTime>) {
 
         val layoutParamsVar = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
@@ -66,7 +67,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         for (i in timeList.indices) {
             val radioButton = RadioButton(requireContext())
             radioButton.layoutParams = layoutParamsVar
-            radioButton.text = timeList[i]
+            radioButton.text = timeList[i].time
             radioButton.id = i
             binding.radioGroupTimes.addView(radioButton)
         }

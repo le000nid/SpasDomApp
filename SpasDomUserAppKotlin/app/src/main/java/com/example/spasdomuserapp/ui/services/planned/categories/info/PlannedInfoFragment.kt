@@ -1,10 +1,12 @@
 package com.example.spasdomuserapp.ui.services.planned.categories.info
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedInfoBinding
 import com.example.spasdomuserapp.models.Photo
+import com.example.spasdomuserapp.models.PlannedOrderPost
 import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
 import com.example.spasdomuserapp.ui.services.planned.categories.lvl2.PlannedCategoriesLvl2FragmentArgs
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -65,8 +68,19 @@ class PlannedInfoFragment : Fragment() {
                 }
         }
 
+        binding.editTextOrder.addTextChangedListener {
+            viewModel.comment = it.toString()
+        }
+
         binding.btnNext.setOnClickListener {
-            val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(args.categoryName)
+
+            val categoryLvl1 = args.categoryLvl1
+            val categoryLvl2 = args.categoryName
+
+            val plannedOrderPost = PlannedOrderPost(categoryLvl1, categoryLvl2, viewModel.comment)
+            Log.i("order", plannedOrderPost.toString())
+
+            val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(categoryLvl2)
             findNavController().navigate(action)
         }
 

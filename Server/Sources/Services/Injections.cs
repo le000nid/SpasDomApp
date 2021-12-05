@@ -22,6 +22,7 @@ namespace Services
 
 
             services.AddScoped<IFirebaseService, FirebaseService>();
+            services.AddScoped<IWorkerService, WorkerService>();
 
             return services;
         }

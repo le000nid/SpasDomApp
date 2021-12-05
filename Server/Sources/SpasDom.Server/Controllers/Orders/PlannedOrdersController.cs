@@ -10,6 +10,7 @@ using Entities;
 using Entities.Orders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Services;
 using SpasDom.Server.Controllers.Orders.Input;
 using SpasDom.Server.Controllers.Orders.Output;
 
@@ -24,14 +25,16 @@ namespace SpasDom.Server.Controllers.Orders
         private readonly ICrudRepository<PlannedOrderCategory> _categories;
         private readonly ICrudRepository<PlannedOrderSubcategory> _subcategories;
         private readonly ICrudRepository<Worker> _workers;
+        private readonly IWorkerService _workerService;
 
-        public PlannedOrdersController(ICrudFactory factory, IUpdater updater)
+        public PlannedOrdersController(ICrudFactory factory, IUpdater updater, IWorkerService workerService)
         {
             _orders = factory.Get<PlannedOrder>();
             _categories = factory.Get<PlannedOrderCategory>();
             _subcategories = factory.Get<PlannedOrderSubcategory>();
             _workers = factory.Get<Worker>();
             _updater = updater;
+            _workerService = workerService;
         }
 
         [HttpGet]
@@ -61,27 +64,29 @@ namespace SpasDom.Server.Controllers.Orders
         /// <param name="parameters"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<NewOrderSummary> CreateAsync([FromBody] NewOrderParameters parameters)
+        public async Task<OrderWorkersSummary> CreateAsync([FromBody] NewOrderParameters parameters)
         {
             var order = parameters.Build();
-            // var category = await _categories.FindAsync(parameters.CategoryId);
-            // if (category == default)
-            // {
-            //     throw new Exception("Unknown category");
-            // }
-            //
-            // var subcategory = await _subcategories.FindAsync(parameters.SubcategoryId);
-            // if (subcategory == default)
-            // {
-            //     throw new Exception("Unknown subcategory");
-            // }
-            //
-            // order.CategoryId = category.Id;
-            // order.SubcategoryId = subcategory.Id;
+            var category = await _categories.FindAsync(parameters.CategoryId);
+            if (category == default)
+            {
+                throw ResponsesFactory.BadRequest("Unknown category");
+            }
             
+            var subcategory = await _subcategories.FindAsync(parameters.SubcategoryId);
+            if (subcategory == default)
+            {
+                throw ResponsesFactory.BadRequest("Unknown subcategory");
+            }
+            
+            order.CategoryId = category.Id;
+            order.SubcategoryId = subcategory.Id;
+                        
             var res = await _orders.AddAsync(order);
 
-            return new NewOrderSummary(res);
+            var workers = await _workerService.GetWorkersForAsync(category.Id, subcategory.Id);
+
+            return new OrderWorkersSummary(res, workers);
         }
 
         [HttpPut("{id:long}")]

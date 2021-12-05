@@ -129,6 +129,9 @@
         <argument
             android:name="categoryName"
             app:argType="string" />
+        <argument
+            android:name="plannedOrderPost"
+            app:argType="com.example.spasdomuserapp.models.PlannedOrderPost" />
     </fragment>
 
 </navigation>

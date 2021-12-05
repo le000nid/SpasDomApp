@@ -11,13 +11,13 @@ import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
 import com.example.spasdomuserapp.models.WorkerDay
 import com.example.spasdomuserapp.models.WorkerTime
-import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
 import kotlinx.android.synthetic.main.fragment_planned_date.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -29,8 +29,9 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
     private lateinit var selectedDate: LocalDate
     private var calendarViewAdapter: CalendarViewAdapter? = null
-    private val viewModel: AddOrderViewModel by viewModels()
+    private val viewModel: DatePlannedOrderViewModel by viewModels()
     private lateinit var binding: FragmentPlannedDateBinding
+    private val args by navArgs<PlannedDateFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +56,21 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
         drawMonthCalendar()
 
+        binding.btnSendOrder.setOnClickListener {
+            if (viewModel.date == null) {
+                //Snackbar
+                return@setOnClickListener
+            }
+
+            if (viewModel.time == null) {
+                // Snackbar
+                return@setOnClickListener
+            }
+
+            var finalOrder = args.plannedOrderPost
+            finalOrder = finalOrder.copy(date = viewModel.date.toString(), time = viewModel.time.toString())
+            Log.i("date", finalOrder.toString())
+        }
 
         return binding.root
     }
@@ -64,8 +80,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
         val layoutParamsVar = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        binding.radioGroupTimes.clearCheck()
-        binding.radioGroupTimes.removeAllViews()
+        clearRadioGroup()
 
         for (i in timeList.indices) {
             val radioButton = RadioButton(requireContext())
@@ -76,7 +91,10 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         }
 
         radioGroupTimes.setOnCheckedChangeListener { group, checkedId ->
-
+            val rb = group.findViewById<RadioButton>(checkedId)
+            if (rb != null) {
+                viewModel.time = rb.text.toString()
+            }
         }
     }
 
@@ -87,15 +105,13 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
             val textForView = it.day + " " + dateText
             binding.textViewDate.text = textForView
 
-
+            viewModel.date = textForView
 
             if (it.timesList != null) {
                 drawTimeSchedule(it.timesList)
             } else {
-                binding.radioGroupTimes.clearCheck()
-                binding.radioGroupTimes.removeAllViews()
+                clearRadioGroup()
             }
-
         })
 
         binding.root.findViewById<RecyclerView>(R.id.calendarRecyclerView).apply {
@@ -117,6 +133,11 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         binding.monthYearTV.text = dateText
     }
 
+    private fun clearRadioGroup() {
+        binding.radioGroupTimes.clearCheck()
+        binding.radioGroupTimes.removeAllViews()
+        viewModel.time = null
+    }
 
     private fun monthYearFromDate(date: LocalDate): String? {
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM yyyy")

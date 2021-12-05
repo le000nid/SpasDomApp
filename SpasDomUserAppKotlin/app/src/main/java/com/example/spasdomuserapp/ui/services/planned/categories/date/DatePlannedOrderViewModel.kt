@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.categories
+package com.example.spasdomuserapp.ui.services.planned.categories.date
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,32 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.models.*
 
-class AddOrderViewModel(
+class DatePlannedOrderViewModel(
     private val state: SavedStateHandle
 ): ViewModel() {
 
-    var comment: String = ""
-
-    val plannedCategories: List<PlannedCategory> = listOf(
-        PlannedCategory("Счетчики", 1, listOf(
-            PlannedCategory("Вода", 11, null),
-            PlannedCategory("Газ", 12,null),
-            PlannedCategory("Плита", 13, null),
-            PlannedCategory("Двор", 14, null),
-            PlannedCategory("Плита", 15, null),
-            PlannedCategory("Двор", 16, null)
-        )),
-        PlannedCategory("Вода", 2, null),
-        PlannedCategory("Газ", 3, null),
-        PlannedCategory("Плита", 4, null),
-        PlannedCategory("Двор", 5, null)
-    )
-
-    private val _photos = MutableLiveData<List<Photo>>(listOf())
-
-    val photos: MutableLiveData<List<Photo>>
-        get() = _photos
-
+    var date: String? = null
+    var time: String? = null
 
 
     private val timeList1: List<WorkerTime> = listOf(

@@ -13,12 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedCategoriesBinding
 import com.example.spasdomuserapp.models.PlannedCategory
-import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
 
 class PlannedCategoriesFragment : Fragment() {
 
     private var plannedCategoriesAdapter: PlannedCategoriesAdapter? = null
-    private val viewModel: AddOrderViewModel by viewModels()
+    private val viewModel: Lvl1PlannedOrderViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

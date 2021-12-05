@@ -1,7 +1,6 @@
 package com.example.spasdomuserapp.ui.services.planned.categories.info
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,14 +17,12 @@ import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedInfoBinding
 import com.example.spasdomuserapp.models.Photo
 import com.example.spasdomuserapp.models.PlannedOrderPost
-import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
-import com.example.spasdomuserapp.ui.services.planned.categories.lvl2.PlannedCategoriesLvl2FragmentArgs
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 class PlannedInfoFragment : Fragment() {
 
     private var photoAdapter: PhotoAdapter? = null
-    private val viewModel: AddOrderViewModel by viewModels()
+    private val viewModel: InfoPlannedOrderViewModel by viewModels()
     private val args by navArgs<PlannedInfoFragmentArgs>()
 
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
@@ -76,11 +73,9 @@ class PlannedInfoFragment : Fragment() {
 
             val categoryLvl1 = args.categoryLvl1
             val categoryLvl2 = args.categoryName
-
             val plannedOrderPost = PlannedOrderPost(categoryLvl1, categoryLvl2, viewModel.comment)
-            Log.i("order", plannedOrderPost.toString())
 
-            val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(categoryLvl2)
+            val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(categoryLvl2, plannedOrderPost)
             findNavController().navigate(action)
         }
 

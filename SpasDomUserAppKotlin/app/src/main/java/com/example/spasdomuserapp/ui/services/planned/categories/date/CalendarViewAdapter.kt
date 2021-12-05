@@ -19,6 +19,9 @@ class CalendarViewAdapter(val callback: DateClick) : RecyclerView.Adapter<Calend
             notifyDataSetChanged()
         }
 
+    var currentDay: String = ""
+    var currentMonth: String = ""
+    var activeMonth: String = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         val withDataBinding: CalendarDefaultViewBinding = DataBindingUtil.inflate(
@@ -31,9 +34,16 @@ class CalendarViewAdapter(val callback: DateClick) : RecyclerView.Adapter<Calend
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            //TODO(disable previous days)
             it.date = daysOfMonth[position]
-            it.click = callback
+
+            // validation
+            if (currentMonth == activeMonth) {
+                if (daysOfMonth[position].day != "" && daysOfMonth[position].day.toInt() >= currentDay.toInt()) {
+                    it.click = callback
+                }
+            } else if (daysOfMonth[position].day != ""){
+                it.click = callback
+            }
         }
     }
 

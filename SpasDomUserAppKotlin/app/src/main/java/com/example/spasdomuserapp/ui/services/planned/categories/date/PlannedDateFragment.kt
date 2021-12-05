@@ -2,6 +2,7 @@ package com.example.spasdomuserapp.ui.services.planned.categories.date
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,10 @@ import com.example.spasdomuserapp.models.WorkerDay
 import com.example.spasdomuserapp.models.WorkerTime
 import com.example.spasdomuserapp.ui.services.planned.categories.AddOrderViewModel
 import kotlinx.android.synthetic.main.fragment_planned_date.*
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
@@ -84,10 +87,13 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
             val textForView = it.day + " " + dateText
             binding.textViewDate.text = textForView
 
+
+
             if (it.timesList != null) {
                 drawTimeSchedule(it.timesList)
             } else {
-                //TODO(make snackbar)
+                binding.radioGroupTimes.clearCheck()
+                binding.radioGroupTimes.removeAllViews()
             }
 
         })
@@ -102,6 +108,9 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         for (i in viewModel.workerMonth.indices) {
             if (viewModel.workerMonth[i].month == dateText) {
                 calendarViewAdapter?.daysOfMonth = viewModel.workerMonth[i].workerMonth
+                calendarViewAdapter?.activeMonth = viewModel.workerMonth[i].month
+                calendarViewAdapter?.currentDay = currentDay()
+                calendarViewAdapter?.currentMonth = currentMonth()
             }
         }
 
@@ -112,6 +121,16 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
     private fun monthYearFromDate(date: LocalDate): String? {
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM yyyy")
         return date.format(formatter)
+    }
+
+    private fun currentDay(): String {
+        val sdf = SimpleDateFormat("dd")
+        return sdf.format(Date())
+    }
+
+    private fun currentMonth(): String {
+        val sdf = SimpleDateFormat("MMMM yyyy")
+        return sdf.format(Date())
     }
 }
 

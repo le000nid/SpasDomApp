@@ -17,16 +17,16 @@ namespace SpasDom.Server.Controllers.Workers.Input
         public string Patronymic { get; set; }
         
         [JsonPropertyName("startsAt")]
-        public DateTimeOffset StartsAt { get; set; }
+        public string StartsAt { get; set; }
         
         [JsonPropertyName("finishesAt")]
-        public DateTimeOffset FinishesAt { get; set; }
+        public string FinishesAt { get; set; }
         
         [JsonPropertyName("dinnerStartsAt")]
-        public DateTimeOffset DinnerStartsAt { get; set; }
+        public string DinnerStartsAt { get; set; }
 
         [JsonPropertyName("dinnerFinishesAt")] 
-        public DateTimeOffset DinnerFinishesAt { get; set; }
+        public string DinnerFinishesAt { get; set; }
 
         [JsonPropertyName("competenceIds")]
         public IEnumerable<long> CompetenceIds { get; set; }

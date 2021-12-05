@@ -7,16 +7,12 @@ namespace SpasDom.Server.Controllers.Orders.Output
 {
     public class OrderWorkersSummary
     {
-        public OrderWorkersSummary(PlannedOrder order, IEnumerable<WorkerTimetableSummary> workers)
+        public OrderWorkersSummary(PlannedOrder order)
         {
             OrderId = order.Id;
-            Workers = workers;
         }
         
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
-        
-        [JsonPropertyName("possibleWorkers")]
-        public IEnumerable<WorkerTimetableSummary> Workers { get; set; }
     }
 }

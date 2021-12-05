@@ -8,7 +8,9 @@ namespace Entities.Orders
     {
         public string Comment { get; set; }
         
-        public DateTimeOffset DateTime { get; set; }
+        public DateTimeOffset StartsAt { get; set; }
+        
+        public long MinutesCount { get; set; }
         
         public string Review { get; set; }
         

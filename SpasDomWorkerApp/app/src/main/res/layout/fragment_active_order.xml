@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/instruction"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_little"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:text="Для начала выполнения заказа нужно загрузить фотографию двери, после чего запустится таймер. Для того, чтобы завершить заказ, нужно загрузить фото выполненной работы и ещё одну фотографию двери на выходе."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Chronometer
+            android:id="@+id/c_meter"
+            style="@style/Headline7"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_little"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/instruction" />
+
+        <TextView
+            android:id="@+id/textViewDoor"
+            style="@style/Headline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:singleLine="false"
+            android:text="Фото двери (минимум 2)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/c_meter" />
+
+         <ImageView
+             android:id="@+id/btn_add_photo_door"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginEnd="@dimen/spacing_normal"
+             android:clickable="true"
+             android:focusable="true"
+             app:layout_constraintBottom_toBottomOf="@+id/textViewDoor"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="@+id/textViewDoor"
+             app:srcCompat="@drawable/ic_add_photo"
+             app:tint="@color/secondaryColor" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photos_door_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_little"
+            android:layout_marginEnd="@dimen/spacing_little"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDoor"
+            tools:context=".ui.home.order.active.ActiveOrderFragment" />
+
+        <TextView
+            android:id="@+id/textViewComplete"
+            style="@style/Headline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="Фото выполненной работы
+                    (минимум 1)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/photos_door_rv" />
+
+         <ImageView
+             android:id="@+id/btn_add_photo_complete"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginEnd="@dimen/spacing_normal"
+             android:clickable="true"
+             android:focusable="true"
+             app:layout_constraintBottom_toBottomOf="@+id/textViewComplete"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="@+id/textViewComplete"
+             app:srcCompat="@drawable/ic_add_photo"
+             app:tint="@color/secondaryColor" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photos_complete_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_little"
+            android:layout_marginEnd="@dimen/spacing_little"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewComplete"
+            app:layout_constraintBottom_toTopOf="@+id/btn_finish"
+            tools:context=".ui.home.order.active.ActiveOrderFragment" />
+
+         <Button
+             android:id="@+id/btn_finish"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="@dimen/spacing_normal"
+             android:layout_marginEnd="@dimen/spacing_normal"
+             android:layout_marginBottom="@dimen/spacing_little"
+             android:text="Завершить"
+             android:textColor="@color/secondaryTextColor"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

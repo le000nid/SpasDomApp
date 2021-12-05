@@ -17,13 +17,25 @@
 
     <fragment
         android:id="@+id/orderDetailedFragment"
-        android:name="com.example.spasdomworkerapp.ui.home.OrderDetailedFragment"
-        android:label="Заказ"
+        android:name="com.example.spasdomworkerapp.ui.home.order.OrderDetailedFragment"
+        android:label="Улица"
         tools:layout="@layout/fragment_order" >
         <argument
             android:name="orderItem"
-            app:argType="com.example.spasdomworkerapp.domain.Order" />
+            app:argType="com.example.spasdomworkerapp.models.Order" />
+        <argument
+            android:name="orderShowFormat"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_orderDetailedFragment_to_activeOrderFragment"
+            app:destination="@id/activeOrderFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/activeOrderFragment"
+        android:name="com.example.spasdomworkerapp.ui.home.order.active.ActiveOrderFragment"
+        android:label="Улица"
+        tools:layout="@layout/fragment_active_order" />
 
     <fragment
         android:id="@+id/chatFragment"

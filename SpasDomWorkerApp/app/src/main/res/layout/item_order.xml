@@ -6,7 +6,7 @@
     <data>
         <variable
             name="orderItem"
-            type="com.example.spasdomworkerapp.domain.Order" />
+            type="com.example.spasdomworkerapp.models.Order" />
 
         <variable
             name="orderItemCallback"

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Auth.Implementations;
 using Auth.Interfaces;
+using Common.Responses;
 using Db.Repository.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace SpasDom.Server.Controllers.Auth
             
             if (!isValid)
             {
-                throw new Exception("Invalid login or password!");
+                throw ResponsesFactory.Forbidden("Invalid login or password!");
             }
             
             var tokenPair = _jwtManager.GeneratePair(existed.Id);
@@ -48,7 +49,7 @@ namespace SpasDom.Server.Controllers.Auth
 
             if (existed != default)
             {
-                throw new Exception("Такой пользователь зарегистрирован");
+                throw ResponsesFactory.BadRequest("User with such login is already registered!");
             }
 
             var @new = parameters.Build();
@@ -59,11 +60,11 @@ namespace SpasDom.Server.Controllers.Auth
             return new AuthSummary(tokenPair);
         }
         
-        private bool CheckAdministrator(Administrator administrator, string password)
+        private static bool CheckAdministrator(Administrator administrator, string password)
         {
             if (administrator == default)
             {
-                throw new Exception("Такой лицевой счет не зарегистирован");
+                throw ResponsesFactory.NotFound("Not found user with the same login!");
             }
             
             return PasswordHandler.CheckPassword(password, administrator.PasswordHash);

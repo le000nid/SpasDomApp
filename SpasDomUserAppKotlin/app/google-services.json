@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "491615215568",
-    "project_id": "spasdom-477b5",
-    "storage_bucket": "spasdom-477b5.appspot.com"
+    "project_number": "104503875505",
+    "firebase_url": "https://spas-dom-user-app-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "spas-dom-user-app",
+    "storage_bucket": "spas-dom-user-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:491615215568:android:24ce1406d1aa80ffbfa3d5",
+        "mobilesdk_app_id": "1:104503875505:android:8395d629eae9a84b71cf90",
         "android_client_info": {
           "package_name": "com.example.spasdomuserapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "491615215568-scasj4d9vr31psmubgptm5sbu7p0urv1.apps.googleusercontent.com",
+          "client_id": "104503875505-m15009dg1v7drkn5dk4l7ja6dt8dp6km.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDI0E-g_eQl4G06J3Z5Y9ZKTdJtounN7eI"
+          "current_key": "AIzaSyAbevmd-HzEr_A1YVroYmasxkkXokKbRho"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "491615215568-scasj4d9vr31psmubgptm5sbu7p0urv1.apps.googleusercontent.com",
+              "client_id": "104503875505-m15009dg1v7drkn5dk4l7ja6dt8dp6km.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

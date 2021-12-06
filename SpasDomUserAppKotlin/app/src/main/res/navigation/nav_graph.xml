@@ -21,7 +21,14 @@
         android:id="@+id/chatFragment"
         android:name="com.example.spasdomuserapp.ui.chat.ChatFragment"
         android:label="Чат"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_singleChatFragment"
+            app:destination="@id/singleChatFragment" />
+        <argument
+            android:name="currentChat"
+            app:argType="com.example.spasdomuserapp.ui.chat.Chat" />
+    </fragment>
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.example.spasdomuserapp.ui.payment.PaymentFragment"
@@ -126,6 +133,15 @@
         <argument
             android:name="categoryName"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleChatFragment"
+        android:name="com.example.spasdomuserapp.ui.chat.SingleChatFragment"
+        android:label="fragment_single_chat"
+        tools:layout="@layout/fragment_single_chat" >
+        <argument
+            android:name="currentChat"
+            app:argType="com.example.spasdomuserapp.ui.chat.Chat" />
     </fragment>
 
 </navigation>

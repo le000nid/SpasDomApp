@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,9 +19,12 @@ import com.example.spasdomuserapp.database.UserPreferences
 import com.example.spasdomuserapp.databinding.ActivityMainBinding
 import com.example.spasdomuserapp.ui.auth.AuthActivity
 import com.example.spasdomuserapp.ui.profile.ProfileViewModel
+import com.example.spasdomuserapp.ui.tempModels.UserFirebase
 import com.example.spasdomuserapp.util.IS_LOGGED
 import com.example.spasdomuserapp.util.PREF_AUTH
 import com.example.spasdomuserapp.util.startNewActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        loginInFirebase()
         //loginSetUp()
         navigationConfigurationSetUp()
     }
@@ -102,5 +107,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+    private fun loginInFirebase(){
+        val login = "Test@gmail.com"
+        val password = "Password"
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(login, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d("AAA", "${it.result?.user?.uid}")
+                    return@addOnCompleteListener
+                }
+            }
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(login, password)
+            .addOnSuccessListener {
+                val uid = FirebaseAuth.getInstance().uid ?: ""
+                val user = UserFirebase(login, uid)
+                val my_rev = FirebaseDatabase.getInstance().getReference("users/$uid")
+                my_rev.setValue(user)
+                Log.d("AAA", "success")
+                return@addOnSuccessListener
+            }
     }
 }

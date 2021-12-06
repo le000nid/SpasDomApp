@@ -3,6 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/drawable/bg_recived_messag.xml" value="0.253125" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/drawable/bg_user_message.xml" value="0.253125" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/drawable/ripple_effect.xml" value="0.3671875" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/bg_recives_message.xml" value="0.23697916666666666" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_chat.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_home.xml" value="0.35104166666666664" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_messangin.xml" value="0.2957427536231884" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_news_detailed.xml" value="0.35104166666666664" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/fragment_single_chat.xml" value="0.34270833333333334" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_category_card.xml" value="0.35104166666666664" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_chat.xml" value="0.28940217391304346" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_message.xml" value="0.33" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/item_notification.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/SpasDomApp/SpasDomUserAppKotlin/app/src/main/res/layout/toolbar_info.xml" value="0.22" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserApp/app/src/main/res/drawable-v24/ic_broken_image.xml" value="0.2866666666666667" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserApp/app/src/main/res/drawable-v24/ic_home.xml" value="0.1" />
         <entry key="..\:/SpasDomUserApp/SpasDomUserApp/app/src/main/res/drawable/ic_baseline_account_box_24.xml" value="0.1" />

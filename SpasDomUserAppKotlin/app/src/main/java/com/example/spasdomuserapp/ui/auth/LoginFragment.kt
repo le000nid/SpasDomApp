@@ -14,11 +14,14 @@ import com.example.spasdomuserapp.databinding.FragmentLoginBinding
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.responses.AuthUser
 import com.example.spasdomuserapp.ui.MainActivity
+
 import com.example.spasdomuserapp.util.handleApiError
 import com.example.spasdomuserapp.util.snackbar
 import com.example.spasdomuserapp.util.startNewActivity
 import com.example.spasdomuserapp.util.visible
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +67,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
     }
+
 
     private fun login() {
         binding.apply {

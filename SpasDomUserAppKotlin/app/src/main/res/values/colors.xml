@@ -9,6 +9,9 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#ffffff</color>
 
+    <color name="bgChat">#5BBDF3</color>
+    <color name="colorGrey">#DADADA</color>
+    <color name="colorGreen">#7CF180</color>
     <color name="grayMiddle">#BCBCBB</color>
     <color name="grayLight">#F0F0F0</color>
     <color name="primaryBlack">#000000</color>

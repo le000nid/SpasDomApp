@@ -11,7 +11,7 @@ data class PlannedOrder(
     val time: String,
     val userRate: Int,
     val userReview: String,
-    val isFinished: Boolean,
+    val status: Int,
     val workerImg: String,
     val workerName: String,
     val workerRate: Int,

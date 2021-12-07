@@ -9,6 +9,7 @@ import com.example.spasdomuserapp.models.PlannedOrder
 import com.example.spasdomuserapp.models.PlannedOrderPost
 import com.example.spasdomuserapp.network.OrderApi
 import com.example.spasdomuserapp.network.SafeApiCall
+import com.example.spasdomuserapp.responses.asCacheModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -20,33 +21,19 @@ class PlannedRepository @Inject constructor(
 ): SafeApiCall {
 
     val activePlannedOrders: LiveData<List<PlannedOrder>> =
-        Transformations.map(cacheDao.getActivePlannedOrders()) {
+        Transformations.map(cacheDao.getPlannedOrders(0)) {
             it.asDomainPlannedOrder()
         }
 
     val historyPlannedOrders: LiveData<List<PlannedOrder>> =
-        Transformations.map(cacheDao.getHistoryPlannedOrders()) {
+        Transformations.map(cacheDao.getPlannedOrders(1)) {
             it.asDomainPlannedOrder()
         }
 
-    suspend fun refreshActivePlannedOrders() {
-        withContext(Dispatchers.IO) {
-            try {
 
-            } catch (e: Exception) {
-                Timber.e("refreshVideos() error = %s", e.message)
-            }
-        }
-    }
-
-    suspend fun refreshHistoryPlannedOrders() {
-        withContext(Dispatchers.IO) {
-            try {
-
-            } catch (e: Exception) {
-                Timber.e("refreshVideos() error = %s", e.message)
-            }
-        }
+    suspend fun refreshPlannedOrders() = safeApiCall {
+        val orders = api.getPlannedOrders()
+        //cacheDao.insertAllPlannedOrders(*orders.asCacheModel())
     }
 
     suspend fun updatePlannedOrder(newPlannedOrder: PlannedOrder) {

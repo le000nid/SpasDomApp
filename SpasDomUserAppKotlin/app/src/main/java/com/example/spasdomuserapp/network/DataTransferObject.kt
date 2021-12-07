@@ -61,37 +61,3 @@ fun NetworkAlertsContainer.asDatabaseAlertModel(): Array<DataBaseAlert> {
             description = it.description)
     }.toTypedArray()
 }
-
-
-
-data class NetworkPlannedOrdersContainer(val orders: List<PlannedOrder>)
-
-data class NetworkPlannedOrders(
-    val id: Int,
-    val title: String,
-    val date: String,
-    val time: String,
-    val userRate: Int,
-    val userReview: String,
-    val isFinished: Boolean,
-    val workerImg: String,
-    val workerName: String,
-    val workerRate: Int,
-    val workerInfo: String)
-
-fun NetworkPlannedOrdersContainer.asCachePlannedOrderModel(): Array<CachePlannedOrder> {
-    return orders.map {
-        CachePlannedOrder (
-            id = it.id,
-            title = it.title,
-            date = it.date,
-            time = it.time,
-            userRate = it.userRate,
-            userReview = it.userReview,
-            isFinished = it.isFinished,
-            workerImg = it.workerImg,
-            workerName = it.workerName,
-            workerRate = it.workerRate,
-            workerInfo = it.workerInfo)
-    }.toTypedArray()
-}

@@ -2,9 +2,7 @@ package com.example.spasdomuserapp.ui.services.planned.planned
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.spasdomuserapp.database.CacheDao
 import com.example.spasdomuserapp.models.PlannedOrder
-import com.example.spasdomuserapp.network.OrderApi
 import com.example.spasdomuserapp.repository.PlannedRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,19 +15,16 @@ class PlannedViewModel@Inject constructor(
 
     init {
         viewModelScope.launch {
-            repository.refreshActivePlannedOrders()
-            repository.refreshHistoryPlannedOrders()
+            repository.refreshPlannedOrders()
         }
     }
 
     val activePlannedOrders = repository.activePlannedOrders
-
     val historyPlannedOrders = repository.historyPlannedOrders
 
 
     fun swipeToRefresh() = viewModelScope.launch {
-        repository.refreshActivePlannedOrders()
-        repository.refreshHistoryPlannedOrders()
+        repository.refreshPlannedOrders()
     }
 
     fun updatePlannedOrder(newPlannedOrder: PlannedOrder) = viewModelScope.launch {

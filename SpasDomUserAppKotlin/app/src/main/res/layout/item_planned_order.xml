@@ -65,7 +65,7 @@
                 android:layout_marginTop="@dimen/spacing_little"
                 android:text="Завершен"
                 android:textColor="@color/secondaryColor"
-                app:goneIfTrue="@{!plannedOrder.finished}"
+                app:visibleIfFinished="@{plannedOrder.status}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_order_date" />
 
@@ -75,7 +75,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:background="@color/grayMiddle"
-                app:goneIfTrue="@{!plannedOrder.finished}"
+                app:visibleIfFinished="@{plannedOrder.status}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_is_finished" />
@@ -101,7 +101,7 @@
                 android:text="Оставить отзыв"
                 android:textColor="@color/secondaryTextColor"
                 app:goneIfRateNot0="@{plannedOrder.userRate}"
-                app:state="@{plannedOrder.finished}"
+                app:state="@{plannedOrder.status}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 

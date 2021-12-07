@@ -24,9 +24,10 @@ fun goneIfNull(view: View, it: Any?) {
     view.visibility = if (it == null) View.GONE else View.VISIBLE
 }
 
-@BindingAdapter("goneIfTrue")
-fun goneIfTrue(view: View, it: Any?) {
-    view.visibility = if (it == true) View.GONE else View.VISIBLE
+
+@BindingAdapter("visibleIfFinished")
+fun visibleIfFinished(view: View, it: Int) {
+    view.visibility = if (it == 1) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("goneIfRate0")
@@ -35,8 +36,8 @@ fun goneIfRate0(view: View, it: Int) {
 }
 
 @BindingAdapter("goneIfRateNot0", "state")
-fun goneIfRateNot0(view: View, rate: Int, state: Boolean) {
-    view.visibility = if (rate != 0 || !state) View.GONE else View.VISIBLE
+fun goneIfRateNot0(view: View, rate: Int, state: Int) {
+    view.visibility = if (rate != 0 || state == 0) View.GONE else View.VISIBLE
 }
 
 @BindingAdapter("setRating")

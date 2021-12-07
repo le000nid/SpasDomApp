@@ -7,12 +7,12 @@
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categories_lvl2_rv"
+        android:id="@+id/subcategoryRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_little"
-        tools:context=".ui.services.planned.categories.lvl2.PlannedCategoriesLvl2Fragment" />
+        tools:context=".ui.services.planned.categories.subcategory.PlannedSubcategoryFragment" />
 
 </layout>

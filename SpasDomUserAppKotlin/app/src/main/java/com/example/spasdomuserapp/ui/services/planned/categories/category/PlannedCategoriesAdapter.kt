@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.categories.lvl1
+package com.example.spasdomuserapp.ui.services.planned.categories.category
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

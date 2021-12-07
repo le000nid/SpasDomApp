@@ -71,11 +71,11 @@ class PlannedInfoFragment : Fragment() {
 
         binding.btnNext.setOnClickListener {
 
-            val categoryLvl1 = args.categoryLvl1
-            val categoryLvl2 = args.categoryName
-            val plannedOrderPost = PlannedOrderPost(categoryLvl1, categoryLvl2, viewModel.comment)
+            val categoryId = args.categoryId
+            val subcategoryId = args.subcategory.drawableId
+            val plannedOrderPost = PlannedOrderPost(categoryId, subcategoryId, viewModel.comment)
 
-            val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(categoryLvl2, plannedOrderPost)
+            val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(args.subcategory.label, plannedOrderPost)
             findNavController().navigate(action)
         }
 

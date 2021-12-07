@@ -81,18 +81,18 @@
     </fragment>
     <fragment
         android:id="@+id/plannedCategoriesFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.categories.lvl1.PlannedCategoriesFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.categories.category.PlannedCategoriesFragment"
         android:label="Выберите категорию"
         tools:layout="@layout/fragment_planned_categories">
         <action
-            android:id="@+id/action_plannedCategoriesFragment_to_plannedCategoriesLvl2Fragment"
-            app:destination="@id/plannedCategoriesLvl2Fragment" />
+            android:id="@+id/action_plannedCategoriesFragment_to_plannedSubcategoryFragment"
+            app:destination="@id/plannedSubcategoryFragment" />
     </fragment>
     <fragment
-        android:id="@+id/plannedCategoriesLvl2Fragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.categories.lvl2.PlannedCategoriesLvl2Fragment"
+        android:id="@+id/plannedSubcategoryFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.categories.subcategory.PlannedSubcategoryFragment"
         android:label="{categoryName}"
-        tools:layout="@layout/fragment_planned_categories_lvl2">
+        tools:layout="@layout/fragment_planned_subcategory">
         <argument
             android:name="category"
             app:argType="com.example.spasdomuserapp.models.PlannedCategory" />
@@ -100,26 +100,29 @@
             android:name="categoryName"
             app:argType="string" />
         <action
-            android:id="@+id/action_plannedCategoriesLvl2Fragment_to_plannedInfoFragment"
+            android:id="@+id/action_plannedSubcategoryFragment_to_plannedInfoFragment"
             app:destination="@id/plannedInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/plannedInfoFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.categories.info.PlannedInfoFragment"
-        android:label="{categoryName}"
+        android:label="{subcategoryName}"
         tools:layout="@layout/fragment_planned_info">
         <argument
-            android:name="category"
+            android:name="subcategory"
             app:argType="com.example.spasdomuserapp.models.PlannedCategory" />
         <argument
-            android:name="categoryName"
+            android:name="subcategoryName"
             app:argType="string" />
         <action
             android:id="@+id/action_plannedInfoFragment_to_plannedDateFragment"
             app:destination="@id/plannedDateFragment" />
         <argument
-            android:name="categoryLvl1"
+            android:name="categoryName"
             app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/plannedDateFragment"

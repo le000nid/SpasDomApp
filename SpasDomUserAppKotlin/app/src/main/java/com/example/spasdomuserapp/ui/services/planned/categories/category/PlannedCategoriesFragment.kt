@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.categories.lvl1
+package com.example.spasdomuserapp.ui.services.planned.categories.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,8 +34,8 @@ class PlannedCategoriesFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        plannedCategoriesAdapter = PlannedCategoriesAdapter(PlannedCategoriesClick {
-            val action = PlannedCategoriesFragmentDirections.actionPlannedCategoriesFragmentToPlannedCategoriesLvl2Fragment(it, it.label)
+        plannedCategoriesAdapter = PlannedCategoriesAdapter(PlannedCategoriesClick { category ->
+            val action = PlannedCategoriesFragmentDirections.actionPlannedCategoriesFragmentToPlannedSubcategoryFragment(category, category.label)
             findNavController().navigate(action)
         })
 

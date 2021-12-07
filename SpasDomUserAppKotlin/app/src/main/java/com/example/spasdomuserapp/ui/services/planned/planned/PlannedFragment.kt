@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +17,14 @@ import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.DialogRateOrderBinding
 import com.example.spasdomuserapp.databinding.FragmentPlannedBinding
 import com.example.spasdomuserapp.models.PlannedOrder
+import com.example.spasdomuserapp.network.Resource
+import com.example.spasdomuserapp.responses.PlannedUpdate
 import com.example.spasdomuserapp.ui.services.ServicesFragmentDirections
+import com.example.spasdomuserapp.ui.services.planned.categories.date.PlannedDateFragmentDirections
+import com.example.spasdomuserapp.util.handleApiError
+import com.example.spasdomuserapp.util.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PlannedFragment : Fragment() {
@@ -106,8 +113,23 @@ class PlannedFragment : Fragment() {
             dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
                 val rating = dialogBinding.ratingBar.rating
                 val review = dialogBinding.editTextReview.text.toString()
-                viewModel.updatePlannedOrder(plannedOrder.copy(userRate = rating.toInt(), userReview = review))
-                //TODO(Make post/put request to remote server)
+                val newOrder = plannedOrder.copy(userRate = rating.toInt(), userReview = review)
+
+                viewModel.plannedPutResponse.observe(viewLifecycleOwner) {
+                    // set up progress bar
+                    when (it) {
+                        is Resource.Success -> {
+                            lifecycleScope.launch {
+                                //viewModel.updatePlannedOrder(newOrder)
+                                dialog.dismiss()
+                            }
+                        }
+                        is Resource.Failure -> handleApiError(it) {  } //TODO(What to do?)
+                    }
+                }
+
+                viewModel.putPlannedOrder(newOrder)
+                //viewModel.updatePlannedOrder(newOrder)
                 dialog.dismiss()
             }
         }

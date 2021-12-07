@@ -1,11 +1,8 @@
 package com.example.spasdomuserapp.network
 
 import com.example.spasdomuserapp.models.PlannedOrderPost
-import com.example.spasdomuserapp.responses.PlannedListResponse
-import com.example.spasdomuserapp.responses.PlannedResponse
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import com.example.spasdomuserapp.responses.*
+import retrofit2.http.*
 
 interface OrderApi {
     @POST("/planned-orders")
@@ -13,4 +10,10 @@ interface OrderApi {
 
     @GET("/planned-orders")
     suspend fun getPlannedOrders(): PlannedListResponse
+
+    @PUT("/planned-orders/{id}")
+    suspend fun updatePlannedOrder(
+        @Path("id") id: Int,
+        @Body update: List<PlannedUpdate>) : Boolean
+
 }

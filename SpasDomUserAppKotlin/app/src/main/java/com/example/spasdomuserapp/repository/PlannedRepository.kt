@@ -9,10 +9,9 @@ import com.example.spasdomuserapp.models.PlannedOrder
 import com.example.spasdomuserapp.models.PlannedOrderPost
 import com.example.spasdomuserapp.network.OrderApi
 import com.example.spasdomuserapp.network.SafeApiCall
-import com.example.spasdomuserapp.responses.asCacheModel
+import com.example.spasdomuserapp.responses.PlannedUpdate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 class PlannedRepository @Inject constructor(
@@ -36,10 +35,18 @@ class PlannedRepository @Inject constructor(
         //cacheDao.insertAllPlannedOrders(*orders.asCacheModel())
     }
 
-    suspend fun updatePlannedOrder(newPlannedOrder: PlannedOrder) {
+    suspend fun updateCachePlannedOrder(order: PlannedOrder) {
         withContext(Dispatchers.IO) {
-            cacheDao.updatePlannedOrder(newPlannedOrder.asCachePlannerOrder())
+            cacheDao.updatePlannedOrder(order.asCachePlannerOrder())
         }
+    }
+
+    suspend fun putPlannedOrder(order: PlannedOrder) = safeApiCall {
+        val userRate = PlannedUpdate("userRate", order.userRate.toString())
+        val userReview = PlannedUpdate("userReview", order.userReview)
+        val container = listOf(userRate, userReview)
+
+        api.updatePlannedOrder(order.id, container)
     }
 
     suspend fun postPlannedOrder(order: PlannedOrderPost) = safeApiCall {

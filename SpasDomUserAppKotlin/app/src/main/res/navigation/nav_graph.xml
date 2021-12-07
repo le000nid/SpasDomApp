@@ -33,14 +33,11 @@
         android:label="Услуги"
         tools:layout="@layout/fragment_services">
         <action
-            android:id="@+id/action_servicesFragment_to_activePlannedDetailedFragment"
-            app:destination="@id/activePlannedDetailedFragment" />
-        <action
-            android:id="@+id/action_servicesFragment_to_historyPlannedDetailedFragment"
-            app:destination="@id/historyPlannedDetailedFragment" />
-        <action
             android:id="@+id/action_servicesFragment_to_plannedCategoriesFragment"
             app:destination="@id/plannedCategoriesFragment" />
+        <action
+            android:id="@+id/action_servicesFragment_to_plannedDetailedFragment"
+            app:destination="@id/plannedDetailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -61,24 +58,6 @@
         android:name="com.example.spasdomuserapp.ui.services.planned.planned.PlannedFragment"
         android:label="fragment_planned"
         tools:layout="@layout/fragment_planned" />
-    <fragment
-        android:id="@+id/historyPlannedDetailedFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.planned.HistoryPlannedDetailedFragment"
-        android:label="fragment_history_planned_detailed"
-        tools:layout="@layout/fragment_history_planned_detailed">
-        <argument
-            android:name="historyPlannedOrder"
-            app:argType="com.example.spasdomuserapp.models.PlannedOrder" />
-    </fragment>
-    <fragment
-        android:id="@+id/activePlannedDetailedFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.planned.ActivePlannedDetailedFragment"
-        android:label="fragment_active_planned_detailed"
-        tools:layout="@layout/fragment_active_planned_detailed">
-        <argument
-            android:name="activePlannedOrder"
-            app:argType="com.example.spasdomuserapp.models.PlannedOrder" />
-    </fragment>
     <fragment
         android:id="@+id/plannedCategoriesFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.categories.category.PlannedCategoriesFragment"
@@ -154,6 +133,18 @@
             android:id="@+id/action_successFragment_to_servicesFragment"
             app:destination="@id/servicesFragment"
             app:popUpTo="@id/servicesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/plannedDetailedFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.planned.PlannedDetailedFragment"
+        android:label="{orderTitle}"
+        tools:layout="@layout/fragment_planned_detailed">
+        <argument
+            android:name="orderTitle"
+            app:argType="string" />
+        <argument
+            android:name="plannedOrder"
+            app:argType="com.example.spasdomuserapp.models.PlannedOrder" />
     </fragment>
 
 </navigation>

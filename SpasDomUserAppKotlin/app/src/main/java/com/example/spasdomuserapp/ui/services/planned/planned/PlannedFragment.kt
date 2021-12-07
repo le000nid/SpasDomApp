@@ -62,12 +62,12 @@ class PlannedFragment : Fragment() {
         binding.viewModel = viewModel
 
         activeAdapter = ActivePlanedOrdersAdapter(PlannedOrderClick {
-            val action = ServicesFragmentDirections.actionServicesFragmentToActivePlannedDetailedFragment(it)
+            val action = ServicesFragmentDirections.actionServicesFragmentToPlannedDetailedFragment(it.title, it)
             findNavController().navigate(action)
         })
 
         historyAdapter = HistoryPlanedOrdersAdapter(PlannedOrderClick {
-            val action = ServicesFragmentDirections.actionServicesFragmentToHistoryPlannedDetailedFragment(it)
+            val action = ServicesFragmentDirections.actionServicesFragmentToPlannedDetailedFragment(it.title, it)
             findNavController().navigate(action)
         }, ReviewClick {
             showCustomInputAlertDialog(it)

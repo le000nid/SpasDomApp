@@ -30,6 +30,11 @@ fun visibleIfFinished(view: View, it: Int) {
     view.visibility = if (it == 1) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("visibleIfReviewed")
+fun visibleIfReviewed(view: View, rate: Int) {
+    view.visibility = if (rate != 0) View.VISIBLE else View.GONE
+}
+
 @BindingAdapter("goneIfRate0")
 fun goneIfRate0(view: View, it: Int) {
     view.visibility = if (it == 0) View.GONE else View.VISIBLE
@@ -41,8 +46,8 @@ fun goneIfRateNot0(view: View, rate: Int, state: Int) {
 }
 
 @BindingAdapter("setRating")
-fun setRating(view: ImageView, it: PlannedOrder) {
-    when(it.userRate) {
+fun setRating(view: ImageView, rate: Int) {
+    when(rate) {
         0 -> view.setBackgroundResource(R.drawable.ic_rate_0)
         1 -> view.setBackgroundResource(R.drawable.ic_rate_1)
         2 -> view.setBackgroundResource(R.drawable.ic_rate_2)

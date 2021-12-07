@@ -114,7 +114,7 @@
                 app:goneIfRate0="@{plannedOrder.userRate}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2"
-                app:setRating="@{plannedOrder}"
+                app:setRating="@{plannedOrder.userRate}"
                  />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

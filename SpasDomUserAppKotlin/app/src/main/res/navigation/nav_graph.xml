@@ -135,6 +135,25 @@
         <argument
             android:name="plannedOrderPost"
             app:argType="com.example.spasdomuserapp.models.PlannedOrderPost" />
+        <action
+            android:id="@+id/action_plannedDateFragment_to_successFragment"
+            app:destination="@id/successFragment"
+            app:popUpTo="@id/successFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.example.spasdomuserapp.ui.services.SuccessFragment"
+        android:label="Успех"
+        tools:layout="@layout/fragment_success">
+        <action
+            android:id="@+id/action_successFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_successFragment_to_servicesFragment"
+            app:destination="@id/servicesFragment"
+            app:popUpTo="@id/servicesFragment" />
     </fragment>
 
 </navigation>

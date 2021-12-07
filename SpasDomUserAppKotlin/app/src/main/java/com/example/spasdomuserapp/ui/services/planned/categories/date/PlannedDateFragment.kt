@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -92,6 +93,8 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
                         // TODO(save to cache)
                         // TODO(navigate to order fragment)
                         //Log.i("orderResponse", it.value.order.toString())
+                        val action = PlannedDateFragmentDirections.actionPlannedDateFragmentToSuccessFragment()
+                        findNavController().navigate(action)
                     }
                 }
                 is Resource.Failure -> handleApiError(it) {  } //TODO(What to do?)

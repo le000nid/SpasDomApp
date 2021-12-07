@@ -15,6 +15,15 @@
         android:layout_marginEnd="@dimen/spacing_normal"
         tools:context=".ui.services.planned.categories.date.PlannedDateFragment">
 
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLeft"
             android:layout_width="0dp"

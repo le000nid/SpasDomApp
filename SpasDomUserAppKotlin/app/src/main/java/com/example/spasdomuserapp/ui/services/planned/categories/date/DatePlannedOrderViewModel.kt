@@ -2,14 +2,29 @@ package com.example.spasdomuserapp.ui.services.planned.categories.date
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.spasdomuserapp.R
+import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.*
+import com.example.spasdomuserapp.network.Resource
+import com.example.spasdomuserapp.repository.PlannedRepository
+import com.example.spasdomuserapp.responses.PlannedResponse
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DatePlannedOrderViewModel(
-    private val state: SavedStateHandle
+@HiltViewModel
+class DatePlannedOrderViewModel @Inject constructor(
+    private val repository: PlannedRepository
 ): ViewModel() {
+
+    private val _plannedResponse: MutableLiveData<Resource<PlannedResponse>> = MutableLiveData()
+    val plannedResponse: LiveData<Resource<PlannedResponse>>
+        get() = _plannedResponse
+
+    fun postPlannedOrder(order: PlannedOrderPost) = viewModelScope.launch {
+        _plannedResponse.value = Resource.Loading
+        _plannedResponse.value = repository.postPlannedOrder(order)
+    }
 
     var date: String? = null
     var time: String? = null

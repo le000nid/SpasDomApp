@@ -6,11 +6,18 @@ import com.example.spasdomuserapp.database.CacheDao
 import com.example.spasdomuserapp.database.asCachePlannerOrder
 import com.example.spasdomuserapp.database.asDomainPlannedOrder
 import com.example.spasdomuserapp.models.PlannedOrder
+import com.example.spasdomuserapp.models.PlannedOrderPost
+import com.example.spasdomuserapp.network.OrderApi
+import com.example.spasdomuserapp.network.SafeApiCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import javax.inject.Inject
 
-class PlannedRepository(private val cacheDao: CacheDao) {
+class PlannedRepository @Inject constructor(
+    private val cacheDao: CacheDao,
+    private val api: OrderApi
+): SafeApiCall {
 
     val activePlannedOrders: LiveData<List<PlannedOrder>> =
         Transformations.map(cacheDao.getActivePlannedOrders()) {
@@ -46,5 +53,9 @@ class PlannedRepository(private val cacheDao: CacheDao) {
         withContext(Dispatchers.IO) {
             cacheDao.updatePlannedOrder(newPlannedOrder.asCachePlannerOrder())
         }
+    }
+
+    suspend fun postPlannedOrder(order: PlannedOrderPost) = safeApiCall {
+        api.postPlannedOrder(order)
     }
 }

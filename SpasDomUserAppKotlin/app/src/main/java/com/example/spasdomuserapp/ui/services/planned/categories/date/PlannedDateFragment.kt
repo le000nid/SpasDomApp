@@ -11,6 +11,7 @@ import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,19 +19,24 @@ import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
 import com.example.spasdomuserapp.models.WorkerDay
 import com.example.spasdomuserapp.models.WorkerTime
+import com.example.spasdomuserapp.network.Resource
+import com.example.spasdomuserapp.util.handleApiError
+import com.example.spasdomuserapp.util.visible
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_planned_date.*
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-
+@AndroidEntryPoint
 class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
     private lateinit var selectedDate: LocalDate
     private var calendarViewAdapter: CalendarViewAdapter? = null
-    private val viewModel: DatePlannedOrderViewModel by viewModels()
+    private val viewModel by viewModels<DatePlannedOrderViewModel>()
     private lateinit var binding: FragmentPlannedDateBinding
     private val args by navArgs<PlannedDateFragmentArgs>()
 
@@ -41,6 +47,8 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_planned_date, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.progressbar.visible(false)
 
         // TODO(In some reason doesn't work on devices <= O)
         selectedDate = LocalDate.now()
@@ -71,7 +79,23 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
             val date = viewModel.date + " " + viewModel.time
             var finalOrder = args.plannedOrderPost
             finalOrder = finalOrder.copy(date = date, workerId = viewModel.workerId!!)
-            Log.i("order", finalOrder.toString())
+
+            viewModel.postPlannedOrder(finalOrder)
+        }
+
+
+        viewModel.plannedResponse.observe(viewLifecycleOwner) {
+            binding.progressbar.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    lifecycleScope.launch {
+                        // TODO(save to cache)
+                        // TODO(navigate to order fragment)
+                        //Log.i("orderResponse", it.value.order.toString())
+                    }
+                }
+                is Resource.Failure -> handleApiError(it) {  } //TODO(What to do?)
+            }
         }
 
         return binding.root

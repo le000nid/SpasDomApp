@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% set active_page = 2 %}
 
 {% block content %}
-    <div class="wrapper">
-        <div class="marketplace-form d-flex">
-            <form class="marketplace-form" action="" method="post">
+    <div class="container">
+        <div class="ann-form d-flex">
+            <form action="" method="post">
 
                 {{ form.hidden_tag() }}
                 {{ form.csrf_token }}
@@ -34,8 +35,8 @@
                 {{ form.submit(type="submit", class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase") }}
            </form>
         </div>
-        <div class="check-announcements">
-            <h1 class="black-25pt" align="center"> База заказов: </h1>
+        <div class="ann-check">
+            <h2 align="center"> База заказов: </h2>
         </div>
     </div>
 

@@ -21,8 +21,8 @@ namespace SpasDom.Server.Controllers.Orders.Input
         [JsonPropertyName("comment")]
         public string Comment { get; set; }
         
-        [JsonPropertyName("dateTime")]
-        public DateTimeOffset DateTime { get; set; }
+        [JsonPropertyName("photos")]
+        public string[] Photos { get; set; }
 
 
         public PlannedOrder Build()
@@ -30,7 +30,6 @@ namespace SpasDom.Server.Controllers.Orders.Input
             return new PlannedOrder()
             {
                 Comment = Comment,
-                DateTime = DateTime
             };
         }
     }

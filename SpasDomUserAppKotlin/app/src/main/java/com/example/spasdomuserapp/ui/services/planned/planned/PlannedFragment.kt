@@ -128,8 +128,8 @@ class PlannedFragment : Fragment() {
                     }
                 }
 
-                viewModel.putPlannedOrder(newOrder)
-                //viewModel.updatePlannedOrder(newOrder)
+                //viewModel.putPlannedOrder(newOrder)
+                viewModel.updatePlannedOrder(newOrder)
                 dialog.dismiss()
             }
         }

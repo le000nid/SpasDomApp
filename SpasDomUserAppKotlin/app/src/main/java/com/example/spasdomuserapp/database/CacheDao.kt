@@ -10,7 +10,7 @@ interface CacheDao {
     fun getNewsItems(): LiveData<List<DatabaseNewsItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllNews(vararg videos: DatabaseNewsItem)
+    fun insertAllNews(vararg news: DatabaseNewsItem)
 
 
     @Query("select * from databasealert")
@@ -24,8 +24,11 @@ interface CacheDao {
     fun getPlannedOrders(status: Int): LiveData<List<CachePlannedOrder>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllPlannedOrders(vararg alerts: CachePlannedOrder)
+    fun insertAllPlannedOrders(vararg orders: CachePlannedOrder)
 
     @Update
     suspend fun updatePlannedOrder(order: CachePlannedOrder)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPlannedOrder(order: CachePlannedOrder)
 }

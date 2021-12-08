@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
+import com.example.spasdomuserapp.models.PlannedOrder
 import com.example.spasdomuserapp.models.WorkerDay
 import com.example.spasdomuserapp.models.WorkerTime
 import com.example.spasdomuserapp.network.Resource
@@ -80,8 +81,12 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
             val date = viewModel.date + " " + viewModel.time
             var finalOrder = args.plannedOrderPost
             finalOrder = finalOrder.copy(date = date, workerId = viewModel.workerId!!)
+            val cacheOrder = PlannedOrder(4, "Проверка воды", viewModel.date.toString(), viewModel.time.toString(), 0, "",0, "", "Алексей Воронов", 5, "Опытный специалист")
 
-            viewModel.postPlannedOrder(finalOrder)
+            //viewModel.postPlannedOrder(finalOrder)
+            viewModel.insertPlannedOrderToCache(cacheOrder)
+            val action = PlannedDateFragmentDirections.actionPlannedDateFragmentToSuccessFragment()
+            findNavController().navigate(action)
         }
 
 

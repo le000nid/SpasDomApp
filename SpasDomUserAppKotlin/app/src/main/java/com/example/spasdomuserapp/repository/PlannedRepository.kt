@@ -30,6 +30,12 @@ class PlannedRepository @Inject constructor(
         }
 
 
+    suspend fun insertPlannedOrderToCache(plannedOrder: PlannedOrder) {
+        withContext(Dispatchers.IO) {
+            cacheDao.insertPlannedOrder(plannedOrder.asCachePlannerOrder())
+        }
+    }
+
     suspend fun refreshPlannedOrders() = safeApiCall {
         val orders = api.getPlannedOrders()
         //cacheDao.insertAllPlannedOrders(*orders.asCacheModel())

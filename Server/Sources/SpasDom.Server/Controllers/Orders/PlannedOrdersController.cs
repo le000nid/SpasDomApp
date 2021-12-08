@@ -39,15 +39,15 @@ namespace SpasDom.Server.Controllers.Orders
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PlannedOrder>> GetAllAsync()
+        public async Task<IEnumerable<PlannedOrderSummary>> GetAllAsync()
         {
-            var orders = await PlannedOrdersQuery().ToArrayAsync();
+            var orders = await PlannedOrdersQuery().Select(o => new PlannedOrderSummary(o)).ToArrayAsync();
 
             return orders;
         }
 
         [HttpGet("{id:long}")]
-        public async Task<PlannedOrder> GetOrderAsync(long id)
+        public async Task<PlannedOrderSummary> GetOrderAsync(long id)
         {
             var order = await PlannedOrdersQuery().FirstOrDefaultAsync(o => o.Id == id);
 
@@ -56,7 +56,7 @@ namespace SpasDom.Server.Controllers.Orders
                 throw ResponsesFactory.BadRequest("Order not found");
             }
 
-            return order;
+            return new PlannedOrderSummary(order);
         }
 
         [HttpGet("calendar")]
@@ -72,7 +72,7 @@ namespace SpasDom.Server.Controllers.Orders
         /// <param name="parameters"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<OrderWorkersSummary> CreateAsync([FromBody] NewOrderParameters parameters)
+        public async Task<PlannedOrderSummary> CreateAsync([FromBody] NewOrderParameters parameters)
         {
             var order = parameters.Build();
             // var category = await _categories.FindAsync(parameters.CategoryId);
@@ -93,11 +93,11 @@ namespace SpasDom.Server.Controllers.Orders
             var res = await _orders.AddAsync(order);
 
 
-            return null;
+            return new PlannedOrderSummary(res);
         }
 
         [HttpPut("{id:long}")]
-        public async Task<PlannedOrder> UpdateAsync(long id, [FromBody] IEnumerable<PartialUpdateContainer> updates)
+        public async Task<bool> UpdateAsync(long id, [FromBody] IEnumerable<PartialUpdateContainer> updates)
         {
             var order = await PlannedOrdersQuery().FirstOrDefaultAsync(o => o.Id == id);
             if (order == default)
@@ -172,7 +172,7 @@ namespace SpasDom.Server.Controllers.Orders
             var plannedOrderUpdateResult =
                 await _updater.UpdateAsync(order, updatesContainers, plannedOrderPropertyBindings);
 
-            return plannedOrderUpdateResult;
+            return true;
         }
 
 

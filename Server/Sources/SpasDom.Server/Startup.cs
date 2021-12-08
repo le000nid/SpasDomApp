@@ -43,7 +43,7 @@ namespace SpasDom.Server
             services.AddControllers();
 
             services.AddServices();
-            
+
             services.AddAuth(_appSettings);
             
             services.AddSwaggerGen(options =>
@@ -88,6 +88,8 @@ namespace SpasDom.Server
 
             app.UseAuthorization();
 
+            
+            
             app.UseMiddleware<ResponseMiddleware>();
             
             app.UseEndpoints(endpoints =>

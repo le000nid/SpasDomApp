@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.databinding.FragmentHomeBinding
 import com.example.spasdomworkerapp.models.Order
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
@@ -29,12 +32,7 @@ class HomeFragment : Fragment() {
      * lazy. This requires that viewModel not be referenced before onViewCreated(), which we
      * do in this Fragment.
      */
-    private val viewModel: HomeViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onViewCreated()"
-        }
-        ViewModelProvider(this, HomeViewModel.Factory(activity.application))[HomeViewModel::class.java]
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     /**
      * RecyclerView Adapter for converting a list of Video to cards.

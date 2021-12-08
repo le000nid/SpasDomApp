@@ -1,13 +1,12 @@
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, Form
 from wtforms import SubmitField, SelectField, SelectMultipleField, StringField
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateField, TimeField
 from wtforms.widgets import TextArea
-from constans import HOUSES_ASSIGNED, HOUSES_AVAILABLE
 
 
 class AnnouncementForm(FlaskForm):
-    announcement_category = SelectField('Тип оповещения', choices=[(0, 'Тип 1'), (1, 'Тип 2')])
+    announcement_category = SelectField('Тип оповещения', choices=[(0, 'Water'), (1, 'Electricity')])
     title = StringField('Заголовок', validators=[DataRequired()])
 
     # date + time to POST to App
@@ -19,12 +18,10 @@ class AnnouncementForm(FlaskForm):
     death_time = TimeField(validators=[DataRequired()])
 
     # announcements will be used to houses_assigned
-    houses_available = SelectMultipleField('Выбрать дома', choices=HOUSES_AVAILABLE)
-    houses_assigned = SelectMultipleField('Выбранные дома', choices=HOUSES_ASSIGNED)
+    houses_available = SelectField('Выбрать дома')
+    houses_assigned = SelectMultipleField('Выбранные дома')
 
     # description
     body = StringField('Описание', widget=TextArea())
 
     submit = SubmitField('Отправить')
-
-

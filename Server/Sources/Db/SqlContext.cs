@@ -47,6 +47,10 @@ namespace Db
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
+            var worker = builder.Entity<Worker>();
+
+            worker.HasMany(w => w.PlannedOrders).WithOne(o => o.Worker);
+            
             var workerCompetence = builder.Entity<WorkerCompetence>();
 
             workerCompetence.HasOne(w => w.Worker)

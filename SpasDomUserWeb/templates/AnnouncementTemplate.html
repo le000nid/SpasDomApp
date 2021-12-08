@@ -1,20 +1,58 @@
 {% extends "base.html" %}
+{% set active_page = 1 %}
 
 {% block content %}
     <!-- script, which connect assigned and available SelectMultipleFields -->
-    <script type="text/javascript">
-        function assign_object() {
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready( function() {
+            $('#houses_available').dblclick( function() {
+
+                var assigned_obj = document.getElementById("houses_available").value;
+                $.ajax({
+                    url: '/select_apart/' + assigned_obj,
+                    type: 'POST',
+                    data: $('#announcement-form').serialize(),
+                    success: function(selectOptions){
+                        $("#apartments_available").empty();
+                        for (var i = 0; i < selectOptions.length; i++){
+                            $("#apartments_available").append(
+                                $("<option></option>")
+                                .attr("value", selectOptions[i][0])
+                                .text(selectOptions[i][1])
+                            );
+                        }
+                    }
+                });
+
+                houses_assign_object();
+                var pop = document.getElementById("pop");
+                pop.style.visibility = "visible";
+            });
+            $('#houses_assigned').dblclick( houses_unassign_object );
+            $('#pop-close').click(function(){
+                var pop = document.getElementById("pop");
+                pop.style.visibility = "hidden";
+            });
+
+            $('#apartments_assigned').dblclick( apartments_unassign_object )
+            $('#apartments_available').dblclick( apartments_assign_object )
+        });
+
+        function houses_assign_object() {
             return !$('#houses_available option:selected').remove().appendTo('#houses_assigned');
         };
 
-        function unassign_object() {
+        function houses_unassign_object() {
             return !$('#houses_assigned option:selected').remove().appendTo('#houses_available');
         };
 
-        $(document).ready( function() {
-            $('#houses_available').dblclick( assign_object );
-            $('#houses_assigned').dblclick( unassign_object );
-        });
+        function apartments_assign_object() {
+            return !$('#apartments_available option:selected').remove().appendTo('#apartments_assigned');
+        };
+
+        function apartments_unassign_object() {
+            return !$('#apartments_assigned option:selected').remove().appendTo('#apartments_available');
+        };
 
         function elem_expand(el_id) {
             var x = document.getElementById(el_id);
@@ -26,72 +64,72 @@
         };
     </script>
 
-    <div class="wrapper">
-        <div class="announcement-form d-flex">
-            <form class="announcement-form" action="" method="post">
+    <div class="container">
+        <div class="ann-form d-flex">
+            <form action="" method="post" id="announcement-form">
 
-                {{ form.hidden_tag() }}
-                {{ form.csrf_token }}
+                {{ ann_form.hidden_tag() }}
+                {{ ann_form.csrf_token }}
 
                 <div class="form-group">
-                   {{ form.announcement_category.label }}
-                   {{ form.announcement_category(class="form-control-lg form-control") }}
+                   {{ ann_form.announcement_category.label }}
+                   {{ ann_form.announcement_category(class="form-control-lg form-control") }}
                 </div>
 
                 <div class="form-group">
-                    {{ form.title.label }}
-                    {{ form.title(class="form-control-lg form-control") }}
+                    {{ ann_form.title.label }}
+                    {{ ann_form.title(class="form-control-lg form-control") }}
                 </div>
 
-                {{ form.post_date.label }}
+                {{ ann_form.post_date.label }}
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            {{ form.post_date(class="datepicker form-control-lg form-control") }}
+                            {{ ann_form.post_date(class="datepicker form-control-lg form-control") }}
                         </div>
                         <div class="col">
-                            {{ form.post_time(class="form-control-lg form-control") }}
+                            {{ ann_form.post_time(class="form-control-lg form-control") }}
                         </div>
                     </div>
                 </div>
 
-                {{ form.death_date.label }}
+                {{ ann_form.death_date.label }}
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            {{ form.death_date(class="datepicker form-control-lg form-control") }}
+                            {{ ann_form.death_date(class="datepicker form-control-lg form-control") }}
                         </div>
                         <div class="col">
-                            {{ form.death_time(class="form-control-lg form-control") }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            {{ form.houses_available.label }}
-                            {{ form.houses_available(size=4, multiple=True, class="form-control-lg form-control") }}
-                        </div>
-                        <div class="col">
-                            {{ form.houses_assigned.label }}
-                            {{ form.houses_assigned(size=4, multiple=True, class="form-control-lg form-control") }}
+                            {{ ann_form.death_time(class="form-control-lg form-control") }}
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    {{ form.body.label }}
-                    {{ form.body(class="form-control-lg form-control", cols="15", rows="4") }}
+                    <div class="row">
+                        <div class="col">
+                            {{ ann_form.houses_available.label }}
+                            {{ ann_form.houses_available(size=4, multiple=False, class="form-control-lg form-control") }}
+                        </div>
+                        <div class="col">
+                            {{ ann_form.houses_assigned.label }}
+                            {{ ann_form.houses_assigned(size=4, multiple=True, class="form-control-lg form-control") }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ ann_form.body.label }}
+                    {{ ann_form.body(class="form-control-lg form-control", cols="15", rows="4") }}
                 </div>
 
                 <p style="color: orange;"> {{ message }} </p>
 
-                {{ form.submit(type="submit", class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase") }}
+                {{ ann_form.submit(type="submit", class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase") }}
            </form>
         </div>
 
-        <div class="check-announcements">
+        <div class="ann-check">
             <h2 align="center"> Оповещения на сервере: </h2>
             <div class="list-group">
                 {% for elem in announcements %}
@@ -117,9 +155,9 @@
                             </p>
                             <p> <b> Статус: </b> {{ elem.status.name }} </p>
                             <div class="time-data">
-                                {{ elem.postDate | replace("T", " ") | replace("+00:00", " ") }}
+                                {{ elem.postDate | replace("T", " ") | replace("+00:00", "") }}
                                 -
-                                {{ elem.deathDate | replace("T", " ") | replace("+00:00", " ")}}
+                                {{ elem.deathDate | replace("T", " ") | replace("+00:00", "")}}
                             </div>
                         </div>
                     </div>
@@ -127,6 +165,37 @@
                         elem_expand('elem_{{ elem.id }}');
                     </script>
                 {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div id="pop">
+        <div id="pop-container">
+            <div id="pop-frame">
+                <div id="pop-close"><img id="pop-close-img" src="{{ url_for('static', filename='img/xmark_icon.png') }}"></div>
+                <form action="">
+                    <h5><b> Уточните номера квартир, пожалуйста </b></h5>
+                    {{ apart_form.hidden_tag() }}
+                    {{ ann_form.csrf_token }}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                {{ apart_form.apartments_available.label }}
+                                {{ apart_form.apartments_available(size=4, multiple=True, class="form-control-lg form-control") }}
+                            </div>
+                            <div class="col">
+                                {{ apart_form.apartments_assigned.label }}
+                                {{ apart_form.apartments_assigned(size=4, multiple=True, class="form-control-lg form-control") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ apart_form.select_all() }} {{ apart_form.select_all.label }}
+                    </div>
+
+                    {{ apart_form.submit(type="submit", class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase") }}
+                </form>
             </div>
         </div>
     </div>

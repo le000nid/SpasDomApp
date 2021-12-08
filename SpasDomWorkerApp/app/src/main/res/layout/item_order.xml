@@ -50,11 +50,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_little"
                 android:ellipsize="end"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_order_title"
                 tools:text="14:00 - 16:00  |  Течет кран" />
+
+            <TextView
+                android:id="@+id/tv_is_finished"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_little"
+                android:text="Завершен"
+                android:textColor="@color/secondaryColor"
+                app:goneIfTrue="@{!orderItem.finished}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_order_time_problem" />
 
             <ImageView
                 android:id="@+id/imageView"

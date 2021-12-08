@@ -26,6 +26,15 @@ import kotlinx.coroutines.launch
 import android.widget.Chronometer
 import android.widget.Chronometer.OnChronometerTickListener
 import java.text.DateFormat
+import android.content.SharedPreferences
+
+import android.content.Context.MODE_PRIVATE
+import java.util.*
+import android.content.Context.MODE_PRIVATE
+import android.net.Uri
+import com.example.spasdomworkerapp.models.SavingPhoto
+import com.example.spasdomworkerapp.tinydb.TinyDB
+import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -38,6 +47,7 @@ class ActiveOrderFragment : Fragment() {
     private val viewModel: ActiveOrderViewModel by viewModels()
 
     lateinit var chrono: Chronometer
+    var startTime = Date(System.currentTimeMillis())
 
     private val args by navArgs<ActiveOrderFragmentArgs>()
 
@@ -87,8 +97,6 @@ class ActiveOrderFragment : Fragment() {
             }
         }
 
-        chrono.start()
-
         doorPhotoAdapter = PhotoAdapter(PhotoRemoveClick {
             val oldList = viewModel.doorPhotos.value?.toMutableList()
             oldList?.remove(it)
@@ -132,6 +140,7 @@ class ActiveOrderFragment : Fragment() {
         }
 
         binding.btnFinish.setOnClickListener {
+            //TODO: clear tinyDB
             itemOrder.finished = true
             itemOrder.active = false
             lifecycleScope.launch {
@@ -140,6 +149,42 @@ class ActiveOrderFragment : Fragment() {
             val action = ActiveOrderFragmentDirections.actionActiveOrderFragmentToHomeFragment()
             findNavController().navigate(action)
         }
+
+        if(itemOrder.active){
+            val tinyDB = TinyDB(context)
+            startTime.time = tinyDB.getLong(itemOrder.id.toString()+"time")
+            val savedDoorList = tinyDB.getListPhoto(itemOrder.id.toString()+"door")
+            val doorList = savedDoorList.map {
+                Photo(
+                    uri = Uri.parse(it.uri)
+                )
+            }
+            val savedCompList = tinyDB.getListPhoto(itemOrder.id.toString()+"comp")
+            val compList = savedCompList.map {
+                Photo(
+                    uri = Uri.parse(it.uri)
+                )
+            }
+            viewModel.doorPhotos.value = doorList
+            viewModel.completePhotos.value = compList
+            chrono.base = SystemClock.elapsedRealtime()+startTime.time - System.currentTimeMillis()
+
+        } else {
+            Toast.makeText(context, "Чтобы начать работу, загрузите фото двери", Toast.LENGTH_LONG).show()
+
+            ImagePicker.with(this)
+                .cameraOnly()
+                .cropSquare()
+                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .createIntent {
+                    getContentDoor.launch(it)
+                }
+        }
+
+        unlockButton()
+
+        chrono.start()
 
         return binding.root
     }
@@ -154,19 +199,6 @@ class ActiveOrderFragment : Fragment() {
         viewModel.doorPhotos.observe(viewLifecycleOwner) {
             doorPhotoAdapter?.photos = viewModel.doorPhotos.value!!.toList()
         }
-
-        unlockButton()
-
-        Toast.makeText(context, "Чтобы начать работу, загрузите фото двери", Toast.LENGTH_LONG).show()
-
-        ImagePicker.with(this)
-            .cameraOnly()
-            .cropSquare()
-            .compress(1024)			//Final image size will be less than 1 MB(Optional)
-            .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-            .createIntent {
-                getContentDoor.launch(it)
-            }
     }
 
     fun unlockButton(){
@@ -184,6 +216,29 @@ class ActiveOrderFragment : Fragment() {
             Toast.makeText(context, "Для начала работы нужно сфотографировать дверь", Toast.LENGTH_LONG).show()
             findNavController().navigateUp()
         }
+    }
+
+    override fun onPause() {
+        val itemOrder = args.orderItem
+        val tinyDB = TinyDB(context)
+        val savingDoorPhoto = viewModel.doorPhotos.value?.map {
+            SavingPhoto(
+                uri = it.uri.toString()
+            )
+        }
+        tinyDB.putListPhoto(itemOrder.id.toString()+"door",
+            savingDoorPhoto as java.util.ArrayList<SavingPhoto>?
+        )
+        val savingCompPhoto = viewModel.completePhotos.value?.map {
+            SavingPhoto(
+                uri = it.uri.toString()
+            )
+        }
+        tinyDB.putListPhoto(itemOrder.id.toString()+"comp",
+            savingCompPhoto as java.util.ArrayList<SavingPhoto>?
+        )
+        tinyDB.putLong(itemOrder.id.toString()+"time", startTime.time)
+        super.onPause()
     }
 }
 

@@ -33,14 +33,14 @@ abstract class CacheDatabase : RoomDatabase() {
 
             applicationScope.launch {
                 val ordersInit: List<NetworkOrderItem> = listOf(
-                    NetworkOrderItem("27-11-2021", "Улица улная", "19:00 - 20:00", "Нада", true, false, 5),
-                    NetworkOrderItem("28-11-2021", "Улица уная", "11:00 - 12:00", "Нада", true,false, 1),
-                    NetworkOrderItem("28-11-2021", "Улица уличная", "13:00 - 14:00", "Нада", false,false, 2),
-                    NetworkOrderItem("28-11-2021", "Улица улиная", "15:00 - 16:00", "Нада", false,false, 3),
-                    NetworkOrderItem("28-11-2021", "Морской проспект 9", "17:00 - 18:00", "Бачок потик", true,false, 4),
-                    NetworkOrderItem("29-11-2021", "Не морской не проспект", "3:30 - 4:20", "О боже", false,false, 6),
-                    NetworkOrderItem("05-12-2021", "5 декабря :)", "3:30 - 4:20", "Работает", false,false, 7),
-                    NetworkOrderItem("06-12-2021", "6 декабря :)", "3:30 - 4:20", "Работает", false,false, 8),
+                    NetworkOrderItem("09-12-2021", "Пр. Ленина 24а", "10:00 - 11:00", "Течет кран", false, false, 1),
+                    NetworkOrderItem("09-12-2021", "Станиславского 4", "12:00 - 14:00", "Прорвало трубу", false,false, 2),
+                    NetworkOrderItem("09-12-2021", "Выставочная 17", "16:00 - 18:00", "Заменить кран", false,false, 3),
+                    NetworkOrderItem("09-12-2021", "Никитина 12", "19:00 - 20:00", "Засорилась канолизация", false,false, 4),
+                    NetworkOrderItem("10-12-2021", "Морской проспект 9", "17:00 - 18:00", "Почистить трубы", false,false, 5),
+                    NetworkOrderItem("10-12-2021", "Большивисткая 1", "20:00 - 21:00", "Проверка счетчиков", false,false, 6),
+                    NetworkOrderItem("08-12-2021", "Пр. Ленина 24а", "15:00 - 17:00", "Течет кран", false,false, 7),
+                    NetworkOrderItem("08-12-2021", "Станиславского 4", "18:00 - 19:00", "Прорвало трубу", false,false, 8),
                 )
                 val orders = NetworkOrdersContainer(ordersInit)
                 cacheDao.insertAllOrders(*orders.asDatabaseModel())

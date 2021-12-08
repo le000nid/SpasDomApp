@@ -25,6 +25,7 @@ class ApiConnector:
                 int(el) for el in houses_assigned
             ]
         }
+        print(data)
         request = requests.post(self.api_url + self.announcements, json=data, headers=self.access_header)
         return request.status_code
 

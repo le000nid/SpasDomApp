@@ -120,6 +120,7 @@ def announcements():
     if request.method == 'POST':
         # to let ann_form validate properly
         ann_form.houses_assigned.choices = HOUSES_AVAILABLE_VAL
+        print(ann_form.houses_assigned.choices, ann_form.houses_assigned.data)
         if ann_form.validate_on_submit():
             status_code = server.post_announcement(
                 category=ann_form.announcement_category.data,

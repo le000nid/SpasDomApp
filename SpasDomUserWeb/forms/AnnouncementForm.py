@@ -18,7 +18,7 @@ class AnnouncementForm(FlaskForm):
     death_time = TimeField(validators=[DataRequired()])
 
     # announcements will be used to houses_assigned
-    houses_available = SelectField('Выбрать дома')
+    houses_available = SelectMultipleField('Выбрать дома')
     houses_assigned = SelectMultipleField('Выбранные дома')
 
     # description

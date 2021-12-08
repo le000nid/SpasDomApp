@@ -2,68 +2,6 @@
 {% set active_page = 1 %}
 
 {% block content %}
-    <!-- script, which connect assigned and available SelectMultipleFields -->
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready( function() {
-            $('#houses_available').dblclick( function() {
-
-                var assigned_obj = document.getElementById("houses_available").value;
-                $.ajax({
-                    url: '/select_apart/' + assigned_obj,
-                    type: 'POST',
-                    data: $('#announcement-form').serialize(),
-                    success: function(selectOptions){
-                        $("#apartments_available").empty();
-                        for (var i = 0; i < selectOptions.length; i++){
-                            $("#apartments_available").append(
-                                $("<option></option>")
-                                .attr("value", selectOptions[i][0])
-                                .text(selectOptions[i][1])
-                            );
-                        }
-                    }
-                });
-
-                houses_assign_object();
-                var pop = document.getElementById("pop");
-                pop.style.visibility = "visible";
-            });
-            $('#houses_assigned').dblclick( houses_unassign_object );
-            $('#pop-close').click(function(){
-                var pop = document.getElementById("pop");
-                pop.style.visibility = "hidden";
-            });
-
-            $('#apartments_assigned').dblclick( apartments_unassign_object )
-            $('#apartments_available').dblclick( apartments_assign_object )
-        });
-
-        function houses_assign_object() {
-            return !$('#houses_available option:selected').remove().appendTo('#houses_assigned');
-        };
-
-        function houses_unassign_object() {
-            return !$('#houses_assigned option:selected').remove().appendTo('#houses_available');
-        };
-
-        function apartments_assign_object() {
-            return !$('#apartments_available option:selected').remove().appendTo('#apartments_assigned');
-        };
-
-        function apartments_unassign_object() {
-            return !$('#apartments_assigned option:selected').remove().appendTo('#apartments_available');
-        };
-
-        function elem_expand(el_id) {
-            var x = document.getElementById(el_id);
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        };
-    </script>
-
     <div class="container">
         <div class="ann-form d-flex">
             <form action="" method="post" id="announcement-form">
@@ -138,7 +76,7 @@
                         <a> <i class="fas fa-tools tools"></i> </a>
                         <b> ID: </b> {{ elem.id }}
                         <b> Заголовок: </b> {{ elem.title[:50] }}
-                        <div id="elem_{{ elem.id }}">
+                        <div id="elem_{{ elem.id }}" class="expandable-elem">
                             <p> <b> Описание: </b> {{ elem.body }} </p>
                             <p> <b> Категория: </b> {{ elem.category.name }} </p>
                             <p>
@@ -161,9 +99,6 @@
                             </div>
                         </div>
                     </div>
-                    <script>
-                        elem_expand('elem_{{ elem.id }}');
-                    </script>
                 {% endfor %}
             </div>
         </div>

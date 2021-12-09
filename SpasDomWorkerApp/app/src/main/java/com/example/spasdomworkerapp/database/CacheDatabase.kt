@@ -1,15 +1,12 @@
 package com.example.spasdomworkerapp.database
 
-import android.content.Context
 import android.util.Log
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.spasdomworkerapp.di.ApplicationScope
 import com.example.spasdomworkerapp.models.Order
-import com.example.spasdomworkerapp.network.NetworkOrderItem
-import com.example.spasdomworkerapp.network.NetworkOrdersContainer
+import com.example.spasdomworkerapp.models.PlannedOrder
 import com.example.spasdomworkerapp.network.asDatabaseModel
 import com.example.spasdomworkerapp.responses.OrderListResponse
 import com.example.spasdomworkerapp.responses.asCacheModel
@@ -35,15 +32,15 @@ abstract class CacheDatabase : RoomDatabase() {
             val cacheDao = database.get().cacheDao()
 
             applicationScope.launch {
-                val ordersInit: List<Order> = listOf(
-                    Order("09-12-2021", "Пр. Ленина 24а", "10:00 - 11:00", "Течет кран", false, false, 1),
-                    Order("09-12-2021", "Станиславского 4", "12:00 - 14:00", "Прорвало трубу", false,false, 2),
-                    Order("09-12-2021", "Выставочная 17", "16:00 - 18:00", "Заменить кран", false,false, 3),
-                    Order("09-12-2021", "Никитина 12", "19:00 - 20:00", "Засорилась канолизация", false,false, 4),
-                    Order("10-12-2021", "Морской проспект 9", "17:00 - 18:00", "Почистить трубы", false,false, 5),
-                    Order("10-12-2021", "Большивисткая 1", "20:00 - 21:00", "Проверка счетчиков", false,false, 6),
-                    Order("08-12-2021", "Пр. Ленина 24а", "15:00 - 17:00", "Течет кран", false,false, 7),
-                    Order("08-12-2021", "Станиславского 4", "18:00 - 19:00", "Прорвало трубу", false,false, 8),
+                val ordersInit: List<PlannedOrder> = listOf(
+                    PlannedOrder(5, "Пр. Ленина 24а", "2021-12-09T14:32:46.848Z", 0, "", 0, "Created", "", 4, ""),
+                    PlannedOrder(6, "Станиславского 4", "2021-12-09T14:32:46.848Z", 0, "",0, "Created","", 4, ""),
+                    PlannedOrder(7, "Выставочная 17", "2021-12-09T14:32:46.848Z", 0, "",0, "Created","", 4, ""),
+                    PlannedOrder(8, "Никитина 12", "2021-12-09T14:32:46.848Z", 0, "",0, "Created","", 4, ""),
+                    PlannedOrder(9, "Морской проспект 9", "2021-12-09T14:32:46.848Z", 0, "",0, "Created","", 4, ""),
+                    PlannedOrder(10, "Большивисткая 1", "2021-12-09T14:32:46.848Z", 0, "",0, "Created","", 4, ""),
+                    PlannedOrder(11, "Пр. Ленина 24а", "2021-12-09T14:32:46.848Z", 0, "",0, "Created","", 4, ""),
+                    PlannedOrder(12, "Станиславского 4", "2021-12-09T14:32:46.848Z", 0, "",0, "Created","", 4, ""),
                 )
 //                val orders = OrderListResponse(ordersInit)
 //                cacheDao.insertAllOrders(*orders.asCacheModel())

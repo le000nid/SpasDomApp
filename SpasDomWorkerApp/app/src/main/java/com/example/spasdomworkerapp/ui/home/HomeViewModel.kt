@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-//            repository.refreshOrderItems()
+            repository.refreshOrderItems()
         }
     }
 
@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
     var orderItems = repository.getOrderItems(OrderGetFormat)
 
     fun swipeToRefresh() = viewModelScope.launch {
-//        repository.refreshOrderItems()
+        repository.refreshOrderItems()
     }
 
 

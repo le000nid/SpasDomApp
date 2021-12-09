@@ -94,8 +94,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.root.findViewById<RecyclerView>(R.id.orders_rv).apply {
-            layoutManager =
-                object : LinearLayoutManager(context){override fun canScrollVertically(): Boolean { return false }}
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = viewModelOrdersAdapter
         }
 

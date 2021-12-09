@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import com.example.spasdomworkerapp.database.*
 import com.example.spasdomworkerapp.models.Order
 import com.example.spasdomworkerapp.network.*
+import com.example.spasdomworkerapp.responses.OrderListResponse
 import com.example.spasdomworkerapp.responses.asCacheModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,7 +22,7 @@ class OrderItemsRepository @Inject constructor(
 
     fun getOrderItems(getData: String) : LiveData<List<Order>> {
         val orderItems: LiveData<List<Order>> =
-            Transformations.map(cacheDao.getOrderItems(getData)) {
+            Transformations.map(cacheDao.getOrderItems()) {
                 it.asDomainOrder()
             }
         return orderItems
@@ -31,8 +32,8 @@ class OrderItemsRepository @Inject constructor(
         cacheDao.insertAllOrders(NetworkOrder(itemOrder).asDatabaseModel())
     }
 
-//    suspend fun refreshOrderItems() {
-//        val orders = api.getPlannedOrders()
-//        //cacheDao.insertAllOrders(*orders.asCacheModel())
-//    }
+    suspend fun refreshOrderItems() = safeApiCall{
+        val orders = api.getPlannedOrders()
+        cacheDao.insertAllOrders(*orders.asCacheModel())
+    }
 }

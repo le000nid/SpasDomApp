@@ -4,6 +4,10 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.example.spasdomworkerapp.database.CacheDatabase
+import com.example.spasdomworkerapp.network.AuthApi
+import com.example.spasdomworkerapp.network.OrderApi
+import com.example.spasdomworkerapp.network.RemoteDataSource
+import com.example.spasdomworkerapp.network.UserApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,23 +22,32 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-//    @Singleton
-//    @Provides
-//    fun provideAuthApi(
-//        remoteDataSource: RemoteDataSource,
-//        @ApplicationContext context: Context
-//    ): AuthApi {
-//        return remoteDataSource.buildApi(AuthApi::class.java, context)
-//    }
-//
-//    @Singleton
-//    @Provides
-//    fun provideUserApi(
-//        remoteDataSource: RemoteDataSource,
-//        @ApplicationContext context: Context
-//    ): UserApi {
-//        return remoteDataSource.buildApi(UserApi::class.java, context)
-//    }
+    @Singleton
+    @Provides
+    fun provideAuthApi(
+        remoteDataSource: RemoteDataSource,
+        @ApplicationContext context: Context
+    ): AuthApi {
+        return remoteDataSource.buildApi(AuthApi::class.java, context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserApi(
+        remoteDataSource: RemoteDataSource,
+        @ApplicationContext context: Context
+    ): UserApi {
+        return remoteDataSource.buildApi(UserApi::class.java, context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideOrderApi(
+        remoteDataSource: RemoteDataSource,
+        @ApplicationContext context: Context
+    ): OrderApi {
+        return remoteDataSource.buildApi(OrderApi::class.java, context)
+    }
 
     @Provides
     @Singleton

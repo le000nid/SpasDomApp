@@ -16,7 +16,7 @@ data class DatabaseOrderItem constructor(
     val id: Int
     )
 
-fun List<DatabaseOrderItem>.asDomainModel(): List<Order> {
+fun List<DatabaseOrderItem>.asDomainOrder(): List<Order> {
     return map {
         Order(
             date = it.date,

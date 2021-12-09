@@ -16,28 +16,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val cacheDao: CacheDao,
+    private val repository: OrderItemsRepository,
 ): ViewModel() {
 
-    private val ordersRepository = OrderItemsRepository(cacheDao)
+    init {
+        viewModelScope.launch {
+//            repository.refreshOrderItems()
+        }
+    }
+
     var date = Calendar.getInstance()
     lateinit var weekday: String
     var OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
     lateinit var OrderShowFormat: String
-    var orderItems = ordersRepository.getOrderItems(OrderGetFormat)
 
-    /**
-     * init{} is called immediately when this ViewModel is created.
-     */
-    init {
-        viewModelScope.launch {
-            ordersRepository.refreshOrderItems()
-        }
-    }
+    var orderItems = repository.getOrderItems(OrderGetFormat)
 
     fun swipeToRefresh() = viewModelScope.launch {
-        ordersRepository.refreshOrderItems()
+//        repository.refreshOrderItems()
     }
+
+
 
     fun NextDay(){
         date.add(Calendar.DATE, 1)
@@ -83,6 +82,6 @@ class HomeViewModel @Inject constructor(
         }
         OrderShowFormat = StringBuilder().append(weekday).append(SimpleDateFormat(". dd.MM.yyyy").format(date.time))
             .toString()
-        orderItems = ordersRepository.getOrderItems(OrderGetFormat)
+        orderItems = repository.getOrderItems(OrderGetFormat)
     }
 }

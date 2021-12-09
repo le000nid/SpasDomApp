@@ -5,17 +5,21 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.spasdomworkerapp.database.getDatabase
+import com.example.spasdomworkerapp.database.CacheDao
+import com.example.spasdomworkerapp.repository.OrderItemsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.lang.StringBuilder
 import java.util.*
+import javax.inject.Inject
 
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val cacheDao: CacheDao,
+): ViewModel() {
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val database = getDatabase(application)
-    private val ordersRepository = OrderItemsRepository(database)
+    private val ordersRepository = OrderItemsRepository(cacheDao)
     var date = Calendar.getInstance()
     lateinit var weekday: String
     var OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
@@ -33,19 +37,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun swipeToRefresh() = viewModelScope.launch {
         ordersRepository.refreshOrderItems()
-    }
-
-    /**
-     * Factory for constructing HomeViewModel with parameter
-     */
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return HomeViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct ViewModel")
-        }
     }
 
     fun NextDay(){

@@ -16,6 +16,7 @@
     <color name="grayLight">#F0F0F0</color>
     <color name="primaryBlack">#000000</color>
 
+
     <color name="material_drawer_primary">#2196F3</color>
     <color name="material_drawer_primary_dark">#1976D2</color>
     <color name="material_drawer_primary_light">#BBDEFB</color>
@@ -28,4 +29,11 @@
     <color name="colorBlack">#000000</color>
     <color name="colorBlueWish">#6BB0C5</color>
     <color name="accent">#FF4081</color>
+
+    <color name="primaryWhite">#FFFFFF</color>
+
+    <color name="dateGreen">#A5D6A7</color>
+    <color name="dateRed">#EF9A9A</color>
+
+
 </resources>

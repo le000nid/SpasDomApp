@@ -3,6 +3,7 @@ package com.example.spasdomworkerapp.ui.home.order
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -25,6 +26,11 @@ class OrderDetailedFragment : Fragment(R.layout.fragment_order) {
 
         if(itemOrder.finished){
             status = "Завершён"
+            binding.beginButton.isEnabled = false
+            binding.beginButton.visibility = View.INVISIBLE
+        } else if (itemOrder.active) {
+            status = "В процессе"
+            binding.beginButton.text = "Продолжить"
         } else {
             status = "Не завершён"
         }
@@ -41,7 +47,7 @@ class OrderDetailedFragment : Fragment(R.layout.fragment_order) {
         }
 
         binding.beginButton.setOnClickListener {
-            val action = OrderDetailedFragmentDirections.actionOrderDetailedFragmentToActiveOrderFragment()
+            val action = OrderDetailedFragmentDirections.actionOrderDetailedFragmentToActiveOrderFragment(itemOrder)
             findNavController().navigate(action)
         }
     }

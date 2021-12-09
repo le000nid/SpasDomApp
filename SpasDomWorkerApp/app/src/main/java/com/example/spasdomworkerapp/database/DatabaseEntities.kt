@@ -2,7 +2,7 @@ package com.example.spasdomworkerapp.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.spasdomworkerapp.domain.Order
+import com.example.spasdomworkerapp.models.Order
 
 @Entity
 data class DatabaseOrderItem constructor(
@@ -10,6 +10,7 @@ data class DatabaseOrderItem constructor(
     val address: String,
     val time: String,
     val problem: String,
+    val active: Boolean,
     val finished: Boolean,
     @PrimaryKey
     val id: Int
@@ -22,6 +23,7 @@ fun List<DatabaseOrderItem>.asDomainModel(): List<Order> {
             address = it.address,
             time = it.time,
             problem = it.problem,
+            active = it.active,
             finished  = it.finished,
             id = it.id
         )

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Responses;
 using Db.Repository.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -41,14 +42,14 @@ namespace SpasDom.Server.Controllers.Apartments
 
             if (existed != default)
             {
-                throw new Exception("Такой лицевой счет уже зарегистирован");
+                throw ResponsesFactory.BadRequest("Такой лицевой счет уже зарегистирован");
             }
 
             var house = await _houses.FindAsync(parameters.HouseId);
 
             if (house == default)
             {
-                throw new Exception("Такого дома нет в системе");
+                throw ResponsesFactory.NotFound("Not found house with the same id");
             }
 
             var @new = parameters.Build();

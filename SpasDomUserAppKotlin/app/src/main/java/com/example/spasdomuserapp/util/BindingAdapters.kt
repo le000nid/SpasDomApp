@@ -1,8 +1,10 @@
 package com.example.spasdomuserapp.util
 
+import android.graphics.Color
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.spasdomuserapp.R
@@ -22,9 +24,15 @@ fun goneIfNull(view: View, it: Any?) {
     view.visibility = if (it == null) View.GONE else View.VISIBLE
 }
 
-@BindingAdapter("goneIfTrue")
-fun goneIfTrue(view: View, it: Any?) {
-    view.visibility = if (it == true) View.GONE else View.VISIBLE
+
+@BindingAdapter("visibleIfFinished")
+fun visibleIfFinished(view: View, it: Int) {
+    view.visibility = if (it == 1) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("visibleIfReviewed")
+fun visibleIfReviewed(view: View, rate: Int) {
+    view.visibility = if (rate != 0) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("goneIfRate0")
@@ -33,13 +41,13 @@ fun goneIfRate0(view: View, it: Int) {
 }
 
 @BindingAdapter("goneIfRateNot0", "state")
-fun goneIfRateNot0(view: View, rate: Int, state: Boolean) {
-    view.visibility = if (rate != 0 || !state) View.GONE else View.VISIBLE
+fun goneIfRateNot0(view: View, rate: Int, state: Int) {
+    view.visibility = if (rate != 0 || state == 0) View.GONE else View.VISIBLE
 }
 
 @BindingAdapter("setRating")
-fun setRating(view: ImageView, it: PlannedOrder) {
-    when(it.userRate) {
+fun setRating(view: ImageView, rate: Int) {
+    when(rate) {
         0 -> view.setBackgroundResource(R.drawable.ic_rate_0)
         1 -> view.setBackgroundResource(R.drawable.ic_rate_1)
         2 -> view.setBackgroundResource(R.drawable.ic_rate_2)
@@ -68,6 +76,14 @@ fun setImageUri(imageView: ImageView, uri: Uri?) {
 @BindingAdapter("goneIfUriNull")
 fun goneIfUriNull(imageView: ImageView, uri: Uri?) {
     imageView.visibility = if (uri == null) View.GONE else View.VISIBLE
+}
+
+@BindingAdapter("dateType")
+fun dateType(cardView: CardView, type: Int) {
+    when(type) {
+        1 -> cardView.setCardBackgroundColor(Color.parseColor("#A5D6A7"))
+        2 -> cardView.setCardBackgroundColor(Color.parseColor("#EF9A9A"))
+    }
 }
 
 //TODO (Add all drawables for categories)

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomworkerapp.R
 import com.example.spasdomworkerapp.databinding.ItemPhotoBinding
-import com.example.spasdomworkerapp.domain.Photo
+import com.example.spasdomworkerapp.models.Photo
 
 class PhotoDiffCallback(
     private val oldList: List<Photo>,

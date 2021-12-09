@@ -7,6 +7,7 @@ using Common.SelectParameters;
 using Db.Repository.Interfaces;
 using Entities;
 using System;
+using Common.Responses;
 using Microsoft.EntityFrameworkCore;
 using Services.Firebase.Interfaces;
 
@@ -62,19 +63,6 @@ namespace SpasDom.Server.Controllers.Notifications
             return res;
         }
 
-        [HttpGet("test")]
-        public async Task<string> Test()
-        {
-            var ids = new string[]
-            {
-                "drGHF7MxSxKVDpm1jeDJf-:APA91bGQe5xRQG40cYEfmW6rpuo4wk_SLeQ-F8nlRoM25Ap8jajiXnSpvNTvpo7XIrCXXvovG--_TX7enChYYTMj8NCuH1jGQkPCgpRUNNnzbIdl_b2Mt2gJ6XjPYODgiJoOSizq2xbj"
-            };
-
-            var response = await _firebase.CreateGroupAsync(ids);
-
-            return response.NotificationKey;
-        }
-
         [HttpGet("{id:long}")]
         public AnnouncementSummary Get(long id)
         {
@@ -114,7 +102,7 @@ namespace SpasDom.Server.Controllers.Notifications
 
             if (!query.Any())
             {
-                throw new Exception("Домов с такими номерами нет в системе");
+                throw ResponsesFactory.NotFound("There are no houses with such ids");
             }
 
             var @new = parameters.Build();
@@ -152,7 +140,7 @@ namespace SpasDom.Server.Controllers.Notifications
             var existed = await _announcements.FindAsync(id);
             if (existed == default)
             {
-                return false;
+                throw ResponsesFactory.NotFound("Not found announcement with such id");
             }
 
             return await _announcements.DeleteAsync(existed);

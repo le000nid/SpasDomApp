@@ -227,13 +227,16 @@ namespace Db.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("DateTime")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Mark")
                         .HasColumnType("INTEGER");
 
+                    b.Property<long>("MinutesCount")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Review")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("StartsAt")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
@@ -245,6 +248,9 @@ namespace Db.Migrations
                     b.Property<long?>("WorkerId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<long?>("WorkerId1")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -252,6 +258,8 @@ namespace Db.Migrations
                     b.HasIndex("SubcategoryId");
 
                     b.HasIndex("WorkerId");
+
+                    b.HasIndex("WorkerId1");
 
                     b.ToTable("Planned-Orders");
                 });
@@ -367,6 +375,15 @@ namespace Db.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DinnerFinishesAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DinnerStartsAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FinishesAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -375,6 +392,9 @@ namespace Db.Migrations
 
                     b.Property<double>("Rating")
                         .HasColumnType("REAL");
+
+                    b.Property<string>("StartsAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Surname")
                         .HasColumnType("TEXT");
@@ -480,6 +500,10 @@ namespace Db.Migrations
                         .WithMany()
                         .HasForeignKey("WorkerId");
 
+                    b.HasOne("Entities.Worker", null)
+                        .WithMany("PlannedOrders")
+                        .HasForeignKey("WorkerId1");
+
                     b.Navigation("Category");
 
                     b.Navigation("Subcategory");
@@ -546,6 +570,8 @@ namespace Db.Migrations
             modelBuilder.Entity("Entities.Worker", b =>
                 {
                     b.Navigation("Competencies");
+
+                    b.Navigation("PlannedOrders");
                 });
 #pragma warning restore 612, 618
         }

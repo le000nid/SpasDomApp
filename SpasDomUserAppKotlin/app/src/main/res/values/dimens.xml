@@ -5,4 +5,20 @@
     <dimen name="spacing_normal">16dp</dimen>
     <dimen name="spacing_big">24dp</dimen>
     <dimen name="spacing_large">32dp</dimen>
+    <dimen name="toolbar_image_width">45dp</dimen>
+    <dimen name="toolbar_image_height">45dp</dimen>
+
+
+    <!--Settings fragment-->
+    <dimen name="settings_user_photo_width">55dp</dimen>
+    <dimen name="settings_user_photo_height">55dp</dimen>
+
+    <dimen name="settings_btn_change_photo_width">45dp</dimen>
+    <dimen name="settings_btn_change_photo_height">45dp</dimen>
+    <dimen name="settings_user_photo_border">2dp</dimen>
+    <dimen name="settings_ripple_effect_radius">4dp</dimen>
+    <dimen name="appPadding">10dp</dimen>
+    <dimen name="app_margin">16dp</dimen>
+    <dimen name="normalText">16sp</dimen>
+    <dimen name="smallText">14sp</dimen>
 </resources>

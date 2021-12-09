@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
     private fun loginInFirebase(){
-        val login = "Test@gmail.com"
+        val login = "Test2@gmail.com"
         val password = "Password"
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(login, password)
             .addOnCompleteListener {

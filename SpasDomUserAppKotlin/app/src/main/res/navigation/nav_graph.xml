@@ -136,7 +136,7 @@
     </fragment>
     <fragment
         android:id="@+id/singleChatFragment"
-        android:name="com.example.spasdomuserapp.ui.chat.SingleChatFragment"
+        android:name="com.example.spasdomuserapp.ui.chat.singlechat.SingleChatFragment"
         android:label="fragment_single_chat"
         tools:layout="@layout/fragment_single_chat" >
         <argument

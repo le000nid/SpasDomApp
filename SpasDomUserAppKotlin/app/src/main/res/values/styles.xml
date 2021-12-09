@@ -39,7 +39,23 @@
         <item name="cardBackgroundColor">@color/grayLight</item>
         <item name="android:clickable">true</item>
     </style>
-    
+
+    <style name="normalText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/app_margin</item>
+        <item name="android:textSize">@dimen/normalText</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="smallText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/app_margin</item>
+        <item name="android:textSize">@dimen/smallText</item>
+        <item name="android:textColor">@color/colorGrey</item>
+    </style>
+
     <style name="Headline7" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textSize">18sp</item>
     </style>

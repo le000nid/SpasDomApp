@@ -1,0 +1,42 @@
+## Дома [/houses]
+
+### Получить все дома [GET /houses]
+
++ Response 200 (application/json)
+    + Attributes (array[HouseResponse])
+
+
+### Добавить новый дом в систему [POST /houses]
+
++ Request (application/json)
+    + Attributes (NewHouseRequest)
+
++ Response 200 (application/json)
+    + Attributes (HouseResponse)
+
+
+### Удалить дом [DELETE /houses/{id}]
+
++ Parameters
+    + id: 1 (number) - Идентификатор дома
+
++ Response 200 (application/json)
+    + Attributes
+        + data: true (boolean)
+
+
+# Data Structures
+
+### HouseResponse
++ id: 1 (number)
++ houseNumber: 12 (number)
++ city: новосибирск (string)
++ area: `центральный район` (string)
++ street: советская (string)
+
+
+### NewHouseRequest
++ city: новосибирск (string)
++ area: `центральный  район` (string)
++ street: советская (string)
++ houseNumber: 13 (number)

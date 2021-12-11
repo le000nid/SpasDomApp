@@ -1,0 +1,25 @@
+## Авторизация [/auth]     
+        
+### Вход через приложение жильца [POST /auth/login]
+
++ Request (application/json)
+    + Attributes
+        + businessAccount: 121212121 (string)
+        + password: password (string)
+        + firebaseToken: firebase_token (string)
+        
++ Response 200 (application/json)
+    + Attributes
+        + status_code: 200 (number)
+        + data (AuthResponse)
+
+
+# Data Structures
+
+### AuthResponse
++ access (Token)
++ refresh (Token)
+
+### Token
++ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwIjoiQWNjZXNzIiwianRpIjoiNmYxNWYwZTMtM2QzZC00NTkxLTkzM2QtYmRhNWMwMGY3MWZlIiwibmJmIjoxNjIyMDc4OTYyLCJleHAiOjE2MjIwODEzNjcsImlzcyI6IkNpdHlsb2dpYSJ9.fKUVf63xpKMr2acVDkfblfh3R6feaLjfx9Ha7mh1MvA (string) - токен
++ expiry: `2021-12-11T08:58:55.483Z` (string)

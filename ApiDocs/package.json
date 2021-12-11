@@ -1,0 +1,22 @@
+{
+  "name": "apidocs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build && npm run serve",
+    "build": "npm run bind && npm run lint && npm run parse",
+    "parse": "snowboard html -o outDir API.apib",
+    "mock": "snowboard mock API.apib",
+    "lint": "snowboard lint API.apib",
+    "serve": "snowboard http API.apib",
+    "bind": "hercule src/root.apib -o API.apib",
+    "test": "dredd init && dredd"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dredd": "^14.1.0",
+    "snowboard": "^4.1.21"
+  }
+}

@@ -88,7 +88,9 @@ namespace SpasDom.Server
 
             app.UseAuthorization();
 
-            
+            app.UseCors(x => x.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
             
             app.UseMiddleware<ResponseMiddleware>();
             

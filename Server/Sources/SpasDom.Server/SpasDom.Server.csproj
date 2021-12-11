@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Orders\Input\" />
+    <Folder Include="Controllers\Orders\Marketplace\Output" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,6 +16,8 @@ namespace Entities.Orders
         
         public int Mark { get; set; }
         
+        public OrderStatus Status { get; set; }
+        
         [ForeignKey(nameof(Worker))]
         public long? WorkerId { get; set; }
         

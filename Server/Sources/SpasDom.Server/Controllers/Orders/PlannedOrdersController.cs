@@ -39,15 +39,15 @@ namespace SpasDom.Server.Controllers.Orders
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PlannedOrderSummary>> GetAllAsync()
+        public async Task<IEnumerable<OrderSummary>> GetAllAsync()
         {
-            var orders = await PlannedOrdersQuery().Select(o => new PlannedOrderSummary(o)).ToArrayAsync();
+            var orders = await PlannedOrdersQuery().Select(o => new OrderSummary(o)).ToArrayAsync();
 
             return orders;
         }
 
         [HttpGet("{id:long}")]
-        public async Task<PlannedOrderSummary> GetOrderAsync(long id)
+        public async Task<OrderSummary> GetOrderAsync(long id)
         {
             var order = await PlannedOrdersQuery().FirstOrDefaultAsync(o => o.Id == id);
 
@@ -56,7 +56,7 @@ namespace SpasDom.Server.Controllers.Orders
                 throw ResponsesFactory.BadRequest("Order not found");
             }
 
-            return new PlannedOrderSummary(order);
+            return new OrderSummary(order);
         }
 
         [HttpGet("calendar")]
@@ -65,14 +65,9 @@ namespace SpasDom.Server.Controllers.Orders
         {
            return await GetOrderCalendar(categoryId, subcategoryId);
         }
-
-        /// <summary>
-        /// Creates a new order
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
+        
         [HttpPost]
-        public async Task<PlannedOrderSummary> CreateAsync([FromBody] NewOrderParameters parameters)
+        public async Task<OrderSummary> CreateAsync([FromBody] NewOrderParameters parameters)
         {
             var order = parameters.Build();
             // var category = await _categories.FindAsync(parameters.CategoryId);
@@ -93,7 +88,7 @@ namespace SpasDom.Server.Controllers.Orders
             var res = await _orders.AddAsync(order);
 
 
-            return new PlannedOrderSummary(res);
+            return new OrderSummary(res);
         }
 
         [HttpPut("{id:long}")]

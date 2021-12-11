@@ -12,7 +12,7 @@ namespace Entities.Orders
             Subcategory = null;
         }
         
-        public OrderStatus Status { get; set; }
+        
         
         
         [ForeignKey(nameof(PlannedOrderCategory))]

@@ -21,6 +21,12 @@ namespace Db
 
             builder.HasDefaultSchema("spas-dom");
 
+            var marketplaceOrder = builder.Entity<MarketplaceOrder>();
+
+            marketplaceOrder.HasOne(o => o.Service)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
+            
             var notification = builder.Entity<Announcement>();
 
             var photo = builder.Entity<Photo>();

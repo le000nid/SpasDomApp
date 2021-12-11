@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "dredd": "^14.1.0",
+    "hercule": "^0.2.0",
     "snowboard": "^4.1.21"
   }
 }

@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
 
     var date = Calendar.getInstance()
     lateinit var weekday: String
-    var OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
+    var OrderGetFormat = SimpleDateFormat("yyyy-MM-dd").format(date.time)
     lateinit var OrderShowFormat: String
 
     var orderItems = repository.getOrderItems(OrderGetFormat)
@@ -56,7 +56,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun changeDate(){
-        OrderGetFormat = SimpleDateFormat("dd-MM-yyyy").format(date.time)
+        OrderGetFormat = SimpleDateFormat("yyyy-MM-dd").format(date.time)
         when(date.get(Calendar.DAY_OF_WEEK)){
             1 -> {
                 weekday = "Понедельник"

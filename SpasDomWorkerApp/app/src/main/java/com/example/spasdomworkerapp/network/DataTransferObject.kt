@@ -12,8 +12,7 @@ data class NetworkOrderItem(
     val address: String,
     val time: String,
     val problem: String,
-    val active: Boolean,
-    val finished: Boolean,
+    val status: Int,
     val id: Int)
 
 
@@ -24,8 +23,7 @@ fun NetworkOrdersContainer.asDatabaseModel(): Array<DatabaseOrderItem> {
             address = it.address,
             time = it.time,
             problem = it.problem,
-            active = it.active,
-            finished  = it.finished,
+            status = it.status,
             id = it.id)
     }.toTypedArray()
 }
@@ -36,7 +34,6 @@ fun NetworkOrder.asDatabaseModel(): DatabaseOrderItem {
         address = order.address,
         time = order.time,
         problem = order.problem,
-        active = order.active,
-        finished  = order.finished,
+        status = order.status,
         id = order.id)
 }

@@ -34,6 +34,7 @@ class OrderItemsRepository @Inject constructor(
 
     suspend fun refreshOrderItems() = safeApiCall{
         val orders = api.getPlannedOrders()
+        val co = api.getPlannedOrders()
         cacheDao.insertAllOrders(*orders.asCacheModel())
     }
 }

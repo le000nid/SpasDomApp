@@ -9,9 +9,8 @@ data class DatabaseOrderItem constructor(
     val date: String,
     val address: String,
     val time: String,
+    val status: Int,
     val problem: String,
-    val active: Boolean,
-    val finished: Boolean,
     @PrimaryKey
     val id: Int
     )
@@ -23,8 +22,7 @@ fun List<DatabaseOrderItem>.asDomainOrder(): List<Order> {
             address = it.address,
             time = it.time,
             problem = it.problem,
-            active = it.active,
-            finished  = it.finished,
+            status = it.status,
             id = it.id
         )
     }

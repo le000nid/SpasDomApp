@@ -24,11 +24,11 @@ class OrderDetailedFragment : Fragment(R.layout.fragment_order) {
 
         val status: String
 
-        if(itemOrder.finished){
+        if(itemOrder.status == 2){
             status = "Завершён"
             binding.beginButton.isEnabled = false
             binding.beginButton.visibility = View.INVISIBLE
-        } else if (itemOrder.active) {
+        } else if (itemOrder.status == 1) {
             status = "В процессе"
             binding.beginButton.text = "Продолжить"
         } else {

@@ -6,18 +6,17 @@ import com.example.spasdomworkerapp.models.PlannedOrder
 import java.util.*
 
 data class OrderListResponse(
-    val order: List<PlannedOrder>
+    val order: List<Order>
 )
 
 fun OrderListResponse.asCacheModel(): Array<DatabaseOrderItem> {
     return order.map {
         DatabaseOrderItem (
-            date = it.date.substring(0, 10),
-            address = it.title,
-            time = it.date.substring(11,15),
-            problem = it.title,
-            active = false,
-            finished  = false,
+            date = it.date,
+            address = it.address,
+            time = it.time,
+            problem = it.problem,
+            status = it.status,
             id = it.id
         )
     }.toTypedArray()

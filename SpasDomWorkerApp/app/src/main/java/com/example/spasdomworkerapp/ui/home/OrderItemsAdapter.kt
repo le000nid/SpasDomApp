@@ -48,7 +48,7 @@ class OrderItemsAdapter(val callback: OrderItemClick) : RecyclerView.Adapter<Ord
         holder.viewDataBinding.also {
             it.orderItem = orderItems[position]
             it.orderItemCallback = callback
-            if(it.orderItem?.active == true){
+            if(it.orderItem?.status == 1){
                 it.orderCard.strokeColor = Color.parseColor("#5C6BC0")
             } else {
                 it.orderCard.strokeColor = Color.parseColor("#BCBCBB")

@@ -141,8 +141,7 @@ class ActiveOrderFragment : Fragment() {
 
         binding.btnFinish.setOnClickListener {
             //TODO: clear tinyDB
-            itemOrder.finished = true
-            itemOrder.active = false
+            itemOrder.status = 2
             lifecycleScope.launch {
                 viewModel.saveOrderItem(itemOrder)
             }
@@ -150,7 +149,7 @@ class ActiveOrderFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        if(itemOrder.active){
+        if(itemOrder.status == 1){
             val tinyDB = TinyDB(context)
             startTime.time = tinyDB.getLong(itemOrder.id.toString()+"time")
             val savedDoorList = tinyDB.getListPhoto(itemOrder.id.toString()+"door")
@@ -208,7 +207,7 @@ class ActiveOrderFragment : Fragment() {
     fun checkForDoorImage(){
         val itemOrder = args.orderItem
         if(viewModel.doorPhotos.value!!.isNotEmpty()){
-            itemOrder.active = true
+            itemOrder.status = 1
             lifecycleScope.launch {
                 viewModel.saveOrderItem(itemOrder)
             }

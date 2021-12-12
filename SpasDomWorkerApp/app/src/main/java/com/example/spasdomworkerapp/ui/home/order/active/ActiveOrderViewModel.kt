@@ -26,7 +26,7 @@ class ActiveOrderViewModel @Inject constructor(
         get() = _doorPhotos
 
     suspend fun saveOrderItem(itemOrder: Order) {
-        val order = NetworkOrderItem(itemOrder.date, itemOrder.address, itemOrder.time, itemOrder.problem, itemOrder.active, itemOrder.finished, itemOrder.id)
+        val order = NetworkOrderItem(itemOrder.date, itemOrder.address, itemOrder.time, itemOrder.problem, itemOrder.status, itemOrder.id)
         repository.saveOrderItem(order)
     }
 

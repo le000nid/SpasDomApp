@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
-        tools:context=".ui.services.planned.categories.date.PlannedDateFragment">
+        tools:context=".ui.services.planned.addplannedorder.date.PlannedDateFragment">
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -178,7 +178,8 @@
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_done" />
+            app:srcCompat="@drawable/ic_done"
+            android:focusable="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

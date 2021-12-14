@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services
+package com.example.spasdomuserapp.ui.services.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

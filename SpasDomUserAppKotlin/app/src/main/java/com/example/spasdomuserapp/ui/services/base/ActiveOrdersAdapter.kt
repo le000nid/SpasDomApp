@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned
+package com.example.spasdomuserapp.ui.services.base
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

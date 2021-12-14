@@ -67,7 +67,7 @@
         tools:layout="@layout/fragment_planned" />
     <fragment
         android:id="@+id/plannedCategoriesFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.categories.category.PlannedCategoriesFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesFragment"
         android:label="Выберите категорию"
         tools:layout="@layout/fragment_planned_categories">
         <action
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/plannedSubcategoryFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.categories.subcategory.PlannedSubcategoryFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.subcategory.PlannedSubcategoryFragment"
         android:label="{categoryName}"
         tools:layout="@layout/fragment_planned_subcategory">
         <argument
@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/plannedInfoFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.categories.info.PlannedInfoFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.info.PlannedInfoFragment"
         android:label="{subcategoryName}"
         tools:layout="@layout/fragment_planned_info">
         <argument
@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/plannedDateFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.categories.date.PlannedDateFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.date.PlannedDateFragment"
         android:label="{categoryName}"
         tools:layout="@layout/fragment_planned_date">
         <argument
@@ -143,7 +143,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderDetailedFragment"
-        android:name="com.example.spasdomuserapp.ui.services.OrderDetailedFragment"
+        android:name="com.example.spasdomuserapp.ui.services.base.OrderDetailedFragment"
         android:label="{orderTitle}"
         tools:layout="@layout/fragment_order_detailed">
         <argument

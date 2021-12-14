@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned
+package com.example.spasdomuserapp.ui.services.base
 
 import com.example.spasdomuserapp.models.Order
 

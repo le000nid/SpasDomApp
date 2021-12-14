@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.categories.category
+package com.example.spasdomuserapp.ui.services.planned.addplannedorder.category
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,6 @@ import com.example.spasdomuserapp.models.CategoriesList
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.ServicesRepository
 import com.example.spasdomuserapp.responses.CategoriesResponse
-import com.example.spasdomuserapp.responses.UserResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.categories.subcategory
+package com.example.spasdomuserapp.ui.services.planned.addplannedorder.subcategory
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedSubcategoryBinding
-import com.example.spasdomuserapp.ui.services.planned.categories.category.PlannedCategoriesClick
-import com.example.spasdomuserapp.ui.services.planned.categories.category.PlannedCategoriesAdapter
+import com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesClick
+import com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesAdapter
 
 
 class PlannedSubcategoryFragment : Fragment() {

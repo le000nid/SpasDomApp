@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.categories.info
+package com.example.spasdomuserapp.ui.services.planned.addplannedorder.info
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle

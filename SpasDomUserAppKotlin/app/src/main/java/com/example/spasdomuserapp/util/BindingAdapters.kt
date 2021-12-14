@@ -8,7 +8,7 @@ import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.spasdomuserapp.R
-import com.example.spasdomuserapp.models.PlannedCategory
+import com.example.spasdomuserapp.models.CategoriesList
 
 /**
  * Binding adapter used to hide the spinner once data is available
@@ -97,7 +97,7 @@ fun dateType(cardView: CardView, type: Int) {
 
 //TODO (Add all drawables for categories)
 @BindingAdapter("categoryImage")
-fun ImageView.setCategoryImage(item: PlannedCategory) {
+fun ImageView.setCategoryImage(item: CategoriesList) {
     setImageResource(when (item.drawableId) {
         1 -> R.drawable.ic_water_drop
         2 -> R.drawable.ic_home

@@ -16,6 +16,9 @@ interface OrderApi {
         @Path("id") id: Int,
         @Body update: List<OrderUpdate>) : Boolean
 
+    @GET("/planned-categories")
+    suspend fun getPlannedCategories(): CategoriesResponse
+
 
     @POST("/marked-orders")
     suspend fun postMarketOrder(@Body order: OrderPost): OrderResponse

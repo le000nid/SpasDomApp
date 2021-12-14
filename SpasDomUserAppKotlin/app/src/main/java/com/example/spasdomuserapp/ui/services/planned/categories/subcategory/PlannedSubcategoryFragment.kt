@@ -24,7 +24,7 @@ class PlannedSubcategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        plannedCategoriesAdapter?.plannedCategories = args.category.subcategory ?: listOf()
+        plannedCategoriesAdapter?.categoriesLists = args.category.subcategory ?: listOf()
     }
 
     override fun onCreateView(

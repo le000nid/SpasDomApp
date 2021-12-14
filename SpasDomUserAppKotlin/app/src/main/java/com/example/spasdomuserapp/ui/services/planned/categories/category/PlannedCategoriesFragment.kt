@@ -12,18 +12,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedCategoriesBinding
-import com.example.spasdomuserapp.models.PlannedCategory
+import com.example.spasdomuserapp.models.CategoriesList
+import com.example.spasdomuserapp.network.Resource
+import com.example.spasdomuserapp.util.handleApiError
+import com.example.spasdomuserapp.util.visible
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlannedCategoriesFragment : Fragment() {
 
     private var plannedCategoriesAdapter: PlannedCategoriesAdapter? = null
-    private val viewModel: Lvl1PlannedOrderViewModel by viewModels()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        plannedCategoriesAdapter?.plannedCategories = viewModel.plannedCategories
-    }
+    private val viewModel: CategoriesPlannedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,8 +30,27 @@ class PlannedCategoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentPlannedCategoriesBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_planned_categories, container, false)
-
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.progressBar.visible(false)
+
+
+        // TODO(Uncomment when you will receive categories from server)
+        /*viewModel.getPlannedCategories()
+
+        viewModel.plannedCategories.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    binding.progressBar.visible(false)
+                    plannedCategoriesAdapter?.categoriesLists = it.value.categoriesList
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.visible(true)
+                }
+                is Resource.Failure -> {
+                    handleApiError(it)
+                }
+            }
+        }*/
 
         plannedCategoriesAdapter = PlannedCategoriesAdapter(PlannedCategoriesClick { category ->
             val action = PlannedCategoriesFragmentDirections.actionPlannedCategoriesFragmentToPlannedSubcategoryFragment(category, category.label)
@@ -44,10 +62,12 @@ class PlannedCategoriesFragment : Fragment() {
             adapter = plannedCategoriesAdapter
         }
 
+        plannedCategoriesAdapter?.categoriesLists = viewModel.categoriesLists
+
         return binding.root
     }
 }
 
-class PlannedCategoriesClick(val block: (PlannedCategory) -> Unit) {
-    fun onClick(plannedCategory: PlannedCategory) = block(plannedCategory)
+class PlannedCategoriesClick(val block: (CategoriesList) -> Unit) {
+    fun onClick(categoriesList: CategoriesList) = block(categoriesList)
 }

@@ -81,7 +81,7 @@
         tools:layout="@layout/fragment_planned_subcategory">
         <argument
             android:name="category"
-            app:argType="com.example.spasdomuserapp.models.PlannedCategory" />
+            app:argType="com.example.spasdomuserapp.models.CategoriesList" />
         <argument
             android:name="categoryName"
             app:argType="string" />
@@ -96,7 +96,7 @@
         tools:layout="@layout/fragment_planned_info">
         <argument
             android:name="subcategory"
-            app:argType="com.example.spasdomuserapp.models.PlannedCategory" />
+            app:argType="com.example.spasdomuserapp.models.CategoriesList" />
         <argument
             android:name="subcategoryName"
             app:argType="string" />

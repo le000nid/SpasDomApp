@@ -8,12 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemCategoryCardBinding
-import com.example.spasdomuserapp.models.PlannedCategory
+import com.example.spasdomuserapp.models.CategoriesList
 
 
 class PlannedCategoriesAdapter(val callback: PlannedCategoriesClick) : RecyclerView.Adapter<PlannedCategoriesAdapter.CategoriesViewHolder>() {
 
-    var plannedCategories: List<PlannedCategory> = emptyList()
+    var categoriesLists: List<CategoriesList> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -29,11 +29,11 @@ class PlannedCategoriesAdapter(val callback: PlannedCategoriesClick) : RecyclerV
         return CategoriesViewHolder(withDataBinding)
     }
 
-    override fun getItemCount() = plannedCategories.size
+    override fun getItemCount() = categoriesLists.size
 
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            it.category = plannedCategories[position]
+            it.category = categoriesLists[position]
             it.click = callback
         }
     }

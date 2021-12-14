@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_servicesFragment_to_orderDetailedFragment"
             app:destination="@id/orderDetailedFragment" />
+        <action
+            android:id="@+id/action_servicesFragment_to_marketCategoriesFragment"
+            app:destination="@id/marketCategoriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -162,5 +165,10 @@
             android:name="currentChat"
             app:argType="com.example.spasdomuserapp.ui.chat.Chat" />
     </fragment>
+    <fragment
+        android:id="@+id/marketCategoriesFragment"
+        android:name="com.example.spasdomuserapp.ui.services.market.addmarketorder.MarketCategoriesFragment"
+        android:label="MarketCategoriesFragment"
+        tools:layout="@layout/fragment_market_categories"/>
 
 </navigation>

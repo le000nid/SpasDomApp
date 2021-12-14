@@ -7,11 +7,11 @@
 
         <variable
             name="category"
-            type="com.example.spasdomuserapp.models.CategoriesList" />
+            type="com.example.spasdomuserapp.models.SectionCategory" />
 
         <variable
             name="click"
-            type="com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesClick" />
+            type="com.example.spasdomuserapp.ui.services.market.addmarketorder.MarketCategoryItemClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +50,7 @@
             android:layout_marginTop="@dimen/spacing_tiny"
             android:gravity="center"
             android:onClick="@{() -> click.onClick(category)}"
-            android:text="@{category.label}"
+            android:text="@{category.title}"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="@+id/card1"
             app:layout_constraintStart_toStartOf="@+id/card1"

@@ -97,8 +97,8 @@ fun dateType(cardView: CardView, type: Int) {
 
 //TODO (Add all drawables for categories)
 @BindingAdapter("categoryImage")
-fun ImageView.setCategoryImage(item: CategoriesList) {
-    setImageResource(when (item.drawableId) {
+fun ImageView.setCategoryImage(item: Int) {
+    setImageResource(when (item) {
         1 -> R.drawable.ic_water_drop
         2 -> R.drawable.ic_home
         else -> R.drawable.ic_broken_image

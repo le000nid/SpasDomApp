@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.SectionCategory
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.ServicesRepository
+import com.example.spasdomuserapp.responses.SectionCategories
 import com.example.spasdomuserapp.responses.SectionCategoriesResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,12 +27,28 @@ class MarketCategoriesViewModel @Inject constructor(
         _marketCategories.value = repository.getMarketCategories()
     }
 
-    val categoriesLists: List<SectionCategory> = listOf(
-        SectionCategory("Игорь на час", 1, ""),
-        SectionCategory("Помощь с пк", 5, ""),
-        SectionCategory("Помощь с ремонтом", 5, ""),
-        SectionCategory("Няня на час", 5, ""),
-        SectionCategory("Помощь с уборкой", 5, ""),
+    val categoriesLists: List<SectionCategories> = listOf(
+        SectionCategories("Популярное", listOf(
+                SectionCategory("Помощь с пк", 5, ""),
+                SectionCategory("Помощь с ремонтом", 5, ""),
+                SectionCategory("Няня на час", 5, ""),
+                SectionCategory("Помощь с уборкой", 5, ""),
+                SectionCategory("Помощь с уборкой", 5, "")
+            )),
+        SectionCategories("Необходимое", listOf(
+            SectionCategory("Помощь с пк", 5, ""),
+            SectionCategory("Помощь с ремонтом", 5, ""),
+            SectionCategory("Няня на час", 5, ""),
+            SectionCategory("Помощь с уборкой", 5, ""),
+            SectionCategory("Помощь с уборкой", 5, "")
+        )),
+        SectionCategories("Важное", listOf(
+            SectionCategory("Помощь с пк", 5, ""),
+            SectionCategory("Помощь с ремонтом", 5, ""),
+            SectionCategory("Няня на час", 5, ""),
+            SectionCategory("Помощь с уборкой", 5, ""),
+            SectionCategory("Помощь с уборкой", 5, "")
+        ))
     )
 
 }

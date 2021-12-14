@@ -24,16 +24,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                app:visibleActiveOrders="@{viewModel.activeMarketOrders}"
-                app:visibleHistoryOrders="@{viewModel.historyMarketOrders}"
+                app:visibleRv1="@{viewModel.activeMarketOrders}"
+                app:visibleRv2="@{viewModel.historyMarketOrders}"
                 app:constraint_referenced_ids="action_add_order, tx_active, active_planned_rv, tx_history, history_planned_rv" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:goneActiveOrders="@{viewModel.activeMarketOrders}"
-                app:goneHistoryOrders="@{viewModel.historyMarketOrders}"
+                app:goneRv1="@{viewModel.activeMarketOrders}"
+                app:goneRv2="@{viewModel.historyMarketOrders}"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true" />
 

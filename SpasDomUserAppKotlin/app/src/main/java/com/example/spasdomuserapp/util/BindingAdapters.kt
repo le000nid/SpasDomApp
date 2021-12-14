@@ -18,13 +18,13 @@ fun goneIfNotNull(view: View, it: Any?) {
     view.visibility = if (it != null) View.GONE else View.VISIBLE
 }
 
-@BindingAdapter("goneActiveOrders","goneHistoryOrders")
-fun goneIfOrdersNotNull(view: View, it1: Any?, it2: Any?) {
+@BindingAdapter("goneRv1","goneRv2")
+fun goneIfRVNotNull(view: View, it1: Any?, it2: Any?) {
     view.visibility = if (it1 != null || it2 != null) View.GONE else View.VISIBLE
 }
 
-@BindingAdapter("visibleActiveOrders","visibleHistoryOrders")
-fun visibleIfOrdersNotNull(view: View, it1: Any?, it2: Any?) {
+@BindingAdapter("visibleRv1","visibleRv2")
+fun visibleIfRVNotNull(view: View, it1: Any?, it2: Any?) {
     view.visibility = if (it1 != null || it2 != null) View.VISIBLE else View.GONE
 }
 

@@ -9,12 +9,13 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
-import com.example.spasdomuserapp.databinding.FragmentPlannedInfoBinding
+import com.example.spasdomuserapp.databinding.FragmentOrderInfoBinding
 import com.example.spasdomuserapp.models.Photo
 import com.example.spasdomuserapp.models.OrderPost
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -22,15 +23,15 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 class PlannedInfoFragment : Fragment() {
 
     private var photoAdapter: PhotoAdapter? = null
-    private val viewModel: InfoPlannedOrderViewModel by viewModels()
+    private val infoViewModel: OrderInfoViewModel by viewModels()
     private val args by navArgs<PlannedInfoFragmentArgs>()
 
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { intent ->
         if (intent.data?.data != null) {
             // TODO(Add the restriction to number of photos that user can upload)
-            val oldList = viewModel.photos.value?.toMutableList()
+            val oldList = infoViewModel.photos.value?.toMutableList()
             oldList?.add(Photo(uri = intent.data?.data))
-            viewModel.photos.value = oldList?.toList()
+            infoViewModel.photos.value = oldList?.toList()
         }
     }
 
@@ -39,14 +40,14 @@ class PlannedInfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentPlannedInfoBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_planned_info, container, false)
+        val binding: FragmentOrderInfoBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_order_info, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
 
         photoAdapter = PhotoAdapter(PhotoRemoveClick {
-            val oldList = viewModel.photos.value?.toMutableList()
+            val oldList = infoViewModel.photos.value?.toMutableList()
             oldList?.remove(it)
-            viewModel.photos.value = oldList?.toList()
+            infoViewModel.photos.value = oldList?.toList()
         })
 
         binding.root.findViewById<RecyclerView>(R.id.photos_rv).apply {
@@ -66,17 +67,25 @@ class PlannedInfoFragment : Fragment() {
         }
 
         binding.editTextOrder.addTextChangedListener {
-            viewModel.comment = it.toString()
+            infoViewModel.comment = it.toString()
         }
 
         binding.btnNext.setOnClickListener {
 
-            val categoryId = args.categoryId
-            val subcategoryId = args.subcategory.drawableId
-            val plannedOrderPost = OrderPost(categoryId, subcategoryId, viewModel.comment)
+            val subcategory = args.subcategory
+            val workerPreview = args.workerPreview
 
-            val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(args.subcategory.label, plannedOrderPost)
-            findNavController().navigate(action)
+            if (subcategory != null) {
+                val categoryId = args.categoryId
+                val subcategoryId = subcategory.drawableId
+                val plannedOrderPost = OrderPost(categoryId, subcategoryId, infoViewModel.comment)
+                val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(subcategory.label, plannedOrderPost)
+                findNavController().navigate(action)
+            } else if (workerPreview != null) {
+                val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(args.appBarTitle, workerPreview = workerPreview)
+                findNavController().navigate(action)
+            }
+
         }
 
         return binding.root
@@ -85,8 +94,8 @@ class PlannedInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.photos.observe(viewLifecycleOwner) {
-            photoAdapter?.photos = viewModel.photos.value!!.toList()
+        infoViewModel.photos.observe(viewLifecycleOwner) {
+            photoAdapter?.photos = infoViewModel.photos.value!!.toList()
         }
     }
 }

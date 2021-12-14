@@ -90,45 +90,62 @@
             app:argType="string" />
         <action
             android:id="@+id/action_plannedSubcategoryFragment_to_plannedInfoFragment"
-            app:destination="@id/plannedInfoFragment" />
+            app:destination="@id/orderInfoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/plannedInfoFragment"
+        android:id="@+id/orderInfoFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.info.PlannedInfoFragment"
-        android:label="{subcategoryName}"
-        tools:layout="@layout/fragment_planned_info">
+        android:label="{appBarTitle}"
+        tools:layout="@layout/fragment_order_info">
         <argument
             android:name="subcategory"
-            app:argType="com.example.spasdomuserapp.models.CategoriesList" />
+            app:argType="com.example.spasdomuserapp.models.CategoriesList"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
-            android:name="subcategoryName"
+            android:name="appBarTitle"
             app:argType="string" />
         <action
             android:id="@+id/action_plannedInfoFragment_to_plannedDateFragment"
             app:destination="@id/plannedDateFragment" />
         <argument
             android:name="categoryName"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="categoryId"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="workerPreview"
+            app:argType="com.example.spasdomuserapp.models.WorkerPreview"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/plannedDateFragment"
         android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.date.PlannedDateFragment"
-        android:label="{categoryName}"
+        android:label="{appBarTitle}"
         tools:layout="@layout/fragment_planned_date">
         <argument
-            android:name="categoryName"
+            android:name="appBarTitle"
             app:argType="string" />
         <argument
             android:name="plannedOrderPost"
-            app:argType="com.example.spasdomuserapp.models.OrderPost" />
+            app:argType="com.example.spasdomuserapp.models.OrderPost"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_plannedDateFragment_to_successFragment"
             app:destination="@id/successFragment"
             app:popUpTo="@id/successFragment"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="workerPreview"
+            app:argType="com.example.spasdomuserapp.models.WorkerPreview"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/successFragment"
@@ -177,14 +194,17 @@
     <fragment
         android:id="@+id/marketWorkersFragment"
         android:name="com.example.spasdomuserapp.ui.services.market.workers.MarketWorkersFragment"
-        android:label="{categoryTitle}"
+        android:label="{appBarTitle}"
         tools:layout="@layout/fragment_market_workers">
         <argument
-            android:name="categoryTitle"
+            android:name="appBarTitle"
             app:argType="string" />
         <argument
             android:name="category"
             app:argType="com.example.spasdomuserapp.models.SectionCategory" />
+        <action
+            android:id="@+id/action_marketWorkersFragment_to_plannedInfoFragment"
+            app:destination="@id/orderInfoFragment" />
     </fragment>
 
 </navigation>

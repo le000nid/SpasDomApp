@@ -5,7 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.spasdomuserapp.models.Photo
 
-class InfoPlannedOrderViewModel (
+class OrderInfoViewModel (
     private val state: SavedStateHandle
 ) : ViewModel() {
 

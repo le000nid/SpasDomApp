@@ -90,6 +90,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Опыт работы 2 года" />
 
+            <!--TODO(Make adapters for string)-->
             <TextView
                 android:id="@+id/txPrice"
                 android:text="@{worker.averageCost}"

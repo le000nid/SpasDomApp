@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentMarketWorkersBinding
 import com.example.spasdomuserapp.models.WorkerPreview
+import com.example.spasdomuserapp.ui.services.planned.addplannedorder.info.PlannedInfoFragmentArgs
 import com.example.spasdomuserapp.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +22,7 @@ class MarketWorkersFragment : Fragment() {
 
     private val viewModel: MarketWorkersViewModel by viewModels()
     private var workersAdapter: MarketWorkersAdapter? = null
+    private val args by navArgs<MarketWorkersFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +52,8 @@ class MarketWorkersFragment : Fragment() {
         }*/
 
         workersAdapter = MarketWorkersAdapter(WorkerClick {
-            // TODO(Navigate next)
+            val action = MarketWorkersFragmentDirections.actionMarketWorkersFragmentToPlannedInfoFragment(appBarTitle = args.appBarTitle, workerPreview = it)
+            findNavController().navigate(action)
         })
 
         binding.workersRV.apply {

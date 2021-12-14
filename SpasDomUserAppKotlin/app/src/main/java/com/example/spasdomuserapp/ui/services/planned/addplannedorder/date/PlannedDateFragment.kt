@@ -78,12 +78,17 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
             }
 
             val date = viewModel.date + " " + viewModel.time
-            var finalOrder = args.plannedOrderPost
-            finalOrder = finalOrder?.copy(date = date, workerId = viewModel.workerId!!)
-            val cacheOrder = Order(4, "Проверка воды", viewModel.date.toString(), viewModel.time.toString(), 0, "",0, "", "Алексей Воронов", 5, "Опытный специалист")
 
-            //viewModel.postPlannedOrder(finalOrder)
-            viewModel.insertPlannedOrderToCache(cacheOrder)
+            if (args.plannedOrderPost != null) {
+                var finalOrder = args.plannedOrderPost
+                finalOrder = finalOrder?.copy(date = date, workerId = viewModel.workerId!!)
+                val cacheOrder = Order(4, "Проверка воды", viewModel.date.toString(), viewModel.time.toString(), 0, "",0, "", "Алексей Воронов", 5, "Опытный специалист")
+                //viewModel.postPlannedOrder(finalOrder)
+                viewModel.insertPlannedOrderToCache(cacheOrder)
+            } else if (args.workerPreview != null) {
+
+            }
+
             val action = PlannedDateFragmentDirections.actionPlannedDateFragmentToSuccessFragment()
             findNavController().navigate(action)
         }

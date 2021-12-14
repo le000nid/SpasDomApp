@@ -115,22 +115,22 @@ class PlannedFragment : Fragment() {
                 val review = dialogBinding.editTextReview.text.toString()
                 val newOrder = plannedOrder.copy(userRate = rating.toInt(), userReview = review)
 
+                viewModel.putPlannedOrder(newOrder)
+
                 viewModel.plannedPutResponse.observe(viewLifecycleOwner) {
                     // set up progress bar
                     when (it) {
                         is Resource.Success -> {
                             lifecycleScope.launch {
                                 //viewModel.updatePlannedOrder(newOrder)
+                                // TODO(Wait for response and update UI or put in in cache without refresh)
+                                viewModel.swipeToRefresh()
                                 dialog.dismiss()
                             }
                         }
                         is Resource.Failure -> handleApiError(it) {  } //TODO(What to do?)
                     }
                 }
-
-                //viewModel.putPlannedOrder(newOrder)
-                viewModel.updatePlannedOrder(newOrder)
-                dialog.dismiss()
             }
         }
         dialog.show()

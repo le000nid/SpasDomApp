@@ -10,6 +10,7 @@ import com.example.spasdomuserapp.models.PlannedOrderPost
 import com.example.spasdomuserapp.network.OrderApi
 import com.example.spasdomuserapp.network.SafeApiCall
 import com.example.spasdomuserapp.responses.PlannedUpdate
+import com.example.spasdomuserapp.responses.asCacheModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -36,8 +37,9 @@ class PlannedRepository @Inject constructor(
         }
     }
 
+    // TODO( 1) delete hardcode in [cacheDatable] 2) uncomment below )
     suspend fun refreshPlannedOrders() = safeApiCall {
-        val orders = api.getPlannedOrders()
+        //val orders = api.getPlannedOrders()
         //cacheDao.insertAllPlannedOrders(*orders.asCacheModel())
     }
 

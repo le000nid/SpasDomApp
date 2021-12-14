@@ -30,14 +30,6 @@ class PlannedViewModel@Inject constructor(
         repository.refreshPlannedOrders()
     }
 
-    /*private val _plannedResponse: MutableLiveData<Resource<PlannedResponse>> = MutableLiveData()
-    val plannedResponse: LiveData<Resource<PlannedResponse>>
-        get() = _plannedResponse
-
-    fun postPlannedOrder(order: PlannedOrderPost) = viewModelScope.launch {
-        _plannedResponse.value = Resource.Loading
-        _plannedResponse.value = repository.postPlannedOrder(order)
-    }*/
 
     private val _plannedPutResponse: MutableLiveData<Resource<Boolean>> = MutableLiveData()
     val plannedPutResponse: LiveData<Resource<Boolean>>

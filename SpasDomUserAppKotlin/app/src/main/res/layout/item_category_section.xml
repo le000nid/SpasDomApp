@@ -10,9 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_large"
-        android:layout_marginEnd="@dimen/spacing_normal">
+        android:layout_marginEnd="@dimen/spacing_little">
 
         <TextView
             android:id="@+id/sectionTitle"
@@ -29,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_little"
+            android:nestedScrollingEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sectionTitle" />

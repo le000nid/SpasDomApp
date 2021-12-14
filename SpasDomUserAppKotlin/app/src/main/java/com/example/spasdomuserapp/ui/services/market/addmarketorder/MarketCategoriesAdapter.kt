@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemCategorySectionBinding
@@ -38,11 +39,11 @@ class MarketCategoriesAdapter : RecyclerView.Adapter<MarketCategoriesAdapter.Vie
             it.sectionTitle.text = sectionedCategories[position].title
 
             val sectionAdapter = MarketCategoriesSectionedAdapter(MarketCategoryItemClick { item ->
-                Log.i("itemClick", item.title)
+
             })
 
             it.root.findViewById<RecyclerView>(R.id.sectionRV).apply {
-                layoutManager = GridLayoutManager(context, 4)
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = sectionAdapter
             }
 

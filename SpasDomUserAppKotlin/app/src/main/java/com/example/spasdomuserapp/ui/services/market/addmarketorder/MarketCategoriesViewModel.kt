@@ -48,6 +48,13 @@ class MarketCategoriesViewModel @Inject constructor(
             SectionCategory("Няня на час", 5, ""),
             SectionCategory("Помощь с уборкой", 5, ""),
             SectionCategory("Помощь с уборкой", 5, "")
+        )),
+        SectionCategories("Что-то ещё", listOf(
+            SectionCategory("Помощь с пк", 5, ""),
+            SectionCategory("Помощь с ремонтом", 5, ""),
+            SectionCategory("Няня на час", 5, ""),
+            SectionCategory("Помощь с уборкой", 5, ""),
+            SectionCategory("Помощь с уборкой", 5, "")
         ))
     )
 

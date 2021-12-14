@@ -168,7 +168,7 @@
     <fragment
         android:id="@+id/marketCategoriesFragment"
         android:name="com.example.spasdomuserapp.ui.services.market.addmarketorder.MarketCategoriesFragment"
-        android:label="MarketCategoriesFragment"
-        tools:layout="@layout/fragment_market_categories"/>
+        android:label="Выберите категорию"
+        tools:layout="@layout/fragment_market_categories" />
 
 </navigation>

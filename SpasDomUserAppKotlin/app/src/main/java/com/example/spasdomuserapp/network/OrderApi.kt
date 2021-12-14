@@ -30,4 +30,7 @@ interface OrderApi {
     suspend fun updateMarketOrder(
         @Path("id") id: Int,
         @Body update: List<OrderUpdate>) : Boolean
+
+    @GET("/market-categories")
+    suspend fun getMarketCategories(): SectionCategoriesResponse
 }

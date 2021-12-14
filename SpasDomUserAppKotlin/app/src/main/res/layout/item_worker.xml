@@ -9,4 +9,91 @@
             type="com.example.spasdomuserapp.models.Worker" />
     </data>
 
+    <com.google.android.material.card.MaterialCardView
+        style="@style/cardWithBorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:layout_marginTop="@dimen/spacing_normal"
+        android:layout_marginEnd="@dimen/spacing_normal"
+        app:contentPaddingBottom="@dimen/spacing_big"
+        app:contentPaddingLeft="@dimen/spacing_normal"
+        app:contentPaddingRight="@dimen/spacing_normal"
+        app:contentPaddingTop="@dimen/spacing_big">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/workerIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/im_worker" />
+
+            <TextView
+                android:id="@+id/txWorkerName"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_normal"
+                app:layout_constraintTop_toTopOf="@+id/workerIcon"
+                app:layout_constraintStart_toEndOf="@+id/workerIcon"
+                tools:text="Петров Николай Васильевич" />
+
+
+            <ImageView
+                android:id="@+id/workerRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                app:layout_constraintStart_toStartOf="@+id/txWorkerName"
+                app:layout_constraintTop_toBottomOf="@+id/txWorkerName"
+                tools:src="@drawable/ic_rate_0" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grayMiddle"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/workerRate" />
+
+
+            <ImageView
+                android:id="@+id/ic_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_navigate_next"
+                app:tint="@color/grayMiddle" />
+
+            <TextView
+                android:id="@+id/txExp"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:layout_constraintTop_toBottomOf="@+id/line"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Опыт работы 2 года" />
+
+            <TextView
+                android:id="@+id/txPrice"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                app:layout_constraintTop_toBottomOf="@+id/line"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="За услугу: 1000 ₽" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

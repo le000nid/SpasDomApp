@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +16,7 @@ import com.example.spasdomuserapp.databinding.ItemCategorySectionBinding
 import com.example.spasdomuserapp.models.SectionCategory
 import com.example.spasdomuserapp.responses.SectionCategories
 
-class MarketCategoriesAdapter : RecyclerView.Adapter<MarketCategoriesAdapter.ViewHolder>() {
+class MarketCategoriesAdapter(val parentFragment: Fragment) : RecyclerView.Adapter<MarketCategoriesAdapter.ViewHolder>() {
 
     var sectionedCategories: List<SectionCategories> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
@@ -39,7 +41,8 @@ class MarketCategoriesAdapter : RecyclerView.Adapter<MarketCategoriesAdapter.Vie
             it.sectionTitle.text = sectionedCategories[position].title
 
             val sectionAdapter = MarketCategoriesSectionedAdapter(MarketCategoryItemClick { item ->
-
+                val action = MarketCategoriesFragmentDirections.actionMarketCategoriesFragmentToMarketWorkersFragment(item.title, item)
+                parentFragment.findNavController().navigate(action)
             })
 
             it.root.findViewById<RecyclerView>(R.id.sectionRV).apply {

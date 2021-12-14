@@ -6,13 +6,17 @@
     <data>
         <variable
             name="worker"
-            type="com.example.spasdomuserapp.models.Worker" />
+            type="com.example.spasdomuserapp.models.WorkerPreview" />
+        <variable
+            name="workerClick"
+            type="com.example.spasdomuserapp.ui.services.market.workers.WorkerClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         style="@style/cardWithBorder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{() -> workerClick.onClick(worker)}"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
@@ -25,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!--TODO(Upload photo using binding adapter and Glide)-->
             <ImageView
                 android:id="@+id/workerIcon"
                 android:layout_width="48dp"
@@ -36,6 +41,7 @@
             <TextView
                 android:id="@+id/txWorkerName"
                 style="@style/TextAppearance.MaterialComponents.Body1"
+                android:text="@{worker.name}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
@@ -43,11 +49,11 @@
                 app:layout_constraintStart_toEndOf="@+id/workerIcon"
                 tools:text="Петров Николай Васильевич" />
 
-
             <ImageView
                 android:id="@+id/workerRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:setRating="@{worker.rate}"
                 android:layout_marginTop="@dimen/spacing_tiny"
                 app:layout_constraintStart_toStartOf="@+id/txWorkerName"
                 app:layout_constraintTop_toBottomOf="@+id/txWorkerName"
@@ -77,6 +83,7 @@
                 android:id="@+id/txExp"
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="0dp"
+                android:text="@{worker.experience}"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_normal"
                 app:layout_constraintTop_toBottomOf="@+id/line"
@@ -85,6 +92,7 @@
 
             <TextView
                 android:id="@+id/txPrice"
+                android:text="@{worker.averageCost}"
                 style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

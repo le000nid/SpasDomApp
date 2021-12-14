@@ -12,4 +12,7 @@ data class WorkerPreview (
     val averageCost: String,
     var rate: Int,
     val experience: String,
-): Parcelable
+): Parcelable {
+    val name: String
+        get() = "$firstName $lastName"
+}

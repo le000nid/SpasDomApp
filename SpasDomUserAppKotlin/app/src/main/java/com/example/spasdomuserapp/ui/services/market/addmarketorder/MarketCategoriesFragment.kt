@@ -54,7 +54,7 @@ class MarketCategoriesFragment : Fragment() {
             }
         }*/
 
-        marketAdapter = MarketCategoriesAdapter()
+        marketAdapter = MarketCategoriesAdapter(this)
 
         binding.marketSectionedRv.apply {
             layoutManager = LinearLayoutManager(activity)

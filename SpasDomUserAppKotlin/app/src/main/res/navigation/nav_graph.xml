@@ -169,6 +169,22 @@
         android:id="@+id/marketCategoriesFragment"
         android:name="com.example.spasdomuserapp.ui.services.market.addmarketorder.MarketCategoriesFragment"
         android:label="Выберите категорию"
-        tools:layout="@layout/fragment_market_categories" />
+        tools:layout="@layout/fragment_market_categories" >
+        <action
+            android:id="@+id/action_marketCategoriesFragment_to_marketWorkersFragment"
+            app:destination="@id/marketWorkersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/marketWorkersFragment"
+        android:name="com.example.spasdomuserapp.ui.services.market.workers.MarketWorkersFragment"
+        android:label="{categoryTitle}"
+        tools:layout="@layout/fragment_market_workers">
+        <argument
+            android:name="categoryTitle"
+            app:argType="string" />
+        <argument
+            android:name="category"
+            app:argType="com.example.spasdomuserapp.models.SectionCategory" />
+    </fragment>
 
 </navigation>

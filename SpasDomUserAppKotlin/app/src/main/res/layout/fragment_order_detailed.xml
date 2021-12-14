@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
-        tools:context=".ui.services.planned.planned.OrderDetailedFragment">
+        tools:context=".ui.services.OrderDetailedFragment">
 
         <TextView
             android:id="@+id/txLabelOrderType"

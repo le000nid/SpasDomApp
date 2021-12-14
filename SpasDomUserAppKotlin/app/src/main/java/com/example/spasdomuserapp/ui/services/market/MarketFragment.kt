@@ -21,8 +21,8 @@ import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.ui.services.ServicesFragmentDirections
 import com.example.spasdomuserapp.ui.services.planned.OrderClick
 import com.example.spasdomuserapp.ui.services.planned.ReviewClick
-import com.example.spasdomuserapp.ui.services.planned.planned.ActiveOrdersAdapter
-import com.example.spasdomuserapp.ui.services.planned.planned.HistoryOrdersAdapter
+import com.example.spasdomuserapp.ui.services.planned.ActiveOrdersAdapter
+import com.example.spasdomuserapp.ui.services.planned.HistoryOrdersAdapter
 import com.example.spasdomuserapp.util.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.planned
+package com.example.spasdomuserapp.ui.services
 
 import android.os.Bundle
 import android.view.LayoutInflater

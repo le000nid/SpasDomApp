@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.planned
+package com.example.spasdomuserapp.ui.services.planned
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,15 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemOrderBinding
 import com.example.spasdomuserapp.models.Order
-import com.example.spasdomuserapp.ui.services.planned.OrderClick
-import com.example.spasdomuserapp.ui.services.planned.ReviewClick
 
-class HistoryOrdersAdapter(val callback: OrderClick, val reviewClicked: ReviewClick) : RecyclerView.Adapter<HistoryOrdersAdapter.HistoryPlannedOrdersViewHolder>() {
+
+class ActiveOrdersAdapter(val callback: OrderClick) : RecyclerView.Adapter<ActiveOrdersAdapter.ActivePlannedOrdersViewHolder>() {
 
     /**
      * The NewsItem that our Adapter will show
      */
-    var historyOrders: List<Order> = emptyList()
+    var activeOrders: List<Order> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -31,34 +30,33 @@ class HistoryOrdersAdapter(val callback: OrderClick, val reviewClicked: ReviewCl
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
      * an item.
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryPlannedOrdersViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivePlannedOrdersViewHolder {
         val withDataBinding: ItemOrderBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            HistoryPlannedOrdersViewHolder.LAYOUT,
+            ActivePlannedOrdersViewHolder.LAYOUT,
             parent,
             false)
-        return HistoryPlannedOrdersViewHolder(withDataBinding)
+        return ActivePlannedOrdersViewHolder(withDataBinding)
     }
 
-    override fun getItemCount() = historyOrders.size
+    override fun getItemCount() = activeOrders.size
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
      * update the contents of the {@link ViewHolder#itemView} to reflect the item at the given
      * position.
      */
-    override fun onBindViewHolder(holder: HistoryPlannedOrdersViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ActivePlannedOrdersViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            it.order = historyOrders[position]
+            it.order = activeOrders[position]
             it.orderClick = callback
-            it.reviewClick = reviewClicked
         }
     }
 
     /**
      * ViewHolder for news items. All work is done by data binding.
      */
-    class HistoryPlannedOrdersViewHolder(val viewDataBinding: ItemOrderBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
+    class ActivePlannedOrdersViewHolder(val viewDataBinding: ItemOrderBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.item_order

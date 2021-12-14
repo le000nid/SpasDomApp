@@ -143,7 +143,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderDetailedFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.planned.OrderDetailedFragment"
+        android:name="com.example.spasdomuserapp.ui.services.OrderDetailedFragment"
         android:label="{orderTitle}"
         tools:layout="@layout/fragment_order_detailed">
         <argument

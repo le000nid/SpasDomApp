@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.spasdomuserapp.models.PlannedOrder
+import com.example.spasdomuserapp.models.Order
 import com.example.spasdomuserapp.network.Resource
-import com.example.spasdomuserapp.repository.PlannedRepository
+import com.example.spasdomuserapp.repository.OrdersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PlannedViewModel@Inject constructor(
-    private val repository: PlannedRepository
+    private val repository: OrdersRepository
 ): ViewModel() {
 
     init {
@@ -35,12 +35,12 @@ class PlannedViewModel@Inject constructor(
     val plannedPutResponse: LiveData<Resource<Boolean>>
         get() = _plannedPutResponse
 
-    fun putPlannedOrder(order: PlannedOrder) = viewModelScope.launch {
+    fun putPlannedOrder(order: Order) = viewModelScope.launch {
         _plannedPutResponse.value = Resource.Loading
         _plannedPutResponse.value = repository.putPlannedOrder(order)
     }
 
-    fun updatePlannedOrder(order: PlannedOrder) = viewModelScope.launch {
+    fun updatePlannedOrder(order: Order) = viewModelScope.launch {
         repository.updateCachePlannedOrder(order)
     }
 }

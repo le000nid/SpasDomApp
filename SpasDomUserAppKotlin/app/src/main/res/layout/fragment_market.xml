@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.services.market.MarketFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.spasdomuserapp.ui.services.market.MarketViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:visibleActiveOrders="@{viewModel.activeMarketOrders}"
+                app:visibleHistoryOrders="@{viewModel.historyMarketOrders}"
+                app:constraint_referenced_ids="action_add_order, tx_active, active_planned_rv, tx_history, history_planned_rv" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:goneActiveOrders="@{viewModel.activeMarketOrders}"
+                app:goneHistoryOrders="@{viewModel.historyMarketOrders}"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_add_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:src="@drawable/ic_add" />
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tx_active"
+                        style="@style/Headline7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_normal"
+                        android:layout_marginTop="@dimen/spacing_large"
+                        android:text="Активные"
+                        app:goneIfNull="@{viewModel.activeMarketOrders }"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/active_market_rv"
+                        android:nestedScrollingEnabled="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tx_active" />
+
+                    <TextView
+                        android:id="@+id/tx_history"
+                        style="@style/Headline7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_normal"
+                        android:layout_marginTop="@dimen/spacing_large"
+                        android:text="История"
+                        app:goneIfNull="@{viewModel.historyMarketOrders }"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/active_market_rv" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/history_market_rv"
+                        android:nestedScrollingEnabled="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tx_history" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/spacing_big"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/history_market_rv" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

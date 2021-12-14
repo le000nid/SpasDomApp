@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="plannedOrder"
-            type="com.example.spasdomuserapp.models.PlannedOrder" />
 
         <variable
-            name="plannedOrderClick"
-            type="com.example.spasdomuserapp.ui.services.planned.planned.PlannedOrderClick" />
-        
+            name="order"
+            type="com.example.spasdomuserapp.models.Order" />
+
+        <variable
+            name="orderClick"
+            type="com.example.spasdomuserapp.ui.services.planned.OrderClick" />
+
         <variable
             name="reviewClick"
-            type="com.example.spasdomuserapp.ui.services.planned.planned.ReviewClick" />
+            type="com.example.spasdomuserapp.ui.services.planned.ReviewClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -24,7 +25,7 @@
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
-        android:onClick="@{() -> plannedOrderClick.onClick(plannedOrder)}"
+        android:onClick="@{() -> orderClick.onClick(order)}"
         app:contentPaddingBottom="@dimen/spacing_big"
         app:contentPaddingLeft="@dimen/spacing_normal"
         app:contentPaddingRight="@dimen/spacing_normal"
@@ -40,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_little"
-                android:text="@{plannedOrder.shortDesc}"
+                android:text="@{order.shortDesc}"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_order_title"
@@ -51,7 +52,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{plannedOrder.title}"
+                android:text="@{order.title}"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -65,9 +66,9 @@
                 android:layout_marginTop="@dimen/spacing_little"
                 android:text="Завершен"
                 android:textColor="@color/secondaryColor"
-                app:visibleIfFinished="@{plannedOrder.status}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_order_date" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_order_date"
+                app:visibleIfFinished="@{order.status}" />
 
             <View
                 android:id="@+id/view2"
@@ -75,10 +76,10 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:background="@color/grayMiddle"
-                app:visibleIfFinished="@{plannedOrder.status}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_is_finished" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_is_finished"
+                app:visibleIfFinished="@{order.status}" />
 
 
             <ImageView
@@ -96,14 +97,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_little"
                 android:backgroundTint="@color/secondaryColor"
-                android:visibility="gone"
-                android:onClick="@{() -> reviewClick.onReviewClick(plannedOrder)}"
+                android:onClick="@{() -> reviewClick.onReviewClick(order)}"
                 android:text="Оставить отзыв"
                 android:textColor="@color/secondaryTextColor"
-                app:goneIfRateNot0="@{plannedOrder.userRate}"
-                app:state="@{plannedOrder.status}"
+                android:visibility="gone"
+                app:goneIfRateNot0="@{order.userRate}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2" />
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                app:state="@{order.status}" />
 
 
             <ImageView
@@ -111,11 +112,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_normal"
-                app:goneIfRate0="@{plannedOrder.userRate}"
+                app:goneIfRate0="@{order.userRate}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2"
-                app:setRating="@{plannedOrder.userRate}"
-                 />
+                app:setRating="@{order.userRate}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,7 +7,7 @@
 
         <variable
             name="order"
-            type="com.example.spasdomuserapp.models.PlannedOrder" />
+            type="com.example.spasdomuserapp.models.Order" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
-        tools:context=".ui.services.planned.planned.PlannedDetailedFragment">
+        tools:context=".ui.services.planned.planned.OrderDetailedFragment">
 
         <TextView
             android:id="@+id/txLabelOrderType"

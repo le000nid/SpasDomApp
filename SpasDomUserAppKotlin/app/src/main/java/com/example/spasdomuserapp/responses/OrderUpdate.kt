@@ -1,5 +1,5 @@
 package com.example.spasdomuserapp.responses
 
-data class PlannedUpdate (
+data class OrderUpdate (
     val property: String,
     val update: String)

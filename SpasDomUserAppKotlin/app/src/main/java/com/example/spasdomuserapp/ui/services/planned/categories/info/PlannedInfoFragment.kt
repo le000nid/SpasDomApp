@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedInfoBinding
 import com.example.spasdomuserapp.models.Photo
-import com.example.spasdomuserapp.models.PlannedOrderPost
+import com.example.spasdomuserapp.models.OrderPost
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 class PlannedInfoFragment : Fragment() {
@@ -73,7 +73,7 @@ class PlannedInfoFragment : Fragment() {
 
             val categoryId = args.categoryId
             val subcategoryId = args.subcategory.drawableId
-            val plannedOrderPost = PlannedOrderPost(categoryId, subcategoryId, viewModel.comment)
+            val plannedOrderPost = OrderPost(categoryId, subcategoryId, viewModel.comment)
 
             val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(args.subcategory.label, plannedOrderPost)
             findNavController().navigate(action)

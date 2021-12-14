@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.spasdomuserapp.models.Alert
 import com.example.spasdomuserapp.models.NewsItem
-import com.example.spasdomuserapp.models.PlannedOrder
+import com.example.spasdomuserapp.models.Order
 
 @Entity
 data class DatabaseNewsItem constructor(
@@ -63,9 +63,9 @@ data class CachePlannedOrder(
     val workerInfo: String
 )
 
-fun List<CachePlannedOrder>.asDomainPlannedOrder(): List<PlannedOrder> {
+fun List<CachePlannedOrder>.asDomainPlannedOrder(): List<Order> {
     return map {
-        PlannedOrder(
+        Order(
             id = it.id,
             title = it.title,
             date = it.date,
@@ -81,8 +81,59 @@ fun List<CachePlannedOrder>.asDomainPlannedOrder(): List<PlannedOrder> {
     }
 }
 
-fun PlannedOrder.asCachePlannerOrder(): CachePlannedOrder {
+fun Order.asCachePlannerOrder(): CachePlannedOrder {
     return CachePlannedOrder(
+        id = id,
+        title = title,
+        date = date,
+        time = time,
+        userRate = userRate,
+        userReview = userReview,
+        status = status,
+        workerImg = workerImg,
+        workerName = workerName,
+        workerRate = workerRate,
+        workerInfo = workerInfo
+    )
+}
+
+
+@Entity
+data class CacheMarketOrder(
+    @PrimaryKey
+    val id: Int,
+    val title: String,
+    val date: String,
+    val time: String,
+    val userRate: Int,
+    val userReview: String,
+    val status: Int,
+    val workerImg: String,
+    val workerName: String,
+    val workerRate: Int,
+    val workerInfo: String
+)
+
+fun List<CacheMarketOrder>.asDomainMarketOrder(): List<Order> {
+    return map {
+        Order(
+            id = it.id,
+            title = it.title,
+            date = it.date,
+            time = it.time,
+            userRate = it.userRate,
+            userReview = it.userReview,
+            status = it.status,
+            workerImg = it.workerImg,
+            workerName = it.workerName,
+            workerRate = it.workerRate,
+            workerInfo = it.workerInfo
+        )
+    }
+}
+
+fun Order.asCacheMarketOrder(): CacheMarketOrder {
+    return CacheMarketOrder(
         id = id,
         title = title,
         date = date,

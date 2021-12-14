@@ -9,7 +9,6 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.models.PlannedCategory
-import com.example.spasdomuserapp.models.PlannedOrder
 
 /**
  * Binding adapter used to hide the spinner once data is available

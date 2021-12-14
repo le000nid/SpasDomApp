@@ -43,8 +43,8 @@
             android:id="@+id/action_servicesFragment_to_plannedCategoriesFragment"
             app:destination="@id/plannedCategoriesFragment" />
         <action
-            android:id="@+id/action_servicesFragment_to_plannedDetailedFragment"
-            app:destination="@id/plannedDetailedFragment" />
+            android:id="@+id/action_servicesFragment_to_orderDetailedFragment"
+            app:destination="@id/orderDetailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -120,7 +120,7 @@
             app:argType="string" />
         <argument
             android:name="plannedOrderPost"
-            app:argType="com.example.spasdomuserapp.models.PlannedOrderPost" />
+            app:argType="com.example.spasdomuserapp.models.OrderPost" />
         <action
             android:id="@+id/action_plannedDateFragment_to_successFragment"
             app:destination="@id/successFragment"
@@ -142,16 +142,16 @@
             app:popUpTo="@id/servicesFragment" />
     </fragment>
     <fragment
-        android:id="@+id/plannedDetailedFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.planned.PlannedDetailedFragment"
+        android:id="@+id/orderDetailedFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.planned.OrderDetailedFragment"
         android:label="{orderTitle}"
-        tools:layout="@layout/fragment_planned_detailed">
+        tools:layout="@layout/fragment_order_detailed">
         <argument
             android:name="orderTitle"
             app:argType="string" />
         <argument
-            android:name="plannedOrder"
-            app:argType="com.example.spasdomuserapp.models.PlannedOrder" />
+            android:name="order"
+            app:argType="com.example.spasdomuserapp.models.Order" />
     </fragment>
     <fragment
         android:id="@+id/singleChatFragment"

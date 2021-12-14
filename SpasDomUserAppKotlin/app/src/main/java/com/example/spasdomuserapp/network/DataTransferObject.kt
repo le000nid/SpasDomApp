@@ -1,9 +1,7 @@
 package com.example.spasdomuserapp.network
 
-import com.example.spasdomuserapp.database.CachePlannedOrder
 import com.example.spasdomuserapp.database.DataBaseAlert
 import com.example.spasdomuserapp.database.DatabaseNewsItem
-import com.example.spasdomuserapp.models.PlannedOrder
 
 /**
  * DataTransferObjects go in this file. These are responsible for parsing responses from the server

@@ -8,20 +8,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.spasdomuserapp.R
-import com.example.spasdomuserapp.databinding.FragmentPlannedDetailedBinding
+import com.example.spasdomuserapp.databinding.FragmentOrderDetailedBinding
 
-class PlannedDetailedFragment : Fragment(R.layout.fragment_planned_detailed) {
+class OrderDetailedFragment : Fragment(R.layout.fragment_order_detailed) {
 
-    private val args by navArgs<PlannedDetailedFragmentArgs>()
+    private val args by navArgs<OrderDetailedFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentPlannedDetailedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_planned_detailed, container, false)
+        val binding: FragmentOrderDetailedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_order_detailed, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.order = args.plannedOrder
+        binding.order = args.order
 
         return binding.root
     }

@@ -6,27 +6,27 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.*
 import com.example.spasdomuserapp.network.Resource
-import com.example.spasdomuserapp.repository.PlannedRepository
-import com.example.spasdomuserapp.responses.PlannedResponse
+import com.example.spasdomuserapp.repository.OrdersRepository
+import com.example.spasdomuserapp.responses.OrderResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DatePlannedOrderViewModel @Inject constructor(
-    private val repository: PlannedRepository
+    private val repository: OrdersRepository
 ): ViewModel() {
 
-    private val _plannedResponse: MutableLiveData<Resource<PlannedResponse>> = MutableLiveData()
-    val plannedResponse: LiveData<Resource<PlannedResponse>>
+    private val _plannedResponse: MutableLiveData<Resource<OrderResponse>> = MutableLiveData()
+    val plannedResponse: LiveData<Resource<OrderResponse>>
         get() = _plannedResponse
 
-    fun postPlannedOrder(order: PlannedOrderPost) = viewModelScope.launch {
+    fun postPlannedOrder(order: OrderPost) = viewModelScope.launch {
         _plannedResponse.value = Resource.Loading
         _plannedResponse.value = repository.postPlannedOrder(order)
     }
 
-    fun insertPlannedOrderToCache(order: PlannedOrder) = viewModelScope.launch {
+    fun insertPlannedOrderToCache(order: Order) = viewModelScope.launch {
         repository.insertPlannedOrderToCache(order)
     }
 

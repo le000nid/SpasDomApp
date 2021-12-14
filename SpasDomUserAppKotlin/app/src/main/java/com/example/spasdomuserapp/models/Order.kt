@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PlannedOrder(
+data class Order(
     val id: Int,
     val title: String,
     val date: String,

@@ -33,4 +33,7 @@ interface OrderApi {
 
     @GET("/market-categories")
     suspend fun getMarketCategories(): SectionCategoriesResponse
+
+    @GET("/market-workers")
+    suspend fun getMarketPreviewWorkers(@Query("filter") type: String): WorkersPreviewResponse
 }

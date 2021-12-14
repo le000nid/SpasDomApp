@@ -8,6 +8,7 @@ data class Worker(
     val id: Int,
     val firstName: String,
     val lastName: String,
+    val photo: String,
     var rate: Int,
     val info: String,
     val experience: String,

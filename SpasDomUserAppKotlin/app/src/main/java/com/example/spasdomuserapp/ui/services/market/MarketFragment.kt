@@ -92,8 +92,8 @@ class MarketFragment : Fragment() {
         }
 
         binding.actionAddOrder.setOnClickListener {
-            val action = ServicesFragmentDirections.actionServicesFragmentToPlannedCategoriesFragment()
-            findNavController().navigate(action)
+            /*val action = ServicesFragmentDirections.actionServicesFragmentToPlannedCategoriesFragment()
+            findNavController().navigate(action)*/
         }
 
 

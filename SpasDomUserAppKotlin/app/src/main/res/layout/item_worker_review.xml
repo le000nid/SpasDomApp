@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_little"
+        android:layout_marginBottom="@dimen/spacing_little">
+
+        <ImageView
+            android:id="@+id/workerIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/im_worker"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txWorkerName"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            app:layout_constraintStart_toEndOf="@+id/workerIcon"
+            app:layout_constraintTop_toTopOf="@+id/workerIcon"
+            tools:text="Петров Николай Васильевич" />
+
+        <ImageView
+            android:id="@+id/workerRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            app:layout_constraintStart_toStartOf="@+id/txWorkerName"
+            app:layout_constraintTop_toBottomOf="@+id/txWorkerName"
+            tools:src="@drawable/ic_rate_0" />
+
+        <TextView
+            android:id="@+id/txService"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_little"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/workerRate"
+            tools:text="Обратился за помощью мастера на час, все было велеиколепно, мастер справился прекрасно..." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

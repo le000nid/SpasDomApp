@@ -52,7 +52,7 @@ class MarketWorkersFragment : Fragment() {
         }*/
 
         workersAdapter = MarketWorkersAdapter(WorkerClick {
-            val action = MarketWorkersFragmentDirections.actionMarketWorkersFragmentToPlannedInfoFragment(appBarTitle = args.appBarTitle, workerPreview = it)
+            val action = MarketWorkersFragmentDirections.actionMarketWorkersFragmentToWorkerInfoFragment(appBarTitle = args.appBarTitle, workerPreview = it)
             findNavController().navigate(action)
         })
 

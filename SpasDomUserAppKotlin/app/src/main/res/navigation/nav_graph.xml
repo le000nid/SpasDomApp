@@ -203,7 +203,22 @@
             android:name="category"
             app:argType="com.example.spasdomuserapp.models.SectionCategory" />
         <action
-            android:id="@+id/action_marketWorkersFragment_to_plannedInfoFragment"
+            android:id="@+id/action_marketWorkersFragment_to_workerInfoFragment"
+            app:destination="@id/workerInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workerInfoFragment"
+        android:name="com.example.spasdomuserapp.ui.services.market.workerInfo.WorkerInfoFragment"
+        android:label="{appBarTitle}"
+        tools:layout="@layout/fragment_worker_info">
+        <argument
+            android:name="appBarTitle"
+            app:argType="string" />
+        <argument
+            android:name="workerPreview"
+            app:argType="com.example.spasdomuserapp.models.WorkerPreview" />
+        <action
+            android:id="@+id/action_workerInfoFragment_to_orderInfoFragment"
             app:destination="@id/orderInfoFragment" />
     </fragment>
 

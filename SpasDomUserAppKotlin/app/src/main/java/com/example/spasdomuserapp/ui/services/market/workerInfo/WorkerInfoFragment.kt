@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spasdomuserapp.R
@@ -71,6 +72,12 @@ class WorkerInfoFragment : Fragment() {
         }
         servicesAdapter?.services = viewModel.worker.services
 
+
+        binding.btnOffer.setOnClickListener {
+            // TODO(Specify type which I have to pass for REST post)
+            val action = WorkerInfoFragmentDirections.actionWorkerInfoFragmentToOrderInfoFragment(appBarTitle = args.appBarTitle)
+            findNavController().navigate(action)
+        }
 
         return binding.root
     }

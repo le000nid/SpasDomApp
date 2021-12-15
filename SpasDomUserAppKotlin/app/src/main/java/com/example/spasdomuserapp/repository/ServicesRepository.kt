@@ -13,4 +13,6 @@ class ServicesRepository @Inject constructor(
     suspend fun getMarketCategories() = safeApiCall { api.getMarketCategories() }
 
     suspend fun getMarketPreviewWorkers() = safeApiCall { api.getMarketPreviewWorkers("") }
+
+    suspend fun getMarketWorker() = safeApiCall { api.getMarketWorker("") }
 }

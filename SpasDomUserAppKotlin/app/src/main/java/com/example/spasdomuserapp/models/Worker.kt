@@ -14,8 +14,11 @@ data class Worker(
     val experience: String,
     val phone: String,
     val services: List<WorkerService>,
-    val reviews: List<WorkerReviews>
-): Parcelable
+    val reviews: List<WorkerReview>
+): Parcelable {
+    val fullName: String
+        get() = "$firstName $lastName"
+}
 
 @Parcelize
 data class WorkerService(
@@ -24,11 +27,14 @@ data class WorkerService(
 ): Parcelable
 
 @Parcelize
-data class WorkerReviews(
+data class WorkerReview(
     val firstName: String,
     val lastName: String,
     val reviewDate: String,
     val rate: Int,
     val picture: String,
     val comment: String
-): Parcelable
+): Parcelable {
+    val fullName: String
+        get() = "$firstName $lastName"
+}

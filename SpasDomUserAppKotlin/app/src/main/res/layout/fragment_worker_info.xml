@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="worker"
+            type="com.example.spasdomuserapp.models.Worker" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,6 +29,15 @@
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginEnd="@dimen/spacing_normal">
 
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <!--TODO(Upload photo using binding adapter and Glide)-->
                 <ImageView
                     android:id="@+id/workerIcon"
@@ -43,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
+                    android:text="@{worker.fullName}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/workerIcon"
@@ -56,6 +69,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/txWorkerName"
                     app:layout_constraintStart_toStartOf="@+id/txWorkerName"
                     app:layout_constraintTop_toBottomOf="@+id/txWorkerName"
+                    app:setRating="@{worker.rate}"
                     tools:src="@drawable/ic_rate_0" />
 
                 <com.google.android.material.button.MaterialButton
@@ -122,6 +136,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_tiny"
+                    android:text="@{worker.info}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txTitleAbout"
@@ -144,6 +159,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_tiny"
+                    android:text="@{worker.experience}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txTitleExp"

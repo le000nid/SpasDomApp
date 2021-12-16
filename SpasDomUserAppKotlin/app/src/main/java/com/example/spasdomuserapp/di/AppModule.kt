@@ -4,10 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.example.spasdomuserapp.database.CacheDatabase
-import com.example.spasdomuserapp.network.AuthApi
-import com.example.spasdomuserapp.network.OrderApi
-import com.example.spasdomuserapp.network.RemoteDataSource
-import com.example.spasdomuserapp.network.UserApi
+import com.example.spasdomuserapp.network.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,6 +44,15 @@ object AppModule {
         @ApplicationContext context: Context
     ): OrderApi {
         return remoteDataSource.buildApi(OrderApi::class.java, context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideHomeApi(
+        remoteDataSource: RemoteDataSource,
+        @ApplicationContext context: Context
+    ): HomeApi {
+        return remoteDataSource.buildApi(HomeApi::class.java, context)
     }
 
     @Provides

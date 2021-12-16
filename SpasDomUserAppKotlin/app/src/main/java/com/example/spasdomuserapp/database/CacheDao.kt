@@ -2,27 +2,26 @@ package com.example.spasdomuserapp.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import kotlinx.coroutines.selects.select
 
 @Dao
 interface CacheDao {
 
     // ---------- News ----------
 
-    @Query("select * from databasenewsitem")
-    fun getNewsItems(): LiveData<List<DatabaseNewsItem>>
+    @Query("select * from cachenewsitem")
+    fun getNewsItems(): LiveData<List<CacheNewsItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllNews(vararg news: DatabaseNewsItem)
+    fun insertAllNews(vararg news: CacheNewsItem)
 
 
     // ---------- Alerts ----------
 
-    @Query("select * from databasealert")
-    fun getAlerts(): LiveData<List<DataBaseAlert>>
+    @Query("select * from cachealert")
+    fun getAlerts(): LiveData<List<CacheAlert>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllAlerts(vararg alerts: DataBaseAlert)
+    fun insertAllAlerts(vararg alerts: CacheAlert)
 
 
     // ---------- Planned orders ----------

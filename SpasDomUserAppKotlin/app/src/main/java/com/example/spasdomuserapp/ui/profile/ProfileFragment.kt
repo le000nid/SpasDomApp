@@ -25,7 +25,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding = FragmentProfileBinding.bind(view)
         binding.progressbar.visible(false)
 
-        viewModel.getUser()
+        /*viewModel.getUser()
 
         viewModel.user.observe(viewLifecycleOwner) {
             when (it) {
@@ -40,7 +40,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     handleApiError(it)
                 }
             }
-        }
+        }*/
 
         binding.btnLogOut.setOnClickListener {
             logout()

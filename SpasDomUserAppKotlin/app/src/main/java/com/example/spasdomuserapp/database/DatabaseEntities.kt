@@ -7,7 +7,7 @@ import com.example.spasdomuserapp.models.NewsItem
 import com.example.spasdomuserapp.models.Order
 
 @Entity
-data class DatabaseNewsItem constructor(
+data class CacheNewsItem constructor(
     @PrimaryKey
     val url: String,
     val updated: String,
@@ -15,7 +15,7 @@ data class DatabaseNewsItem constructor(
     val description: String,
     val thumbnail: String)
 
-fun List<DatabaseNewsItem>.asDomainModel(): List<NewsItem> {
+fun List<CacheNewsItem>.asDomainModel(): List<NewsItem> {
     return map {
         NewsItem(
                 url = it.url,
@@ -29,14 +29,14 @@ fun List<DatabaseNewsItem>.asDomainModel(): List<NewsItem> {
 // TODO(Replace primary key)
 
 @Entity
-data class DataBaseAlert(
+data class CacheAlert(
     val data: String,
     val title: String,
     @PrimaryKey
     val description: String
 )
 
-fun List<DataBaseAlert>.asDomainAlertModel(): List<Alert> {
+fun List<CacheAlert>.asDomainAlertModel(): List<Alert> {
     return map {
         Alert(
             data = it.data,

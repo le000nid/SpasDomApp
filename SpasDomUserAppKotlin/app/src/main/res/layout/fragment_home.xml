@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
-                    app:visibleRv1="@{viewModel.alerts}"
+                    app:visibleRv1="@{viewModel.alertsItems}"
                     app:visibleRv2="@{viewModel.newsItems}"
                     app:constraint_referenced_ids="textNotification, alerts_rv, textNews, news_recycler_view, textMain, card1, textCard1, card2, textCard2, card3, textCard3, card4, textCard4" />
 

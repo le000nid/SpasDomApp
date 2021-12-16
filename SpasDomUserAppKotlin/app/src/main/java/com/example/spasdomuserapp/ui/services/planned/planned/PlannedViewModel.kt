@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.Order
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.OrdersRepository
+import com.example.spasdomuserapp.responses.OrderListResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,19 +17,28 @@ class PlannedViewModel@Inject constructor(
     private val repository: OrdersRepository
 ): ViewModel() {
 
-    init {
-        viewModelScope.launch {
-            repository.refreshPlannedOrders()
-        }
+    val activePlannedOrders: LiveData<List<Order>> = repository.activePlannedOrders
+    val historyPlannedOrders: LiveData<List<Order>> = repository.historyPlannedOrders
+
+    /**
+     * Network get request. All planned orders
+     */
+    private val _plannedOrders: MutableLiveData<Resource<OrderListResponse>> = MutableLiveData()
+    val plannedOrders: LiveData<Resource<OrderListResponse>>
+        get() = _plannedOrders
+
+    fun getPlannedOrders() = viewModelScope.launch {
+        _plannedOrders.value = Resource.Loading
+        _plannedOrders.value = repository.getPlannedOrders()
     }
 
-    val activePlannedOrders = repository.activePlannedOrders
-    val historyPlannedOrders = repository.historyPlannedOrders
-
-
-    fun swipeToRefresh() = viewModelScope.launch {
-        repository.refreshPlannedOrders()
+    /**
+     * DataBase insert query. All planned orders
+     */
+    fun insertAllPlannedOrdersToCache(orders: OrderListResponse) = viewModelScope.launch {
+        repository.insertAllPlannedOrdersToCache(orders)
     }
+
 
 
     private val _plannedPutResponse: MutableLiveData<Resource<Boolean>> = MutableLiveData()
@@ -38,9 +48,5 @@ class PlannedViewModel@Inject constructor(
     fun putPlannedOrder(order: Order) = viewModelScope.launch {
         _plannedPutResponse.value = Resource.Loading
         _plannedPutResponse.value = repository.putPlannedOrder(order)
-    }
-
-    fun updatePlannedOrder(order: Order) = viewModelScope.launch {
-        repository.updateCachePlannedOrder(order)
     }
 }

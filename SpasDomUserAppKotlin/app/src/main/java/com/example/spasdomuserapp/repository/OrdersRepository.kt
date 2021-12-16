@@ -7,6 +7,7 @@ import com.example.spasdomuserapp.models.Order
 import com.example.spasdomuserapp.models.OrderPost
 import com.example.spasdomuserapp.network.OrderApi
 import com.example.spasdomuserapp.network.SafeApiCall
+import com.example.spasdomuserapp.responses.OrderListResponse
 import com.example.spasdomuserapp.responses.OrderUpdate
 import com.example.spasdomuserapp.responses.asCacheMarketModel
 import com.example.spasdomuserapp.responses.asCachePlannedModel
@@ -35,10 +36,12 @@ class OrdersRepository @Inject constructor(
         }
     }
 
-    // TODO( 1) delete hardcode in [cacheDatable] 2) uncomment below )
-    suspend fun refreshPlannedOrders() = safeApiCall {
-        //val orders = api.getPlannedOrders()
-        //cacheDao.insertAllPlannedOrders(*orders.asCachePlannedModel())
+    suspend fun getPlannedOrders() = safeApiCall { api.getPlannedOrders() }
+
+    suspend fun insertAllPlannedOrdersToCache(orders: OrderListResponse) {
+        withContext(Dispatchers.IO) {
+            cacheDao.insertAllPlannedOrders(*orders.asCachePlannedModel())
+        }
     }
 
     suspend fun updateCachePlannedOrder(order: Order) {

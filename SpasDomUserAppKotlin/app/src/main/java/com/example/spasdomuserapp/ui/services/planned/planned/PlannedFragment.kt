@@ -31,26 +31,9 @@ import kotlinx.coroutines.launch
 class PlannedFragment : Fragment() {
 
     private val viewModel: PlannedViewModel by viewModels()
-
     private var activeAdapter: ActiveOrdersAdapter? = null
     private var historyAdapter: HistoryOrdersAdapter? = null
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.activePlannedOrders.observe(viewLifecycleOwner, { orders ->
-            orders?.apply {
-                activeAdapter?.activeOrders = orders
-            }
-        })
-
-        viewModel.historyPlannedOrders.observe(viewLifecycleOwner, { orders ->
-            orders?.apply {
-                historyAdapter?.historyOrders = orders
-            }
-        })
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +44,22 @@ class PlannedFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+
+        // TODO(Uncomment when you will receive preview workers from server)
+        /*viewModel.getPlannedOrders()
+
+        viewModel.plannedOrders.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    viewModel.insertAllPlannedOrdersToCache(it.value)
+                }
+                is Resource.Failure -> {
+                    handleApiError(it)
+                }
+            }
+        }*/
+
 
         activeAdapter = ActiveOrdersAdapter(OrderClick {
             val action = ServicesFragmentDirections.actionServicesFragmentToOrderDetailedFragment(it.title, it)
@@ -87,7 +86,7 @@ class PlannedFragment : Fragment() {
 
         binding.apply {
             swipeRefreshPlanned.setOnRefreshListener {
-                viewModel?.swipeToRefresh()
+                viewModel?.getPlannedOrders()
                 swipeRefreshPlanned.isRefreshing = false
             }
         }
@@ -99,6 +98,23 @@ class PlannedFragment : Fragment() {
 
 
         return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.activePlannedOrders.observe(viewLifecycleOwner, { orders ->
+            orders?.apply {
+                activeAdapter?.activeOrders = orders
+            }
+        })
+
+        viewModel.historyPlannedOrders.observe(viewLifecycleOwner, { orders ->
+            orders?.apply {
+                historyAdapter?.historyOrders = orders
+            }
+        })
     }
 
 
@@ -123,9 +139,7 @@ class PlannedFragment : Fragment() {
                     when (it) {
                         is Resource.Success -> {
                             lifecycleScope.launch {
-                                //viewModel.updatePlannedOrder(newOrder)
-                                // TODO(Wait for response and update UI or put in in cache without refresh)
-                                viewModel.swipeToRefresh()
+                                //viewModel.getPlannedOrders()
                                 dialog.dismiss()
                             }
                         }

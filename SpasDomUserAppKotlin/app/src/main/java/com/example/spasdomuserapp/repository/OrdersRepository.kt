@@ -79,4 +79,12 @@ class OrdersRepository @Inject constructor(
     suspend fun postMarketOrder(marketOrder: MarketOrderPost) = safeApiCall {
         api.postMarketOrder(marketOrder)
     }
+
+    suspend fun getWorkerCalendarById(workerId: Int) = safeApiCall {
+        api.getWorkerCalendarById(workerId)
+    }
+
+    suspend fun getWorkerCalendar(subcategoryId: Int) = safeApiCall {
+        api.getWorkerCalendar(subcategoryId)
+    }
 }

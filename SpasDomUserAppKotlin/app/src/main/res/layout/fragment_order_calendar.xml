@@ -16,7 +16,7 @@
         tools:context=".ui.services.ordercalendar.PlannedDateFragment">
 
         <ProgressBar
-            android:id="@+id/progressbar"
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

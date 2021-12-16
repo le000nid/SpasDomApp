@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DatePlannedOrderViewModel @Inject constructor(
+class OrderCalendarViewModel @Inject constructor(
     private val repository: OrdersRepository
 ): ViewModel() {
 
@@ -40,6 +40,20 @@ class DatePlannedOrderViewModel @Inject constructor(
     var date: String? = null
     var time: String? = null
     var workerId: Long? = null
+
+    private val _calendar: MutableLiveData<Resource<List<WorkerMonth>>> = MutableLiveData()
+    val calendar: LiveData<Resource<List<WorkerMonth>>>
+        get() = _calendar
+
+    fun getWorkerCalendarById(workerId: Int) = viewModelScope.launch {
+        _calendar.value = Resource.Loading
+        _calendar.value = repository.getWorkerCalendarById(workerId)
+    }
+
+    fun getWorkerCalendar(subcategoryId: Int) = viewModelScope.launch {
+        _calendar.value = Resource.Loading
+        _calendar.value = repository.getWorkerCalendar(subcategoryId)
+    }
 
 
     private val timeList1: List<WorkerTime> = listOf(

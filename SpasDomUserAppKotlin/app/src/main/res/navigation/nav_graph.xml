@@ -118,7 +118,7 @@
         android:id="@+id/plannedDateFragment"
         android:name="com.example.spasdomuserapp.ui.services.ordercalendar.PlannedDateFragment"
         android:label="{appBarTitle}"
-        tools:layout="@layout/fragment_planned_date">
+        tools:layout="@layout/fragment_order_calendar">
         <argument
             android:name="appBarTitle"
             app:argType="string" />

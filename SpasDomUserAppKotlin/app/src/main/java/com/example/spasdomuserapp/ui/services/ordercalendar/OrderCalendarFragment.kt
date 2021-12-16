@@ -2,7 +2,6 @@ package com.example.spasdomuserapp.ui.services.ordercalendar
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,15 +16,15 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
-import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
+import com.example.spasdomuserapp.databinding.FragmentOrderCalendarBinding
 import com.example.spasdomuserapp.models.WorkerDay
+import com.example.spasdomuserapp.models.WorkerMonth
 import com.example.spasdomuserapp.models.WorkerTime
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.util.handleApiError
 import com.example.spasdomuserapp.util.visible
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_planned_date.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -33,12 +32,12 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 @AndroidEntryPoint
-class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
+class PlannedDateFragment : Fragment(R.layout.fragment_order_calendar) {
 
     private lateinit var selectedDate: LocalDate
     private var calendarViewAdapter: CalendarViewAdapter? = null
-    private val viewModel by viewModels<DatePlannedOrderViewModel>()
-    private lateinit var binding: FragmentPlannedDateBinding
+    private val viewModel by viewModels<OrderCalendarViewModel>()
+    private lateinit var binding: FragmentOrderCalendarBinding
     private val args by navArgs<PlannedDateFragmentArgs>()
 
     override fun onCreateView(
@@ -46,10 +45,10 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_planned_date, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_order_calendar, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.progressbar.visible(false)
+        binding.progressBar.visible(false)
 
         // TODO(In some reason doesn't work on devices <= O)
         selectedDate = LocalDate.now()
@@ -92,11 +91,11 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
 
         viewModel.plannedResponsePlanned.observe(viewLifecycleOwner) {
-            binding.progressbar.visible(it is Resource.Loading)
+            binding.progressBar.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
                     lifecycleScope.launch {
-                        Log.i("orderResponse", it.value.plannedOrder.toString())
+                       // Log.i("orderResponse", it.value.plannedOrder.toString())
                         val action = PlannedDateFragmentDirections.actionPlannedDateFragmentToSuccessFragment()
                         findNavController().navigate(action)
                     }
@@ -108,11 +107,11 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
 
         viewModel.marketResponsePlanned.observe(viewLifecycleOwner) {
-            binding.progressbar.visible(it is Resource.Loading)
+            binding.progressBar.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
                     lifecycleScope.launch {
-                        Log.i("marketResponse", it.value.marketOrder.toString())
+                       // Log.i("marketResponse", it.value.marketOrder.toString())
                         val action = PlannedDateFragmentDirections.actionPlannedDateFragmentToSuccessFragment()
                         findNavController().navigate(action)
                     }
@@ -140,7 +139,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
             binding.radioGroupTimes.addView(radioButton)
         }
 
-        radioGroupTimes.setOnCheckedChangeListener { group, checkedId ->
+        binding.radioGroupTimes.setOnCheckedChangeListener { group, checkedId ->
             val rb = group.findViewById<RadioButton>(checkedId)
             if (rb != null) {
                 viewModel.time = rb.text.toString()
@@ -176,11 +175,37 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
         }
 
 
+        // TODO(Uncomment when you will receive preview workers from server)
+        /*if (args.marketOrderPost != null) {
+            val order = args.marketOrderPost
+            viewModel.getWorkerCalendarById(order!!.workerId)
+        } else if (args.plannedOrderPost != null) {
+            val order = args.plannedOrderPost
+            viewModel.getWorkerCalendar(order!!.subcategoryId)
+        }
+
+        viewModel.calendar.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    binding.progressBar.visible(false)
+                    setUpCalendar(it.value)
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.visible(true)
+                }
+                is Resource.Failure -> handleApiError(it) { }
+            }
+        }*/
+
+        setUpCalendar(viewModel.workerMonth)
+    }
+
+    private fun setUpCalendar(workerMonth: List<WorkerMonth>) {
         val dateText = monthYearFromDate(selectedDate)
-        for (i in viewModel.workerMonth.indices) {
-            if (viewModel.workerMonth[i].month == dateText) {
-                calendarViewAdapter?.daysOfMonth = viewModel.workerMonth[i].workerMonth
-                calendarViewAdapter?.activeMonth = viewModel.workerMonth[i].month
+        for (i in workerMonth.indices) {
+            if (workerMonth[i].month == dateText) {
+                calendarViewAdapter?.daysOfMonth = workerMonth[i].workerMonth
+                calendarViewAdapter?.activeMonth = workerMonth[i].month
                 calendarViewAdapter?.currentDay = currentDay()
                 calendarViewAdapter?.currentMonth = currentMonth()
             }
@@ -188,6 +213,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
         binding.monthYearTV.text = dateText
     }
+
 
     private fun clearRadioGroup() {
         binding.radioGroupTimes.clearCheck()

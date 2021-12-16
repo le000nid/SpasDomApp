@@ -5,6 +5,9 @@ import com.example.spasdomuserapp.responses.*
 import retrofit2.http.*
 
 interface OrderApi {
+
+    // ---------- Planned orders ----------
+
     @POST("/planned-orders")
     suspend fun postPlannedOrder(@Body plannedOrder: PlannedOrderPost): PlannedOrderResponse
 
@@ -19,6 +22,11 @@ interface OrderApi {
     @GET("/planned-categories")
     suspend fun getPlannedCategories(): List<CategoriesList>
 
+    @GET("/calendar")
+    suspend fun getWorkerCalendar(@Body subcategory: Int): List<WorkerMonth>
+
+
+    // ---------- Market orders ----------
 
     @POST("/marked-orders")
     suspend fun postMarketOrder(@Body plannedOrder: MarketOrderPost): MarketOrderResponse
@@ -39,4 +47,7 @@ interface OrderApi {
 
     @GET("/market-workers")
     suspend fun getMarketWorker(@Query("filter") type: String): Worker
+
+    @GET("/calendar")
+    suspend fun getWorkerCalendarById(@Body workerId: Int): List<WorkerMonth>
 }

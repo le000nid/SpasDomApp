@@ -49,7 +49,7 @@ fun List<CacheAlert>.asDomainAlertModel(): List<Alert> {
 
 @Entity
 data class CachePlannedOrder(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val title: String,
     val date: String,
@@ -84,7 +84,7 @@ fun List<CachePlannedOrder>.asDomainPlannedOrder(): List<Order> {
 
 @Entity
 data class CacheMarketOrder(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val title: String,
     val date: String,

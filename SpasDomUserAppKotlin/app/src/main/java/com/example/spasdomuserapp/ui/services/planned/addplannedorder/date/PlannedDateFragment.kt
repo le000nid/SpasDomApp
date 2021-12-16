@@ -84,7 +84,6 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
                 finalOrder = finalOrder?.copy(date = date, workerId = viewModel.workerId!!)
                 val cacheOrder = Order(4, "Проверка воды", viewModel.date.toString(), viewModel.time.toString(), 0, "",0, "", "Алексей Воронов", 5, "Опытный специалист")
                 //viewModel.postPlannedOrder(finalOrder)
-                viewModel.insertPlannedOrderToCache(cacheOrder)
             } else if (args.workerPreview != null) {
 
             }

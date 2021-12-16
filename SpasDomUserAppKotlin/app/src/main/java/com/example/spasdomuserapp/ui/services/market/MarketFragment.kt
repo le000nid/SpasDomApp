@@ -31,25 +31,9 @@ import kotlinx.coroutines.launch
 class MarketFragment : Fragment() {
 
     private val viewModel: MarketViewModel by viewModels()
-
     private var activeAdapter: ActiveOrdersAdapter? = null
     private var historyAdapter: HistoryOrdersAdapter? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.activeMarketOrders.observe(viewLifecycleOwner, { orders ->
-            orders?.apply {
-                activeAdapter?.activeOrders = orders
-            }
-        })
-
-        viewModel.historyMarketOrders.observe(viewLifecycleOwner, { orders ->
-            orders?.apply {
-                historyAdapter?.historyOrders = orders
-            }
-        })
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +44,22 @@ class MarketFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+
+        /* TODO(Uncomment when you will receive preview workers from server)
+        viewModel.getMarketOrders()
+
+        viewModel.marketOrders.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    viewModel.insertAllMarketOrdersToCache(it.value)
+                }
+                is Resource.Failure -> {
+                    handleApiError(it)
+                }
+            }
+        }*/
+
 
         activeAdapter = ActiveOrdersAdapter(OrderClick {
             val action = ServicesFragmentDirections.actionServicesFragmentToOrderDetailedFragment(it.title, it)
@@ -86,7 +86,7 @@ class MarketFragment : Fragment() {
 
         binding.apply {
             swipeRefresh.setOnRefreshListener {
-                viewModel?.swipeToRefresh()
+                viewModel?.getMarketOrders()
                 swipeRefresh.isRefreshing = false
             }
         }
@@ -98,6 +98,23 @@ class MarketFragment : Fragment() {
 
 
         return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.activeMarketOrders.observe(viewLifecycleOwner, { orders ->
+            orders?.apply {
+                activeAdapter?.activeOrders = orders
+            }
+        })
+
+        viewModel.historyMarketOrders.observe(viewLifecycleOwner, { orders ->
+            orders?.apply {
+                historyAdapter?.historyOrders = orders
+            }
+        })
     }
 
 
@@ -122,9 +139,7 @@ class MarketFragment : Fragment() {
                     when (it) {
                         is Resource.Success -> {
                             lifecycleScope.launch {
-                                //viewModel.updateMarketOrder(newOrder)
-                                // TODO(Wait for response and update UI or put in in cache without refresh)
-                                viewModel.swipeToRefresh()
+                                //viewModel.getMarketOrders()
                                 dialog.dismiss()
                             }
                         }

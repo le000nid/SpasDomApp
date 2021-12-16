@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.Order
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.OrdersRepository
+import com.example.spasdomuserapp.responses.OrderListResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,19 +17,28 @@ class MarketViewModel @Inject constructor(
     private val repository: OrdersRepository
 ): ViewModel() {
 
-    init {
-        viewModelScope.launch {
-            repository.refreshMarketOrders()
-        }
+    val activeMarketOrders: LiveData<List<Order>> = repository.activeMarketOrders
+    val historyMarketOrders: LiveData<List<Order>> = repository.historyMarketOrders
+
+    /**
+     * Network get request. All market orders
+     */
+    private val _marketOrders: MutableLiveData<Resource<OrderListResponse>> = MutableLiveData()
+    val marketOrders: LiveData<Resource<OrderListResponse>>
+        get() = _marketOrders
+
+    fun getMarketOrders() = viewModelScope.launch {
+        _marketOrders.value = Resource.Loading
+        _marketOrders.value = repository.getMarketOrders()
     }
 
-    val activeMarketOrders = repository.activeMarketOrders
-    val historyMarketOrders = repository.historyMarketOrders
-
-
-    fun swipeToRefresh() = viewModelScope.launch {
-        repository.refreshMarketOrders()
+    /**
+     * DataBase insert query. All planned orders
+     */
+    fun insertAllMarketOrdersToCache(orders: OrderListResponse) = viewModelScope.launch {
+        repository.insertAllMarketOrdersToCache(orders)
     }
+
 
     private val _marketPutResponse: MutableLiveData<Resource<Boolean>> = MutableLiveData()
     val marketPutResponse: LiveData<Resource<Boolean>>
@@ -37,9 +47,5 @@ class MarketViewModel @Inject constructor(
     fun putMarketOrder(order: Order) = viewModelScope.launch {
         _marketPutResponse.value = Resource.Loading
         _marketPutResponse.value = repository.putMarketOrder(order)
-    }
-
-    fun updateMarketOrder(order: Order) = viewModelScope.launch {
-        repository.updateCacheMarketOrder(order)
     }
 }

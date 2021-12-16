@@ -30,23 +30,11 @@ class OrdersRepository @Inject constructor(
             it.asDomainPlannedOrder()
         }
 
-    suspend fun insertPlannedOrderToCache(order: Order) {
-        withContext(Dispatchers.IO) {
-            cacheDao.insertPlannedOrder(order.asCachePlannerOrder())
-        }
-    }
-
     suspend fun getPlannedOrders() = safeApiCall { api.getPlannedOrders() }
 
     suspend fun insertAllPlannedOrdersToCache(orders: OrderListResponse) {
         withContext(Dispatchers.IO) {
             cacheDao.insertAllPlannedOrders(*orders.asCachePlannedModel())
-        }
-    }
-
-    suspend fun updateCachePlannedOrder(order: Order) {
-        withContext(Dispatchers.IO) {
-            cacheDao.updatePlannedOrder(order.asCachePlannerOrder())
         }
     }
 
@@ -74,21 +62,11 @@ class OrdersRepository @Inject constructor(
             it.asDomainMarketOrder()
         }
 
-    suspend fun insertMarketOrderToCache(order: Order) {
-        withContext(Dispatchers.IO) {
-            cacheDao.insertMarketOrder(order.asCacheMarketOrder())
-        }
-    }
+    suspend fun getMarketOrders() = safeApiCall { api.getMarketOrders() }
 
-    // TODO( 1) delete hardcode in [cacheDatable] 2) uncomment below )
-    suspend fun refreshMarketOrders() = safeApiCall {
-        //val orders = api.getMarketOrders()
-        //cacheDao.insertAllMarketOrders(*orders.asCacheMarketModel())
-    }
-
-    suspend fun updateCacheMarketOrder(order: Order) {
+    suspend fun insertAllMarketOrdersToCache(orders: OrderListResponse) {
         withContext(Dispatchers.IO) {
-            cacheDao.updateMarketOrder(order.asCacheMarketOrder())
+            cacheDao.insertAllMarketOrders(*orders.asCacheMarketModel())
         }
     }
 

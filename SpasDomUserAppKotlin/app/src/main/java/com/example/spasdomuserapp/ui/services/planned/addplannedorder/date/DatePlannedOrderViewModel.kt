@@ -26,10 +26,6 @@ class DatePlannedOrderViewModel @Inject constructor(
         _plannedResponse.value = repository.postPlannedOrder(order)
     }
 
-    fun insertPlannedOrderToCache(order: Order) = viewModelScope.launch {
-        repository.insertPlannedOrderToCache(order)
-    }
-
     var date: String? = null
     var time: String? = null
     var workerId: Long? = null

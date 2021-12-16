@@ -44,8 +44,8 @@ class OrdersRepository @Inject constructor(
         api.updatePlannedOrder(order.id, container)
     }
 
-    suspend fun postPlannedOrder(order: OrderPost) = safeApiCall {
-        api.postPlannedOrder(order)
+    suspend fun postPlannedOrder(plannedOrder: PlannedOrderPost) = safeApiCall {
+        api.postPlannedOrder(plannedOrder)
     }
 
 
@@ -76,7 +76,7 @@ class OrdersRepository @Inject constructor(
         api.updateMarketOrder(order.id, container)
     }
 
-    suspend fun postMarketOrder(order: OrderPost) = safeApiCall {
-        api.postMarketOrder(order)
+    suspend fun postMarketOrder(marketOrder: MarketOrderPost) = safeApiCall {
+        api.postMarketOrder(marketOrder)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.addplannedorder.info
+package com.example.spasdomuserapp.ui.services.orderInfo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -4,9 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class CategoriesList (
-    val label: String,
+data class MarketOrderPost (
     val categoryId: Int,
-    val drawableUrl: String,
-    val subcategory: List<CategoriesList>?
-    ): Parcelable
+    val comment: String = "No comment",
+    val date: String = "",
+    val workerId: Int
+) : Parcelable

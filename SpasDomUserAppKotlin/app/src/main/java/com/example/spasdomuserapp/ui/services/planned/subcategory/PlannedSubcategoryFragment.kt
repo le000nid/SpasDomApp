@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.addplannedorder.subcategory
+package com.example.spasdomuserapp.ui.services.planned.subcategory
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedSubcategoryBinding
-import com.example.spasdomuserapp.models.OrderPost
-import com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesClick
-import com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesAdapter
+import com.example.spasdomuserapp.models.PlannedOrderPost
+import com.example.spasdomuserapp.ui.services.planned.category.PlannedCategoriesClick
+import com.example.spasdomuserapp.ui.services.planned.category.PlannedCategoriesAdapter
 
 
 class PlannedSubcategoryFragment : Fragment() {
@@ -38,7 +38,8 @@ class PlannedSubcategoryFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         plannedCategoriesAdapter = PlannedCategoriesAdapter(PlannedCategoriesClick { subcategory ->
-            val action = PlannedSubcategoryFragmentDirections.actionPlannedSubcategoryFragmentToPlannedInfoFragment(subcategory, subcategory.label, args.category.label, args.category.drawableId)
+            val plannedOrderPost = PlannedOrderPost(args.category.categoryId, subcategory.categoryId)
+            val action = PlannedSubcategoryFragmentDirections.actionPlannedSubcategoryFragmentToPlannedInfoFragment(subcategory.label, plannedOrderPost = plannedOrderPost)
             findNavController().navigate(action)
         })
 

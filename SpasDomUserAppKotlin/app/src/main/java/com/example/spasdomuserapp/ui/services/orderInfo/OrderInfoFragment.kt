@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.addplannedorder.info
+package com.example.spasdomuserapp.ui.services.orderInfo
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentOrderInfoBinding
 import com.example.spasdomuserapp.models.Photo
-import com.example.spasdomuserapp.models.OrderPost
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 class PlannedInfoFragment : Fragment() {
@@ -72,20 +70,17 @@ class PlannedInfoFragment : Fragment() {
 
         binding.btnNext.setOnClickListener {
 
-            val subcategory = args.subcategory
-            val workerPreview = args.workerPreview
-
-            if (subcategory != null) {
-                val categoryId = args.categoryId
-                val subcategoryId = subcategory.drawableId
-                val plannedOrderPost = OrderPost(categoryId, subcategoryId, infoViewModel.comment)
-                val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(subcategory.label, plannedOrderPost)
+            if (args.plannedOrderPost != null) {
+                var orderPost = args.plannedOrderPost
+                orderPost = orderPost!!.copy(comment = infoViewModel.comment)
+                val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(args.appBarTitle, plannedOrderPost = orderPost)
                 findNavController().navigate(action)
-            } else if (workerPreview != null) {
-                val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(args.appBarTitle, workerPreview = workerPreview)
+            } else if (args.marketOrderPost != null) {
+                var orderPost = args.marketOrderPost
+                orderPost = orderPost!!.copy(comment = infoViewModel.comment)
+                val action = PlannedInfoFragmentDirections.actionPlannedInfoFragmentToPlannedDateFragment(args.appBarTitle, marketOrderPost = orderPost)
                 findNavController().navigate(action)
             }
-
         }
 
         return binding.root

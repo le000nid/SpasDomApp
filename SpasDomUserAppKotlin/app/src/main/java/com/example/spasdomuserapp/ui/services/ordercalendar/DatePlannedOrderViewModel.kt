@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.addplannedorder.date
+package com.example.spasdomuserapp.ui.services.ordercalendar
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.*
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.OrdersRepository
-import com.example.spasdomuserapp.responses.OrderResponse
+import com.example.spasdomuserapp.responses.MarketOrderResponse
+import com.example.spasdomuserapp.responses.PlannedOrderResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,13 +18,23 @@ class DatePlannedOrderViewModel @Inject constructor(
     private val repository: OrdersRepository
 ): ViewModel() {
 
-    private val _plannedResponse: MutableLiveData<Resource<OrderResponse>> = MutableLiveData()
-    val plannedResponse: LiveData<Resource<OrderResponse>>
-        get() = _plannedResponse
+    private val _plannedResponsePlanned: MutableLiveData<Resource<PlannedOrderResponse>> = MutableLiveData()
+    val plannedResponsePlanned: LiveData<Resource<PlannedOrderResponse>>
+        get() = _plannedResponsePlanned
 
-    fun postPlannedOrder(order: OrderPost) = viewModelScope.launch {
-        _plannedResponse.value = Resource.Loading
-        _plannedResponse.value = repository.postPlannedOrder(order)
+    fun postPlannedOrder(plannedOrder: PlannedOrderPost) = viewModelScope.launch {
+        _plannedResponsePlanned.value = Resource.Loading
+        _plannedResponsePlanned.value = repository.postPlannedOrder(plannedOrder)
+    }
+
+
+    private val _marketResponsePlanned: MutableLiveData<Resource<MarketOrderResponse>> = MutableLiveData()
+    val marketResponsePlanned: LiveData<Resource<MarketOrderResponse>>
+        get() = _marketResponsePlanned
+
+    fun postMarketOrder(marketOrder: MarketOrderPost) = viewModelScope.launch {
+        _marketResponsePlanned.value = Resource.Loading
+        _marketResponsePlanned.value = repository.postMarketOrder(marketOrder)
     }
 
     var date: String? = null

@@ -13,6 +13,6 @@
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginTop="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_little"
-        tools:context=".ui.services.planned.addplannedorder.subcategory.PlannedSubcategoryFragment" />
+        tools:context=".ui.services.planned.subcategory.PlannedSubcategoryFragment" />
 
 </layout>

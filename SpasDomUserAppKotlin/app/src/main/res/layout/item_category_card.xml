@@ -11,7 +11,7 @@
 
         <variable
             name="click"
-            type="com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesClick" />
+            type="com.example.spasdomuserapp.ui.services.planned.category.PlannedCategoriesClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

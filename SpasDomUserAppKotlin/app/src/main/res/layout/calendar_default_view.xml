@@ -9,7 +9,7 @@
             type="com.example.spasdomuserapp.models.WorkerDay" />
         <variable
             name="click"
-            type="com.example.spasdomuserapp.ui.services.planned.addplannedorder.date.DateClick" />
+            type="com.example.spasdomuserapp.ui.services.ordercalendar.DateClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

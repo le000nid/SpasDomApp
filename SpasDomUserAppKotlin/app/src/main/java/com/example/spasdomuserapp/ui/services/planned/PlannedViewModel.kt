@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.planned
+package com.example.spasdomuserapp.ui.services.planned
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

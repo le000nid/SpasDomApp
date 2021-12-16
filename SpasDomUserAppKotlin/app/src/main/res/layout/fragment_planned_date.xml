@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/spacing_normal"
         android:layout_marginEnd="@dimen/spacing_normal"
-        tools:context=".ui.services.planned.addplannedorder.date.PlannedDateFragment">
+        tools:context=".ui.services.ordercalendar.PlannedDateFragment">
 
         <ProgressBar
             android:id="@+id/progressbar"

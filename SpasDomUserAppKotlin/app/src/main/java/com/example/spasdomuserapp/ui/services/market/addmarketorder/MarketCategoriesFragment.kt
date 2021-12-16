@@ -7,17 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentMarketCategoriesBinding
-import com.example.spasdomuserapp.network.Resource
-import com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesAdapter
-import com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesClick
-import com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesFragmentDirections
-import com.example.spasdomuserapp.util.handleApiError
 import com.example.spasdomuserapp.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 

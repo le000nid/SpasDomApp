@@ -9,7 +9,7 @@
             type="com.example.spasdomuserapp.models.Photo" />
         <variable
             name="removeClick"
-            type="com.example.spasdomuserapp.ui.services.planned.addplannedorder.info.PhotoRemoveClick" />
+            type="com.example.spasdomuserapp.ui.services.orderInfo.PhotoRemoveClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

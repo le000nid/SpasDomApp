@@ -70,7 +70,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:context=".ui.services.planned.addplannedorder.info.PlannedInfoFragment" />
+            tools:context=".ui.services.orderInfo.PlannedInfoFragment" />
 
         <Button
             android:id="@+id/btn_next"

@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface OrderApi {
     @POST("/planned-orders")
-    suspend fun postPlannedOrder(@Body order: OrderPost): OrderResponse
+    suspend fun postPlannedOrder(@Body plannedOrder: PlannedOrderPost): PlannedOrderResponse
 
     @GET("/planned-orders")
     suspend fun getPlannedOrders(): List<NetworkOrder>
@@ -21,7 +21,7 @@ interface OrderApi {
 
 
     @POST("/marked-orders")
-    suspend fun postMarketOrder(@Body order: OrderPost): OrderResponse
+    suspend fun postMarketOrder(@Body plannedOrder: MarketOrderPost): MarketOrderResponse
 
     @GET("/marked-orders")
     suspend fun getMarketOrders(): List<NetworkOrder>

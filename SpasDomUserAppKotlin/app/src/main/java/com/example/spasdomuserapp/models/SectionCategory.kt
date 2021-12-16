@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class SectionCategory (
     val title: String,
-    val drawableId: Int,
+    val categoryId: Int,
     val drawableUrl: String,
 ):Parcelable

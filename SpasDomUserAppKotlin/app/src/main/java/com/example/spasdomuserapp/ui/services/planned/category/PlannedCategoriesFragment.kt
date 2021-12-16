@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.addplannedorder.category
+package com.example.spasdomuserapp.ui.services.planned.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedCategoriesBinding
 import com.example.spasdomuserapp.models.CategoriesList
-import com.example.spasdomuserapp.network.Resource
-import com.example.spasdomuserapp.util.handleApiError
 import com.example.spasdomuserapp.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 

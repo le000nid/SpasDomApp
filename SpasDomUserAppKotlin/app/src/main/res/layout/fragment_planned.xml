@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.services.planned.planned.PlannedFragment">
+    tools:context=".ui.services.planned.PlannedFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.example.spasdomuserapp.ui.services.planned.planned.PlannedViewModel" />
+            type="com.example.spasdomuserapp.ui.services.planned.PlannedViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

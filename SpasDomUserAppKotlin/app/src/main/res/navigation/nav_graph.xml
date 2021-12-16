@@ -65,12 +65,12 @@
     </fragment>
     <fragment
         android:id="@+id/plannedFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.planned.PlannedFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.PlannedFragment"
         android:label="fragment_planned"
         tools:layout="@layout/fragment_planned" />
     <fragment
         android:id="@+id/plannedCategoriesFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.category.PlannedCategoriesFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.category.PlannedCategoriesFragment"
         android:label="Выберите категорию"
         tools:layout="@layout/fragment_planned_categories">
         <action
@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/plannedSubcategoryFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.subcategory.PlannedSubcategoryFragment"
+        android:name="com.example.spasdomuserapp.ui.services.planned.subcategory.PlannedSubcategoryFragment"
         android:label="{categoryName}"
         tools:layout="@layout/fragment_planned_subcategory">
         <argument
@@ -94,38 +94,29 @@
     </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.info.PlannedInfoFragment"
+        android:name="com.example.spasdomuserapp.ui.services.orderInfo.PlannedInfoFragment"
         android:label="{appBarTitle}"
         tools:layout="@layout/fragment_order_info">
         <argument
-            android:name="subcategory"
-            app:argType="com.example.spasdomuserapp.models.CategoriesList"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
             android:name="appBarTitle"
             app:argType="string" />
+        <argument
+            android:name="plannedOrderPost"
+            app:argType="com.example.spasdomuserapp.models.PlannedOrderPost"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_plannedInfoFragment_to_plannedDateFragment"
             app:destination="@id/plannedDateFragment" />
         <argument
-            android:name="categoryName"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="categoryId"
-            app:argType="integer"
-            android:defaultValue="-1" />
-        <argument
-            android:name="workerPreview"
-            app:argType="com.example.spasdomuserapp.models.WorkerPreview"
+            android:name="marketOrderPost"
+            app:argType="com.example.spasdomuserapp.models.MarketOrderPost"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/plannedDateFragment"
-        android:name="com.example.spasdomuserapp.ui.services.planned.addplannedorder.date.PlannedDateFragment"
+        android:name="com.example.spasdomuserapp.ui.services.ordercalendar.PlannedDateFragment"
         android:label="{appBarTitle}"
         tools:layout="@layout/fragment_planned_date">
         <argument
@@ -133,7 +124,7 @@
             app:argType="string" />
         <argument
             android:name="plannedOrderPost"
-            app:argType="com.example.spasdomuserapp.models.OrderPost"
+            app:argType="com.example.spasdomuserapp.models.PlannedOrderPost"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
@@ -142,8 +133,8 @@
             app:popUpTo="@id/successFragment"
             app:popUpToInclusive="false" />
         <argument
-            android:name="workerPreview"
-            app:argType="com.example.spasdomuserapp.models.WorkerPreview"
+            android:name="marketOrderPost"
+            app:argType="com.example.spasdomuserapp.models.MarketOrderPost"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
@@ -220,6 +211,9 @@
         <action
             android:id="@+id/action_workerInfoFragment_to_orderInfoFragment"
             app:destination="@id/orderInfoFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

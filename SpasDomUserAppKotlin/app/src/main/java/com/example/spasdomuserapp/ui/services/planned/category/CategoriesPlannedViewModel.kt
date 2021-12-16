@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.addplannedorder.category
+package com.example.spasdomuserapp.ui.services.planned.category
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

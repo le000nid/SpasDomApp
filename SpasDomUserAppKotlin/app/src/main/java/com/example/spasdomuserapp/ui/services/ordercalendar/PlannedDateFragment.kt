@@ -1,7 +1,8 @@
-package com.example.spasdomuserapp.ui.services.planned.addplannedorder.date
+package com.example.spasdomuserapp.ui.services.ordercalendar
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedDateBinding
-import com.example.spasdomuserapp.models.Order
 import com.example.spasdomuserapp.models.WorkerDay
 import com.example.spasdomuserapp.models.WorkerTime
 import com.example.spasdomuserapp.network.Resource
@@ -81,31 +81,44 @@ class PlannedDateFragment : Fragment(R.layout.fragment_planned_date) {
 
             if (args.plannedOrderPost != null) {
                 var finalOrder = args.plannedOrderPost
-                finalOrder = finalOrder?.copy(date = date, workerId = viewModel.workerId!!)
-                //val cacheOrder = Order(4, "Проверка воды", viewModel.date.toString(), viewModel.time.toString(), 0, "",0, "", "Алексей Воронов", 5, "Опытный специалист")
-                //viewModel.postPlannedOrder(finalOrder)
-            } else if (args.workerPreview != null) {
-
+                finalOrder = finalOrder!!.copy(date = date, workerId = viewModel.workerId!!)
+                viewModel.postPlannedOrder(finalOrder)
+            } else if (args.marketOrderPost != null) {
+                var marketOrder = args.marketOrderPost
+                marketOrder = marketOrder!!.copy(date = date)
+                viewModel.postMarketOrder(marketOrder)
             }
-
-            val action = PlannedDateFragmentDirections.actionPlannedDateFragmentToSuccessFragment()
-            findNavController().navigate(action)
         }
 
 
-        viewModel.plannedResponse.observe(viewLifecycleOwner) {
+        viewModel.plannedResponsePlanned.observe(viewLifecycleOwner) {
             binding.progressbar.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
                     lifecycleScope.launch {
-                        // TODO(save to cache)
-                        // TODO(navigate to order fragment)
-                        //Log.i("orderResponse", it.value.order.toString())
+                        Log.i("orderResponse", it.value.plannedOrder.toString())
                         val action = PlannedDateFragmentDirections.actionPlannedDateFragmentToSuccessFragment()
                         findNavController().navigate(action)
                     }
                 }
-                is Resource.Failure -> handleApiError(it) {  } //TODO(What to do?)
+                is Resource.Loading -> { }
+                is Resource.Failure -> handleApiError(it) {  }
+            }
+        }
+
+
+        viewModel.marketResponsePlanned.observe(viewLifecycleOwner) {
+            binding.progressbar.visible(it is Resource.Loading)
+            when (it) {
+                is Resource.Success -> {
+                    lifecycleScope.launch {
+                        Log.i("marketResponse", it.value.marketOrder.toString())
+                        val action = PlannedDateFragmentDirections.actionPlannedDateFragmentToSuccessFragment()
+                        findNavController().navigate(action)
+                    }
+                }
+                is Resource.Loading -> { }
+                is Resource.Failure -> handleApiError(it) {  }
             }
         }
 

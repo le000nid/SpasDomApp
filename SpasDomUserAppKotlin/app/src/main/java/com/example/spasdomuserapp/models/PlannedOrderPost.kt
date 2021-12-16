@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class OrderPost (
+data class PlannedOrderPost (
     val categoryId: Int,
     val subcategoryId: Int,
     val comment: String = "No comment",

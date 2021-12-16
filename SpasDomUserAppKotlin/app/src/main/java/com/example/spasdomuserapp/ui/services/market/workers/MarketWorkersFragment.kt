@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentMarketWorkersBinding
 import com.example.spasdomuserapp.models.WorkerPreview
-import com.example.spasdomuserapp.ui.services.planned.addplannedorder.info.PlannedInfoFragmentArgs
 import com.example.spasdomuserapp.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,7 +49,7 @@ class MarketWorkersFragment : Fragment() {
         }*/
 
         workersAdapter = MarketWorkersAdapter(WorkerClick {
-            val action = MarketWorkersFragmentDirections.actionMarketWorkersFragmentToWorkerInfoFragment(appBarTitle = args.appBarTitle, workerPreview = it)
+            val action = MarketWorkersFragmentDirections.actionMarketWorkersFragmentToWorkerInfoFragment(appBarTitle = args.appBarTitle, workerPreview = it, args.category.categoryId)
             findNavController().navigate(action)
         })
 

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentWorkerInfoBinding
+import com.example.spasdomuserapp.models.MarketOrderPost
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.util.handleApiError
 import com.example.spasdomuserapp.util.visible
@@ -75,8 +76,8 @@ class WorkerInfoFragment : Fragment() {
 
 
         binding.btnOffer.setOnClickListener {
-            // TODO(Specify type which I have to pass for REST post)
-            val action = WorkerInfoFragmentDirections.actionWorkerInfoFragmentToOrderInfoFragment(appBarTitle = args.appBarTitle)
+            val marketOrderPost = MarketOrderPost(args.categoryId, workerId = viewModel.worker.id)
+            val action = WorkerInfoFragmentDirections.actionWorkerInfoFragmentToOrderInfoFragment(appBarTitle = args.appBarTitle, marketOrderPost = marketOrderPost)
             findNavController().navigate(action)
         }
 

@@ -1,4 +1,4 @@
-package com.example.spasdomuserapp.ui.services.planned.planned
+package com.example.spasdomuserapp.ui.services.planned
 
 import android.content.DialogInterface
 import android.os.Bundle

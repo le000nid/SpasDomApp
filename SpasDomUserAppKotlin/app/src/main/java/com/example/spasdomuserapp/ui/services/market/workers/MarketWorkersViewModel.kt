@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.WorkerPreview
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.ServicesRepository
-import com.example.spasdomuserapp.responses.WorkersPreviewResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,8 +16,8 @@ class MarketWorkersViewModel @Inject constructor(
     private val repository: ServicesRepository
 ) : ViewModel() {
 
-    private val _marketPreviewWorkers: MutableLiveData<Resource<WorkersPreviewResponse>> = MutableLiveData()
-    val marketPreviewWorkers: LiveData<Resource<WorkersPreviewResponse>>
+    private val _marketPreviewWorkers: MutableLiveData<Resource<List<WorkerPreview>>> = MutableLiveData()
+    val marketPreviewWorkers: LiveData<Resource<List<WorkerPreview>>>
         get() = _marketPreviewWorkers
 
     fun getPreviewWorkers() = viewModelScope.launch {

@@ -40,14 +40,12 @@ class MarketWorkersFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.visible(false)
-                    workersAdapter?.workers = it.value.previewWorkers
+                    workersAdapter?.workers = it.value
                 }
                 is Resource.Loading -> {
                     binding.progressBar.visible(true)
                 }
-                is Resource.Failure -> {
-                    handleApiError(it)
-                }
+                is Resource.Failure -> handleApiError(it) { }
             }
         }*/
 
@@ -61,6 +59,7 @@ class MarketWorkersFragment : Fragment() {
             adapter = workersAdapter
         }
 
+        // TODO(HARDCODE remove when REST is ready)
         workersAdapter?.workers = viewModel.previewWorkers
 
 

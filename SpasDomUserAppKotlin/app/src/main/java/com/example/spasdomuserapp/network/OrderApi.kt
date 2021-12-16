@@ -1,9 +1,6 @@
 package com.example.spasdomuserapp.network
 
-import com.example.spasdomuserapp.models.CategoriesList
-import com.example.spasdomuserapp.models.NetworkOrder
-import com.example.spasdomuserapp.models.Order
-import com.example.spasdomuserapp.models.OrderPost
+import com.example.spasdomuserapp.models.*
 import com.example.spasdomuserapp.responses.*
 import retrofit2.http.*
 
@@ -38,7 +35,7 @@ interface OrderApi {
     suspend fun getMarketCategories(): List<SectionCategories>
 
     @GET("/market-workers")
-    suspend fun getMarketPreviewWorkers(@Query("filter") type: String): WorkersPreviewResponse
+    suspend fun getMarketPreviewWorkers(@Query("filter") type: String): List<WorkerPreview>
 
     @GET("/market-workers")
     suspend fun getMarketWorker(@Query("filter") type: String): WorkerResponse

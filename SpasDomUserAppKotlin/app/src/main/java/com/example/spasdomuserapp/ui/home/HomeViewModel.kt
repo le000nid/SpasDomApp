@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.Alert
 import com.example.spasdomuserapp.models.NetworkAlert
+import com.example.spasdomuserapp.models.NetworkNewsItem
 import com.example.spasdomuserapp.models.NewsItem
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.HomeRepository
-import com.example.spasdomuserapp.responses.NewsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,8 +27,8 @@ class HomeViewModel @Inject constructor(
     /**
      * Network get request. All news.
      */
-    private val _news: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-    val news: LiveData<Resource<NewsResponse>>
+    private val _news: MutableLiveData<Resource<List<NetworkNewsItem>>> = MutableLiveData()
+    val news: LiveData<Resource<List<NetworkNewsItem>>>
         get() = _news
 
     fun getNews() = viewModelScope.launch {
@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(
     /**
      * DataBase insert query. All news
      */
-    fun insertAllNewsToCache(news: NewsResponse) = viewModelScope.launch {
+    fun insertAllNewsToCache(news: List<NetworkNewsItem>) = viewModelScope.launch {
         repository.insertAllNewsToCache(news)
     }
 

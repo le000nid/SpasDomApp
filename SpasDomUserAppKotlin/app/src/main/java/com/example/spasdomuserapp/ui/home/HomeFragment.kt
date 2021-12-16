@@ -37,18 +37,17 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        /*viewModel.getNews()
+        viewModel.getNews()
 
         viewModel.news.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     viewModel.insertAllNewsToCache(it.value)
                 }
-                is Resource.Failure -> {
-                    handleApiError(it)
-                }
+                is Resource.Loading -> { }
+                is Resource.Failure -> handleApiError(it) { }
             }
-        }*/
+        }
 
 
         viewModel.getAlerts()

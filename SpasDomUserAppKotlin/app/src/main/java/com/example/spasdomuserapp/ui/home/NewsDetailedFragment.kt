@@ -21,7 +21,7 @@ class NewsDetailedFragment : Fragment(R.layout.fragment_news_detailed) {
         val itemNews = args.newsItem
 
         binding.apply {
-            bindImage(imgNewsItem, itemNews.thumbnail)
+            bindImage(imgNewsItem, itemNews.url)
             txTitleNewsItem.text = itemNews.title
             txDescNewsItem.text = itemNews.description
         }

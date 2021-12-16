@@ -8,21 +8,20 @@ import com.example.spasdomuserapp.models.Order
 
 @Entity
 data class CacheNewsItem constructor(
-    @PrimaryKey
-    val url: String,
-    val updated: String,
     val title: String,
     val description: String,
-    val thumbnail: String)
+    @PrimaryKey
+    val url: String,
+    val date: String
+)
 
 fun List<CacheNewsItem>.asDomainModel(): List<NewsItem> {
     return map {
         NewsItem(
-                url = it.url,
-                title = it.title,
-                description = it.description,
-                updated = it.updated,
-                thumbnail = it.thumbnail)
+            url = it.url,
+            title = it.title,
+            description = it.description,
+            date = it.date)
     }
 }
 

@@ -16,7 +16,7 @@ data class NetworkAlert(
     val description: String?
 )
 
-fun List<NetworkAlert>.asCacheAlertsModel(): Array<CacheAlert> {
+fun List<NetworkAlert>.asCacheModel(): Array<CacheAlert> {
     return map {
         CacheAlert(
             id = it.id,

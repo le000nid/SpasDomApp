@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.spasdomuserapp.models.NetworkOrder
 import com.example.spasdomuserapp.models.Order
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.OrdersRepository
-import com.example.spasdomuserapp.responses.OrderListResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,8 +23,8 @@ class PlannedViewModel@Inject constructor(
     /**
      * Network get request. All planned orders
      */
-    private val _plannedOrders: MutableLiveData<Resource<OrderListResponse>> = MutableLiveData()
-    val plannedOrders: LiveData<Resource<OrderListResponse>>
+    private val _plannedOrders: MutableLiveData<Resource<List<NetworkOrder>>> = MutableLiveData()
+    val plannedOrders: LiveData<Resource<List<NetworkOrder>>>
         get() = _plannedOrders
 
     fun getPlannedOrders() = viewModelScope.launch {
@@ -35,7 +35,7 @@ class PlannedViewModel@Inject constructor(
     /**
      * DataBase insert query. All planned orders
      */
-    fun insertAllPlannedOrdersToCache(orders: OrderListResponse) = viewModelScope.launch {
+    fun insertAllPlannedOrdersToCache(orders: List<NetworkOrder>) = viewModelScope.launch {
         repository.insertAllPlannedOrdersToCache(orders)
     }
 

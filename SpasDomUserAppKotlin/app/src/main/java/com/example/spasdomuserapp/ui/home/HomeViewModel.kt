@@ -10,7 +10,6 @@ import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.HomeRepository
 import com.example.spasdomuserapp.responses.AlertsResponse
 import com.example.spasdomuserapp.responses.NewsResponse
-import com.example.spasdomuserapp.responses.OrderListResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

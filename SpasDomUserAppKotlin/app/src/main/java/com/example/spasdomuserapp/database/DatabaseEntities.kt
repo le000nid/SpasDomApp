@@ -59,7 +59,7 @@ data class CachePlannedOrder(
     val status: Int,
     val workerImg: String,
     val workerName: String,
-    val workerRate: Int,
+    val workerRate: Double,
     val workerInfo: String
 )
 
@@ -84,16 +84,16 @@ fun List<CachePlannedOrder>.asDomainPlannedOrder(): List<Order> {
 fun Order.asCachePlannerOrder(): CachePlannedOrder {
     return CachePlannedOrder(
         id = id,
-        title = title,
+        title = title ?: "",
         date = date,
         time = time,
         userRate = userRate,
-        userReview = userReview,
+        userReview = userReview ?: "",
         status = status,
-        workerImg = workerImg,
+        workerImg = workerImg ?: "",
         workerName = workerName,
         workerRate = workerRate,
-        workerInfo = workerInfo
+        workerInfo = workerInfo ?: ""
     )
 }
 
@@ -110,7 +110,7 @@ data class CacheMarketOrder(
     val status: Int,
     val workerImg: String,
     val workerName: String,
-    val workerRate: Int,
+    val workerRate: Double,
     val workerInfo: String
 )
 
@@ -135,15 +135,15 @@ fun List<CacheMarketOrder>.asDomainMarketOrder(): List<Order> {
 fun Order.asCacheMarketOrder(): CacheMarketOrder {
     return CacheMarketOrder(
         id = id,
-        title = title,
+        title = title ?: "",
         date = date,
         time = time,
         userRate = userRate,
-        userReview = userReview,
+        userReview = userReview ?: "",
         status = status,
-        workerImg = workerImg,
+        workerImg = workerImg ?: "",
         workerName = workerName,
         workerRate = workerRate,
-        workerInfo = workerInfo
+        workerInfo = workerInfo ?: ""
     )
 }

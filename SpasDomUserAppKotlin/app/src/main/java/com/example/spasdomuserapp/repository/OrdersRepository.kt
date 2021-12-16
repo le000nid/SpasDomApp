@@ -2,15 +2,13 @@ package com.example.spasdomuserapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.example.spasdomuserapp.database.*
-import com.example.spasdomuserapp.models.Order
-import com.example.spasdomuserapp.models.OrderPost
+import com.example.spasdomuserapp.database.CacheDao
+import com.example.spasdomuserapp.database.asDomainMarketOrder
+import com.example.spasdomuserapp.database.asDomainPlannedOrder
+import com.example.spasdomuserapp.models.*
 import com.example.spasdomuserapp.network.OrderApi
 import com.example.spasdomuserapp.network.SafeApiCall
-import com.example.spasdomuserapp.responses.OrderListResponse
 import com.example.spasdomuserapp.responses.OrderUpdate
-import com.example.spasdomuserapp.responses.asCacheMarketModel
-import com.example.spasdomuserapp.responses.asCachePlannedModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -32,7 +30,7 @@ class OrdersRepository @Inject constructor(
 
     suspend fun getPlannedOrders() = safeApiCall { api.getPlannedOrders() }
 
-    suspend fun insertAllPlannedOrdersToCache(orders: OrderListResponse) {
+    suspend fun insertAllPlannedOrdersToCache(orders: List<NetworkOrder>) {
         withContext(Dispatchers.IO) {
             cacheDao.insertAllPlannedOrders(*orders.asCachePlannedModel())
         }
@@ -64,7 +62,7 @@ class OrdersRepository @Inject constructor(
 
     suspend fun getMarketOrders() = safeApiCall { api.getMarketOrders() }
 
-    suspend fun insertAllMarketOrdersToCache(orders: OrderListResponse) {
+    suspend fun insertAllMarketOrdersToCache(orders: List<NetworkOrder>) {
         withContext(Dispatchers.IO) {
             cacheDao.insertAllMarketOrders(*orders.asCacheMarketModel())
         }

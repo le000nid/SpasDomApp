@@ -1,5 +1,7 @@
 package com.example.spasdomuserapp.network
 
+import com.example.spasdomuserapp.models.NetworkOrder
+import com.example.spasdomuserapp.models.Order
 import com.example.spasdomuserapp.models.OrderPost
 import com.example.spasdomuserapp.responses.*
 import retrofit2.http.*
@@ -9,7 +11,7 @@ interface OrderApi {
     suspend fun postPlannedOrder(@Body order: OrderPost): OrderResponse
 
     @GET("/planned-orders")
-    suspend fun getPlannedOrders(): OrderListResponse
+    suspend fun getPlannedOrders(): List<NetworkOrder>
 
     @PUT("/planned-orders/{id}")
     suspend fun updatePlannedOrder(
@@ -24,7 +26,7 @@ interface OrderApi {
     suspend fun postMarketOrder(@Body order: OrderPost): OrderResponse
 
     @GET("/marked-orders")
-    suspend fun getMarketOrders(): OrderListResponse
+    suspend fun getMarketOrders(): List<NetworkOrder>
 
     @PUT("/marked-orders/{id}")
     suspend fun updateMarketOrder(

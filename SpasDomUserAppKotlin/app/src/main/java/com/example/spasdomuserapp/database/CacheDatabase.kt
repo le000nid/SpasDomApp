@@ -27,7 +27,7 @@ abstract class CacheDatabase : RoomDatabase() {
             super.onCreate(db)
 
             val cacheDao = database.get().cacheDao()
-            applicationScope.launch {
+            /*applicationScope.launch {
                 val newsInit: List<NewsItem> = listOf(
                     NewsItem("Украли дверь", "Вечером 22.03 вынесли дверь. Соседе вызвали полицию!","1","22.03.21", ""),
                     NewsItem("Украли соседа", "Вечером 24.03 украли соседа. Люди в страхе!","2","24.03.21", ""),
@@ -62,7 +62,7 @@ abstract class CacheDatabase : RoomDatabase() {
                 )
                 val itemsMarket = OrderListResponse(itemsMarketInit)
                 cacheDao.insertAllMarketOrders(*itemsMarket.asCacheMarketModel())
-            }
+            }*/
         }
     }
 }

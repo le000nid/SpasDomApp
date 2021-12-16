@@ -55,8 +55,8 @@ fun goneIfRateNot0(view: View, rate: Int, state: Int) {
 }
 
 @BindingAdapter("setRating")
-fun setRating(view: ImageView, rate: Int) {
-    when(rate) {
+fun setRating(view: ImageView, rate: Double) {
+    when(rate.toInt()) {
         0 -> view.setBackgroundResource(R.drawable.ic_rate_0)
         1 -> view.setBackgroundResource(R.drawable.ic_rate_1)
         2 -> view.setBackgroundResource(R.drawable.ic_rate_2)

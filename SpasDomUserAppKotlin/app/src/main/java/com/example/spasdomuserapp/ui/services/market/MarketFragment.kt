@@ -46,7 +46,6 @@ class MarketFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        /* TODO(Uncomment when you will receive preview workers from server)
         viewModel.getMarketOrders()
 
         viewModel.marketOrders.observe(viewLifecycleOwner) {
@@ -58,7 +57,7 @@ class MarketFragment : Fragment() {
                     handleApiError(it)
                 }
             }
-        }*/
+        }
 
 
         activeAdapter = ActiveOrdersAdapter(OrderClick {
@@ -139,10 +138,11 @@ class MarketFragment : Fragment() {
                     when (it) {
                         is Resource.Success -> {
                             lifecycleScope.launch {
-                                //viewModel.getMarketOrders()
+                                viewModel.getMarketOrders()
                                 dialog.dismiss()
                             }
                         }
+                        is Resource.Loading -> { }
                         is Resource.Failure -> handleApiError(it) {  } //TODO(What to do?)
                     }
                 }

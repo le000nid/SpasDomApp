@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.FragmentPlannedCategoriesBinding
 import com.example.spasdomuserapp.models.CategoriesList
+import com.example.spasdomuserapp.network.Resource
+import com.example.spasdomuserapp.util.handleApiError
 import com.example.spasdomuserapp.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,14 +41,12 @@ class PlannedCategoriesFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.visible(false)
-                    plannedCategoriesAdapter?.categoriesLists = it.value.categoriesList
+                    plannedCategoriesAdapter?.categoriesLists = it.value
                 }
                 is Resource.Loading -> {
                     binding.progressBar.visible(true)
                 }
-                is Resource.Failure -> {
-                    handleApiError(it)
-                }
+                is Resource.Failure -> handleApiError(it) { }
             }
         }*/
 
@@ -60,6 +60,7 @@ class PlannedCategoriesFragment : Fragment() {
             adapter = plannedCategoriesAdapter
         }
 
+        // TODO(HARDCODE remove when REST is ready)
         plannedCategoriesAdapter?.categoriesLists = viewModel.categoriesLists
 
         return binding.root

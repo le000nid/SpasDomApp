@@ -5,8 +5,10 @@ import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.models.CategoriesList
 
@@ -95,7 +97,6 @@ fun dateType(cardView: CardView, type: Int) {
     }
 }
 
-//TODO (Add all drawables for categories)
 @BindingAdapter("categoryImage")
 fun ImageView.setCategoryImage(item: Int) {
     setImageResource(when (item) {
@@ -103,4 +104,18 @@ fun ImageView.setCategoryImage(item: Int) {
         2 -> R.drawable.ic_home
         else -> R.drawable.ic_broken_image
     })
+}
+
+@BindingAdapter("imageFromURL")
+fun uploadImage(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        Glide.with(imgView.context)
+            .load(imgUri)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image))
+            .into(imgView)
+    }
 }

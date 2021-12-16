@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.CategoriesList
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.ServicesRepository
-import com.example.spasdomuserapp.responses.CategoriesResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,8 +16,8 @@ class CategoriesPlannedViewModel @Inject constructor(
     private val repository: ServicesRepository
 ) : ViewModel() {
 
-    private val _plannedCategories: MutableLiveData<Resource<CategoriesResponse>> = MutableLiveData()
-    val plannedCategories: LiveData<Resource<CategoriesResponse>>
+    private val _plannedCategories: MutableLiveData<Resource<List<CategoriesList>>> = MutableLiveData()
+    val plannedCategories: LiveData<Resource<List<CategoriesList>>>
         get() = _plannedCategories
 
     fun getPlannedCategories() = viewModelScope.launch {

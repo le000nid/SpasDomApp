@@ -1,5 +1,6 @@
 package com.example.spasdomuserapp.network
 
+import com.example.spasdomuserapp.models.CategoriesList
 import com.example.spasdomuserapp.models.NetworkOrder
 import com.example.spasdomuserapp.models.Order
 import com.example.spasdomuserapp.models.OrderPost
@@ -19,7 +20,7 @@ interface OrderApi {
         @Body update: List<OrderUpdate>) : Boolean
 
     @GET("/planned-categories")
-    suspend fun getPlannedCategories(): CategoriesResponse
+    suspend fun getPlannedCategories(): List<CategoriesList>
 
 
     @POST("/marked-orders")

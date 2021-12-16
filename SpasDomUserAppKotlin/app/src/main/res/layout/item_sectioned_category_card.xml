@@ -30,12 +30,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!--TODO(Change on loading from Glide by url)-->
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                app:categoryImage="@{category.drawableId}"
+                app:imageFromURL="@{category.drawableUrl}"
                 app:tint="@color/primaryBlack" />
 
 

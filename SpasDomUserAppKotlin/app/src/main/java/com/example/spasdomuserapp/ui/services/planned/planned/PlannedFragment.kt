@@ -2,7 +2,6 @@ package com.example.spasdomuserapp.ui.services.planned.planned
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.DialogRateOrderBinding
 import com.example.spasdomuserapp.databinding.FragmentPlannedBinding
 import com.example.spasdomuserapp.models.Order
-import com.example.spasdomuserapp.models.asCachePlannedModel
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.ui.services.ServicesFragmentDirections
 import com.example.spasdomuserapp.ui.services.base.ActiveOrdersAdapter
@@ -48,7 +46,6 @@ class PlannedFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        // TODO(Uncomment when you will receive preview workers from server)
         viewModel.getPlannedOrders()
 
         viewModel.plannedOrders.observe(viewLifecycleOwner) {
@@ -56,12 +53,8 @@ class PlannedFragment : Fragment() {
                 is Resource.Success -> {
                     viewModel.insertAllPlannedOrdersToCache(it.value)
                 }
-                is Resource.Loading -> {
-
-                }
-                is Resource.Failure -> {
-                    handleApiError(it)
-                }
+                is Resource.Loading -> { }
+                is Resource.Failure -> handleApiError(it) {  }
             }
         }
 
@@ -148,7 +141,8 @@ class PlannedFragment : Fragment() {
                                 dialog.dismiss()
                             }
                         }
-                        is Resource.Failure -> handleApiError(it) {  } //TODO(What to do?)
+                        is Resource.Loading -> { }
+                        is Resource.Failure -> handleApiError(it) {  }
                     }
                 }
             }

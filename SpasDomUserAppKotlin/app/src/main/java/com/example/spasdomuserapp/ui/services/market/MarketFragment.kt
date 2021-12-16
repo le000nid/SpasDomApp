@@ -53,9 +53,8 @@ class MarketFragment : Fragment() {
                 is Resource.Success -> {
                     viewModel.insertAllMarketOrdersToCache(it.value)
                 }
-                is Resource.Failure -> {
-                    handleApiError(it)
-                }
+                is Resource.Loading -> { }
+                is Resource.Failure -> handleApiError(it) {  }
             }
         }
 
@@ -143,7 +142,7 @@ class MarketFragment : Fragment() {
                             }
                         }
                         is Resource.Loading -> { }
-                        is Resource.Failure -> handleApiError(it) {  } //TODO(What to do?)
+                        is Resource.Failure -> handleApiError(it) {  }
                     }
                 }
             }

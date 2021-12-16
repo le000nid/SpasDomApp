@@ -37,7 +37,6 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        // TODO(Uncomment when you will receive preview workers from server)
         /*viewModel.getNews()
 
         viewModel.news.observe(viewLifecycleOwner) {
@@ -51,19 +50,22 @@ class HomeFragment : Fragment() {
             }
         }*/
 
-        // TODO(Uncomment when you will receive preview workers from server)
-        /*viewModel.getAlerts()
+
+        viewModel.getAlerts()
 
         viewModel.alerts.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    viewModel.insertAllAlertsToCache(it.value)
+                    if (it.value.isEmpty()) {
+                        viewModel.deleteAllAlerts()
+                    } else {
+                        viewModel.insertAllAlertsToCache(it.value)
+                    }
                 }
-                is Resource.Failure -> {
-                    handleApiError(it)
-                }
+                is Resource.Loading -> { }
+                is Resource.Failure -> handleApiError(it) { }
             }
-        }*/
+        }
 
 
         newsAdapter = NewsItemsAdapter(NewsItemClick {

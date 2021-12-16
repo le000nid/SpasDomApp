@@ -26,19 +26,20 @@ fun List<CacheNewsItem>.asDomainModel(): List<NewsItem> {
     }
 }
 
-// TODO(Replace primary key)
 
 @Entity
 data class CacheAlert(
+    @PrimaryKey(autoGenerate = false)
+    val id: Int,
     val data: String,
     val title: String,
-    @PrimaryKey
     val description: String
 )
 
 fun List<CacheAlert>.asDomainAlertModel(): List<Alert> {
     return map {
         Alert(
+            id = it.id,
             data = it.data,
             title = it.title,
             description = it.description
@@ -81,22 +82,6 @@ fun List<CachePlannedOrder>.asDomainPlannedOrder(): List<Order> {
     }
 }
 
-fun Order.asCachePlannerOrder(): CachePlannedOrder {
-    return CachePlannedOrder(
-        id = id,
-        title = title ?: "",
-        date = date,
-        time = time,
-        userRate = userRate,
-        userReview = userReview ?: "",
-        status = status,
-        workerImg = workerImg ?: "",
-        workerName = workerName,
-        workerRate = workerRate,
-        workerInfo = workerInfo ?: ""
-    )
-}
-
 
 @Entity
 data class CacheMarketOrder(
@@ -130,20 +115,4 @@ fun List<CacheMarketOrder>.asDomainMarketOrder(): List<Order> {
             workerInfo = it.workerInfo
         )
     }
-}
-
-fun Order.asCacheMarketOrder(): CacheMarketOrder {
-    return CacheMarketOrder(
-        id = id,
-        title = title ?: "",
-        date = date,
-        time = time,
-        userRate = userRate,
-        userReview = userReview ?: "",
-        status = status,
-        workerImg = workerImg ?: "",
-        workerName = workerName,
-        workerRate = workerRate,
-        workerInfo = workerInfo ?: ""
-    )
 }

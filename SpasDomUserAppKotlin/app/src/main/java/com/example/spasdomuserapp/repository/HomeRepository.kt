@@ -6,16 +6,15 @@ import com.example.spasdomuserapp.database.CacheDao
 import com.example.spasdomuserapp.database.asDomainAlertModel
 import com.example.spasdomuserapp.database.asDomainModel
 import com.example.spasdomuserapp.models.Alert
+import com.example.spasdomuserapp.models.NetworkAlert
 import com.example.spasdomuserapp.models.NewsItem
+import com.example.spasdomuserapp.models.asCacheAlertsModel
 import com.example.spasdomuserapp.network.HomeApi
 import com.example.spasdomuserapp.network.SafeApiCall
-import com.example.spasdomuserapp.responses.AlertsResponse
 import com.example.spasdomuserapp.responses.NewsResponse
-import com.example.spasdomuserapp.responses.asCacheAlertModel
 import com.example.spasdomuserapp.responses.asCacheNewsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 class HomeRepository @Inject constructor(
@@ -44,9 +43,15 @@ class HomeRepository @Inject constructor(
 
     suspend fun getAlerts() = safeApiCall { api.getAlerts() }
 
-    suspend fun insertAllAlertsToCache(alerts: AlertsResponse) {
+    suspend fun insertAllAlertsToCache(alerts: List<NetworkAlert>) {
         withContext(Dispatchers.IO) {
-            cacheDao.insertAllAlerts(*alerts.asCacheAlertModel())
+            cacheDao.insertAllAlerts(*alerts.asCacheAlertsModel())
+        }
+    }
+
+    suspend fun deleteAllAlerts() {
+        withContext(Dispatchers.IO) {
+            cacheDao.deleteAllAlerts()
         }
     }
 }

@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spasdomuserapp.models.Alert
+import com.example.spasdomuserapp.models.NetworkAlert
 import com.example.spasdomuserapp.models.NewsItem
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.HomeRepository
-import com.example.spasdomuserapp.responses.AlertsResponse
 import com.example.spasdomuserapp.responses.NewsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -47,8 +47,8 @@ class HomeViewModel @Inject constructor(
     /**
      * Network get request. All alerts.
      */
-    private val _alerts: MutableLiveData<Resource<AlertsResponse>> = MutableLiveData()
-    val alerts: LiveData<Resource<AlertsResponse>>
+    private val _alerts: MutableLiveData<Resource<List<NetworkAlert>>> = MutableLiveData()
+    val alerts: LiveData<Resource<List<NetworkAlert>>>
         get() = _alerts
 
     fun getAlerts() = viewModelScope.launch {
@@ -59,7 +59,11 @@ class HomeViewModel @Inject constructor(
     /**
      * DataBase insert query. All alerts
      */
-    fun insertAllAlertsToCache(alerts: AlertsResponse) = viewModelScope.launch {
+    fun insertAllAlertsToCache(alerts: List<NetworkAlert>) = viewModelScope.launch {
         repository.insertAllAlertsToCache(alerts)
+    }
+
+    fun deleteAllAlerts() = viewModelScope.launch {
+        repository.deleteAllAlerts()
     }
 }

@@ -20,6 +20,9 @@ interface CacheDao {
     @Query("select * from cachealert")
     fun getAlerts(): LiveData<List<CacheAlert>>
 
+    @Query("delete from cachealert")
+    suspend fun deleteAllAlerts()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllAlerts(vararg alerts: CacheAlert)
 

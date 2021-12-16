@@ -42,20 +42,19 @@ class WorkerInfoFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.visible(false)
-                    binding.worker = it.value.marketWorker
+                    binding.worker = it.value
 
-                    reviewsAdapter?.reviews = it.reviews
-                    servicesAdapter?.services = it.services
+                    reviewsAdapter?.reviews = it.value.reviews
+                    servicesAdapter?.services = it.value.services
                 }
                 is Resource.Loading -> {
                     binding.progressBar.visible(true)
                 }
-                is Resource.Failure -> {
-                    handleApiError(it)
-                }
+                is Resource.Failure -> handleApiError(it) { }
             }
         }*/
 
+        // TODO(HARDCODE remove when REST is ready)
         binding.worker = viewModel.worker
 
         reviewsAdapter = WorkerInfoReviewsAdapter()
@@ -63,6 +62,7 @@ class WorkerInfoFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             adapter = reviewsAdapter
         }
+        // TODO(HARDCODE remove when REST is ready)
         reviewsAdapter?.reviews = viewModel.worker.reviews
 
         servicesAdapter = WorkerInfoServicesAdapter()
@@ -70,6 +70,7 @@ class WorkerInfoFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             adapter = servicesAdapter
         }
+        // TODO(HARDCODE remove when REST is ready)
         servicesAdapter?.services = viewModel.worker.services
 
 

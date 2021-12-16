@@ -38,12 +38,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!--TODO(Upload photo using binding adapter and Glide)-->
                 <ImageView
                     android:id="@+id/workerIcon"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_marginTop="@dimen/spacing_large"
+                    app:imageFromURL="@{worker.photo}"
                     android:src="@drawable/im_worker"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -16,11 +16,11 @@
         android:layout_marginTop="@dimen/spacing_little"
         android:layout_marginBottom="@dimen/spacing_little">
 
-        <!--TODO(Use Glide to upload photo from url)-->
         <ImageView
             android:id="@+id/workerIcon"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            app:imageFromURL="@{workerReview.picture}"
             android:src="@drawable/im_worker"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

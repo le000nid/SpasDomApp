@@ -38,5 +38,5 @@ interface OrderApi {
     suspend fun getMarketPreviewWorkers(@Query("filter") type: String): List<WorkerPreview>
 
     @GET("/market-workers")
-    suspend fun getMarketWorker(@Query("filter") type: String): WorkerResponse
+    suspend fun getMarketWorker(@Query("filter") type: String): Worker
 }

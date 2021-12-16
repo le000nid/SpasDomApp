@@ -9,7 +9,6 @@ import com.example.spasdomuserapp.models.WorkerReview
 import com.example.spasdomuserapp.models.WorkerService
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.ServicesRepository
-import com.example.spasdomuserapp.responses.WorkerResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,8 +19,8 @@ class WorkerInfoViewModel @Inject constructor(
     private val repository: ServicesRepository
 ) : ViewModel() {
 
-    private val _marketWorker: MutableLiveData<Resource<WorkerResponse>> = MutableLiveData()
-    val marketWorker: LiveData<Resource<WorkerResponse>>
+    private val _marketWorker: MutableLiveData<Resource<Worker>> = MutableLiveData()
+    val marketWorker: LiveData<Resource<Worker>>
         get() = _marketWorker
 
     fun getMarketWorker() = viewModelScope.launch {

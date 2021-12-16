@@ -35,7 +35,7 @@ interface OrderApi {
         @Body update: List<OrderUpdate>) : Boolean
 
     @GET("/market-categories")
-    suspend fun getMarketCategories(): SectionCategoriesResponse
+    suspend fun getMarketCategories(): List<SectionCategories>
 
     @GET("/market-workers")
     suspend fun getMarketPreviewWorkers(@Query("filter") type: String): WorkersPreviewResponse

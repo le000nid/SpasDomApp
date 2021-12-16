@@ -43,14 +43,12 @@ class MarketCategoriesFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.visible(false)
-                    marketAdapter?.sectionedCategories = it.value.sections
+                    marketAdapter?.sectionedCategories = it.value
                 }
                 is Resource.Loading -> {
                     binding.progressBar.visible(true)
                 }
-                is Resource.Failure -> {
-                    handleApiError(it)
-                }
+                is Resource.Failure -> handleApiError(it) { }
             }
         }*/
 
@@ -61,6 +59,7 @@ class MarketCategoriesFragment : Fragment() {
             adapter = marketAdapter
         }
 
+        // TODO(HARDCODE remove when REST is ready)
         marketAdapter?.sectionedCategories = viewModel.categoriesLists
 
 

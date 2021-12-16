@@ -8,7 +8,6 @@ import com.example.spasdomuserapp.models.SectionCategory
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.ServicesRepository
 import com.example.spasdomuserapp.responses.SectionCategories
-import com.example.spasdomuserapp.responses.SectionCategoriesResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,8 +17,8 @@ class MarketCategoriesViewModel @Inject constructor(
     private val repository: ServicesRepository
 ) : ViewModel() {
 
-    private val _marketCategories: MutableLiveData<Resource<SectionCategoriesResponse>> = MutableLiveData()
-    val marketCategories: LiveData<Resource<SectionCategoriesResponse>>
+    private val _marketCategories: MutableLiveData<Resource<List<SectionCategories>>> = MutableLiveData()
+    val marketCategories: LiveData<Resource<List<SectionCategories>>>
         get() = _marketCategories
 
     fun getMarketCategories() = viewModelScope.launch {

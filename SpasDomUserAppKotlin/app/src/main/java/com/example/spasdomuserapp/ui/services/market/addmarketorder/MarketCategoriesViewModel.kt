@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.spasdomuserapp.models.SectionCategory
+import com.example.spasdomuserapp.models.CategoriesList
 import com.example.spasdomuserapp.network.Resource
 import com.example.spasdomuserapp.repository.ServicesRepository
 import com.example.spasdomuserapp.responses.SectionCategories
@@ -28,32 +28,32 @@ class MarketCategoriesViewModel @Inject constructor(
 
     val categoriesLists: List<SectionCategories> = listOf(
         SectionCategories("Популярное", listOf(
-                SectionCategory("Помощь с пк", 5, ""),
-                SectionCategory("Помощь с ремонтом", 5, ""),
-                SectionCategory("Няня на час", 5, ""),
-                SectionCategory("Помощь с уборкой", 5, ""),
-                SectionCategory("Помощь с уборкой", 5, "")
+                CategoriesList("Помощь с пк", 5, ""),
+                CategoriesList("Помощь с ремонтом", 5, ""),
+                CategoriesList("Няня на час", 5, ""),
+                CategoriesList("Помощь с уборкой", 5, ""),
+                CategoriesList("Помощь с уборкой", 5, "")
             )),
         SectionCategories("Необходимое", listOf(
-            SectionCategory("Помощь с пк", 5, ""),
-            SectionCategory("Помощь с ремонтом", 5, ""),
-            SectionCategory("Няня на час", 5, ""),
-            SectionCategory("Помощь с уборкой", 5, ""),
-            SectionCategory("Помощь с уборкой", 5, "")
+            CategoriesList("Помощь с пк", 5, ""),
+            CategoriesList("Помощь с ремонтом", 5, ""),
+            CategoriesList("Няня на час", 5, ""),
+            CategoriesList("Помощь с уборкой", 5, ""),
+            CategoriesList("Помощь с уборкой", 5, "")
         )),
         SectionCategories("Важное", listOf(
-            SectionCategory("Помощь с пк", 5, ""),
-            SectionCategory("Помощь с ремонтом", 5, ""),
-            SectionCategory("Няня на час", 5, ""),
-            SectionCategory("Помощь с уборкой", 5, ""),
-            SectionCategory("Помощь с уборкой", 5, "")
+            CategoriesList("Помощь с пк", 5, ""),
+            CategoriesList("Помощь с ремонтом", 5, ""),
+            CategoriesList("Няня на час", 5, ""),
+            CategoriesList("Помощь с уборкой", 5, ""),
+            CategoriesList("Помощь с уборкой", 5, "")
         )),
         SectionCategories("Что-то ещё", listOf(
-            SectionCategory("Помощь с пк", 5, ""),
-            SectionCategory("Помощь с ремонтом", 5, ""),
-            SectionCategory("Няня на час", 5, ""),
-            SectionCategory("Помощь с уборкой", 5, ""),
-            SectionCategory("Помощь с уборкой", 5, "")
+            CategoriesList("Помощь с пк", 5, ""),
+            CategoriesList("Помощь с ремонтом", 5, ""),
+            CategoriesList("Няня на час", 5, ""),
+            CategoriesList("Помощь с уборкой", 5, ""),
+            CategoriesList("Помощь с уборкой", 5, "")
         ))
     )
 

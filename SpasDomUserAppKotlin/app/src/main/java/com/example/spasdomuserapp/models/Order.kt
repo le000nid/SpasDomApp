@@ -1,10 +1,12 @@
 package com.example.spasdomuserapp.models
 
 import android.os.Parcelable
-import androidx.lifecycle.Transformations.map
 import com.example.spasdomuserapp.database.CacheMarketOrder
 import com.example.spasdomuserapp.database.CachePlannedOrder
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 @Parcelize
 data class Order(
@@ -28,7 +30,8 @@ data class Order(
 data class NetworkOrder(
     val id: Int,
     val title: String?,
-    val date: String?,
+    @SerializedName("date")
+    val offsetDate: OffsetDateTime,
     val time: String?,
     val userRate: Int,
     val userReview: String?,
@@ -37,7 +40,10 @@ data class NetworkOrder(
     val workerName: String?,
     val workerRate: Double,
     val workerInfo: String?
-)
+) {
+    val date: String
+        get() = offsetDate.format(DateTimeFormatter.ofPattern("mm.dd.yyyy"))
+}
 
 
 fun List<NetworkOrder>.asCachePlannedModel(): Array<CachePlannedOrder> {
@@ -51,7 +57,7 @@ fun List<NetworkOrder>.asCachePlannedModel(): Array<CachePlannedOrder> {
             userReview = it.userReview ?: "",
             status = it.status,
             workerImg = it.workerImg ?: "",
-            workerName = it.workerName ?: "Игорь",
+            workerName = it.workerName ?: "",
             workerRate = it.workerRate,
             workerInfo = it.workerInfo ?: "")
     }.toTypedArray()

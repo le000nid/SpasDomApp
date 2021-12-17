@@ -24,7 +24,7 @@
             <TextView
                 android:id="@+id/tv_alert_date"
                 style="@style/TextAppearance.MaterialComponents.Caption"
-                android:text="@{alert.data}"
+                android:text="@{alert.date}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
@@ -51,7 +51,7 @@
             <TextView
                 android:id="@+id/tv_alert_desc"
                 style="@style/TextAppearance.MaterialComponents.Body2"
-                android:text="@{alert.description}"
+                android:text="@{alert.body}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"

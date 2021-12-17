@@ -39,7 +39,7 @@ class OrderCalendarViewModel @Inject constructor(
 
     var date: String? = null
     var time: String? = null
-    var workerId: Long? = null
+    var workerId: List<Int>? = null
 
     private val _calendar: MutableLiveData<Resource<List<WorkerMonth>>> = MutableLiveData()
     val calendar: LiveData<Resource<List<WorkerMonth>>>
@@ -57,18 +57,19 @@ class OrderCalendarViewModel @Inject constructor(
 
 
     private val timeList1: List<WorkerTime> = listOf(
-        WorkerTime("8:00", "9:00", 1),
-        WorkerTime("9:00", "10:00", 1),
-        WorkerTime("10:00", "11:00", 1),
-        WorkerTime("11:00", "12:00", 1)
+        WorkerTime("8:00 - 9:00", listOf(1)),
+        WorkerTime("10:00 - 11:00", listOf(1)),
+        WorkerTime("11:00 - 12:00", listOf(1)),
+        WorkerTime("13:00 - 14:00", listOf(1)),
         )
 
     private val timeList2: List<WorkerTime> = listOf(
-        WorkerTime("13:00", "14:00", 1),
-        WorkerTime("14:00", "15:00", 1),
-        WorkerTime("15:00", "16:00", 1),
-        WorkerTime("16:00", "17:00", 1),
-        WorkerTime("17:00", "18:00", 1),
+        WorkerTime("15:00 - 16:00", listOf(1)),
+        WorkerTime("16:00 - 17:00", listOf(1)),
+        WorkerTime("17:00 - 18:00", listOf(1)),
+        WorkerTime("18:00 - 19:00", listOf(1)),
+        WorkerTime("20:00 - 21:00", listOf(1)),
+        WorkerTime("21:00 - 22:00", listOf(1))
     )
 
     private val listWorkerDays: List<WorkerDay> = listOf(

@@ -49,7 +49,7 @@
             android:layout_marginTop="@dimen/spacing_tiny"
             android:gravity="center"
             android:onClick="@{() -> click.onClick(category)}"
-            android:text="@{category.label}"
+            android:text="@{category.title}"
             android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="@+id/card1"
             app:layout_constraintStart_toStartOf="@+id/card1"

@@ -192,7 +192,7 @@
             app:argType="string" />
         <argument
             android:name="category"
-            app:argType="com.example.spasdomuserapp.models.SectionCategory" />
+            app:argType="com.example.spasdomuserapp.models.CategoriesList" />
         <action
             android:id="@+id/action_marketWorkersFragment_to_workerInfoFragment"
             app:destination="@id/workerInfoFragment" />

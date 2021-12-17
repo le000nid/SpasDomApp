@@ -10,7 +10,7 @@ data class WorkerPreview (
     val lastName: String,
     val photo: String,
     val averageCost: String,
-    var rate: Int,
+    var rate: Double,
     val experience: String,
 ): Parcelable {
     val name: String

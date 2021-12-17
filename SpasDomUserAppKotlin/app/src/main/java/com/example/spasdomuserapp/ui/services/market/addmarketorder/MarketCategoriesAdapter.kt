@@ -8,12 +8,11 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemCategorySectionBinding
-import com.example.spasdomuserapp.models.SectionCategory
+import com.example.spasdomuserapp.models.CategoriesList
 import com.example.spasdomuserapp.responses.SectionCategories
 
 class MarketCategoriesAdapter(val parentFragment: Fragment) : RecyclerView.Adapter<MarketCategoriesAdapter.ViewHolder>() {
@@ -62,6 +61,6 @@ class MarketCategoriesAdapter(val parentFragment: Fragment) : RecyclerView.Adapt
     }
 }
 
-class MarketCategoryItemClick(val block: (SectionCategory) -> Unit) {
-    fun onClick(sectionCategory: SectionCategory) = block(sectionCategory)
+class MarketCategoryItemClick(val block: (CategoriesList) -> Unit) {
+    fun onClick(CategoriesList: CategoriesList) = block(CategoriesList)
 }

@@ -21,6 +21,7 @@ import com.example.spasdomuserapp.models.WorkerDay
 import com.example.spasdomuserapp.models.WorkerMonth
 import com.example.spasdomuserapp.models.WorkerTime
 import com.example.spasdomuserapp.network.Resource
+import com.example.spasdomuserapp.util.formatDate
 import com.example.spasdomuserapp.util.handleApiError
 import com.example.spasdomuserapp.util.visible
 import com.google.android.material.snackbar.Snackbar
@@ -28,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -77,10 +79,18 @@ class PlannedDateFragment : Fragment(R.layout.fragment_order_calendar) {
             }
 
             val date = viewModel.date + " " + viewModel.time
+            val time: List<String>? = viewModel.time?.split("-")
+            val timeStartForFormat = viewModel.date + " " + time?.get(0)?.trim()
+            val timeEndForFormat = viewModel.date + " " + time?.get(1)?.trim()
+
+            val timeStart = formatDate(timeStartForFormat)
+            val timeEnd = formatDate(timeEndForFormat)
+
+            // TODO(the same for market post)
 
             if (args.plannedOrderPost != null) {
                 var finalOrder = args.plannedOrderPost
-                finalOrder = finalOrder!!.copy(date = date, workerId = viewModel.workerId!!)
+                finalOrder = finalOrder!!.copy(timeStart = timeStart, timeEnd = timeEnd, workerId = viewModel.workerId)
                 viewModel.postPlannedOrder(finalOrder)
             } else if (args.marketOrderPost != null) {
                 var marketOrder = args.marketOrderPost
@@ -176,7 +186,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_order_calendar) {
 
 
         // TODO(Uncomment when you will receive preview workers from server)
-        /*if (args.marketOrderPost != null) {
+        if (args.marketOrderPost != null) {
             val order = args.marketOrderPost
             viewModel.getWorkerCalendarById(order!!.workerId)
         } else if (args.plannedOrderPost != null) {
@@ -195,7 +205,7 @@ class PlannedDateFragment : Fragment(R.layout.fragment_order_calendar) {
                 }
                 is Resource.Failure -> handleApiError(it) { }
             }
-        }*/
+        }
 
         setUpCalendar(viewModel.workerMonth)
     }

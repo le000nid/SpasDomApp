@@ -15,6 +15,9 @@ import com.example.spasdomuserapp.ui.MainActivity
 import com.example.spasdomuserapp.ui.auth.LoginFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 
@@ -60,6 +63,12 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                     .error(R.drawable.ic_broken))
             .into(imgView)
     }
+}
+
+fun formatDate(time: String): OffsetDateTime {
+    val res = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm"))
+    val offset = OffsetDateTime.now().offset
+    return res.atOffset(offset)
 }
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {

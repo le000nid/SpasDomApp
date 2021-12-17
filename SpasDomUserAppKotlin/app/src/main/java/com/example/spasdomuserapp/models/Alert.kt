@@ -4,25 +4,25 @@ import com.example.spasdomuserapp.database.CacheAlert
 
 data class Alert(
     val id: Int,
-    val data: String,
+    val date: String,
     val title: String,
-    val description: String
+    val body: String
 )
 
 data class NetworkAlert(
     val id: Int,
-    val data: String?,
+    val date: String?,
     val title: String?,
-    val description: String?
+    val body: String?
 )
 
 fun List<NetworkAlert>.asCacheModel(): Array<CacheAlert> {
     return map {
         CacheAlert(
             id = it.id,
-            data = it.data ?: "",
+            date = it.date ?: "",
             title = it.title ?: "",
-            description = it.description ?: ""
+            body = it.body ?: ""
         )
     }.toTypedArray()
 }

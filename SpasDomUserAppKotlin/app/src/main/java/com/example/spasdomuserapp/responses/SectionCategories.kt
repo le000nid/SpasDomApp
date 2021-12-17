@@ -1,8 +1,8 @@
 package com.example.spasdomuserapp.responses
 
-import com.example.spasdomuserapp.models.SectionCategory
+import com.example.spasdomuserapp.models.CategoriesList
 
 data class SectionCategories (
     val title: String,
-    val categories: List<SectionCategory>
+    val categories: List<CategoriesList>
 )

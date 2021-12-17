@@ -39,7 +39,7 @@ class PlannedSubcategoryFragment : Fragment() {
 
         plannedCategoriesAdapter = PlannedCategoriesAdapter(PlannedCategoriesClick { subcategory ->
             val plannedOrderPost = PlannedOrderPost(args.category.categoryId, subcategory.categoryId)
-            val action = PlannedSubcategoryFragmentDirections.actionPlannedSubcategoryFragmentToPlannedInfoFragment(subcategory.label, plannedOrderPost = plannedOrderPost)
+            val action = PlannedSubcategoryFragmentDirections.actionPlannedSubcategoryFragmentToPlannedInfoFragment(subcategory.title, plannedOrderPost = plannedOrderPost)
             findNavController().navigate(action)
         })
 

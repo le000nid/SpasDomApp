@@ -8,13 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spasdomuserapp.R
 import com.example.spasdomuserapp.databinding.ItemSectionedCategoryCardBinding
-import com.example.spasdomuserapp.models.SectionCategory
+import com.example.spasdomuserapp.models.CategoriesList
 
 
 class MarketCategoriesSectionedAdapter(val callback: MarketCategoryItemClick) :
     RecyclerView.Adapter<MarketCategoriesSectionedAdapter.ViewHolder>() {
 
-    var categoriesLists: List<SectionCategory> = emptyList()
+    var categoriesLists: List<CategoriesList> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value

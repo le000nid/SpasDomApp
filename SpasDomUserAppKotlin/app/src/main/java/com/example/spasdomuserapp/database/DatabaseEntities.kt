@@ -11,17 +11,17 @@ data class CacheNewsItem constructor(
     val title: String,
     val description: String,
     @PrimaryKey
-    val url: String,
-    val date: String
+    val photoUrl: String,
+    val createdAt: String
 )
 
 fun List<CacheNewsItem>.asDomainModel(): List<NewsItem> {
     return map {
         NewsItem(
-            url = it.url,
+            photoUrl = it.photoUrl,
             title = it.title,
             description = it.description,
-            date = it.date)
+            createdAt = it.createdAt)
     }
 }
 
@@ -30,18 +30,18 @@ fun List<CacheNewsItem>.asDomainModel(): List<NewsItem> {
 data class CacheAlert(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
-    val data: String,
+    val date: String,
     val title: String,
-    val description: String
+    val body: String
 )
 
 fun List<CacheAlert>.asDomainAlertModel(): List<Alert> {
     return map {
         Alert(
             id = it.id,
-            data = it.data,
+            date = it.date,
             title = it.title,
-            description = it.description
+            body = it.body
         )
     }
 }

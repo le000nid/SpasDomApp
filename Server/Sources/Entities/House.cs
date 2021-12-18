@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Db.Types;
+using Entities.Users;
 
 namespace Entities
 {
@@ -15,6 +15,6 @@ namespace Entities
         public string Area { get; set; }
         public string Street { get; set; }
 
-        public virtual ICollection<HouseApartment> Apartments { get; set; }
+        public virtual ICollection<Apartment> Apartments { get; set; }
     }
 }

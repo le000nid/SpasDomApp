@@ -12,10 +12,7 @@ namespace SpasDom.Server.Controllers.Notifications.Output
             Id = source.Id;
             Title = source.Title;
             Body = source.Body;
-            Status = new AnnouncementStatusSummary(source.Status);
-            PostDate = source.PostDate;
-            DeathDate = source.DeathDate;
-            Category = new AnnouncementCategorySummary(source.Category);
+            Date = source.PostDate;
         }
 
 
@@ -27,17 +24,9 @@ namespace SpasDom.Server.Controllers.Notifications.Output
 
         [JsonPropertyName("body")]
         public string Body { get; set; }
-        
-        [JsonPropertyName("status")]
-        public AnnouncementStatusSummary Status { get; set; }
 
-        [JsonPropertyName("postDate")]
-        public DateTimeOffset PostDate { get; set; }
-        
-        [JsonPropertyName("deathDate")]
-        public DateTimeOffset DeathDate { get; set; }
+        [JsonPropertyName("date")]
+        public DateTimeOffset Date { get; set; }
 
-        [JsonPropertyName("category")]
-        public AnnouncementCategorySummary Category { get; set; }
     }
 }

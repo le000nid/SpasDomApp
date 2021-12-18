@@ -1,0 +1,16 @@
+## Новости [/news]
+
+### Получить все новости [GET /news]
+
++ Response 200 (application/json)
+    + Attributes (array[NewsSummary])
+
+
+# Data Structures
+
+## NewsSummary
++ title: Заголовок (string)
++ shortDescription: `Описание на 2 строки` (string)
++ description: Описание (string)
++ photoUrl: `http://example.com/1.jpg` (string)
++ createdAt: 2021-12-17T05:28:42.242Z (string)

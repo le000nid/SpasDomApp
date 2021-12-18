@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Common.Responses;
 using Db.Repository.Interfaces;
 using Entities;
+using Entities.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

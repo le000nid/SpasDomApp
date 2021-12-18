@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Entities.Orders.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Orders
 {
@@ -12,16 +13,14 @@ namespace Entities.Orders
             Subcategory = null;
         }
         
-        public OrderStatus Status { get; set; }
-        
         
         [ForeignKey(nameof(PlannedOrderCategory))]
         public long? CategoryId { get; set; }
         public PlannedOrderCategory Category { get; set; }
         
         
-        [ForeignKey(nameof(PlannedOrderSubcategory))]
+        [ForeignKey(nameof(PlannedOrderCategory))]
         public long? SubcategoryId { get; set; }
-        public PlannedOrderSubcategory Subcategory { get; set; }
+        public PlannedOrderCategory Subcategory { get; set; }
     }
 }

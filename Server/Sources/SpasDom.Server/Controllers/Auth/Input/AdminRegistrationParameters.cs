@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Auth.Implementations;
-using Entities;
+using Entities.Users;
 
 namespace SpasDom.Server.Controllers.Auth.Input
 {

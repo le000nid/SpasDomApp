@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Auth.Implementations;
 using Auth.Interfaces;
 using Common.Responses;
 using Db.Repository.Interfaces;
-using Entities;
+using Entities.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpasDom.Server.Controllers.Auth.Input;
@@ -57,7 +56,7 @@ namespace SpasDom.Server.Controllers.Auth
                 throw ResponsesFactory.NotFound("Not found user with the same login!");
             }
             
-            return PasswordHandler.CheckPassword(password, apartment.Password);
+            return PasswordHandler.CheckPassword(password, apartment.PasswordHash);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Entities;
+using Entities.Users;
 
 namespace SpasDom.Server.Controllers.Apartments.Output
 {

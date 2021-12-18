@@ -4,6 +4,7 @@ using Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Db.Migrations
 {
@@ -15,54 +16,37 @@ namespace Db.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("spas-dom")
-                .HasAnnotation("ProductVersion", "5.0.12");
-
-            modelBuilder.Entity("Entities.Administrator", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Login")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Administrators");
-                });
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.12")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Entities.Announcement", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Body")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int>("Category")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("DeathDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("PostDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -73,16 +57,17 @@ namespace Db.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<long>("AnnouncementId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<long>("HouseId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -93,163 +78,139 @@ namespace Db.Migrations
                     b.ToTable("Announcement-House-Links");
                 });
 
-            modelBuilder.Entity("Entities.Apartment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("BusinessAccount")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FirebaseToken")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("Number")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Apartments");
-                });
-
-            modelBuilder.Entity("Entities.ApartmentTenant", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("ApartmentId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("TenantId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApartmentId");
-
-                    b.HasIndex("TenantId")
-                        .IsUnique();
-
-                    b.ToTable("Apartment-Tenant-Links");
-                });
-
-            modelBuilder.Entity("Entities.Competence", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Competences");
-                });
-
             modelBuilder.Entity("Entities.House", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Area")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("City")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<long>("Number")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Street")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Houses");
                 });
 
-            modelBuilder.Entity("Entities.HouseApartment", b =>
+            modelBuilder.Entity("Entities.News", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("ApartmentId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("HouseId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhotoUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApartmentId")
-                        .IsUnique();
+                    b.ToTable("News");
+                });
 
-                    b.HasIndex("HouseId");
+            modelBuilder.Entity("Entities.Orders.MarketplaceOrder", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.ToTable("House-Apartment-Links");
+                    b.Property<string>("Comment")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Mark")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("MinutesCount")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Review")
+                        .HasColumnType("text");
+
+                    b.Property<long>("ServiceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("StartsAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("WorkerId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("WorkerId");
+
+                    b.ToTable("Marketplace-Orders");
                 });
 
             modelBuilder.Entity("Entities.Orders.PlannedOrder", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<long?>("CategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Comment")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Mark")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<long>("MinutesCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Review")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("StartsAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<long?>("SubcategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("WorkerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("WorkerId1")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -268,165 +229,178 @@ namespace Db.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IconUrl")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
+
+                    b.Property<long?>("ParentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("WorkerId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("WorkerId");
 
                     b.ToTable("Planned-Order-Categories");
                 });
 
-            modelBuilder.Entity("Entities.Orders.PlannedOrderCategorySubcategoriesLink", b =>
+            modelBuilder.Entity("Entities.Service", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("SubcategoryId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("SubcategoryId")
-                        .IsUnique();
-
-                    b.ToTable("Planned-Orders-Category-Subcategories-Links");
-                });
-
-            modelBuilder.Entity("Entities.Orders.PlannedOrderSubcategory", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Planned-Order-Subcategories");
+                    b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("Entities.Photo", b =>
+            modelBuilder.Entity("Entities.Users.Administrator", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("PublicUlr")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("Login")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Administrators");
                 });
 
-            modelBuilder.Entity("Entities.Tenant", b =>
+            modelBuilder.Entity("Entities.Users.Apartment", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("BusinessAccount")
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("FirebaseToken")
+                        .HasColumnType("text");
 
-                    b.Property<string>("Patronymic")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("HouseId")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("Number")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("Surname")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tenants");
+                    b.HasIndex("HouseId");
+
+                    b.ToTable("Apartments");
                 });
 
-            modelBuilder.Entity("Entities.Worker", b =>
+            modelBuilder.Entity("Entities.Users.Worker", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DinnerFinishesAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("DinnerStartsAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("FinishesAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
 
                     b.Property<string>("Patronymic")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<double>("Rating")
-                        .HasColumnType("REAL");
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.Property<string>("StartsAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Surname")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Workers");
                 });
 
-            modelBuilder.Entity("Entities.WorkerCompetence", b =>
+            modelBuilder.Entity("Entities.WorkerPlannedOrderCategoryLink", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("CompetenceId")
-                        .HasColumnType("INTEGER");
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<long>("WorkerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetenceId")
-                        .IsUnique();
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("WorkerId");
 
-                    b.ToTable("Worker-Competence-Links");
+                    b.ToTable("Worker-Planned-Order-Categories-Links");
                 });
 
             modelBuilder.Entity("Entities.AnnouncementHouse", b =>
@@ -448,42 +422,21 @@ namespace Db.Migrations
                     b.Navigation("House");
                 });
 
-            modelBuilder.Entity("Entities.ApartmentTenant", b =>
+            modelBuilder.Entity("Entities.Orders.MarketplaceOrder", b =>
                 {
-                    b.HasOne("Entities.Apartment", "Apartment")
-                        .WithMany("Tenants")
-                        .HasForeignKey("ApartmentId")
+                    b.HasOne("Entities.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Tenant", "Tenant")
-                        .WithOne()
-                        .HasForeignKey("Entities.ApartmentTenant", "TenantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Entities.Users.Worker", "Worker")
+                        .WithMany()
+                        .HasForeignKey("WorkerId");
 
-                    b.Navigation("Apartment");
+                    b.Navigation("Service");
 
-                    b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("Entities.HouseApartment", b =>
-                {
-                    b.HasOne("Entities.Apartment", "Apartment")
-                        .WithOne()
-                        .HasForeignKey("Entities.HouseApartment", "ApartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.House", "House")
-                        .WithMany("Apartments")
-                        .HasForeignKey("HouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Apartment");
-
-                    b.Navigation("House");
+                    b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("Entities.Orders.PlannedOrder", b =>
@@ -492,15 +445,15 @@ namespace Db.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("Entities.Orders.PlannedOrderSubcategory", "Subcategory")
+                    b.HasOne("Entities.Orders.PlannedOrderCategory", "Subcategory")
                         .WithMany()
                         .HasForeignKey("SubcategoryId");
 
-                    b.HasOne("Entities.Worker", "Worker")
+                    b.HasOne("Entities.Users.Worker", "Worker")
                         .WithMany()
                         .HasForeignKey("WorkerId");
 
-                    b.HasOne("Entities.Worker", null)
+                    b.HasOne("Entities.Users.Worker", null)
                         .WithMany("PlannedOrders")
                         .HasForeignKey("WorkerId1");
 
@@ -511,38 +464,46 @@ namespace Db.Migrations
                     b.Navigation("Worker");
                 });
 
-            modelBuilder.Entity("Entities.Orders.PlannedOrderCategorySubcategoriesLink", b =>
+            modelBuilder.Entity("Entities.Orders.PlannedOrderCategory", b =>
                 {
-                    b.HasOne("Entities.Orders.PlannedOrderCategory", "Category")
-                        .WithMany("SubCategories")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("Entities.Orders.PlannedOrderCategory", "Parent")
+                        .WithMany("Subcategories")
+                        .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Entities.Orders.PlannedOrderSubcategory", "Subcategory")
-                        .WithOne()
-                        .HasForeignKey("Entities.Orders.PlannedOrderCategorySubcategoriesLink", "SubcategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Entities.Users.Worker", null)
+                        .WithMany("PlannedOrderCategories")
+                        .HasForeignKey("WorkerId");
 
-                    b.Navigation("Category");
-
-                    b.Navigation("Subcategory");
+                    b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Entities.WorkerCompetence", b =>
+            modelBuilder.Entity("Entities.Users.Apartment", b =>
                 {
-                    b.HasOne("Entities.Competence", "Competence")
-                        .WithOne()
-                        .HasForeignKey("Entities.WorkerCompetence", "CompetenceId")
+                    b.HasOne("Entities.House", "House")
+                        .WithMany("Apartments")
+                        .HasForeignKey("HouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Worker", "Worker")
-                        .WithMany("Competencies")
+                    b.Navigation("House");
+                });
+
+            modelBuilder.Entity("Entities.WorkerPlannedOrderCategoryLink", b =>
+                {
+                    b.HasOne("Entities.Orders.PlannedOrderCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Users.Worker", "Worker")
+                        .WithMany()
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Competence");
+                    b.Navigation("Category");
 
                     b.Navigation("Worker");
                 });
@@ -552,11 +513,6 @@ namespace Db.Migrations
                     b.Navigation("Houses");
                 });
 
-            modelBuilder.Entity("Entities.Apartment", b =>
-                {
-                    b.Navigation("Tenants");
-                });
-
             modelBuilder.Entity("Entities.House", b =>
                 {
                     b.Navigation("Apartments");
@@ -564,12 +520,12 @@ namespace Db.Migrations
 
             modelBuilder.Entity("Entities.Orders.PlannedOrderCategory", b =>
                 {
-                    b.Navigation("SubCategories");
+                    b.Navigation("Subcategories");
                 });
 
-            modelBuilder.Entity("Entities.Worker", b =>
+            modelBuilder.Entity("Entities.Users.Worker", b =>
                 {
-                    b.Navigation("Competencies");
+                    b.Navigation("PlannedOrderCategories");
 
                     b.Navigation("PlannedOrders");
                 });

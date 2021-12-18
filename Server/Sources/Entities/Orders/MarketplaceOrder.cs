@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using Entities.Orders.Base;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Orders

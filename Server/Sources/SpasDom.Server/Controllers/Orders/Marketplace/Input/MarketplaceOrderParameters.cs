@@ -1,14 +1,17 @@
 ﻿using System.Text.Json.Serialization;
 
-public class MarketplaceOrderParameters
+namespace SpasDom.Server.Controllers.Orders.Marketplace.Input
 {
-    [JsonPropertyName("serviceId")]
-    public long ServiceId { get; set; }
+    public class MarketplaceOrderParameters
+    {
+        [JsonPropertyName("serviceId")]
+        public long ServiceId { get; set; }
     
-    [JsonPropertyName("comment")]
-    public string Comment { get; set; }
+        [JsonPropertyName("comment")]
+        public string Comment { get; set; }
     
-    [JsonPropertyName("photos")]
-    public string[] Photos { get; set; }
+        [JsonPropertyName("photos")]
+        public string[] Photos { get; set; }
     
+    }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Auth.Implementations;
-using Entities;
+using Entities.Users;
 
 namespace SpasDom.Server.Controllers.Apartments.Input
 {
@@ -21,7 +21,7 @@ namespace SpasDom.Server.Controllers.Apartments.Input
             return new Apartment()
             {
                 BusinessAccount = BusinessAccount,
-                Password = PasswordHandler.PasswordHash(Password)
+                PasswordHash = PasswordHandler.PasswordHash(Password)
             };
         }
     }

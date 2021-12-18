@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Entities.Orders.Base;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Orders
@@ -6,6 +7,10 @@ namespace Entities.Orders
     [Table("Planned-Order-Categories")]
     public class PlannedOrderCategory : OrderCategory
     {
-        public virtual ICollection<PlannedOrderCategorySubcategoriesLink> SubCategories { get; set; }
+        [ForeignKey(nameof(Parent))]
+        public long? ParentId { get; set; }
+        public PlannedOrderCategory Parent { get; set; }
+
+        public virtual ICollection<PlannedOrderCategory> Subcategories { get; set; }
     }
 }

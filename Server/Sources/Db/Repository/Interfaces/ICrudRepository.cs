@@ -9,6 +9,7 @@ namespace Db.Repository.Interfaces
 {
     public interface ICrudRepository<T> : IRawRepository where T : class, IDataType
     {
+
         IQueryable<T> Query();
 
         Task<T> AddAsync(T entity);

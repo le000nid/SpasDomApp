@@ -5,6 +5,7 @@ using Auth.Interfaces;
 using Common.Responses;
 using Db.Repository.Interfaces;
 using Entities;
+using Entities.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpasDom.Server.Controllers.Auth.Input;

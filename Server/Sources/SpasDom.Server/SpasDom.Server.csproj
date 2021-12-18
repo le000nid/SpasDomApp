@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Orders\Input\" />
-    <Folder Include="Controllers\Orders\Marketplace\Output" />
+    <Folder Include="Controllers\Categories\Planned\Tenants\Input\" />
+    <Folder Include="Controllers\Orders\Marketplace\Workers" />
   </ItemGroup>
 
   <ItemGroup>

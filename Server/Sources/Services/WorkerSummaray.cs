@@ -1,5 +1,4 @@
-﻿using System.Security.Permissions;
-using Entities;
+﻿using Entities.Users;
 
 namespace Services
 {
@@ -8,10 +7,11 @@ namespace Services
         public WorkerSummary(Worker source)
         {
             WorkerId = source.Id;
+            Timetable = null;
         }
         
         public long WorkerId { get; set; }
         
-        public object Timetable { get; set; }
+        public object? Timetable { get; set; }
     }
 }

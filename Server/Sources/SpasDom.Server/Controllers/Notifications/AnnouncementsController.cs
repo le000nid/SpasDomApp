@@ -114,7 +114,6 @@ namespace SpasDom.Server.Controllers.Notifications
             await _announcementsHouseLinks.AddAsync(links);
 
             var deviceIds = await query.SelectMany(h => h.Apartments)
-                                             .Select(l => l.Apartment)
                                              .Select(a => a.FirebaseToken)
                                              .Where(t => t != null)
                                              .ToArrayAsync();

@@ -1,6 +1,6 @@
-﻿using System;
-using Entities;
+﻿using Entities;
 using Entities.Orders;
+using Entities.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace Db
@@ -21,15 +21,11 @@ namespace Db
 
             builder.HasDefaultSchema("spas-dom");
 
-            var marketplaceOrder = builder.Entity<MarketplaceOrder>();
-
-            marketplaceOrder.HasOne(o => o.Service)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Cascade);
-            
-            var notification = builder.Entity<Announcement>();
-
-            var photo = builder.Entity<Photo>();
+            #region announcement
+            {
+                var announcement = builder.Entity<Announcement>();
+            }
+            #endregion
 
             var announcementHouse = builder.Entity<AnnouncementHouse>();
 
@@ -37,68 +33,97 @@ namespace Db
                 .WithMany(n => n.Houses)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            var apartment = builder.Entity<Apartment>();
+            #region news
+            {
 
-            var tenant = builder.Entity<Tenant>();
+                var news = builder.Entity<News>();
 
-            var administrator = builder.Entity<Administrator>();
+            }
+            #endregion
 
-            var apartmentTenant = builder.Entity<ApartmentTenant>();
+            #region worker
+            {
+                var worker = builder.Entity<Worker>();
 
-            apartmentTenant.HasOne(a => a.Apartment)
-                .WithMany(a => a.Tenants)
-                .OnDelete(DeleteBehavior.Cascade);
+                worker.HasMany(w => w.PlannedOrders).WithOne(o => o.Worker);
 
-            apartmentTenant.HasOne(a => a.Tenant)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+                // worker.HasMany(w => w.PlannedOrderCategories).WithOne();
+            }
+            #endregion
 
-            var worker = builder.Entity<Worker>();
+            #region workerPlannedOrderCategoriesLinks 
+            {
+                var links = builder.Entity<WorkerPlannedOrderCategoryLink>();
 
-            worker.HasMany(w => w.PlannedOrders).WithOne(o => o.Worker);
-            
-            var workerCompetence = builder.Entity<WorkerCompetence>();
+                links.HasOne(l => l.Worker).WithMany();
 
-            workerCompetence.HasOne(w => w.Worker)
-                .WithMany(w => w.Competencies)
-                .OnDelete(DeleteBehavior.Cascade);
+                links.HasOne(l => l.Category).WithMany();
+            }
+            #endregion
 
-            workerCompetence.HasOne(w => w.Competence)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+            #region apartment
+            {
+                var apartment = builder.Entity<Apartment>();
 
-            var houseApartmentLink = builder.Entity<HouseApartment>();
+                apartment.HasOne(a => a.House)
+                    .WithMany(h => h.Apartments)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            houseApartmentLink.HasOne(l => l.House)
-                .WithMany(h => h.Apartments)
-                .OnDelete(DeleteBehavior.Cascade);
+            }
+            #endregion
 
-            houseApartmentLink.HasOne(l => l.Apartment)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+            #region house 
+            {
+                var house = builder.Entity<House>();
 
-            var plannedOrder = builder.Entity<PlannedOrder>();
+                house.HasMany(h => h.Apartments)
+                    .WithOne(a => a.House)
+                    .OnDelete(DeleteBehavior.Cascade);
+            }
+            #endregion
 
-            plannedOrder.HasOne(o => o.Category).WithMany();
-            
-            plannedOrder.HasOne(o => o.Subcategory).WithMany();
+            #region administrator
+            {
+                var administrator = builder.Entity<Administrator>();
+            }
+            #endregion
 
-            plannedOrder.HasOne(o => o.Worker)
-                .WithMany()
-                .IsRequired(false);
-            
-            var plannedOrderCategory = builder.Entity<PlannedOrderCategory>();
-            
-            
-            var plannedOrderCategorySubcategoriesLinks = builder.Entity<PlannedOrderCategorySubcategoriesLink>();
+            #region plannedOrder 
+            {
+                var plannedOrder = builder.Entity<PlannedOrder>();
 
-            plannedOrderCategorySubcategoriesLinks.HasOne(l => l.Category).WithMany(c => c.SubCategories)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Cascade);
+                plannedOrder.HasOne(o => o.Category).WithMany();
 
-            plannedOrderCategorySubcategoriesLinks.HasOne(l => l.Subcategory).WithOne()
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Cascade);
+                plannedOrder.HasOne(o => o.Subcategory).WithMany();
+
+                plannedOrder.HasOne(o => o.Worker)
+                    .WithMany()
+                    .IsRequired(false);
+
+            }
+            #endregion
+
+            #region plannedOrderCategory 
+            {
+
+                var plannedOrderCategory = builder.Entity<PlannedOrderCategory>();
+
+                plannedOrderCategory.HasOne(c => c.Parent)
+                    .WithMany(p => p.Subcategories)
+                    .OnDelete(DeleteBehavior.Cascade);
+            }
+            #endregion
+
+
+            #region marketplaceOrder
+            {
+                var marketplaceOrder = builder.Entity<MarketplaceOrder>();
+
+                marketplaceOrder.HasOne(o => o.Service)
+                    .WithMany()
+                    .OnDelete(DeleteBehavior.Cascade);
+            }
+            #endregion
         }
     }
 }

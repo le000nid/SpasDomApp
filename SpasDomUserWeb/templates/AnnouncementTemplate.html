@@ -71,31 +71,53 @@
             <h2 align="center"> Оповещения на сервере: </h2>
             <div class="list-group">
                 {% for elem in announcements %}
-                    <div class="list-group-item list-group-item-action" onclick="elem_expand('elem_{{ elem.id }}')">
-                        <a href="/announcement/{{ elem.id }}"> <i class="fas fa-trash trash"></i> </a>
+                    <div class="list-group-item list-group-item-action" >
+                        <a href="/del_announcement/{{ elem.id }}"> <i class="fas fa-trash trash"></i> </a>
                         <a> <i class="fas fa-tools tools"></i> </a>
-                        <b> ID: </b> {{ elem.id }}
-                        <b> Заголовок: </b> {{ elem.title[:50] }}
-                        <div id="elem_{{ elem.id }}" class="expandable-elem">
-                            <p> <b> Описание: </b> {{ elem.body }} </p>
-                            <p> <b> Категория: </b> {{ elem.category.name }} </p>
-                            <p>
-                                <b> Дома: </b> [
-                                    {% for i in range(elem.houses | length) %}
-                                        {% if loop.last %}
-                                            {{ elem.houses[i] }}
-                                        {% else %}
-                                            {{ elem.houses[i] }},
-                                        {% endif %}
-                                    {% endfor %}
-                                    still not declared on server
-                                ]
-                            </p>
-                            <p> <b> Статус: </b> {{ elem.status.name }} </p>
-                            <div class="time-data">
-                                {{ elem.postDate | replace("T", " ") | replace("+00:00", "") }}
-                                -
-                                {{ elem.deathDate | replace("T", " ") | replace("+00:00", "")}}
+
+                        <div onclick="elem_expand('elem_{{ elem.id }}')">
+                            <div class="ann-fv-container">
+                                <div class="ann-f-el">
+                                    <b> ID: </b> <br>
+                                    <b> Заголовок: </b> <br>
+                                </div>
+                                <div class="ann-v-el">
+                                    {{ elem.id }} <br>
+                                    {{ elem.title[:50] }} <br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="elem_{{ elem.id }}" class="expandable-elem" onclick="elem_expand('elem_{{ elem.id }}')">
+                            <div class="ann-fv-container">
+                                <div class="ann-f-el">
+                                    <b> Описание: </b> <br>
+                                    <b> Категория: </b> <br>
+                                    <b> Дома: </b> <br>
+                                    <b> Статус: </b> <br>
+                                    <b> Дата: </b> <br>
+                                </div>
+
+                                <div class="ann-v-el">
+                                    {{ elem.body }} <br>
+                                    {% if category in elem %} {{ elem.category.name }} {% else %} Server diff response {% endif %} <br>
+
+                                    [
+                                        {% for i in range(elem.houses | length) %}
+                                            {% if loop.last %}
+                                                {{ elem.houses[i] }}
+                                            {% else %}
+                                                {{ elem.houses[i] }},
+                                            {% endif %}
+                                        {% endfor %}
+                                        still not declared on server
+                                    ] <br>
+
+                                    {% if status in elem %} {{ elem.status.name }} {% else %} Server diff response {% endif %} <br>
+                                    <div class="time-data">
+                                        {{ elem.date | replace("T", " ") | replace("+00:00", "") }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

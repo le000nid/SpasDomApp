@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 
@@ -9,6 +11,7 @@ class ApiConnector:
         self.login = '/auth/admin/login'
         self.register = '/auth/admin/register'
         self.apartments = '/apartments'
+        self.calendar = '/planned-orders'
         self.access_header = None
 
     def update_token(self, new_token):
@@ -52,6 +55,10 @@ class ApiConnector:
             'houseNumber': number
         }
         response = requests.post(self.api_url + self.houses, json=data, headers=self.access_header)
+        return response.status_code
+
+    def del_house(self, h_id):
+        response = requests.delete(self.api_url + self.houses + f'/{h_id}', headers=self.access_header)
         return response.status_code
 
     def auth_login(self, username, password):
@@ -99,8 +106,24 @@ class ApiConnector:
         response = requests.get(self.api_url + self.apartments,
                                 json={
                                     'houseId': house_id
-                                })
+                                }, headers=self.access_header)
         if response.status_code != 200:
             return None
 
+        try:
+            return response.json()
+        except json.decoder.JSONDecodeError:
+            return []
+
+    def post_apartments(self, house_id, business_a, password):
+        response = requests.post(self.api_url + self.apartments,
+                                 json={
+                                     'houseId': house_id,
+                                     'businessAccount': business_a,
+                                     'password': password
+                                 }, headers=self.access_header)
+        return response.status_code
+
+    def get_calendar(self):
+        response = requests.get(self.api_url + self.calendar, headers=self.access_header)
         return response.json()

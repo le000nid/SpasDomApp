@@ -8,11 +8,12 @@ from forms.AnnouncementForm import AnnouncementForm
 from forms.MarketplaceForm import MarketplaceForm
 from forms.HouseForm import HouseForm
 from forms.ApartmentsForm import ApartmentsForm
+from forms.ApartmentsChooseForm import ApartmentsChooseForm
 from data.user import User
 from API import ApiConnector
 
 
-server = ApiConnector("http://51.250.24.236")
+server = ApiConnector("http://34.125.200.54")
 
 HOUSES_AVAILABLE = []
 HOUSES_AVAILABLE_VAL = []
@@ -109,7 +110,7 @@ def login():
 @app.route('/announcement', methods=['GET', 'POST'])
 @login_required
 def announcements():
-    apart_form = ApartmentsForm()
+    apart_form = ApartmentsChooseForm()
     ann_form = AnnouncementForm()
 
     ann_form.houses_available.choices = HOUSES_AVAILABLE
@@ -120,7 +121,6 @@ def announcements():
     if request.method == 'POST':
         # to let ann_form validate properly
         ann_form.houses_assigned.choices = HOUSES_AVAILABLE_VAL
-        print(ann_form.houses_assigned.choices, ann_form.houses_assigned.data)
         if ann_form.validate_on_submit():
             status_code = server.post_announcement(
                 category=ann_form.announcement_category.data,
@@ -151,12 +151,21 @@ def select_apart(house_id):
     return response
 
 
-@app.route('/announcement/<int:a_id>')
+@app.route('/del_announcement/<int:a_id>')
 @login_required
 def delete_announcement(a_id):
     update_server_token()
     server.del_announcement(a_id)
     return redirect('/announcement')
+
+
+@app.route('/del_house/<int:h_id>')
+@login_required
+def delete_house(h_id):
+    update_server_token()
+    server.del_house(h_id)
+    update_houses_var()
+    return redirect('/add_house')
 
 
 @app.route('/marketplace', methods=['GET', 'POST'])
@@ -172,7 +181,9 @@ def marketplace():
 @app.route('/timetable', methods=['GET', 'POST'])
 @login_required
 def timetable():
-    return render_template('TimetableTemplate.html', title='Расписание')
+    timetable_data = server.get_calendar()
+    return render_template('TimetableTemplate.html', title='Расписание',
+                           data=timetable_data)
 
 
 @app.route('/add_house', methods=['GET', 'POST'])
@@ -192,6 +203,29 @@ def add_house():
     return render_template('HouseTemplate.html', form=form,
                            title='Добавление домов', message='',
                            houses=houses_list)
+
+
+@app.route('/add_apartments', methods=['GET', 'POST'])
+@login_required
+def add_apartments():
+    form = ApartmentsForm()
+    form.houseId.choices = HOUSES_AVAILABLE
+    apartments_list = []
+    for house in HOUSES_AVAILABLE:
+        resp = server.get_apartments(int(house[0]))
+        if resp:
+            apartments_list += resp
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            server.post_apartments(
+                house_id=form.houseId.data,
+                business_a=form.businessAccount.data,
+                password=form.password.data
+            )
+    return render_template('ApartmentsTemplate.html', form=form,
+                           title='Добавление квартир', message='',
+                           apartments_list=apartments_list)
 
 
 if __name__ == '__main__':

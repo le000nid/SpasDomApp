@@ -30,7 +30,8 @@
                     ('/announcement', 'Создать Оповещение', 1),
                     ('/marketplace', 'Маркетплэйс', 2),
                     ('/timetable', 'Расписание', 3),
-                    ('/add_house', 'Добавление домов', 4)
+                    ('/add_house', 'Добавление домов', 4),
+                    ('/add_apartments', 'Добавление квартир', 5)
                 ] %}
                 {% set active_page = active_page | default(0) %}
 
@@ -38,7 +39,7 @@
                     <ul class="navbar-nav nav-tabs">
                         {% for href, title, id in navigation_bar %}
                             <li {% if id == active_page %} class="active" {% endif %}>
-                                <a class="nav-link" href="{{ href | e }}"> {{ title | e }}</a>
+                                <a {% if id == 2 %} class="nav-link disabled" {% else %} class="nav-link" {% endif %}  href="{{ href | e }}"> {{ title | e }}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -60,14 +61,15 @@
                     <a class="btn btn-outline-warning ml-2" href="/" id="login-btn"> Login </a>
                 </p>
 
-
             {% endif %}
         </nav>
     </header>
 
     <!-- Begin page content -->
     <main role="main" class="container h-100">
-        {% block content %}{% endblock %}
+        <div class="data-container">
+            {% block content %}{% endblock %}
+        </div>
     </main>
 
     <!-- Optional JavaScript -->

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% set active_page = 5 %}
+
+{% block content %}
+    <div class="container">
+        <div class="house-form d-flex">
+            <form action="" method="post">
+
+                {{ form.hidden_tag() }}
+                {{ form.csrf_token }}
+
+                <div class="form-group">
+                    {{ form.houseId.label }}
+                    {{ form.houseId(class="form-control-lg form-control") }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.businessAccount.label }}
+                    {{ form.businessAccount(class="form-control-lg form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label }}
+                    {{ form.password(class="form-control-lg form-control", cols="15", rows="4") }}
+                </div>
+                <p style="color: orange;"> {{ message }} </p>
+
+                {{ form.submit(type="submit", class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase") }}
+           </form>
+        </div>
+        <div class="house-check">
+
+            <h2 align="center"> Список квартир: </h2>
+            <div class="list-group">
+                {% for elem in apartments_list %}
+                    <div class="list-group-item list-group-item-action check-house-container">
+                        <a href="/del_apartments/{{ elem.id }}"> <i class="fas fa-trash trash"></i></a>
+                        <div> <b> ID: </b> {{ elem.id }} </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

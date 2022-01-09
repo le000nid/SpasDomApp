@@ -3,4 +3,21 @@
 
 {% block content %}
 
+<div class="wrap-block">
+    {% for task in data %}
+        <div class="task-block">
+            Id: {{ task.id }} <br>
+            Title: {{ task.title }} <br>
+            Date : {{ task.date }} <br>
+            UserRate: {{ task.userRate }} <br>
+            UserReview: {{ task.userReview }} <br>
+            Status: {{ task.status }} <br>
+            StatusName: {{ task.statusName }} <br>
+            WorkerName: {{ task.workerName }} <br>
+            WorkerRate: {{ task.workerRate }} <br>
+            WorkerInfo: {{ task.workerInfo }}
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

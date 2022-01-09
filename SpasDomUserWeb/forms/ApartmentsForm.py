@@ -1,11 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, SelectMultipleField, BooleanField
+from wtforms import SubmitField, SelectField, StringField
 from wtforms.validators import DataRequired
 
 
 class ApartmentsForm(FlaskForm):
-    apartments_available = SelectMultipleField('Доступные квартиры', choices=[])
-    apartments_assigned = SelectMultipleField('Выбранные квартиры', choices=[])
-
-    select_all = BooleanField('Выбрать все')
+    houseId = SelectField('Выберите дом', validators=[DataRequired()])
+    businessAccount = StringField('businessAccount', validators=[DataRequired()])
+    password = StringField('password', validators=[DataRequired()])
     submit = SubmitField('Подтвердить')

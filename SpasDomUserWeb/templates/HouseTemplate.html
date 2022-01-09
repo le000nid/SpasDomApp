@@ -37,6 +37,7 @@
             <div class="list-group">
                 {% for elem in houses %}
                     <div class="list-group-item list-group-item-action check-house-container">
+                        <a href="/del_house/{{ elem.id }}"> <i class="fas fa-trash trash"></i></a>
                         <div> <b> ID: </b> {{ elem.id }} </div>
                         <div> <b> Город: </b> {{ elem.city }} </div>
                         <div> <b> Район: </b> {{ elem.area }} </div>
